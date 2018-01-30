@@ -1,7 +1,6 @@
 /* TODO - convert JSON Timestamps from UTC to local 
         - ensure that JSON Timestamps are adjusted to daylight savings time */
 
-/* implement the pi web API in Node.js */
 const fetch = require('node-fetch');
 
 const piBaseUrl = 'https://ucd-pi-iis.ou.ad3.ucdavis.edu/piwebapi/';

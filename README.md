@@ -8,6 +8,14 @@ Backend uses Node.js, Express.js, MongoDB, GraphQL, and [additional packages her
 
 Frontend uses React, HighCharts, and [additional packages here] and was built with [create-react-app](https://github.com/facebookincubator/create-react-app).
 
+## Getting Started ##
+
+1) clone the repository to your local machine: git clone https://github.com/ucdavis/ECS193-EnergyVisTool.git
+
+2) Install dependencies: npm install
+
+3) Start Dev server: npm start
+
 Dev Server on http://localhost:4000/
 Frontend on http://localhost:3000/
 

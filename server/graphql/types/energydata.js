@@ -1,3 +1,6 @@
+/*  GraphQL types for PI Web API queries to the database, with some starting types with sample fields. 
+    Modify and change these as you see fit during your GraphQL API development. */
+
 const {
     GraphQLObjectType,
     GraphQLString,
@@ -5,6 +8,7 @@ const {
     GraphQLFloat,
     GraphQLBoolean
 } = require('graphql');
+
 
 const DataPointsType = new GraphQLObjectType({
     name: 'DataPointsType',
@@ -20,10 +24,9 @@ const DataPointsType = new GraphQLObjectType({
     }
 });
 
-/* for a given commodity, return a list of Data extracted from JSON stream */
 const EnergyDataType = new GraphQLObjectType({
     name: 'EnergyDataType',
-    description: 'Meter-level demand and usage data for a CEED building',
+    description: 'Meter-level demand and usage data for a building',
     fields: {
         commodity: { type: GraphQLString },
         data: { type: newGraphQLList(DataPointsType) }
@@ -31,4 +34,3 @@ const EnergyDataType = new GraphQLObjectType({
 });
 
 module.exports = EnergyDataType;
-

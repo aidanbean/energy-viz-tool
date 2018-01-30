@@ -1,4 +1,7 @@
-const fetchAPI = require('./server/pi/piFetchers.js');
+/*  Some examples of PI Web API queries using the functions in "piFetchers.js". 
+    Delete/Modify this file as you see fit during your development process */
+
+const fetchAPI = require('./piFetchers.js');
 const test_tagName = 'Ghausi_ChilledWater_EUI';
 const test_wildcard = 'Giedt*';
 
@@ -24,7 +27,7 @@ fetchAPI.fetchWebId_byPoint(test_tagName).then((WebId_response) => {
     });
 });
 
-/* get resource in a shorter time intervl */
+/* get resource in a shorter time interval */
 fetchAPI.fetchWebId_byPoint(test_tagName).then((WebId_response) => {
     // get Ghausi ChilledWater EUI on 12-11-2017 from 6am to 12pm every 15 minutes
     fetchAPI.fetchStream_byMinutes( WebId_response,

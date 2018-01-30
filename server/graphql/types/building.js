@@ -1,4 +1,4 @@
-/* Building Data pulled from FacilitiesLink API
+/* Building Data to be pulled from FacilitiesLink API
  https://arm-tomcat1.ucdavis.edu/locations/buildings/thermalfeedback-1?apiKey=12345 */
 
  const { 

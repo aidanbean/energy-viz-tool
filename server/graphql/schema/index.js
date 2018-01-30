@@ -1,3 +1,5 @@
+/* Entry point for GraphQL */
+
 const {
     GraphQLSchema,
     GraphQLObjectType,
@@ -6,7 +8,7 @@ const {
     GraphQLNonNull
 } = require('graphql');
 
-// GraphQL type requires here
+// GraphQL type "requires" here
 
 const RootQueryType = new GraphQLObjectType({
     name: "RootQueryType",
