@@ -1,1 +1,1 @@
-web: node ./fronted/src/index.js
+web: node ./frontend/src/index.js
