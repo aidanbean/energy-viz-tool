@@ -2,6 +2,9 @@
   "name": "create-express-react",
   "version": "1.0.2",
   "description": "create template for create-react-app and express",
+  "engines": {
+    "node": "9.5.0"
+  },
   "scripts": {
     "setup": "create-react-app frontend && npm run addProxy",
     "start": "concurrently -k \"npm run dev\" \"npm run react\"",
