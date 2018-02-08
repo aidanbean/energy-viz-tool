@@ -17,8 +17,7 @@
     "buildServer": "babel ./server -s -D -d dist",
     "buildReact": "cd frontend && npm run build && mv build ../dist/public",
     "react": "node ./scripts/reactDev",
-    "addProxy": "node ./scripts/addProxy",
-    "heroku-postbuild": "cd frontend && npm install --only=dev && npm install && npm run build"
+    "addProxy": "node ./scripts/addProxy"
   },
   "keywords": [
     "react",
