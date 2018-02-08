@@ -10,11 +10,15 @@ Frontend uses React, HighCharts, and [additional packages here] and was built wi
 
 ## Getting Started ##
 
-1) clone the repository to your local machine: git clone https://github.com/ucdavis/ECS193-EnergyVisTool.git
+1) clone the repository to your local machine: 
+`git clone https://github.com/ucdavis/ECS193-EnergyVisTool.git`
 
-2) Install dependencies: npm install
+2) Install dependencies: 
+   - under the frontend foler: `npm install`
+   - under the main folder: `npm install`
 
-3) Start Dev server: npm start
+3) Start Dev server: 
+`npm start`
 
 Dev Server on http://localhost:4000/
 Frontend on http://localhost:3000/
