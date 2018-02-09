@@ -7,7 +7,7 @@
   },
   "scripts": {
     "setup": "create-react-app frontend && npm run addProxy",
-    "start": "concurrently -k \"npm run dev\" \"npm run react\"",
+    "start": "node server/server.js",
     "test-server": "jest",
     "test-react": "cd frontend && npm test",
     "lint": "eslint ./server/**/*.js",
