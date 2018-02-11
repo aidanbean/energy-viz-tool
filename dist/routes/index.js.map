@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../server/routes/index.js"],"names":["api_v1","page"],"mappings":";;;;;;AAMA;;;;AACA;;;;;;AAPA;;;;;;kBASe;AACbA,yBADa;AAEbC;AAFa,C","file":"index.js","sourcesContent":["/**\n *\n * Entry point for all routes\n *\n */\n\nimport api_v1 from './api_v1';\nimport page from './page';\n\nexport default {\n  api_v1,\n  page\n};\n"]}
