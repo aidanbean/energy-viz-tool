@@ -5,8 +5,15 @@
   "engines": {
     "node": "9.5.0"
   },
+  "lint-staged": {
+    "./server/**/*.{js,jsx,json,css}": [
+       "prettier --single-quote --write",
+         "git add"
+       ]
+   },
   "scripts": {
     "setup": "create-react-app frontend && npm run addProxy",
+    "precommit": "lint-staged",
     "start": "concurrently -k \"npm run dev\" \"npm run react\"",
     "test-server": "jest",
     "test-react": "cd frontend && npm test",
@@ -36,7 +43,10 @@
     "express-graphql": "^0.6.11",
     "graphql": "^0.12.3",
     "helmet": "^3.8.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^6.1.0",
     "morgan": "^1.8.2",
+    "prettier": "^1.10.2",
     "serve-favicon": "^2.4.3"
   },
   "devDependencies": {
