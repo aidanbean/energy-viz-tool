@@ -1,2 +1,2 @@
-web: cd ./frontend && npm install && npm start
+web: npm run react
 server: npm run dev
