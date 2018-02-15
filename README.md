@@ -24,3 +24,8 @@ Dev Server on http://localhost:4000/
 Frontend on http://localhost:3000/
 
 Questions? Comments? Please contact Matthew Quesada (mtquesada@ucdavis.edu)
+
+### links:
+- [Lucidchart architecture diagram](https://www.lucidchart.com/invitations/accept/a2470714-8a58-46f8-ad44-b606e36f35c6)
+- [Google Drive folder](https://drive.google.com/drive/folders/1iVGZd3-YfzJQoPSfGcn9IAad768XqOfa?usp=sharing) containing tags you can query through the PI Web API, along with some rules/examples: - 
+- Link to the old ECS193 project from last year in AngularJS, [for reference]( https://github.com/ECS193EnergyDashboard/EnergyDashboard)
