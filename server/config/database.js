@@ -9,12 +9,14 @@
 import mongoose from 'mongoose';
 import env from './env';
 const dbHost = {
-    dev: 'xxxxxx',
-    production: 'xxxxx'
+    dev: env.dev,
+    production: env.production
 };
 mongoose.connect(dbHost[env.MONGODB_URI]);
 mongoose.Promise = require('bluebird');
 
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 /*
  * Mysql
