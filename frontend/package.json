@@ -9,10 +9,10 @@
 	},
 	"lint-staged": {
 		"src/**/*.{js,jsx,json,css}": [
-		   "prettier --single-quote --write",
-			 "git add"
-		   ]
-	   },
+			"prettier --single-quote --write",
+			"git add"
+		]
+	},
 	"scripts": {
 		"start": "react-scripts start",
 		"precommit": "lint-staged",
