@@ -26,6 +26,9 @@ class HeaderLinks extends Component{
                         <MenuItem eventKey={2.4}>Notification 4</MenuItem>
                         <MenuItem eventKey={2.5}>Another notifications</MenuItem>
                     </NavDropdown>
+                    <NavItem>
+
+                    </NavItem>
                     <NavItem eventKey={3} href="#">
                         <i className="fa fa-search"></i>
                         <p className="hidden-lg hidden-md">Search</p>
