@@ -8,9 +8,10 @@ import path from 'path';
 
 import env from './config/env';
 import routes from './routes';
+import { Mongoose } from 'mongoose';
 
 const app = express();
-
+const db = Mongoose();
 /*==================================
 =            Middleware            =
 ==================================*/

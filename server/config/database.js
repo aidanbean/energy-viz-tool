@@ -9,15 +9,31 @@
 import mongoose from 'mongoose';
 import env from './env';
 const dbHost = {
-    dev: env.dev,
-    production: env.production
+    dev: process.env.dev,
+    production: process.env.production
 };
-mongoose.connect(dbHost[env.MONGODB_URI]);
+mongoose.connect(process.env.MONGODB_URI);
 mongoose.Promise = require('bluebird');
 
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+// CONNECTION EVENTS
+// When successfully connected
+mongoose.connection.on('connected', function () {  
+    console.log('Mongoose default connection open to ' + process.env.MONGODB_URI);
+  }); 
 
+// If the connection throws an error
+mongoose.connection.on('error',function (err) {  
+    console.log('Mongoose default connection error: ' + err);
+  }); 
+  
+// If the Node process ends, close the Mongoose connection 
+process.on('SIGINT', function() {  
+    mongoose.connection.close(function () { 
+      console.log('Mongoose default connection disconnected through app termination'); 
+      process.exit(0); 
+    }); 
+  });
+  
 /*
  * Mysql
  * import mysql from 'mysql';
