@@ -477,16 +477,34 @@ const iconsArray = [
 // //
 //
 // Data for Pie Chart
+// var dataPie = {
+//     labels: ['40%','20%','40%'],
+//     series: [40, 20, 40]
+// };
+
 var dataPie = {
-    labels: ['40%','20%','40%'],
-    series: [40, 20, 40]
+    chart: {
+        height: 245,
+        type: 'pie'
+    },
+    title: {
+        text: null
+    },
+    xAxis: {
+        categories: ['40%','20%','40%']
+    },
+    series: [{
+        data: [['Lab', 40], ['ClassRoom' ,20], ['Office', 40]]
+    }]
 };
+
+
 
 //Kemper_Baseline_Modeled_Electricity
 //Predicted value from MLR model
 var HighChartsDummyData = {
     chart: {
-        height: 240,
+        height: 245,
         type: 'line'
     },
     xAxis: {
@@ -589,7 +607,7 @@ var responsiveBar = [
   }]
 ];
 var legendBar = {
-    names: ["Tesla Model S","BMW 5 Series"],
+    names: ["Equipment 1","Equipment 2"],
     types: ["info","danger"]
 };
 

@@ -44,8 +44,8 @@ class Dashboard extends Component {
                         <Col lg={3} sm={6}>
                             <StatsCard
                                 bigIcon={<i className="pe-7s-server text-warning"></i>}
-                                statsText="Capacity"
-                                statsValue="105GB"
+                                statsText="Indoor Area"
+                                statsValue="300ft&sup2;"
                                 statsIcon={<i className="fa fa-refresh"></i>}
                                 statsIconText="Updated now"
                             />
@@ -53,8 +53,8 @@ class Dashboard extends Component {
                         <Col lg={3} sm={6}>
                             <StatsCard
                                 bigIcon={<i className="pe-7s-wallet text-success"></i>}
-                                statsText="Revenue"
-                                statsValue="$1,345"
+                                statsText="Temperature"
+                                statsValue="18&#8451;"
                                 statsIcon={<i className="fa fa-calendar-o"></i>}
                                 statsIconText="Last day"
                             />
@@ -71,8 +71,8 @@ class Dashboard extends Component {
                         <Col lg={3} sm={6}>
                             <StatsCard
                                 bigIcon={<i className="fa fa-twitter text-info"></i>}
-                                statsText="Followers"
-                                statsValue="+45"
+                                statsText="People"
+                                statsValue="+200"
                                 statsIcon={<i className="fa fa-refresh"></i>}
                                 statsIconText="Updated now"
                             />
@@ -104,13 +104,13 @@ class Dashboard extends Component {
                         <Col md={4}>
                             <Card
                                 statsIcon="fa fa-clock-o"
-                                title="Email Statistics"
-                                category="Last Campaign Performance"
-                                stats="Campaign sent 2 days ago"
+                                title="Building Usage"
+                                category="Kemper Hall"
+                                stats="updated 3 months ago"
                                 content={
                                     <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
-                                        {/*<ReactHighcharts config={config}/>*/}
-                                        <ChartistGraph data={dataPie} type="Pie"/>
+                                        <ReactHighcharts config={dataPie} ref = 'ct-chart ct-perfect-fourth'/>
+                                        {/*<ChartistGraph data={dataPie} type="Pie"/>*/}
                                     </div>
                                 }
                                 legend={
@@ -126,8 +126,8 @@ class Dashboard extends Component {
                         <Col md={6}>
                             <Card
                                 id="chartActivity"
-                                title="2014 Sales"
-                                category="All products including Taxes"
+                                title="Electricity_MonthlyUsage"
+                                category="Kemper_Baseline_Modeled"
                                 stats="Data information certified"
                                 statsIcon="fa fa-check"
                                 content={
@@ -151,7 +151,7 @@ class Dashboard extends Component {
                         <Col md={6}>
                             <Card
                                 title="Tasks"
-                                category="Backend development"
+                                category="Development"
                                 stats="Updated 3 minutes ago"
                                 statsIcon="fa fa-history"
                                 content={
