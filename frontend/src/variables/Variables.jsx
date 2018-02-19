@@ -481,6 +481,25 @@ var dataPie = {
     labels: ['40%','20%','40%'],
     series: [40, 20, 40]
 };
+
+//Kemper_Baseline_Modeled_Electricity
+//Predicted value from MLR model
+var HighChartsDummyData = {
+    chart: {
+        height: 240,
+        type: 'line'
+    },
+    xAxis: {
+        categories: ['2018-02-18T03:02:51.07Z', '2018-02-18T04:00:00Z', '2018-02-18T05:00:00Z', '2018-02-18T06:00:00Z', '2018-02-18T07:00:00Z']
+    },
+    series: [{
+        data: [2707.60, 2698.56, 2691.23, 2685.95, 2673.90]
+    }],
+    title: {
+        text: null
+    }
+};
+
 var legendPie = {
     names: ["Open","Bounce","Unsubscribe"],
     types: ["info","danger","warning"]
@@ -511,6 +530,25 @@ var optionsSales = {
     right: 50
   }
 };
+
+var optionsDummy = {
+    low: 0,
+    high: 800,
+    showArea: false,
+    height: "245px",
+    axisX: {
+        showGrid: false,
+    },
+    lineSmooth: true,
+    showLine: true,
+    showPoint: true,
+    fullWidth: true,
+    chartPadding: {
+        right: 50
+    }
+};
+
+
 var responsiveSales = [
   ['screen and (max-width: 640px)', {
     axisX: {
@@ -559,5 +597,5 @@ module.exports = {
     style, // For notifications (App container and Notifications view)
     thArray, tdArray, // For tables (TableList view)
     iconsArray, // For icons (Icons view)
-    dataPie, legendPie, dataSales, optionsSales, responsiveSales, legendSales, dataBar, optionsBar, responsiveBar, legendBar // For charts (Dashboard view)
+    dataPie, legendPie, dataSales, optionsSales, responsiveSales, legendSales, dataBar, optionsBar, responsiveBar, legendBar, HighChartsDummyData, optionsDummy // For charts (Dashboard view)
 };

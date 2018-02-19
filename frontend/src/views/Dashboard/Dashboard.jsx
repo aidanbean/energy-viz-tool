@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ChartistGraph from 'react-chartist';
 import { Grid, Row, Col } from 'react-bootstrap';
 
-
 import {Card} from '../../components/Card/Card.jsx';
 import {StatsCard} from '../../components/StatsCard/StatsCard.jsx';
 import {Tasks} from '../../components/Tasks/Tasks.jsx';
@@ -16,8 +15,11 @@ import {
     dataBar,
     optionsBar,
     responsiveBar,
-    legendBar
+    legendBar,
+    HighChartsDummyData
 } from '../../variables/Variables.jsx';
+
+const ReactHighcharts = require('react-highcharts');
 
 class Dashboard extends Component {
     createLegend(json){
@@ -81,16 +83,14 @@ class Dashboard extends Component {
                             <Card
                                 statsIcon="fa fa-history"
                                 id="chartHours"
-                                title="Users Behavior"
-                                category="24 Hours performance"
+                                title="Kemper_Baseline_Modeled_Electricity"
+                                category="Predicted value from MLR model"
                                 stats="Updated 3 minutes ago"
                                 content={
                                     <div className="ct-chart">
-                                        <ChartistGraph
-                                            data={dataSales}
-                                            type="Line"
-                                            options={optionsSales}
-                                            responsiveOptions={responsiveSales}
+                                        <ReactHighcharts
+                                            config={HighChartsDummyData}
+                                            ref = 'ct-chart'
                                         />
                                     </div>
                                     }
@@ -109,6 +109,7 @@ class Dashboard extends Component {
                                 stats="Campaign sent 2 days ago"
                                 content={
                                     <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
+                                        {/*<ReactHighcharts config={config}/>*/}
                                         <ChartistGraph data={dataPie} type="Pie"/>
                                     </div>
                                 }
