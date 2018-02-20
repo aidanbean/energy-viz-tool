@@ -7,35 +7,49 @@ class App extends Component {
   state = {data: []}
 
   componentDidMount() {
-    fetch('/api/v2/resource_summary')
-      .then(res => res.json())
-      .then(data => this.setState({ data }));
+    /*
+    * use fetch as a POST to get data you want.
+    * Current supported api calls:
+    *
+    * 'most_recent_summ': supply a tagName to get the most recent summary of
+    * that resource.
+    *
+    * 'get_all_attributes': supply a wildcard (in the fetch body) to get all
+    * the attributes of that wildcard (could be a building eg 'Geidt*').
+    *
+    * 'get_by_monthly': supply tagName, startTime, endTime, and interval, and
+    * receive the data on the first of each month in the interval.
+    *
+    * more to come..
+    */
+
+    fetch('/api/v2/get_all_attributes', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            wildcard: 'Giedt*',
+            tagName: 'Ghausi_ChilledWater_EUI',
+            startTime: '2016-01-01',
+            endTime: '2016-12-01',
+            interval: '1mo'
+        })
+    })
+    .then(res => res.json())
+    .then(data => this.setState({ data }));
   }
 
   render() {
     return (
       <div className="App">
         <h1>Data</h1>
-          <div>{this.state.data.message}</div>
+          <div><pre>{JSON.stringify(this.state.data, null, 2) }</pre></div>
       </div>
     );
   }
 }
 
-// class App extends Component {
-//   render() {
-//     return (
-//       <div className="App">
-//         <header className="App-header">
-//           <img src={logo} className="App-logo" alt="logo" />
-//           <h1 className="App-title">Welcome to React</h1>
-//         </header>
-//         <p className="App-intro">
-//           To get started, edit <code>src/App.js</code> and save to reload.
-//         </p>
-//       </div>
-//     );
-//   }
-// }
 
 export default App;
