@@ -13,7 +13,7 @@ const dbHost = {
     production: process.env.production
 };
 
-const uri = 'mongodb://localhost/test';
+const uri = 'mongodb://localhost:27017/local';
 
 // const uri = 'mongodb://heroku_dnj4cthq:ak6jhpah5q0ucdcfvrdtcg9q8f@ds157247.mlab.com:57247/heroku_dnj4cthq';
 
