@@ -62,6 +62,8 @@ app.use('/api/graphql', expressGraphQL({
 app.use('/api/v1', routes.api_v1);
 app.use('/page', routes.page);
 
+app.use('/api/v2', routes.api_v2);
+
 // Load React App
 // Serve HTML file for production
 if (env.name === 'production') {
