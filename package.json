@@ -7,10 +7,10 @@
   },
   "lint-staged": {
     "./server/**/*.{js,jsx,json,css}": [
-       "prettier --single-quote --write",
-         "git add"
-       ]
-   },
+      "prettier --single-quote --write",
+      "git add"
+    ]
+  },
   "scripts": {
     "setup": "create-react-app frontend && npm run addProxy",
     "precommit": "lint-staged",
@@ -47,6 +47,7 @@
     "lint-staged": "^6.1.0",
     "morgan": "^1.8.2",
     "prettier": "^1.10.2",
+    "routes": "^2.1.0",
     "serve-favicon": "^2.4.3"
   },
   "devDependencies": {
