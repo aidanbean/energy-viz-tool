@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
 import {Map, Marker, GoogleApiWrapper} from 'google-maps-react';
+import ReactDOM from 'react-dom';
 
+//TODO: change default map location from sf to UCD
 
 class Maps extends Component{
     render() {
-        if (!this.props.loaded) {
-            return <div>Loading...</div>
+        const style = {
+            width: '100vw',
+            height: '150vh'
         }
+        // if (!this.props.loaded) {
+        //     return <div>Loading...</div>
         return (
-            <div>Map will go here</div>
+            /*<div>Map will go here</div>*/
+            <div style={style}>
+                <Map google={this.props.google} />
+            </div>
         );
         // return (
         //     <div id="map">
@@ -29,9 +37,48 @@ class Maps extends Component{
         //     </div>
         // );
     }
+}
 
+export class Map2 extends React.Component {
+    componentDidMap() {
+        this.loadMap();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.google !== this.props.google) {
+            this.loadMap();
+        }
+    }
+
+    loadMap() {
+        if (this.props && this.props.google) {
+            const {google} = this.props;
+            const maps = google.maps;
+
+            const mapRef = this.refs.map;
+            const node = ReactDOM.findDOMNode(mapRef);
+
+            let zoom = 14;
+            let lat = 38.5477362;
+            let lng = -121.7697666;
+            const center = new maps.LatLng(lat, lng);
+            const mapConfig = Object.assign({}, {
+                center: center,
+                zoom: zoom
+            })
+            this.map = new maps.Map(node, mapConfig);
+        }
+
+    }
+    render() {
+        return (
+            <div ref='map'>
+                Loading maps...
+            </div>
+        );
+    }
 }
 
 export default GoogleApiWrapper({
-    apiKey: "YOUR_API_KEY_HERE"
+    apiKey: "AIzaSyCABZKEStT0T0jHqvJnSJLJJ4tbUvD5sb0"
 })(Maps)
