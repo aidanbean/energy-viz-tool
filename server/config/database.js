@@ -17,7 +17,14 @@ const uri = 'mongodb://localhost/test';
 
 // const uri = 'mongodb://heroku_dnj4cthq:ak6jhpah5q0ucdcfvrdtcg9q8f@ds157247.mlab.com:57247/heroku_dnj4cthq';
 
-mongoose.connect(uri);
+mongoose.connect(uri, function (err) {
+    if (err) {
+        console.log('Unable to connect to the mongoDB server. Error:', err);
+    } else {
+        console.log('Connection established to', uri);
+    }
+});
+
 mongoose.Promise = require('bluebird');
 
 // CONNECTION EVENTS
