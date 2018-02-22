@@ -10,7 +10,7 @@ import mongoose from 'mongoose';
 
 // Here we find an appropriate database to connect to, defaulting to
 // localhost if we don't find one.
-var url = process.env.MONGODB_URI || 'mongodb://localhost:27017/local';
+var url = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/local';
 mongoose.connect(url);
 var theport = process.env.PORT || 5000;
 mongoose.Promise = require('bluebird');
