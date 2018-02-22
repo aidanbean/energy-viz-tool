@@ -8,11 +8,9 @@ import path from 'path';
 
 import env from './config/env';
 import routes from './routes';
-// import { Mongoose } from 'mongoose';
 import database from './config/database';
 
 const app = express();
-// const db = Mongoose();
 /*==================================
 =            Middleware            =
 ==================================*/
@@ -61,7 +59,6 @@ app.use('/api/graphql', expressGraphQL({
 // Routes
 app.use('/api/v1', routes.api_v1);
 app.use('/page', routes.page);
-
 app.use('/api/v2', routes.api_v2);
 
 // Load React App
