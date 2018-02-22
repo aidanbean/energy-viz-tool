@@ -12,7 +12,7 @@ import mongoose from 'mongoose';
 // localhost if we don't find one.
 var url = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/local';
 mongoose.connect(url);
-
+var theport = process.env.PORT || 5000;
 mongoose.Promise = require('bluebird');
 
 // CONNECTION EVENTS
