@@ -36,8 +36,11 @@
 		"build": "react-scripts build",
 		"test": "react-scripts test --env=jsdom",
 		"eject": "react-scripts eject"
+<<<<<<< HEAD
 	},
 	"devDependencies": {
 		"@types/chartist": "^0.9.38"
+=======
+>>>>>>> eff4570bf3e354081f53f4b1c88521540537698d
 	}
 }
