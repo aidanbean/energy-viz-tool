@@ -3,9 +3,26 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
-		"react": "^16.2.0",
-		"react-dom": "^16.2.0",
-		"react-scripts": "1.0.17"
+		"chartist": "^0.10.1",
+		"classnames": "^2.2.5",
+		"components": "^0.1.0",
+		"create-react-class": "^15.6.3",
+		"google-maps-react": "^1.1.2",
+		"graphql": "^0.13.1",
+		"highcharts": "^6.0.4",
+		"prop-types": "^15.6.0",
+		"react": "^15.6.2",
+		"react-bootstrap": "^0.32.1",
+		"react-chartist": "^0.13.1",
+		"react-dom": "^15.6.2",
+		"react-highcharts": "^16.0.2",
+		"react-notification-system": "^0.2.16",
+		"react-router-dom": "^4.2.2",
+		"react-scripts": "1.0.17",
+		"react-search": "^2.0.5",
+		"react-select": "^1.2.1",
+		"routes": "^2.1.0",
+		"variables": "^1.0.1"
 	},
 	"lint-staged": {
 		"src/**/*.{js,jsx,json,css}": [
@@ -20,5 +37,7 @@
 		"test": "react-scripts test --env=jsdom",
 		"eject": "react-scripts eject"
 	},
-	"proxy": "http://localhost:4000"
+	"devDependencies": {
+		"@types/chartist": "^0.9.38"
+	}
 }
