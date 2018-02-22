@@ -12,6 +12,7 @@
     "setup": "create-react-app frontend && npm run addProxy",
     "precommit": "lint-staged",
     "start": "concurrently -k \"npm run dev\" \"npm run react\"",
+    "stop": "killall node",
     "test-server": "jest",
     "test-react": "cd frontend && npm test",
     "lint": "eslint ./server/**/*.js",
