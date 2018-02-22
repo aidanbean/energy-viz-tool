@@ -8,29 +8,17 @@
 //  MongoDB
 import mongoose from 'mongoose';
 import env from './env';
-const dbHost = {
-    dev: process.env.dev,
-    production: process.env.production
-};
 
-const uri = 'mongodb://localhost:27017/local';
-
-// const uri = 'mongodb://heroku_dnj4cthq:ak6jhpah5q0ucdcfvrdtcg9q8f@ds157247.mlab.com:57247/heroku_dnj4cthq';
-
-mongoose.connect(uri, function (err) {
-    if (err) {
-        console.log('Unable to connect to the mongoDB server. Error:', err);
-    } else {
-        console.log('Connection established to', uri);
-    }
-});
+// Here we find an appropriate database to connect to, defaulting to
+// localhost if we don't find one.
+var url = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/local';
 
 mongoose.Promise = require('bluebird');
 
 // CONNECTION EVENTS
-// When successfully connected
+
 mongoose.connection.on('connected', function () {
-    console.log('Mongoose default connection open to ' + uri);
+    console.log('Mongoose default connection open to ' + url);
   });
 
 // If the connection throws an error
