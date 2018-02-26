@@ -10,6 +10,8 @@ import env from './config/env';
 import routes from './routes';
 import database from './config/database';
 
+// import populate from './config/populate_db';
+
 const app = express();
 /*==================================
 =            Middleware            =
