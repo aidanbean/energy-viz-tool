@@ -1,4 +1,4 @@
-/* TODO - convert JSON Timestamps from UTC to local 
+/* TODO - convert JSON Timestamps from UTC to local
         - ensure that JSON Timestamps are adjusted to daylight savings time */
 
 const fetch = require('node-fetch');
@@ -8,7 +8,7 @@ const piWebIdPath = 'points?path=\\\\util-pi-p\\';
 const dataServer = 'dataservers/s09KoOKByvc0-uxyvoTV1UfQVVRJTC1QSS1Q/points?nameFilter=';
 
 const fetchWebId_byPoint = (tagName) => {
-    /* Example fetch URL: 
+    /* Example fetch URL:
         https://ucd-pi-iis.ou.ad3.ucdavis.edu/piwebapi/
         points?path=\\UTIL-PI-P\Giedt_Electricity_demand_kbtu
     */
@@ -54,7 +54,7 @@ const fetchStream_byMonths = (WebId, startDate, endDate, interval) => {
         interval months in between.
 
         startDate, endDate, interval formats:
-        2016-01-01, 2016-12-01, 1
+        2016-01-01, 2016-12-01, 1mo
 
         Example fetch URL:
         https://ucd-pi-iis.ou.ad3.ucdavis.edu/piwebapi/streams/
