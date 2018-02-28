@@ -1,7 +1,7 @@
 /* Entry point for GraphQL */
 
 /* NOTE: Trying a different implementation .  Ignore "query.js" and ./types
- * folder for this implementation 
+ * folder for this implementation
  */
 import DataModel from '../../config/model';
 import fetchAPI from '../../pi/piFetchers';
@@ -19,7 +19,6 @@ var schema = buildSchema(`
         Good: Boolean,
         Questionable: Boolean,
         Substituted: Boolean,
-        roll(numRolls: Int!): [Int]
     }
 
     type InputType {
@@ -28,8 +27,6 @@ var schema = buildSchema(`
         equipmentType: String,
         equipmentNumber: String,
         sensorType: String,
-        startTime: String,
-        endTime: String,
         startDate: String,
         endDate: String,
         interval: String,
@@ -61,16 +58,16 @@ class InputType {
         this.interval = interval;
     }
 
-    async fetchDB() {
-        const dbEntry = {
-            "building": this.building,
-            "equipmentType": this.equipmentType,
-            "equipmentNumber": this.equipmentNumber,
-            "sensorType": this.sensorType
-        };
-        const dbResult = await DataModel.findOne(dbEntry);
-        return dbResult;
-    }
+    // async fetchDB() {
+    //     const dbEntry = {
+    //         "building": this.building,
+    //         "equipmentType": this.equipmentType,
+    //         "equipmentNumber": this.equipmentNumber,
+    //         "sensorType": this.sensorType
+    //     };
+    //     const dbResult = await DataModel.findOne(dbEntry);
+    //     return dbResult;
+    // }
 }
 
 class DataPoint {
@@ -84,24 +81,30 @@ class DataPoint {
     }
 }
 
-function helper (array, element) {
-    const point = new DataPoint(element.Timestamp, element.Value, element.UnitsAbbreviation, element.Good, element.Questionable, element.Substituted);
-    array.push(point);
-}
-
 // The root provides the top-level API endpoints
 var root = {
     getData: async function ({building, equipmentType, equipmentNumber, sensorType, startDate, endDate, interval}) {
-        const input = new InputType({building, equipmentType, equipmentNumber, sensorType, startDate, endDate, interval});
-        const dbResult = input.fetchDB();
+        const input = new InputType(building, equipmentType, equipmentNumber, sensorType, startDate, endDate, interval);
+        const dbEntry = {
+            "building": input.building,
+            "equipmentType": input.equipmentType,
+            "equipmentNumber": input.equipmentNumber,
+            "sensorType": input.sensorType
+        };
+        console.log(dbEntry);
+        const dbResult = await DataModel.findOne(dbEntry);
+        console.log("WebId just fetched:");
         console.log(dbResult.webId);
-        const piResult = await fetchAPI.fetchStream_byMonths(dbResult.webId,
+        var piResult = await fetchAPI.fetchStream_byMonths(dbResult.webId,
                                                              input.startDate,
                                                              input.endDate,
                                                              input.interval );
         console.log(piResult.Items);
         var listOfPoints = [];
-        piResult.forEach(helper(listOfPoints, element));
+        (piResult.Items).forEach( function(element) {
+            const point = new DataPoint(element.Timestamp, element.Value, element.UnitsAbbreviation, element.Good, element.Questionable, element.Substituted);
+            listOfPoints.push(point);
+        });
         return listOfPoints;
     }
 }
