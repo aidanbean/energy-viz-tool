@@ -1,36 +1,80 @@
-/*  GraphQL types for PI Web API queries to the database, with some starting types with sample fields. 
+/*  GraphQL types for PI Web API queries to the database, with some starting types with sample fields.
     Modify and change these as you see fit during your GraphQL API development. */
 
-const {
+import {
+    graphql,
     GraphQLObjectType,
     GraphQLString,
     GraphQLList,
     GraphQLFloat,
     GraphQLBoolean
-} = require('graphql');
+} from 'graphql';
 
 
-const DataPointsType = new GraphQLObjectType({
-    name: 'DataPointsType',
+const dataPointsType = new GraphQLObjectType({
+    name: 'dataPointsType',
     description: 'PI Data extracted from JSON stream',
     fields: {
-        TimeStamp: { type: GraphQLString },
+        Timestamp: { type: GraphQLString },
         Value: { type: GraphQLFloat },
         UnitsAbbreviation: { type: GraphQLString},
         Good: { type: GraphQLBoolean },
-        Questionable: { type: GraphLBoolean },
+        Questionable: { type: GraphQLBoolean },
         Substituted: { type: GraphQLBoolean },
-        Month: { type: GraphQLString }
-    }
+        // Month: { type: GraphQLString },
+    },
+    // resolve: (dataPoint) => {
+    //     Timestamp =
+    // }
 });
 
-const EnergyDataType = new GraphQLObjectType({
-    name: 'EnergyDataType',
+const energyInputType = new GraphQLObjectType({
+    name: "energyInputType",
+    fields: {
+        tagName: { type: GraphQLString },
+        building: { type: GraphQLString },
+        equipmentType: { type: GraphQLString },
+        equipmentNumber: { type: GraphQLString },
+        sensorType: { type: GraphQLString },
+        startTime: { type: GraphQLString },
+        endTime: { type: GraphQLString },
+        startDate: { type: GraphQLString },
+        endDate: { type: GraphQLString },
+        interval: { type: GraphQLString },
+    },
+});
+
+const energyDataType = new GraphQLObjectType({
+    name: 'energyDataType',
     description: 'Meter-level demand and usage data for a building',
     fields: {
-        commodity: { type: GraphQLString },
-        data: { type: newGraphQLList(DataPointsType) }
+        // input: { type: energyInputType },
+        data: { type: new GraphQLList(dataPointsType) },
+    },
+    resolve: function () {
+        return [
+            {
+                Timestamp: 'blah',
+                Value: 0.999,
+                UnitsAbbreviation: 'blah',
+                Good: true,
+                Questionable: true,
+                Substituted: true,
+            },
+            {
+                Timestamp: 'blah',
+                Value: 0.999,
+                UnitsAbbreviation: 'blah',
+                Good: true,
+                Questionable: true,
+                Substituted: true,
+            }
+        ];
     }
 });
 
-module.exports = EnergyDataType;
+export {
+    energyInputType,
+    dataPointsType,
+    energyDataType
+};

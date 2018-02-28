@@ -47,13 +47,14 @@ app.use('/static', express.static(path.join(__dirname, 'public', 'static')));
 =          GraphQL Route            =
 ===================================*/
 
-const expressGraphQL = require('express-graphql');
-const schema = require('./graphql/schema');
+import expressGraphQL from 'express-graphql';
+import { buildSchema } from 'graphql';
+import { schema, root } from './graphql/schema';
 
 app.use('/api/graphql', expressGraphQL({
   schema: schema,
-  graphiql: true
-  //rootValue: { db: req.app.locals.db }
+  graphiql: true,
+  rootValue: root
 }));
 
 /*====== End of GraphQL Route =====*/
