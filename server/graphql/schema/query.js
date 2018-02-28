@@ -36,10 +36,10 @@ async function getData(args) {
 const energyQuery = new GraphQLObjectType({
     name: 'Query',
     description: 'query monthly data',
-    fields: () => ({
+    fields: {
         request: {
             type: energyDataType,
-            // `args` describes the arguments that the `stream` query accepts
+            // `args` describes the arguments that the `request` query accepts
             args: {
                 building: { type: GraphQLString },
                 equipmentType: { type: GraphQLString },
@@ -51,28 +51,8 @@ const energyQuery = new GraphQLObjectType({
                 endDate: { type: GraphQLString },
                 interval: { type: GraphQLString }
             },
-            resolve: function () {
-                return [
-                    {
-                        Timestamp: 'blah',
-                        Value: 0.999,
-                        UnitsAbbreviation: 'blah',
-                        Good: true,
-                        Questionable: true,
-                        Substituted: true,
-                    },
-                    {
-                        Timestamp: 'blah',
-                        Value: 0.999,
-                        UnitsAbbreviation: 'blah',
-                        Good: true,
-                        Questionable: true,
-                        Substituted: true,
-                    }
-                ];
-            }
         },
-    }),
+    },
 });
 
 export { energyQuery };

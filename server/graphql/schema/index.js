@@ -21,55 +21,31 @@ var schema = buildSchema(`
         Substituted: Boolean,
     }
 
-    type InputType {
-        tagName: String,
-        building: String,
-        equipmentType: String,
-        equipmentNumber: String,
-        sensorType: String,
-        startDate: String,
-        endDate: String,
-        interval: String,
-    }
-
     type Query {
-        getData
+        dataByMonths
         (
             building: String,
             equipmentType: String,
             equipmentNumber: String,
             sensorType: String,
-            startDate: String,
-            endDate: String,
+            startTime: String,
+            endTime: String,
             interval: String
-        ): [DataPoint]
+        ): [DataPoint],
+        dataByMinutes
+        (
+            building: String,
+            equipmentType: String,
+            equipmentNumber: String,
+            sensorType: String,
+            startTime: String,
+            endTime: String,
+            interval: String
+        ): [DataPoint],
     }
 `);
 
-// This class implements the RandomDie GraphQL type
-class InputType {
-    constructor(building, equipmentType, equipmentNumber, sensorType, startDate, endDate, interval) {
-        this.building = building;
-        this.equipmentType = equipmentType;
-        this.equipmentNumber = equipmentNumber;
-        this.sensorType = sensorType;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.interval = interval;
-    }
-
-    // async fetchDB() {
-    //     const dbEntry = {
-    //         "building": this.building,
-    //         "equipmentType": this.equipmentType,
-    //         "equipmentNumber": this.equipmentNumber,
-    //         "sensorType": this.sensorType
-    //     };
-    //     const dbResult = await DataModel.findOne(dbEntry);
-    //     return dbResult;
-    // }
-}
-
+// This class implements the DataPoint GraphQL type
 class DataPoint {
     constructor(Timestamp, Value, UnitsAbbreviation, Good, Questionable, Substituted) {
         this.Timestamp = Timestamp;
@@ -83,22 +59,44 @@ class DataPoint {
 
 // The root provides the top-level API endpoints
 var root = {
-    getData: async function ({building, equipmentType, equipmentNumber, sensorType, startDate, endDate, interval}) {
-        const input = new InputType(building, equipmentType, equipmentNumber, sensorType, startDate, endDate, interval);
+    dataByMonths: async function ({building, equipmentType, equipmentNumber, sensorType, startDate, endDate, interval}) {
         const dbEntry = {
-            "building": input.building,
-            "equipmentType": input.equipmentType,
-            "equipmentNumber": input.equipmentNumber,
-            "sensorType": input.sensorType
+            "building": building,
+            "equipmentType": equipmentType,
+            "equipmentNumber": equipmentNumber,
+            "sensorType": sensorType
         };
         console.log(dbEntry);
         const dbResult = await DataModel.findOne(dbEntry);
         console.log("WebId just fetched:");
         console.log(dbResult.webId);
         var piResult = await fetchAPI.fetchStream_byMonths(dbResult.webId,
-                                                             input.startDate,
-                                                             input.endDate,
-                                                             input.interval );
+                                                             startDate,
+                                                             endDate,
+                                                             interval );
+        console.log(piResult.Items);
+        var listOfPoints = [];
+        (piResult.Items).forEach( function(element) {
+            const point = new DataPoint(element.Timestamp, element.Value, element.UnitsAbbreviation, element.Good, element.Questionable, element.Substituted);
+            listOfPoints.push(point);
+        });
+        return listOfPoints;
+    },
+    dataByMinutes: async function ({building, equipmentType, equipmentNumber, sensorType, startTime, endTime, interval}) {
+        const dbEntry = {
+            "building": building,
+            "equipmentType": equipmentType,
+            "equipmentNumber": equipmentNumber,
+            "sensorType": sensorType
+        };
+        console.log(dbEntry);
+        const dbResult = await DataModel.findOne(dbEntry);
+        console.log("WebId just fetched:");
+        console.log(dbResult.webId);
+        var piResult = await fetchAPI.fetchStream_byMinutes(dbResult.webId,
+                                                             startTime,
+                                                             endTime,
+                                                             interval );
         console.log(piResult.Items);
         var listOfPoints = [];
         (piResult.Items).forEach( function(element) {

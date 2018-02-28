@@ -21,11 +21,7 @@ const dataPointsType = new GraphQLObjectType({
         Good: { type: GraphQLBoolean },
         Questionable: { type: GraphQLBoolean },
         Substituted: { type: GraphQLBoolean },
-        // Month: { type: GraphQLString },
     },
-    // resolve: (dataPoint) => {
-    //     Timestamp =
-    // }
 });
 
 const energyInputType = new GraphQLObjectType({
@@ -51,26 +47,6 @@ const energyDataType = new GraphQLObjectType({
         // input: { type: energyInputType },
         data: { type: new GraphQLList(dataPointsType) },
     },
-    resolve: function () {
-        return [
-            {
-                Timestamp: 'blah',
-                Value: 0.999,
-                UnitsAbbreviation: 'blah',
-                Good: true,
-                Questionable: true,
-                Substituted: true,
-            },
-            {
-                Timestamp: 'blah',
-                Value: 0.999,
-                UnitsAbbreviation: 'blah',
-                Good: true,
-                Questionable: true,
-                Substituted: true,
-            }
-        ];
-    }
 });
 
 export {
