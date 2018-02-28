@@ -28,8 +28,8 @@ var schema = buildSchema(`
             equipmentType: String,
             equipmentNumber: String,
             sensorType: String,
-            startTime: String,
-            endTime: String,
+            startDate: String,
+            endDate: String,
             interval: String
         ): [DataPoint],
         dataByMinutes
