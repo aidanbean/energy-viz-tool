@@ -250,14 +250,14 @@ var style = {
 // // // For tables
 // //
 //
-const thArray = ["ID","Name","Salary","Country","City"];
+const thArray = ["ID","ACAD.AHU.AHU01.Building Static Pressure","ACAD","AHU01","Building Static Pressure"];
 const tdArray = [
-    [ "1" , "Dakota Rice" , "$36,738" , "Niger" , "Oud-Turnhout" ] ,
-    [ "2" , "Minerva Hooper" , "$23,789" , "Curaçao" , "Sinaai-Waas" ] ,
-    [ "3" , "Sage Rodriguez" , "$56,142" , "Netherlands" , "Baileux" ] ,
-    [ "4" , "Philip Chaney" , "$38,735" , "Korea, South" , "Overland Park" ] ,
-    [ "5" , "Doris Greene" , "$63,542" , "Malawi" , "Feldkirchen in Kärnten" ] ,
-    [ "6" , "Mason Porter" , "$78,615" , "Chile" , "Gloucester" ]
+    [ "1" , "ACAD.AHU.AHU01.CCV" , "ACAD" , "AHU" , "AHU01"] ,
+    [ "2" , "ACAD.AHU.AHU01.Cooling Valve Output" ,"ACAD" , "AHU" , "AHU01" ] ,
+    [ "3" , "ACAD.AHU.AHU01.Economizer Mode" , "ACAD" , "AHU" , "AHU01" ] ,
+    [ "4" , "ACAD.AHU.AHU01.FILTER" , "ACAD" , "AHU" , "AHU01" ] ,
+    [ "5" , "ACAD.AHU.AHU01.HCV" , "ACAD" , "AHU" , "AHU01" ] ,
+    [ "6" , "ACAD.AHU.AHU01.Heating Valve Output" , "ACAD" , "AHU" , "AHU01" ]
 ];
 
 

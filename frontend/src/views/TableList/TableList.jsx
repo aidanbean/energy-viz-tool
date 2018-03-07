@@ -13,8 +13,8 @@ class TableList extends Component {
                     <Row>
                         <Col md={12}>
                             <Card
-                                title="Striped Table with Hover"
-                                category="Here is a subtitle for this table"
+                                title="Air Handler Unit Data"
+                                category="AHU"
                                 ctTableFullWidth ctTableResponsive
                                 content={
                                     <Table striped hover>
@@ -53,8 +53,8 @@ class TableList extends Component {
                         <Col md={12}>
                             <Card
                                 plain
-                                title="Striped Table with Hover"
-                                category="Here is a subtitle for this table"
+                                title="Air Handler Unit Data"
+                                category="AHU Data"
                                 ctTableFullWidth ctTableResponsive
                                 content={
                                     <Table hover>
