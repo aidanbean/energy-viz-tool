@@ -1,21 +1,19 @@
-/*
+/**
  * this script queries the PI API and gets the webID for every POINT (tagName)
- * in the Good_AHU.csv file. Then, it pairs the tagName and other metadata
+ * in the specified csv file. Then, it pairs the tagName and other metadata
  * (building, equipment type, etc.) with the webID, and inserts the document in
- * the "ahuData" collection in the database.
- *
- * This is just a temporary solution, we still need to incorporate CEED dump
- * information somehow, which is organized by building and not tagName.
+ * the "good_data" collection in the database.
  */
+
 import mongoose from 'mongoose';
 import fs from 'fs';
 import parse from 'csv-parse';
 import fetchAPI from '../pi/piFetchers';
-import DataModel from './model';
+import DataModel from './models/data_model';
 
 const db = mongoose.connection;
-const collection = 'ahuData';
-var filePath = "./Good_PI_Data/Good_AHU.csv";
+const collection = 'good_data';
+var filePath = "./Good_PI_Data/Good_CHW.csv";
 
 fs.open(filePath, "r+", function(error) {
   if (error) {
@@ -26,16 +24,16 @@ fs.open(filePath, "r+", function(error) {
 });
 
 /* process all data asynchronously. */
-async function processData(rows) {
+async function processRows(rows) {
     for (const column of rows) {
-        await processLine(column);
+        await processColumn(column);
     }
     /* in-parallel solution (note: may be too many parallel connections) */
     // const promises = rows.map(processLine);
     // await Promise.all(promises);
 }
 
-async function processLine(column) {
+async function processColumn(column) {
     try {
         console.log("Fetching webID for point:");
         console.log(column[1]);
@@ -47,8 +45,8 @@ async function processLine(column) {
             "tagName"        : column[1],
             "building"       : column[2],
             "equipmentType"  : column[3],
-            "equipmentNumber": column[4],
-            "sensorType"     : column[5]
+            "equipmentNumber": "",
+            "sensorType"     : column[4]
         };
 
         console.log("Putting the following data in the database:");
@@ -56,7 +54,7 @@ async function processLine(column) {
 
         const dbEntry = new DataModel(entry);
 
-        const response = await db.collection(collection).insertOne(dbEntry);
+        await db.collection(collection).insertOne(dbEntry);
     } catch (err) {
         console.log("Error: " + err.message);
     }
@@ -66,9 +64,9 @@ var parser = parse({delimiter: ','}, function (err, data) {
     if (err) {
         console.log("Error:" + err.message);
     }
-    console.log("Processing AHU file");
+    console.log("Processing file");
     /* process all data asynchronously */
-    processData(data);
+    processRows(data);
     console.log("Data successfully processed and input into database!");
 });
 

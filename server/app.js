@@ -11,6 +11,7 @@ import routes from './routes';
 import database from './config/database';
 
 // import populate from './config/populate_db';
+// import facilities from './config/fetch_facilities';
 
 const app = express();
 /*==================================
@@ -49,6 +50,7 @@ app.use('/static', express.static(path.join(__dirname, 'public', 'static')));
 
 import expressGraphQL from 'express-graphql';
 import { buildSchema } from 'graphql';
+
 import { schema, root } from './graphql/schema';
 
 app.use('/api/graphql', expressGraphQL({

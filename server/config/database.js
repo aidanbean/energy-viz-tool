@@ -11,7 +11,7 @@ import mongoose from 'mongoose';
 // localhost if we don't find one.
 var url = 'mongodb://heroku_dnj4cthq:ak6jhpah5q0ucdcfvrdtcg9q8f@ds157247.mlab.com:57247/heroku_dnj4cthq' || 'mongodb://localhost:27017/local';
 mongoose.connect(url);
-var theport = process.env.PORT || 5000;
+// var theport = process.env.PORT || 5000;
 mongoose.Promise = require('bluebird');
 
 // CONNECTION EVENTS

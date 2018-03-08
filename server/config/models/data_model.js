@@ -17,7 +17,7 @@ var DataSchema = new Schema(
         sensorType     : String
     },
     {
-        collection: 'ahuData'
+        collection: 'good_data'
     }
 );
 
