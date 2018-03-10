@@ -1,4 +1,4 @@
-exports.AU = [
+exports.SensorTypes = [
     { value: 'Silo value', label: 'PlotData', className: 'Building name' },
     { value: 'Kemper Hall value', label: 'SummaryData', className: 'Building name' },
     { value: 'MU value', label: 'InterpolatedData', className: 'Building name' },

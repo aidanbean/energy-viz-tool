@@ -4,7 +4,7 @@ import React from 'react';
 import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
 
-const EQUIP = require('./Equipment');
+const EQUIP = require('./EquipmentType');
 
 var SelectStyle = {
     marginTop: 10,
@@ -27,7 +27,7 @@ var EquipmentField = createClass({
     },
     getInitialState () {
         return {
-            country: 'AU',
+            country: 'EquipmentTypes',
             disabled: false,
             searchable: this.props.searchable,
             selectValue: 'new-south-wales',
@@ -64,6 +64,7 @@ var EquipmentField = createClass({
         return (
             <div>
                 <Select
+                    placeholder = "Equipment Type"
                     style={SelectStyle}
                     id="state-select"
                     ref={(ref) => { this.select = ref; }}

@@ -1,10 +1,11 @@
 import Select from 'react-select';
+// import { Async } from 'react-select';
 import 'react-select/dist/react-select.css';
 import React from 'react';
 import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
 
-const Data = require('./Data');
+const Data = require('./EquipmentNumber');
 
 var SelectStyle = {
     marginTop: 10,
@@ -27,7 +28,7 @@ var DataField = createClass({
     },
     getInitialState () {
         return {
-            country: 'AU',
+            country: 'EquipmentNumbers',
             disabled: false,
             searchable: this.props.searchable,
             selectValue: 'new-south-wales',
@@ -64,6 +65,7 @@ var DataField = createClass({
         return (
             <div>
                 <Select
+                    placeholder = "Equipment Number"
                     style={SelectStyle}
                     id="state-select"
                     ref={(ref) => { this.select = ref; }}

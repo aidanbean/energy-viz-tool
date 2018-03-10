@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import { NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
-import States from '../SearchBar/BuidlingSearchBar'
+import Building from '../SearchBar/BuidlingSearchBar'
 import Equips from '../SearchBar/EquipmentsSearchBar'
-import Data from '../SearchBar/DataSearchBar'
+import Data from '../SearchBar/EquipmentNumberSearchBar'
+import Sensor from '../SearchBar/SensorTypeSearchBar'
 
 class HeaderLinks extends Component{
     render(){
@@ -35,7 +36,7 @@ class HeaderLinks extends Component{
                     {/*</NavItem>*/}
                 </Nav>
                 <Nav style={{marginLeft:5}}>
-                    <States label="States" searchable />
+                    <Building label="Building" searchable />
                 </Nav>
                 <Nav style={{marginLeft:5}}>
                     <Equips label="Equips" searchable />
@@ -44,7 +45,7 @@ class HeaderLinks extends Component{
                     <Data label="Data" searchable />
                 </Nav>
                 <Nav style={{marginLeft:5}}>
-                    <States label="States" searchable />
+                    <Sensor label="Sensor" searchable />
                 </Nav>
                 <Nav pullRight>
                     <NavDropdown eventKey={2} title="Account" id="basic-nav-dropdown-right">

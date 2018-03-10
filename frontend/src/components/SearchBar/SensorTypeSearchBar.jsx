@@ -4,7 +4,7 @@ import React from 'react';
 import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
 
-const Building = require('./Building');
+const EQUIP = require('./SensorType');
 
 var SelectStyle = {
     marginTop: 10,
@@ -13,21 +13,21 @@ var SelectStyle = {
 };
 
 
-var BuildingField = createClass({
-    displayName: 'Building',
+var SensorField = createClass({
+    displayName: 'StatesField',
     propTypes: {
         label: PropTypes.string,
         searchable: PropTypes.bool,
     },
     getDefaultProps () {
         return {
-            label: 'Building:',
+            label: 'Sensor:',
             searchable: true,
         };
     },
     getInitialState () {
         return {
-            country: 'Buildings',
+            country: 'SensorTypes',
             disabled: false,
             searchable: this.props.searchable,
             selectValue: 'new-south-wales',
@@ -60,11 +60,11 @@ var BuildingField = createClass({
     },
 
     render () {
-        var options = Building[this.state.country];
+        var options = EQUIP[this.state.country];
         return (
             <div>
                 <Select
-                    placeholder = "Building"
+                    placeholder = "Sensor Type"
                     style={SelectStyle}
                     id="state-select"
                     ref={(ref) => { this.select = ref; }}
@@ -90,4 +90,4 @@ var BuildingField = createClass({
     }
 });
 
-export default BuildingField;
+export default SensorField;
