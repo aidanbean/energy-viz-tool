@@ -32,7 +32,20 @@ class BuildingData {
          this.secondaryPercent = secondaryPercent;
          this.secondaryUse = secondaryUse;
          this.active = active;
+
      }
 }
 
-export { DataPoint, Coord, BuildingData };
+class SensorData {
+    constructor(webId, tagName, building, equipmentType, equipmentNumber, sensorType) {
+        this.webId = webId;
+        this.tagName = tagName;
+        this.building = building;
+        this.equipmentType = equipmentType;
+        this.equipmentNumber = equipmentNumber;
+        this.sensorType = sensorType
+    }
+}
+
+
+export { DataPoint, Coord, BuildingData, SensorData};

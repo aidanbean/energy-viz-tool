@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
 import DataModel from '../../config/models/data_model';
 import BuildingModel from '../../config/models/building_model';
 import fetchAPI from '../../pi/piFetchers';
-import { DataPoint, Coord, BuildingData } from './classes';
+import {DataPoint, Coord, BuildingData, SensorData} from './classes';
 
 const db = mongoose.connection;
 
@@ -19,7 +19,7 @@ import {
 var schema = buildSchema(`
 
     type DataPoint {
-        Timestamp: String,
+        Timestamp:String,
         Value: Float,
         UnitsAbbreviation: String,
         Good: Boolean,
@@ -33,38 +33,47 @@ var schema = buildSchema(`
     }
 
     type BuildingData {
-        bldgKey         : [String]
+        bldgKey         : [String],
         nameTag         : String,
         buildingType    : String,
-        center          : Coord
+        center          : Coord,
         primaryPercent  : String,
         primaryUse      : String,
         secondaryPercent: String,
         secondaryUse    : String,
         active          : Boolean,
     }
-
+    
+    type SensorData {
+        webId          : String,
+        tagName        : String,
+        building       : String,
+        equipmentType  : String,
+        equipmentNumber: String,
+        sensorType     : String,
+    }
+    
     type Query {
         dataByMonths
         (
-            building: String,
-            equipmentType: String,
+            building       : String,
+            equipmentType  : String,
             equipmentNumber: String,
-            sensorType: String,
-            startDate: String,
-            endDate: String,
-            interval: String
+            sensorType     : String,
+            startDate      : String,
+            endDate        : String,
+            interval       : String
         ): [DataPoint],
 
         dataByMinutes
         (
-            building: String,
-            equipmentType: String,
+            building       : String,
+            equipmentType  : String,
             equipmentNumber: String,
-            sensorType: String,
-            startTime: String,
-            endTime: String,
-            interval: String
+            sensorType     : String,
+            startTime      : String,
+            endTime        : String,
+            interval       : String
         ): [DataPoint],
 
         latestSummary
@@ -75,7 +84,8 @@ var schema = buildSchema(`
             sensorType: String,
         ): DataPoint
 
-        buildingData(building: String): BuildingData
+        buildingData(building: String): BuildingData, 
+        sensorData(building: String): SensorData
     }
     
 `);
@@ -158,8 +168,18 @@ var root = {
         // console.log(dbResult);
         const bData = new BuildingData(dbResult.bldgKey, dbResult.nameTag, dbResult.buildingType, dbResult.center.long, dbResult.center.lat, dbResult.primaryPercent, dbResult.primaryUse, dbResult.secondaryPercent, dbResult.secondaryUse, dbResult.active);
         return bData;
-    }
+    },
 
+    sensorData: async function ({building}) {
+        const dbEntry = {
+            "building": building,
+        };
+        console.log(dbEntry);
+        const cursor = db.collection("good_data").find(dbEntry);
+        let dbResult = await cursor.next();
+        const sData = new SensorData(dbResult.webId, dbResult.tagName, dbResult.building, dbResult.equipmentType, dbResult.equipmentNumber, dbResult.sensorType);
+        return sData;
+    },
 }
 
 export { schema, root };
