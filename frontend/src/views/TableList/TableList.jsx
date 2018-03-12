@@ -61,8 +61,8 @@ class TableList extends Component {
                                                     accessor: "building",
                                                     Cell: this.renderEditable,
                                                     filterMethod: (filter, row) =>
-                                                        row[filter.id].startsWith(filter.value) ||
-                                                        row[filter.id].endsWith(filter.value)
+                                                        String(row[filter.id]).toLocaleLowerCase().startsWith(filter.value.toLocaleLowerCase()) ||
+                                                        String(row[filter.id]).toLocaleLowerCase().endsWith(filter.value.toLocaleLowerCase())
                                                 },
                                                 {
                                                     Header: "Equipment Type",
