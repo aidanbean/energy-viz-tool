@@ -4,31 +4,10 @@ import { Grid, Row, Col, Table } from 'react-bootstrap';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import matchSorter from 'match-sorter';
-import {
-    sortableContainer,
-    sortableElement,
-    arrayMove
-} from "react-sortable-hoc";
 
 import Card from '../../components/Card/Card.jsx';
 
 import dataFetcher from './TableDataFetcher.jsx';
-
-
-const SortableHeader = sortableElement(({ children, ...props }) =>
-    React.cloneElement(children, props)
-);
-const SortableHeaderRowRenderer = sortableContainer(
-    ({ className, columns, style }) => (
-        <div className={className} role="row" style={style}>
-            {React.Children.map(columns, column => (
-                <SortableHeader index={Number(column.key.match(/\d+/)[0])}>
-                    {column}
-                </SortableHeader>
-            ))}
-        </div>
-    )
-);
 
 
 
