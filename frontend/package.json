@@ -3,6 +3,8 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
+		"apollo-client": "^2.2.6",
+		"apollo-link-http": "^1.5.3",
 		"chartist": "^0.10.1",
 		"classnames": "^2.2.5",
 		"components": "^0.1.0",
@@ -10,8 +12,11 @@
 		"google-maps-react": "^1.1.2",
 		"graphql": "^0.13.1",
 		"highcharts": "^6.0.4",
+		"match-sorter": "^2.2.0",
+		"namor": "^1.0.1",
 		"prop-types": "^15.6.0",
 		"react": "^15.6.2",
+		"react-apollo": "^2.0.4",
 		"react-bootstrap": "^0.32.1",
 		"react-chartist": "^0.13.1",
 		"react-dom": "^15.6.2",
@@ -21,6 +26,7 @@
 		"react-scripts": "1.0.17",
 		"react-search": "^2.0.5",
 		"react-select": "^1.2.1",
+		"react-table": "^6.8.0",
 		"routes": "^2.1.0",
 		"variables": "^1.0.1"
 	},

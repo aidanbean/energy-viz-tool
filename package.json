@@ -38,6 +38,7 @@
   "author": "Haochuan Liu<haochuan.liu@gmail.com>(https://haochuan.io)",
   "license": "MIT",
   "dependencies": {
+    "apollo-cache-inmemory": "^1.1.10",
     "body-parser": "^1.17.2",
     "compression": "^1.7.0",
     "csv-parse": "^2.0.4",
