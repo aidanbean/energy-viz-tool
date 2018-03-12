@@ -9,12 +9,32 @@ import Card from '../../components/Card/Card.jsx';
 
 import dataFetcher from './TableDataFetcher.jsx';
 
+
+
 class TableList extends Component {
-    constructor() {
-        super();
+    constructor(prop) {
+        super(prop);
         this.state = {
             data: dataFetcher()
         };
+        this.renderEditable = this.renderEditable.bind(this);
+    }
+    renderEditable(cellInfo) {
+        return (
+            <div
+                style={{ backgroundColor: "#fafafa" }}
+                contentEditable
+                suppressContentEditableWarning
+                onBlur={e => {
+                    const data = [...this.state.data];
+                    data[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
+                    this.setState({ data });
+                }}
+                dangerouslySetInnerHTML={{
+                    __html: this.state.data[cellInfo.index][cellInfo.column.id]
+                }}
+            />
+        );
     }
 
     render() {
@@ -34,20 +54,25 @@ class TableList extends Component {
                                     filterable
                                     defaultFilterMethod={(filter, row) =>
                                         String(row[filter.id]).toLocaleLowerCase() === filter.value.toLocaleLowerCase()}
+
+
                                     columns={[
                                         {
-                                            // Header: "Name",
+                                            Header: "Name",
                                             columns: [
                                                 {
                                                     Header: "Building",
                                                     accessor: "building",
+                                                    Cell: this.renderEditable,
                                                     filterMethod: (filter, row) =>
-                                                        row[filter.id].startsWith(filter.value) ||
-                                                        row[filter.id].endsWith(filter.value)
+                                                        String(row[filter.id]).toLocaleLowerCase().includes(filter.value.toLocaleLowerCase())
+                                                        // startsWith(filter.value.toLocaleLowerCase())
+                                                        // String(row[filter.id]).toLocaleLowerCase().endsWith(filter.value.toLocaleLowerCase())
                                                 },
                                                 {
                                                     Header: "Equipment Type",
                                                     id: "equipmentType",
+                                                    Cell: this.renderEditable,
                                                     accessor: d => d.equipmentType,
                                                     filterMethod: (filter, rows) =>
                                                         matchSorter(rows, filter.value, { keys: ["equipmentType"] }),
@@ -56,11 +81,12 @@ class TableList extends Component {
                                             ]
                                         },
                                         {
-                                            // Header: "Info",
+                                            Header: "Info",
                                             columns: [
                                                 {
                                                     Header: "Equipment Number",
-                                                    accessor: "equipmentNumber"
+                                                    accessor: "equipmentNumber",
+                                                    Cell: this.renderEditable
                                                 },
                                                 {
                                                     Header: "Sensor Type",
