@@ -4,14 +4,37 @@ import { Grid, Row, Col, Table } from 'react-bootstrap';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import matchSorter from 'match-sorter';
+import {
+    sortableContainer,
+    sortableElement,
+    arrayMove
+} from "react-sortable-hoc";
 
 import Card from '../../components/Card/Card.jsx';
 
 import dataFetcher from './TableDataFetcher.jsx';
 
+
+const SortableHeader = sortableElement(({ children, ...props }) =>
+    React.cloneElement(children, props)
+);
+const SortableHeaderRowRenderer = sortableContainer(
+    ({ className, columns, style }) => (
+        <div className={className} role="row" style={style}>
+            {React.Children.map(columns, column => (
+                <SortableHeader index={Number(column.key.match(/\d+/)[0])}>
+                    {column}
+                </SortableHeader>
+            ))}
+        </div>
+    )
+);
+
+
+
 class TableList extends Component {
-    constructor() {
-        super();
+    constructor(prop) {
+        super(prop);
         this.state = {
             data: dataFetcher()
         };
@@ -52,17 +75,20 @@ class TableList extends Component {
                                     filterable
                                     defaultFilterMethod={(filter, row) =>
                                         String(row[filter.id]).toLocaleLowerCase() === filter.value.toLocaleLowerCase()}
+
+
                                     columns={[
                                         {
-                                            // Header: "Name",
+                                            Header: "Name",
                                             columns: [
                                                 {
                                                     Header: "Building",
                                                     accessor: "building",
                                                     Cell: this.renderEditable,
                                                     filterMethod: (filter, row) =>
-                                                        String(row[filter.id]).toLocaleLowerCase().startsWith(filter.value.toLocaleLowerCase()) ||
-                                                        String(row[filter.id]).toLocaleLowerCase().endsWith(filter.value.toLocaleLowerCase())
+                                                        String(row[filter.id]).toLocaleLowerCase().includes(filter.value.toLocaleLowerCase())
+                                                        // startsWith(filter.value.toLocaleLowerCase())
+                                                        // String(row[filter.id]).toLocaleLowerCase().endsWith(filter.value.toLocaleLowerCase())
                                                 },
                                                 {
                                                     Header: "Equipment Type",
@@ -76,7 +102,7 @@ class TableList extends Component {
                                             ]
                                         },
                                         {
-                                            // Header: "Info",
+                                            Header: "Info",
                                             columns: [
                                                 {
                                                     Header: "Equipment Number",

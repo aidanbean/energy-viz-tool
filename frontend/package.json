@@ -26,6 +26,7 @@
 		"react-scripts": "1.0.17",
 		"react-search": "^2.0.5",
 		"react-select": "^1.2.1",
+		"react-sortable-hoc": "^0.6.8",
 		"react-table": "^6.8.0",
 		"routes": "^2.1.0",
 		"variables": "^1.0.1"
