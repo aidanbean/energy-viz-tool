@@ -20,8 +20,8 @@ const fakeData = () => {
         building: buildingArray[num],
         equipmentType: equipmentArray[Math.floor((Math.random() * 4))],
         equipmentNumber: Math.floor(Math.random() * 30),
-        visits: Math.floor(Math.random() * 100),
-        progress: Math.floor(Math.random() * 100),
+        IndoorTemperature: Math.floor(Math.random() * 100),
+        OutdoorTemperature: Math.floor(Math.random() * 100),
         // status:
         //     statusChance > 0.66
         //         ? "relationship"
@@ -33,7 +33,7 @@ function dataFetcher(len = 5553) {
     return range(len).map(d => {
         return {
             ...fakeData(),
-            children: range(10).map(fakeData)
+            // children: range(10).map(fakeData)
         };
     });
 }
