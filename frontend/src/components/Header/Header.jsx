@@ -9,6 +9,7 @@ class Header extends Component{
     constructor(props){
         super(props);
         this.mobileSidebarToggle = this.mobileSidebarToggle.bind(this);
+        this.headerCallback = this.headerCallback.bind(this);
         this.state = {
             sidebarExists: false
         };
@@ -55,6 +56,11 @@ class Header extends Component{
         })
         return name;
     }
+    headerCallback(dataFromHeader) {
+        console.log("In Header.jsx");
+        console.log(dataFromHeader);
+        this.props.callback(dataFromHeader);
+    }
     render(){
         return (
             <Navbar fluid>
@@ -65,7 +71,7 @@ class Header extends Component{
                     {/*<Navbar.Toggle onClick={this.mobileSidebarToggle}/>*/}
                 {/*</Navbar.Header>*/}
                 <Navbar.Collapse>
-                    <HeaderLinks />
+                    <HeaderLinks callback={this.headerCallback}/>
                 </Navbar.Collapse>
             </Navbar>
         );

@@ -13,13 +13,17 @@ import {style} from "../../variables/Variables.jsx";
 
 import appRoutes from '../../routes/app.jsx';
 
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+
 class App extends Component {
     constructor(props){
         super(props);
         this.componentDidMount = this.componentDidMount.bind(this);
         this.handleNotificationClick = this.handleNotificationClick.bind(this);
+        this.dataByMinutes = this.dataByMinutes.bind(this);
         this.state = {
-            _notificationSystem: null
+            _notificationSystem: null,
         };
     }
     handleNotificationClick(position){
@@ -94,6 +98,11 @@ class App extends Component {
             document.documentElement.classList.toggle('nav-open');
         }
     }
+    dataByMinutes(dataFromHeader) {
+        console.log("In App.jsx");
+        console.log(dataFromHeader);
+
+    }
     render() {
         return (
 
@@ -101,7 +110,7 @@ class App extends Component {
                     <NotificationSystem ref="notificationSystem" style={style}/>
                     <Sidebar {...this.props} />
                     <div id="main-panel" className="main-panel">
-                        <Header {...this.props}/>
+                        <Header {...this.props} callback={this.dataByMinutes}/>
                             <Switch>
                                 {
                                     appRoutes.map((prop,key) => {
@@ -133,4 +142,27 @@ class App extends Component {
     }
 }
 
-export default App;
+const MINUTES_QUERY = gql`
+    query MinutesQuery(
+        $building       : String,
+        $equipmentType  : String,
+        $equipmentNumber: String,
+        $sensorType     : String,
+        $startTime      : String,
+        $endTime        : String,
+        $interval       : String
+    ) {
+        dataByMinutes
+        (
+            building       : $building,
+            equipmentType  : $equipmentType,
+            equipmentNumber: $equipmentNumber,
+            sensorType     : $sensorType,
+            startTime      : $startTime,
+            endTime        : $endTime,
+            interval       : $interval
+        )
+    }
+`
+
+export default graphql(MINUTES_QUERY, { name: 'MinutesQuery' })(App)

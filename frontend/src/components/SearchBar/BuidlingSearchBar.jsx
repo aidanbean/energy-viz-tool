@@ -9,7 +9,7 @@ const Building = require('./Building');
 var SelectStyle = {
     marginTop: 10,
     position: 'relative',
-    width: 210
+    width: 175
 };
 
 
@@ -21,16 +21,16 @@ var BuildingField = createClass({
     },
     getDefaultProps () {
         return {
-            label: 'Building:',
+            label: 'Building',
             searchable: true,
         };
     },
     getInitialState () {
         return {
-            country: 'Buildings',
+            building: 'Buildings',
             disabled: false,
             searchable: this.props.searchable,
-            selectValue: 'new-south-wales',
+            selectValue: '',
             clearable: true,
             rtl: false,
         };
@@ -39,15 +39,17 @@ var BuildingField = createClass({
         this.select.setInputValue('');
     },
     switchCountry (e) {
-        var newCountry = e.target.value;
+        var newBuilding = e.target.value;
         this.setState({
-            country: newCountry,
-            selectValue: null,
+            building: newBuilding,
+            selectValue: newBuilding,
         });
     },
     updateValue (newValue) {
         this.setState({
             selectValue: newValue,
+        }, () => {
+            this.props.callback(this.state.selectValue);
         });
     },
     focusStateSelect () {
@@ -60,7 +62,7 @@ var BuildingField = createClass({
     },
 
     render () {
-        var options = Building[this.state.country];
+        var options = Building[this.state.building];
         return (
             <div>
                 <Select

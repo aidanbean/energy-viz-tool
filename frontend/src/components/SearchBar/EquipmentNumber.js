@@ -1,7 +1,10 @@
 exports.EquipmentNumbers = [
-    { value: 'Silo value', label: 'Baseline_Modeled_Electricity', className: 'Building name' },
-    { value: 'Kemper Hall value', label: 'Baseline_Modeled_Electricity_MonthlyUsage', className: 'Building name' },
-    { value: 'MU value', label: 'Electricity_AnnualUsage', className: 'Building name' },
-    { value: 'Giedt value', label: 'Electricity_Demand_kBtu', className: 'Building name' },
-    { value: 'Rock Hall value', label: 'Electricity_EUI', className: 'Building name' },
+    { value: 'AHU01', label: 'AHU01', className: 'Equipment Number' },
+    { value: 'AHU02', label: 'AHU02', className: 'Equipment Number' },
+    { value: 'AHU03', label: 'AHU03', className: 'Equipment Number' },
+    { value: 'AHU04', label: 'AHU04', className: 'Equipment Number' },
+    { value: 'AHU05', label: 'AHU05', className: 'Equipment Number' },
+    { value: 'AHU06', label: 'AHU06', className: 'Equipment Number' },
+    { value: 'AHU07', label: 'AHU07', className: 'Equipment Number' },
+    { value: 'AHU08', label: 'AHU08', className: 'Equipment Number' },
 ];

@@ -1,7 +1,7 @@
 exports.Buildings = [
     { value: 'ACAD', label: 'Academic Surge', className: 'Building name' },
-    { value: 'Kemper Hall value', label: 'Kemper Hall', className: 'Building name' },
-    { value: 'MU value', label: 'MU', className: 'Building name' },
-    { value: 'Giedt value', label: 'Giedt', className: 'Building name' },
-    { value: 'Rock Hall value', label: 'Rock Hall', className: 'Building name' },
+    { value: 'AMRL', label: 'AMRL', className: 'Building name' },
+    { value: 'ARC', label: 'ARC', className: 'Building name' },
+    { value: 'ARSM3', label: 'ARSM3', className: 'Building name' },
+    { value: 'ART', label: 'Art Building', className: 'Building name' },
 ];
