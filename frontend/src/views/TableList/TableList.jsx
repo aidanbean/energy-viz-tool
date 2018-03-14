@@ -8,7 +8,7 @@ import matchSorter from 'match-sorter';
 import Card from '../../components/Card/Card.jsx';
 
 import dataFetcher from './TableDataFetcher.jsx';
-
+import {CSVLink, CSVDownload} from 'react-csv';
 
 
 class TableList extends Component {
@@ -44,9 +44,11 @@ class TableList extends Component {
                 <Grid fluid>
                     <Row>
                         <Col md={12}>
+                            <CSVLink data={data} >Download me</CSVLink>
                             <Card
                                 title="Air Handler Unit Data"
                                 category="AHU"
+
                                 ctTableFullWidth ctTableResponsive
                                 content={
                                     <ReactTable
