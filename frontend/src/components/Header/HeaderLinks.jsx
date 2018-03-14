@@ -21,8 +21,8 @@ class HeaderLinks extends Component{
         this.intervalHandler = this.intervalHandler.bind(this);
         this.state = {
             building: '',
-            equipType: '',
-            equipNum: '',
+            equipmentType: '',
+            equipmentNumber: '',
             sensorType: '',
             startTime: '',
             endTime: '',
@@ -38,14 +38,14 @@ class HeaderLinks extends Component{
     }
     equipTypeHandler(selection) {
         this.setState({
-            equipType: selection,
+            equipmentType: selection,
         }, () => {
             console.log(this.state);
         });
     }
     equipNumHandler(selection) {
         this.setState({
-            equipNum: selection,
+            equipmentNumber: selection,
         }, () => {
             console.log(this.state);
         });
@@ -133,7 +133,7 @@ class HeaderLinks extends Component{
                 <Nav style={{marginLeft:5, marginTop:8}}>
                     <Interval label="Interval" callback={this.intervalHandler}/>
                 </Nav>
-                <Nav style={{marginLeft:5}}>
+                <Nav style={{marginLeft:5, marginTop:-6}}>
                     <Button bsStyle="primary" onClick={this.buttonHandler}>Submit</Button>
                 </Nav>
                 <Nav pullRight>

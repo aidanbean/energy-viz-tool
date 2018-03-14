@@ -5,6 +5,7 @@ import favicon from 'serve-favicon';
 import helmet from 'helmet';
 import compression from 'compression';
 import path from 'path';
+import cors from 'cors';
 
 import env from './config/env';
 import routes from './routes';
@@ -53,6 +54,8 @@ import { buildSchema } from 'graphql';
 
 import { schema, root } from './graphql/schema';
 
+app.use(cors());
+
 app.use('/api/graphql', expressGraphQL({
   schema: schema,
   graphiql: true,
@@ -60,11 +63,6 @@ app.use('/api/graphql', expressGraphQL({
 }));
 
 /*====== End of GraphQL Route =====*/
-
-// Routes
-app.use('/api/v1', routes.api_v1);
-app.use('/page', routes.page);
-app.use('/api/v2', routes.api_v2);
 
 // Load React App
 // Serve HTML file for production
