@@ -43,7 +43,7 @@ var schema = buildSchema(`
         secondaryUse    : String,
         active          : Boolean,
     }
-    
+
     type SensorData {
         webId          : String,
         tagName        : String,
@@ -52,7 +52,7 @@ var schema = buildSchema(`
         equipmentNumber: String,
         sensorType     : String,
     }
-    
+
     type Query {
         dataByMonths
         (
@@ -84,10 +84,10 @@ var schema = buildSchema(`
             sensorType: String,
         ): DataPoint
 
-        buildingData(building: String): BuildingData, 
+        buildingData(building: String): BuildingData,
         sensorData(building: String): SensorData
     }
-    
+
 `);
 
 // The root provides the top-level API endpoints
@@ -135,6 +135,9 @@ var root = {
         console.log(piResult.Items);
         var listOfPoints = [];
         (piResult.Items).forEach( function(element) {
+            if (element.Good == false) {
+                element.Value = null;
+            }
             const point = new DataPoint(element.Timestamp, element.Value, element.UnitsAbbreviation, element.Good, element.Questionable, element.Substituted);
             listOfPoints.push(point);
         });

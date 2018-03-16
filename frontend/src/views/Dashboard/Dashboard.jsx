@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ChartistGraph from 'react-chartist';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col, ProgressBar } from 'react-bootstrap';
+import { HashLoader } from 'react-spinners';
 
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -28,10 +29,13 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            didMount: false,
+            progress: 0,
             config: {
                 chart: {
-                    height: 245,
-                    type: 'line'
+                    height: 400,
+                    type: 'line',
+                    zoomType: 'x'
                 },
                 xAxis: {
                     categories: []
@@ -45,6 +49,7 @@ class Dashboard extends Component {
             }
         }
     }
+
     createLegend(json){
         var legend = [];
         for(var i = 0; i < json["names"].length; i++){
@@ -59,18 +64,18 @@ class Dashboard extends Component {
         }
         return legend;
     }
+
     // componentDidMount() {
     //
     // }
+
     componentWillReceiveProps(nextProps) {
+        this.props.data.refetch()
         if(typeof nextProps.data.dataByMinutes === 'undefined') {
             console.log("Invalid Data");
             return;
         }
-        // console.log(nextProps.data.dataByMinutes);
-        // nextProps.data.dataByMinutes.forEach(function(element) {
-        //     console.log(element.Timestamp);
-        // });
+
         const x = [];
         (nextProps.data.dataByMinutes).forEach(function(element) {
             x.push(element.Timestamp);
@@ -80,10 +85,12 @@ class Dashboard extends Component {
             y.push(element.Value);
         });
         this.setState({
+            progress: 0,
             config: {
                 chart: {
-                    height: 245,
-                    type: 'line'
+                    height: 400,
+                    type: 'line',
+                    zoomType: 'x'
                 },
                 xAxis: {
                     categories: x
@@ -97,51 +104,54 @@ class Dashboard extends Component {
             }
         });
     }
+
     refresh() {
         this.props.data.refetch();
     }
-    // updateConfig(data) {
-    //     this.setState({
-    //         config: {
-    //             chart: {
-    //                 height: 245,
-    //                 type: 'line'
-    //             },
-    //             xAxis: {
-    //                 categories: data.Timestamp
-    //             },
-    //             series: [{
-    //                 data: data.Value
-    //             }],
-    //             title: {
-    //                 text: null
-    //             }
-    //         }
-    //     });
-    // }
+
+    componentDidMount() {
+        this.setState({ didMount: true });
+    }
+
     render() {
-        // if (this.props.data.loading) {
-        //     return (<div>Loading</div>)
-        // }
-        //
-        // if (this.props.data.error) {
-        //     console.log(this.props.data.error)
-        //     return (<div>An unexpected error occurred</div>)
-        // }
-        // console.log(this.props.minutesQuery);
-        this.refresh();
+
+        if (this.state.didMount) {
+            this.refresh();
+        }
 
         if (this.props.data && this.props.data.loading) {
-            return <div>Loading</div>
+            return (
+                <div>
+                    <Row>
+                        <Col md={12}>
+                            <Card
+                                title="Fetching your data..."
+                                content={
+                                    <HashLoader
+                                             color={'#3C4858'}
+                                             loading={this.props.data.loading}
+                                           />
+                                }
+                            />
+                        </Col>
+                    </Row>
+                </div>
+            );
         }
 
         if (this.props.data && this.props.data.error) {
-            return <div>Error</div>
+            clearTimeout();
+            return (
+                <div>
+                    Error
+                </div>
+            );
         }
 
         const dataToRender = this.props.data.dataByMinutes;
         console.log(this.props.data.dataByMinutes[0].Value);
         // this.updateConfig(dataToRender);
+        clearTimeout();
         return (
             <div className="content">
                     <Row>
@@ -151,7 +161,7 @@ class Dashboard extends Component {
                                 id="chartHours"
                                 title={this.props.headerData.sensorType}
                                 category={this.props.headerData.building}
-                                stats="Updated 3 minutes ago"
+                                stats="Updated just now"
                                 content={
                                     <div className="ct-chart">
                                         <ReactHighcharts
@@ -161,8 +171,11 @@ class Dashboard extends Component {
                                     </div>
                                     }
                                 legend={
-                                    <div className="legend">
-                                        {this.createLegend(legendSales)}
+                                    <div>
+                                        <p>padding</p>
+                                        <p>padding</p>
+                                        <p>padding</p>
+                                        <p>padding</p>
                                     </div>
                                 }
                             />
