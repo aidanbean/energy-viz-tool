@@ -4,30 +4,30 @@ import React from 'react';
 import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
 
-const EQUIP = require('./EquipmentType');
+const EquipmentType = require('./EquipmentType');
 
 var SelectStyle = {
     marginTop: 10,
     position: 'relative',
-    width: 210
+    width: 175
 };
 
 
 var EquipmentField = createClass({
-    displayName: 'StatesField',
+    displayName: 'EquipmentField',
     propTypes: {
         label: PropTypes.string,
         searchable: PropTypes.bool,
     },
     getDefaultProps () {
         return {
-            label: 'Equips:',
+            label: 'Equips',
             searchable: true,
         };
     },
     getInitialState () {
         return {
-            country: 'EquipmentTypes',
+            type: 'EquipmentTypes',
             disabled: false,
             searchable: this.props.searchable,
             selectValue: 'new-south-wales',
@@ -39,15 +39,17 @@ var EquipmentField = createClass({
         this.select.setInputValue('');
     },
     switchCountry (e) {
-        var newCountry = e.target.value;
+        var newType = e.target.value;
         this.setState({
-            country: newCountry,
+            type: newType,
             selectValue: null,
         });
     },
     updateValue (newValue) {
         this.setState({
             selectValue: newValue,
+        }, () => {
+            this.props.callback(this.state.selectValue);
         });
     },
     focusStateSelect () {
@@ -60,7 +62,7 @@ var EquipmentField = createClass({
     },
 
     render () {
-        var options = EQUIP[this.state.country];
+        var options = EquipmentType[this.state.type];
         return (
             <div>
                 <Select

@@ -5,16 +5,16 @@ import React from 'react';
 import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
 
-const Data = require('./EquipmentNumber');
+const EquipmentNumber = require('./EquipmentNumber');
 
 var SelectStyle = {
     marginTop: 10,
     position: 'relative',
-    width: 210
+    width: 175
 };
 
 
-var DataField = createClass({
+var EquipNumField = createClass({
     displayName: 'StatesField',
     propTypes: {
         label: PropTypes.string,
@@ -49,6 +49,8 @@ var DataField = createClass({
     updateValue (newValue) {
         this.setState({
             selectValue: newValue,
+        }, () => {
+            this.props.callback(this.state.selectValue);
         });
     },
     focusStateSelect () {
@@ -61,7 +63,7 @@ var DataField = createClass({
     },
 
     render () {
-        var options = Data[this.state.country];
+        var options = EquipmentNumber[this.state.country];
         return (
             <div>
                 <Select
@@ -91,4 +93,4 @@ var DataField = createClass({
     }
 });
 
-export default DataField;
+export default EquipNumField;

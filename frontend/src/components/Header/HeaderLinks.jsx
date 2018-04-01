@@ -1,11 +1,88 @@
 import React, {Component} from 'react';
-import { NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
+import { NavItem, Nav, NavDropdown, MenuItem, Button } from 'react-bootstrap';
 import Building from '../SearchBar/BuidlingSearchBar'
-import Equips from '../SearchBar/EquipmentsSearchBar'
-import Data from '../SearchBar/EquipmentNumberSearchBar'
+import EquipType from '../SearchBar/EquipmentTypeSearchBar'
+import EquipNum from '../SearchBar/EquipmentNumberSearchBar'
 import Sensor from '../SearchBar/SensorTypeSearchBar'
+import Start from '../SearchBar/StartForm';
+import End from '../SearchBar/EndForm';
+import Interval from '../SearchBar/IntervalForm';
 
 class HeaderLinks extends Component{
+    constructor() {
+        super();
+        this.buttonHandler = this.buttonHandler.bind(this);
+        this.buildingHandler = this.buildingHandler.bind(this);
+        this.equipTypeHandler = this.equipTypeHandler.bind(this);
+        this.equipNumHandler = this.equipNumHandler.bind(this);
+        this.sensorTypeHandler = this.sensorTypeHandler.bind(this);
+        this.startHandler = this.startHandler.bind(this);
+        this.endHandler = this.endHandler.bind(this);
+        this.intervalHandler = this.intervalHandler.bind(this);
+        this.state = {
+            building: '',
+            equipmentType: '',
+            equipmentNumber: '',
+            sensorType: '',
+            startTime: '',
+            endTime: '',
+            interval: ''
+        };
+    }
+    buildingHandler(selection) {
+        this.setState({
+            building: selection,
+        }, () => {
+            console.log(this.state);
+        });
+    }
+    equipTypeHandler(selection) {
+        this.setState({
+            equipmentType: selection,
+        }, () => {
+            console.log(this.state);
+        });
+    }
+    equipNumHandler(selection) {
+        this.setState({
+            equipmentNumber: selection,
+        }, () => {
+            console.log(this.state);
+        });
+    }
+    sensorTypeHandler(selection) {
+        this.setState({
+            sensorType: selection,
+        }, () => {
+            console.log(this.state);
+        });
+    }
+    startHandler(selection) {
+        this.setState({
+            startTime: selection,
+        }, () => {
+            console.log(this.state);
+        });
+    }
+    endHandler(selection) {
+        this.setState({
+            endTime: selection,
+        }, () => {
+            console.log(this.state);
+        });
+    }
+    intervalHandler(selection) {
+        this.setState({
+            interval: selection,
+        }, () => {
+            console.log(this.state);
+        });
+    }
+    buttonHandler() {
+        this.props.callback(this.state);
+        // console.log(this.state);
+    }
+
     render(){
         const notification = (
             <div>
@@ -36,16 +113,28 @@ class HeaderLinks extends Component{
                     {/*</NavItem>*/}
                 </Nav>
                 <Nav style={{marginLeft:5}}>
-                    <Building label="Building" searchable />
+                    <Building label="Building" callback={this.buildingHandler} searchable />
                 </Nav>
                 <Nav style={{marginLeft:5}}>
-                    <Equips label="Equips" searchable />
+                    <EquipType label="Equipment Type" building={this.state.building} callback={this.equipTypeHandler} searchable />
                 </Nav>
                 <Nav style={{marginLeft:5}}>
-                    <Data label="Data" searchable />
+                    <EquipNum label="Equipment Number" building={this.state.building} equipType={this.state.equipNum} callback={this.equipNumHandler} searchable />
                 </Nav>
                 <Nav style={{marginLeft:5}}>
-                    <Sensor label="Sensor" searchable />
+                    <Sensor label="Sensor Type" building={this.state.building} equipNum={this.state.equpNum} equipType={this.state.equipType} callback={this.sensorTypeHandler} searchable />
+                </Nav>
+                <Nav style={{marginLeft:5, marginTop:8}}>
+                    <Start label="Start" callback={this.startHandler}/>
+                </Nav>
+                <Nav style={{marginLeft:5, marginTop:8}}>
+                    <End label="End" callback={this.endHandler}/>
+                </Nav>
+                <Nav style={{marginLeft:5, marginTop:8}}>
+                    <Interval label="Interval" callback={this.intervalHandler}/>
+                </Nav>
+                <Nav style={{marginLeft:5, marginTop:-6}}>
+                    <Button bsStyle="primary" onClick={this.buttonHandler}>Submit</Button>
                 </Nav>
                 <Nav pullRight>
                     <NavDropdown eventKey={2} title="Account" id="basic-nav-dropdown-right">

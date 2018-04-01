@@ -500,6 +500,7 @@ var dataPie = {
 
 
 
+
 //Kemper_Baseline_Modeled_Electricity
 //Predicted value from MLR model
 var HighChartsDummyData = {

@@ -4,12 +4,12 @@ import React from 'react';
 import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
 
-const EQUIP = require('./SensorType');
+const SensorType = require('./SensorType');
 
 var SelectStyle = {
     marginTop: 10,
     position: 'relative',
-    width: 210
+    width: 175
 };
 
 
@@ -27,7 +27,7 @@ var SensorField = createClass({
     },
     getInitialState () {
         return {
-            country: 'SensorTypes',
+            sensor: 'SensorTypes',
             disabled: false,
             searchable: this.props.searchable,
             selectValue: 'new-south-wales',
@@ -39,15 +39,17 @@ var SensorField = createClass({
         this.select.setInputValue('');
     },
     switchCountry (e) {
-        var newCountry = e.target.value;
+        var newSensor = e.target.value;
         this.setState({
-            country: newCountry,
+            sensor: newSensor,
             selectValue: null,
         });
     },
     updateValue (newValue) {
         this.setState({
             selectValue: newValue,
+        }, () => {
+            this.props.callback(this.state.selectValue);
         });
     },
     focusStateSelect () {
@@ -60,7 +62,7 @@ var SensorField = createClass({
     },
 
     render () {
-        var options = EQUIP[this.state.country];
+        var options = SensorType[this.state.sensor];
         return (
             <div>
                 <Select

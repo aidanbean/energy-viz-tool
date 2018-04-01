@@ -1,5 +1,5 @@
 exports.Buildings = [
-    { label: 'academicsurge', value: 'ACAD', className: 'buildingName' },
+    { label: 'Academic Surge', value: 'ACAD', className: 'buildingName' },
     { label: 'Aggie Stadium', value: 'aggiestadium', className: 'buildingName' },
     { label: 'amrl', value: 'AMRL', className: 'buildingName' },
     { label: 'Activities and Recreation Center', value: 'ARC', className: 'buildingName' },

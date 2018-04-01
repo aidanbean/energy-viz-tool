@@ -18,8 +18,19 @@ class App extends Component {
         super(props);
         this.componentDidMount = this.componentDidMount.bind(this);
         this.handleNotificationClick = this.handleNotificationClick.bind(this);
+        this.dataByMinutes = this.dataByMinutes.bind(this);
+        // this._getByMinutes = this._getByMinutes.bind(this);
         this.state = {
-            _notificationSystem: null
+            _notificationSystem: null,
+            headerData: {
+                building       : 'ACAD',
+                equipmentType  : 'AHU',
+                equipmentNumber: 'AHU01',
+                sensorType     : 'Building Static Pressure',
+                startTime      : '12-11-2017-6am',
+                endTime        : '12-11-2017-12pm',
+                interval       : '15m'
+            }
         };
     }
     handleNotificationClick(position){
@@ -94,6 +105,22 @@ class App extends Component {
             document.documentElement.classList.toggle('nav-open');
         }
     }
+    dataByMinutes(dataFromHeader) {
+        console.log("In App.jsx");
+        console.log(dataFromHeader);
+        this.setState({
+            // building: dataFromHeader.building,
+            // equipType: dataFromHeader.equipType,
+            // equipNum: dataFromHeader.equipNum,
+            // sensorType: dataFromHeader.sensorType,
+            // startTime: dataFromHeader.startTime,
+            // endTime: dataFromHeader.endTime,
+            // interval: dataFromHeader.interval
+            headerData: dataFromHeader
+        }, () => {
+            console.log(this.state);
+        })
+    }
     render() {
         return (
 
@@ -101,7 +128,7 @@ class App extends Component {
                     <NotificationSystem ref="notificationSystem" style={style}/>
                     <Sidebar {...this.props} />
                     <div id="main-panel" className="main-panel">
-                        <Header {...this.props}/>
+                        <Header {...this.props} callback={this.dataByMinutes}/>
                             <Switch>
                                 {
                                     appRoutes.map((prop,key) => {
@@ -114,15 +141,33 @@ class App extends Component {
                                                        <prop.component
                                                            {...routeProps}
                                                            handleClick={this.handleNotificationClick}
+                                                           headerData={this.state.headerData}
                                                        />}
                                                 />
                                             );
                                         if(prop.redirect)
                                             return (
-                                                <Redirect from={prop.path} to={prop.to} key={key}/>
+                                                <Redirect
+                                                    from={prop.path}
+                                                    to={prop.to}
+                                                    key={key}
+                                                    render={redirectProps =>
+                                                        <prop.component
+                                                            {...redirectProps}
+                                                            headerData={this.state.headerData}
+                                                        />}
+                                                />
                                             );
                                         return (
-                                            <Route path={prop.path} component={prop.component} key={key}/>
+                                            <Route
+                                                path={prop.path}
+                                                key={key}
+                                                render={routeProps =>
+                                                    <prop.component
+                                                        {...routeProps}
+                                                        headerData={this.state.headerData}
+                                                    />}
+                                            />
                                         );
                                     })
                                 }

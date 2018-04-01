@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import ChartistGraph from 'react-chartist';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col, ProgressBar } from 'react-bootstrap';
+import { HashLoader } from 'react-spinners';
+
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 import {Card} from '../../components/Card/Card.jsx';
 import {StatsCard} from '../../components/StatsCard/StatsCard.jsx';
@@ -22,6 +26,30 @@ import {
 const ReactHighcharts = require('react-highcharts');
 
 class Dashboard extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            didMount: false,
+            progress: 0,
+            config: {
+                chart: {
+                    height: 400,
+                    type: 'line',
+                    zoomType: 'x'
+                },
+                xAxis: {
+                    categories: []
+                },
+                series: [{
+                    data: []
+                }],
+                title: {
+                    text: null
+                }
+            }
+        }
+    }
+
     createLegend(json){
         var legend = [];
         for(var i = 0; i < json["names"].length; i++){
@@ -36,139 +64,165 @@ class Dashboard extends Component {
         }
         return legend;
     }
+
+    // componentDidMount() {
+    //
+    // }
+
+    componentWillReceiveProps(nextProps) {
+        this.props.data.refetch()
+        if(typeof nextProps.data.dataByMinutes === 'undefined') {
+            console.log("Invalid Data");
+            return;
+        }
+
+        const x = [];
+        (nextProps.data.dataByMinutes).forEach(function(element) {
+            x.push(element.Timestamp);
+        });
+        const y = [];
+        (nextProps.data.dataByMinutes).forEach(function(element) {
+            y.push(element.Value);
+        });
+        this.setState({
+            progress: 0,
+            config: {
+                chart: {
+                    height: 400,
+                    type: 'line',
+                    zoomType: 'x'
+                },
+                xAxis: {
+                    categories: x
+                },
+                series: [{
+                    data: y
+                }],
+                title: {
+                    text: null
+                }
+            }
+        });
+    }
+
+    refresh() {
+        this.props.data.refetch();
+    }
+
+    componentDidMount() {
+        this.setState({ didMount: true });
+    }
+
     render() {
-        return (
-            <div className="content">
-                <Grid fluid>
+
+        if (this.state.didMount) {
+            this.refresh();
+        }
+
+        if (this.props.data && this.props.data.loading) {
+            return (
+                <div>
                     <Row>
-                        <Col lg={3} sm={6}>
-                            <StatsCard
-                                bigIcon={<i className="pe-7s-server text-warning"></i>}
-                                statsText="Indoor Area"
-                                statsValue="300ft&sup2;"
-                                statsIcon={<i className="fa fa-refresh"></i>}
-                                statsIconText="Updated now"
-                            />
-                        </Col>
-                        <Col lg={3} sm={6}>
-                            <StatsCard
-                                bigIcon={<i className="pe-7s-wallet text-success"></i>}
-                                statsText="Temperature"
-                                statsValue="18&#8451;"
-                                statsIcon={<i className="fa fa-calendar-o"></i>}
-                                statsIconText="Last day"
-                            />
-                        </Col>
-                        <Col lg={3} sm={6}>
-                            <StatsCard
-                                bigIcon={<i className="pe-7s-graph1 text-danger"></i>}
-                                statsText="Errors"
-                                statsValue="23"
-                                statsIcon={<i className="fa fa-clock-o"></i>}
-                                statsIconText="In the last hour"
-                            />
-                        </Col>
-                        <Col lg={3} sm={6}>
-                            <StatsCard
-                                bigIcon={<i className="fa fa-twitter text-info"></i>}
-                                statsText="People"
-                                statsValue="+200"
-                                statsIcon={<i className="fa fa-refresh"></i>}
-                                statsIconText="Updated now"
+                        <Col md={12}>
+                            <Card
+                                title="Fetching your data..."
+                                content={
+                                    <HashLoader
+                                             color={'#3C4858'}
+                                             loading={this.props.data.loading}
+                                           />
+                                }
                             />
                         </Col>
                     </Row>
+                </div>
+            );
+        }
+
+        if (this.props.data && this.props.data.error) {
+            clearTimeout();
+            return (
+                <div>
+                    Error
+                </div>
+            );
+        }
+
+        const dataToRender = this.props.data.dataByMinutes;
+        console.log(this.props.data.dataByMinutes[0].Value);
+        // this.updateConfig(dataToRender);
+        clearTimeout();
+        return (
+            <div className="content">
                     <Row>
-                        <Col md={8}>
+                        <Col md={12}>
                             <Card
                                 statsIcon="fa fa-history"
                                 id="chartHours"
-                                title="Kemper_Baseline_Modeled_Electricity"
-                                category="Predicted value from MLR model"
-                                stats="Updated 3 minutes ago"
+                                title={this.props.headerData.sensorType}
+                                category={this.props.headerData.building}
+                                stats="Updated just now"
                                 content={
                                     <div className="ct-chart">
                                         <ReactHighcharts
-                                            config={HighChartsDummyData}
+                                                config={this.state.config}
                                             ref = 'ct-chart'
                                         />
                                     </div>
                                     }
                                 legend={
-                                    <div className="legend">
-                                        {this.createLegend(legendSales)}
+                                    <div>
+                                        <p>padding</p>
+                                        <p>padding</p>
+                                        <p>padding</p>
+                                        <p>padding</p>
                                     </div>
                                 }
                             />
                         </Col>
-                        <Col md={4}>
-                            <Card
-                                statsIcon="fa fa-clock-o"
-                                title="Building Usage"
-                                category="Kemper Hall"
-                                stats="updated 3 months ago"
-                                content={
-                                    <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
-                                        <ReactHighcharts config={dataPie} ref = 'ct-chart ct-perfect-fourth'/>
-                                        {/*<ChartistGraph data={dataPie} type="Pie"/>*/}
-                                    </div>
-                                }
-                                legend={
-                                    <div className="legend">
-                                        {this.createLegend(legendPie)}
-                                    </div>
-                                }
-                            />
-                        </Col>
+
                     </Row>
-
-                    <Row>
-                        <Col md={6}>
-                            <Card
-                                id="chartActivity"
-                                title="Electricity_MonthlyUsage"
-                                category="Kemper_Baseline_Modeled"
-                                stats="Data information certified"
-                                statsIcon="fa fa-check"
-                                content={
-                                    <div className="ct-chart">
-                                        <ChartistGraph
-                                            data={dataBar}
-                                            type="Bar"
-                                            options={optionsBar}
-                                            responsiveOptions={responsiveBar}
-                                        />
-                                    </div>
-                                }
-                                legend={
-                                    <div className="legend">
-                                        {this.createLegend(legendBar)}
-                                    </div>
-                                }
-                            />
-                        </Col>
-
-                        <Col md={6}>
-                            <Card
-                                title="Tasks"
-                                category="Development"
-                                stats="Updated 3 minutes ago"
-                                statsIcon="fa fa-history"
-                                content={
-                                    <div className="table-full-width">
-                                        <table className="table">
-                                            <Tasks />
-                                        </table>
-                                    </div>
-                                }
-                            />
-                        </Col>
-                    </Row>
-
-                </Grid>
             </div>
         );
     }
 }
 
-export default Dashboard;
+const MINUTES_QUERY = gql`
+    query MinutesQuery(
+        $building       : String,
+        $equipmentType  : String,
+        $equipmentNumber: String,
+        $sensorType     : String,
+        $startTime      : String,
+        $endTime        : String,
+        $interval       : String
+    ) {
+        dataByMinutes
+        (
+            building       : $building,
+            equipmentType  : $equipmentType,
+            equipmentNumber: $equipmentNumber,
+            sensorType     : $sensorType,
+            startTime      : $startTime,
+            endTime        : $endTime,
+            interval       : $interval
+        ) {
+            Timestamp
+            Value
+        }
+    }
+`;
+
+export default graphql(MINUTES_QUERY, {
+    options: (props) => ({
+        variables: {
+            building       : props.headerData.building,
+            equipmentType  : props.headerData.equipmentType,
+            equipmentNumber: props.headerData.equipmentNumber,
+            sensorType     : props.headerData.sensorType,
+            startTime      : props.headerData.startTime,
+            endTime        : props.headerData.endTime,
+            interval       : props.headerData.interval
+        }
+    }),
+})(Dashboard);
