@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 
 import HeaderLinks from '../Header/HeaderLinks.jsx';
 
-import imagine from '../../assets/img/sidebar-3.jpg';
 import logo from '../../assets/img/reactlogo.png';
 
 import appRoutes from '../../routes/app.jsx';
@@ -26,12 +25,8 @@ class Sidebar extends Component{
         window.addEventListener("resize", this.updateDimensions.bind(this));
     }
     render(){
-        const sidebarBackground = {
-            backgroundImage: 'url(' + imagine + ')'
-        };
         return (
-            <div id="sidebar" className="sidebar" data-color="black" data-image={imagine}>
-                <div className="sidebar-background" style={sidebarBackground}></div>
+            <div id="sidebar" className="sidebar" data-color="black">
                     <div className="logo">
                         <a href="#" className="simple-text logo-mini">
                             <div className="logo-img">
@@ -40,7 +35,7 @@ class Sidebar extends Component{
 
                         </a>
                         <a href="#" className="simple-text logo-normal">
-                            Visualize Tool
+                            Energy Viz
                         </a>
                     </div>
                 <div className="sidebar-wrapper">

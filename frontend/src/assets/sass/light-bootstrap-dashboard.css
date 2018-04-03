@@ -15,6 +15,23 @@
 
  */
 /*      light colors         */
+
+@font-face {
+  font-family: 'Proxima Nova';
+  font-style: normal;
+  font-weight: 400;
+  /*src: url('../fonts/Mark Simonson - Proxima Nova Alt Bold-webfont.eot'); !* IE9 Compat Modes *!*/
+  src: local('Proxima Nova'), local('Proxima Nova'),
+  url('../fonts/Mark Simonson - Proxima Nova Alt Black-webfont.woff2') format('woff2'), /* Super Modern Browsers */
+  url('../fonts/Mark Simonson - Proxima Nova Alt Black-webfont.woff') format('woff'), /* Modern Browsers */
+  url('../fonts/Mark Simonson - Proxima Nova Alt Black-webfont.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('../fonts/Mark Simonson - Proxima Nova Alt Black-webfont.svg') format('svg'); /* Legacy iOS */
+}
+body {
+  font-family: 'Proxima Nova';
+}
+
+
 @keyframes spin {
   from {
     transform: rotate(0deg); }
@@ -358,7 +375,7 @@ body > .navbar-collapse:after {
   background: -webkit-linear-gradient(top, #282828 0%, #111 100%);
   background: -o-linear-gradient(top, #282828 0%, #111 100%);
   background: -ms-linear-gradient(top, #282828 0%, #111 100%);
-  background: linear-gradient(to bottom, #282828 0%, #111 100%);
+  background: linear-gradient(to bottom, #3C414B 0%, #3C414B 100%);
   background-size: 150% 150%;
   z-index: 3;
   opacity: 1; }
@@ -435,7 +452,8 @@ body > .navbar-collapse[data-color="purple"]:after {
   background-size: 150% 150%; }
 
 .main-panel {
-  background: rgba(203, 203, 210, 0.15);
+  /*background: rgba(203, 203, 210, 0.15); */
+  background: #EEEDEE;
   position: relative;
   float: right;
   width: calc(100% - 260px); }
