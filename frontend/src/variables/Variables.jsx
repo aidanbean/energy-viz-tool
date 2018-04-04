@@ -616,5 +616,5 @@ module.exports = {
     style, // For notifications (App container and Notifications view)
     thArray, tdArray, // For tables (TableList view)
     iconsArray, // For icons (Icons view)
-    dataPie, legendPie, dataSales, optionsSales, responsiveSales, legendSales, dataBar, optionsBar, responsiveBar, legendBar, HighChartsDummyData, optionsDummy // For charts (Dashboard view)
+    dataPie, legendPie, dataSales, optionsSales, responsiveSales, legendSales, dataBar, optionsBar, responsiveBar, legendBar, HighChartsDummyData, optionsDummy // For charts (Search view)
 };

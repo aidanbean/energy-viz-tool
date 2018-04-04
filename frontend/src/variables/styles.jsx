@@ -629,7 +629,7 @@ const footerStyle = {
 };
 
 // ##############################
-// // // Dashboard styles
+// // // Search styles
 // #############################
 
 const dashboardStyle = {
