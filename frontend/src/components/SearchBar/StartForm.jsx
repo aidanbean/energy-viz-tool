@@ -1,6 +1,9 @@
 import { FormGroup, ControlLabel, FormControl, HelpBlock, Button } from 'react-bootstrap';
-import 'react-select/dist/react-select.css';
+// import 'react-select/dist/react-select.css';
 import React from 'react';
+import 'react-bootstrap/'
+import 'bootstrap-daterangepicker/daterangepicker.css';
+import 'font-awesome/css/font-awesome.css';
 import DatetimeRangePicker from 'react-bootstrap-datetimerangepicker';
 import moment from 'moment';
 

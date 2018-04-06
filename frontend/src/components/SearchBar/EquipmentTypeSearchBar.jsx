@@ -78,7 +78,7 @@ var EquipmentField = createClass({
                     autoFocus
                     simpleValue
                     options={options}
-                    clearable={this.state.clearable}
+                    clearable={this.clearValue}
                     name="selected-state"
                     disabled={this.state.disabled}
                     value={this.state.selectValue}
@@ -87,9 +87,6 @@ var EquipmentField = createClass({
                     searchable={this.state.searchable}
                 />
 
-
-                {/*<button style={{ dmarginTop: '15px' }}  type="button" onClick={this.focusStateSelect}>Focus Select</button>*/}
-                {/*<button style={{ marginTop: '15px' }} type="button" onClick={this.clearValue}>Clear Value</button>*/}
             </div>
         );
     }

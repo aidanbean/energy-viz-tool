@@ -1,39 +1,12 @@
 import React, { Component } from 'react';
-import ChartistGraph from 'react-chartist';
 import { Grid, Row, Col, ProgressBar, Button } from 'react-bootstrap';
 import { HashLoader } from 'react-spinners';
-
+import ReactHighcharts from 'react-highcharts';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-
+import SearchBar from '../../components/SearchBar/SearchBar';
 import {Card} from '../../components/Card/Card.jsx';
-import PredefinedRanges from '../../components/SearchBar/StartForm';
-import EndForm from '../../components/SearchBar/EndForm';
-import Building from '../../components/SearchBar/BuidlingSearchBar'
-import EquipType from '../../components/SearchBar/EquipmentTypeSearchBar'
-import EquipNum from '../../components/SearchBar/EquipmentNumberSearchBar'
-import Sensor from '../../components/SearchBar/SensorTypeSearchBar'
-import Interval from '../../components/SearchBar/IntervalForm';
 
-
-import {StatsCard} from '../../components/StatsCard/StatsCard.jsx';
-import {Tasks} from '../../components/Tasks/Tasks.jsx';
-import {
-    dataPie,
-    legendPie,
-    dataSales,
-    optionsSales,
-    responsiveSales,
-    legendSales,
-    dataBar,
-    optionsBar,
-    responsiveBar,
-    legendBar,
-    HighChartsDummyData
-} from '../../variables/Variables.jsx';
-
-
-const ReactHighcharts = require('react-highcharts');
 
 class Dashboard extends Component {
     constructor(props) {
@@ -166,35 +139,7 @@ class Dashboard extends Component {
         clearTimeout();
         return (
             <div className="content">
-                <Row>
-                    <Col md={2} > </Col>
-                    <Col md={2}>
-                        <Building/>
-                    </Col>
-                    <Col md={2}>
-                    <EquipType />
-                    </Col>
-                    <Col md={2}>
-                        <EquipNum/>
-                    </Col>
-                    <Col md={2}>
-                        <Sensor/>
-                    </Col>
-                    <Col md={2}> </Col>
-                </Row>
-                <br />
-                <Row>
-                    <Col md={2}> </Col>
-                    <Col md={4}>
-                        <PredefinedRanges />
-                    </Col>
-                    <Col md={2}><Interval/> </Col>
-                    <Col md={2}>
-                        <Button bsStyle="primary" onClick={this.buttonHandler}>Submit</Button>
-                    </Col>
-                    <Col md={2}> </Col>
-                </Row>
-                <hr />
+                {/*<SearchBar/>*/}
                 <Row>
                     <Col md={12}>
                         <Card

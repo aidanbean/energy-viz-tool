@@ -124,9 +124,9 @@ class HeaderLinks extends Component{
                 {/*<Nav style={{marginLeft:5}}>*/}
                     {/*<Sensor label="Sensor Type" building={this.state.building} equipNum={this.state.equpNum} equipType={this.state.equipType} callback={this.sensorTypeHandler} searchable />*/}
                 {/*</Nav>*/}
-                {/*<Nav style={{marginLeft:5, marginTop:8}}>*/}
-                    {/*<Start label="Start" callback={this.startHandler}/>*/}
-                {/*</Nav>*/}
+                {/*/!*<Nav style={{marginLeft:5, marginTop:8}}>*!/*/}
+                    {/*/!*<Start label="Start" callback={this.startHandler}/>*!/*/}
+                {/*/!*</Nav>*!/*/}
                 {/*<Nav style={{marginLeft:5, marginTop:8}}>*/}
                     {/*<End label="End" callback={this.endHandler}/>*/}
                 {/*</Nav>*/}
