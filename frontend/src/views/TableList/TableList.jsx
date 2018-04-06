@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, Table } from 'react-bootstrap';
 
-import ReactTable from "react-table";
+import ReactTable, { ReactTableDefaults } from "react-table";
 import "react-table/react-table.css";
 import matchSorter from 'match-sorter';
 
@@ -10,6 +10,10 @@ import Card from '../../components/Card/Card.jsx';
 import dataFetcher from './TableDataFetcher.jsx';
 import {CSVLink, CSVDownload} from 'react-csv';
 
+Object.assign(ReactTableDefaults, {
+    defaultPageSize: 10,
+    minRows: 3 // not sure if necessary
+});
 
 class TableList extends Component {
     constructor(prop) {
@@ -36,10 +40,11 @@ class TableList extends Component {
             />
         );
     }
-
     render() {
+
         const { data } = this.state;
         return (
+
             <div className="content">
                 <Grid fluid>
                     <Row>
@@ -118,7 +123,7 @@ class TableList extends Component {
                                             ]
                                         }
                                     ]}
-                                    defaultPageSize={10}
+                                    // defaultPageSize={10}
                                     className="-striped -highlight"
                                     />
 
