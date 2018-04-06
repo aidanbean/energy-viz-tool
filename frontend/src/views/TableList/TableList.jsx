@@ -18,11 +18,32 @@ Object.assign(ReactTableDefaults, {
 class TableList extends Component {
     constructor(prop) {
         super(prop);
+
+        this.dragged = null;
+        this.reorder = [];
         this.state = {
-            data: dataFetcher()
+            data: dataFetcher(),
+            trigger: 0
         };
         this.renderEditable = this.renderEditable.bind(this);
     }
+
+    mountEvents() {
+        const headers = Array.prototype.slice.call(document.querySelectorAll(".draggable-header")); // not sure if this class exists
+
+        headers.forEach((header, i) => {
+            header.setAttribute("draggable", true);
+            // dragged header part
+            header.ondragstart = e =>{
+                e.stopPropagation();
+                this.dragged = i;
+            };
+
+
+
+        });
+    }
+
     renderEditable(cellInfo) {
         return (
             <div
