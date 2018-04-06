@@ -39,9 +39,28 @@ class TableList extends Component {
                 this.dragged = i;
             };
 
+            header.ondrag = e => e.stopPropagation;
+            header.ondragend = e =>{
+                e.stopPropagation();
+                setTimeout(() => (this.dragged = null), 1000); // set timeout value
+            };
 
-
+            // the dropped header
+            header.ondragover = e => {
+                e.preventDefault();
+                const { target, dataTransfer } = e;
+                this.reorder.push({ a: i, b: this.dragged });
+                this.setState({ trigger: Math.random() });
+            };
         });
+    }
+
+    componentDidMount() {
+        this.mountEvents();
+    }
+
+    componentDidUpdate() {
+        this.mountEvents();
     }
 
     renderEditable(cellInfo) {
@@ -62,7 +81,7 @@ class TableList extends Component {
         );
     }
     render() {
-
+        const { rows, columns } = this.props;
         const { data } = this.state;
         return (
 
