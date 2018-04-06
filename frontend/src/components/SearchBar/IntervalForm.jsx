@@ -3,50 +3,45 @@ import 'react-select/dist/react-select.css';
 import React from 'react';
 import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import Select from 'react-select';
 
-class IntervalForm extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+var IntervalForm = createClass({
+    displayName: 'ValuesAsNumbersField',
+    propTypes: {
+        label: PropTypes.string
+    },
 
-    this.handleChange = this.handleChange.bind(this);
+    getInitialState () {
+        return {
+        options :[
+            { value: 5, label: '5 minutes'},
+            { value: 10, label: '10 minutes' },
+            { value: 15, label: '15 minutes' },
+            { value: 30, label: '30 minutes' },
+            { value: 45, label: '45 minutes' },
+            { value: 60, label: '60 minutes' }
+        ],
+            value: null,
+            multi: false
+        };
+    },
+    onChange(value) {
+        this.setState({ value });
+        console.log('Numeric Select value changed to', value);
+    },
+    render () {
+        return (
+            <div className="section">
+                <Select
+                    onChange={this.onChange}
+                    options={this.state.options}
+                    simpleValue
+                    value={this.state.value}
+                />
 
-    this.state = {
-      value: ''
-    };
-  }
-
-  getValidationState() {
-    const length = this.state.value.length;
-    if (length >= 2) return 'success';
-    else if (length > 3) return 'error';
-    else if (length > 0) return 'error';
-    return null;
-  }
-
-  handleChange(e) {
-    this.setState({ value: e.target.value }, () => {
-        this.props.callback(this.state.value);
-    });
-  }
-
-  render() {
-    return (
-      <form>
-        <FormGroup
-          controlId="formBasicText"
-          validationState={this.getValidationState()}
-        >
-          <FormControl
-            type="text"
-            value={this.state.value}
-            placeholder="15m"
-            onChange={this.handleChange}
-          />
-          <FormControl.Feedback />
-        </FormGroup>
-      </form>
-    );
-  }
-}
+            </div>
+        );
+    }
+});
 
 export default IntervalForm;

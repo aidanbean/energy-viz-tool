@@ -166,7 +166,7 @@ class Dashboard extends Component {
                     <Col md={4}>
                         <PredefinedRanges />
                     </Col>
-                    <Col md={2}><Interval/> </Col>
+                    <Col md={2}><Interval /> </Col>
                     <Col md={2}>
                         <Button bsStyle="primary" onClick={this.buttonHandler}>Submit</Button>
                     </Col>
