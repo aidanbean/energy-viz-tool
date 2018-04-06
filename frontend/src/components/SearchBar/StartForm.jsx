@@ -1,5 +1,4 @@
 import { FormGroup, ControlLabel, FormControl, HelpBlock, Button } from 'react-bootstrap';
-// import 'react-select/dist/react-select.css';
 import React from 'react';
 import 'react-bootstrap/'
 import 'bootstrap-daterangepicker/daterangepicker.css';
