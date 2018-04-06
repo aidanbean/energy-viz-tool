@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 import ChartistGraph from 'react-chartist';
-import { Grid, Row, Col, ProgressBar } from 'react-bootstrap';
+import { Grid, Row, Col, ProgressBar, Button } from 'react-bootstrap';
 import { HashLoader } from 'react-spinners';
 
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import {Card} from '../../components/Card/Card.jsx';
+import PredefinedRanges from '../../components/SearchBar/StartForm';
+import EndForm from '../../components/SearchBar/EndForm';
+import Building from '../../components/SearchBar/BuidlingSearchBar'
+import EquipType from '../../components/SearchBar/EquipmentTypeSearchBar'
+import EquipNum from '../../components/SearchBar/EquipmentNumberSearchBar'
+import Sensor from '../../components/SearchBar/SensorTypeSearchBar'
+import Interval from '../../components/SearchBar/IntervalForm';
+
+
 import {StatsCard} from '../../components/StatsCard/StatsCard.jsx';
 import {Tasks} from '../../components/Tasks/Tasks.jsx';
 import {
@@ -22,6 +31,7 @@ import {
     legendBar,
     HighChartsDummyData
 } from '../../variables/Variables.jsx';
+
 
 const ReactHighcharts = require('react-highcharts');
 
@@ -113,6 +123,7 @@ class Dashboard extends Component {
         this.setState({ didMount: true });
     }
 
+
     render() {
 
         if (this.state.didMount) {
@@ -148,40 +159,69 @@ class Dashboard extends Component {
             );
         }
 
+
         const dataToRender = this.props.data.dataByMinutes;
         console.log(this.props.data.dataByMinutes[0].Value);
         // this.updateConfig(dataToRender);
         clearTimeout();
         return (
             <div className="content">
-                    <Row>
-                        <Col md={12}>
-                            <Card
-                                statsIcon="fa fa-history"
-                                id="chartHours"
-                                title={this.props.headerData.sensorType}
-                                category={this.props.headerData.building}
-                                stats="Updated just now"
-                                content={
-                                    <div className="ct-chart">
-                                        <ReactHighcharts
-                                                config={this.state.config}
-                                            ref = 'ct-chart'
-                                        />
-                                    </div>
-                                    }
-                                legend={
-                                    <div>
-                                        <p>padding</p>
-                                        <p>padding</p>
-                                        <p>padding</p>
-                                        <p>padding</p>
-                                    </div>
+                <Row>
+                    <Col md={2} > </Col>
+                    <Col md={2}>
+                        <Building/>
+                    </Col>
+                    <Col md={2}>
+                    <EquipType />
+                    </Col>
+                    <Col md={2}>
+                        <EquipNum/>
+                    </Col>
+                    <Col md={2}>
+                        <Sensor/>
+                    </Col>
+                    <Col md={2}> </Col>
+                </Row>
+                <br />
+                <Row>
+                    <Col md={2}> </Col>
+                    <Col md={4}>
+                        <PredefinedRanges />
+                    </Col>
+                    <Col md={2}><Interval/> </Col>
+                    <Col md={2}>
+                        <Button bsStyle="primary" onClick={this.buttonHandler}>Submit</Button>
+                    </Col>
+                    <Col md={2}> </Col>
+                </Row>
+                <hr />
+                <Row>
+                    <Col md={12}>
+                        <Card
+                            statsIcon="fa fa-history"
+                            id="chartHours"
+                            title={this.props.headerData.sensorType}
+                            category={this.props.headerData.building}
+                            stats="Updated just now"
+                            content={
+                                <div className="ct-chart">
+                                    <ReactHighcharts
+                                            config={this.state.config}
+                                        ref = 'ct-chart'
+                                    />
+                                </div>
                                 }
-                            />
-                        </Col>
-
-                    </Row>
+                            legend={
+                                <div>
+                                    <p>padding</p>
+                                    <p>padding</p>
+                                    <p>padding</p>
+                                    <p>padding</p>
+                                </div>
+                            }
+                        />
+                    </Col>
+                </Row>
             </div>
         );
     }

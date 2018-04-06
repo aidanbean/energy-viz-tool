@@ -9,7 +9,10 @@ const EquipmentType = require('./EquipmentType');
 var SelectStyle = {
     marginTop: 10,
     position: 'relative',
-    width: 175
+    width: 138,
+    borderRadius: 3,
+    display: 'inline-block',
+    verticalAlign: 'middle',
 };
 
 

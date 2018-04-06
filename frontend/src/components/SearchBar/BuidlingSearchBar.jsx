@@ -9,7 +9,11 @@ const Building = require('./Building');
 var SelectStyle = {
     marginTop: 10,
     position: 'relative',
-    width: 175
+    width: 137,
+    borderRadius: 3,
+    display: 'inline-block',
+    verticalAlign: 'middle',
+
 };
 
 
@@ -83,10 +87,6 @@ var BuildingField = createClass({
                     rtl={this.state.rtl}
                     searchable={this.state.searchable}
                 />
-
-
-                {/*<button style={{ dmarginTop: '15px' }}  type="button" onClick={this.focusStateSelect}>Focus Select</button>*/}
-                {/*<button style={{ marginTop: '15px' }} type="button" onClick={this.clearValue}>Clear Value</button>*/}
             </div>
         );
     }

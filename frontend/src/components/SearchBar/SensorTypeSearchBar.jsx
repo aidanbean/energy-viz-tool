@@ -9,7 +9,10 @@ const SensorType = require('./SensorType');
 var SelectStyle = {
     marginTop: 10,
     position: 'relative',
-    width: 175
+    width: 138,
+    borderRadius: 3,
+    display: 'inline-block',
+    verticalAlign: 'middle',
 };
 
 
@@ -19,6 +22,7 @@ var SensorField = createClass({
         label: PropTypes.string,
         searchable: PropTypes.bool,
     },
+
     getDefaultProps () {
         return {
             label: 'Sensor:',

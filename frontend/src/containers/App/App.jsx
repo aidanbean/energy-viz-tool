@@ -109,13 +109,6 @@ class App extends Component {
         console.log("In App.jsx");
         console.log(dataFromHeader);
         this.setState({
-            // building: dataFromHeader.building,
-            // equipType: dataFromHeader.equipType,
-            // equipNum: dataFromHeader.equipNum,
-            // sensorType: dataFromHeader.sensorType,
-            // startTime: dataFromHeader.startTime,
-            // endTime: dataFromHeader.endTime,
-            // interval: dataFromHeader.interval
             headerData: dataFromHeader
         }, () => {
             console.log(this.state);

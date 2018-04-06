@@ -10,7 +10,10 @@ const EquipmentNumber = require('./EquipmentNumber');
 var SelectStyle = {
     marginTop: 10,
     position: 'relative',
-    width: 175
+    width: 138,
+    borderRadius: 3,
+    display: 'inline-block',
+    verticalAlign: 'middle',
 };
 
 
@@ -85,9 +88,6 @@ var EquipNumField = createClass({
                     searchable={this.state.searchable}
                 />
 
-
-                {/*<button style={{ dmarginTop: '15px' }}  type="button" onClick={this.focusStateSelect}>Focus Select</button>*/}
-                {/*<button style={{ marginTop: '15px' }} type="button" onClick={this.clearValue}>Clear Value</button>*/}
             </div>
         );
     }

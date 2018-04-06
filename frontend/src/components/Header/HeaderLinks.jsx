@@ -112,30 +112,30 @@ class HeaderLinks extends Component{
                         {/*<p className="hidden-lg hidden-md">Search</p>*/}
                     {/*</NavItem>*/}
                 </Nav>
-                <Nav style={{marginLeft:5}}>
-                    <Building label="Building" callback={this.buildingHandler} searchable />
-                </Nav>
-                <Nav style={{marginLeft:5}}>
-                    <EquipType label="Equipment Type" building={this.state.building} callback={this.equipTypeHandler} searchable />
-                </Nav>
-                <Nav style={{marginLeft:5}}>
-                    <EquipNum label="Equipment Number" building={this.state.building} equipType={this.state.equipNum} callback={this.equipNumHandler} searchable />
-                </Nav>
-                <Nav style={{marginLeft:5}}>
-                    <Sensor label="Sensor Type" building={this.state.building} equipNum={this.state.equpNum} equipType={this.state.equipType} callback={this.sensorTypeHandler} searchable />
-                </Nav>
-                <Nav style={{marginLeft:5, marginTop:8}}>
-                    <Start label="Start" callback={this.startHandler}/>
-                </Nav>
-                <Nav style={{marginLeft:5, marginTop:8}}>
-                    <End label="End" callback={this.endHandler}/>
-                </Nav>
-                <Nav style={{marginLeft:5, marginTop:8}}>
-                    <Interval label="Interval" callback={this.intervalHandler}/>
-                </Nav>
-                <Nav style={{marginLeft:5, marginTop:-6}}>
-                    <Button bsStyle="primary" onClick={this.buttonHandler}>Submit</Button>
-                </Nav>
+                {/*<Nav style={{marginLeft:5}}>*/}
+                    {/*<Building label="Building" callback={this.buildingHandler} searchable />*/}
+                {/*</Nav>*/}
+                {/*<Nav style={{marginLeft:5}}>*/}
+                    {/*<EquipType label="Equipment Type" building={this.state.building} callback={this.equipTypeHandler} searchable />*/}
+                {/*</Nav>*/}
+                {/*<Nav style={{marginLeft:5}}>*/}
+                    {/*<EquipNum label="Equipment Number" building={this.state.building} equipType={this.state.equipNum} callback={this.equipNumHandler} searchable />*/}
+                {/*</Nav>*/}
+                {/*<Nav style={{marginLeft:5}}>*/}
+                    {/*<Sensor label="Sensor Type" building={this.state.building} equipNum={this.state.equpNum} equipType={this.state.equipType} callback={this.sensorTypeHandler} searchable />*/}
+                {/*</Nav>*/}
+                {/*<Nav style={{marginLeft:5, marginTop:8}}>*/}
+                    {/*<Start label="Start" callback={this.startHandler}/>*/}
+                {/*</Nav>*/}
+                {/*<Nav style={{marginLeft:5, marginTop:8}}>*/}
+                    {/*<End label="End" callback={this.endHandler}/>*/}
+                {/*</Nav>*/}
+                {/*<Nav style={{marginLeft:5, marginTop:8}}>*/}
+                    {/*<Interval label="Interval" callback={this.intervalHandler}/>*/}
+                {/*</Nav>*/}
+                {/*<Nav style={{marginLeft:5, marginTop:-6}}>*/}
+                    {/*<Button bsStyle="primary" onClick={this.buttonHandler}>Submit</Button>*/}
+                {/*</Nav>*/}
                 <Nav pullRight>
                     <NavDropdown eventKey={2} title="Account" id="basic-nav-dropdown-right">
                         <MenuItem eventKey={2.1}>Account</MenuItem>

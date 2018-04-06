@@ -64,15 +64,15 @@ class Header extends Component{
     render(){
         return (
             <Navbar fluid>
-                {/*<Navbar.Header>*/}
-                    {/*<Navbar.Brand>*/}
-                        {/*<a href="#pablo">{this.getBrand()}</a>*/}
-                    {/*</Navbar.Brand>*/}
-                    {/*<Navbar.Toggle onClick={this.mobileSidebarToggle}/>*/}
-                {/*</Navbar.Header>*/}
-                {/*<Navbar.Collapse>*/}
-                    {/*<HeaderLinks callback={this.headerCallback}/>*/}
-                {/*</Navbar.Collapse>*/}
+                <Navbar.Header>
+                    <Navbar.Brand>
+                        <a href="#pablo">{this.getBrand()}</a>
+                    </Navbar.Brand>
+                    <Navbar.Toggle onClick={this.mobileSidebarToggle}/>
+                </Navbar.Header>
+                <Navbar.Collapse>
+                    <HeaderLinks callback={this.headerCallback}/>
+                </Navbar.Collapse>
             </Navbar>
         );
     }
