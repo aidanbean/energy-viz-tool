@@ -50,6 +50,5 @@
 	},
 	"devDependencies": {
 		"@types/chartist": "^0.9.38"
-	},
-	"proxy": "http://localhost:4000"
+	}
 }
