@@ -22,7 +22,7 @@ var style = {
             border: '0',
             fontSize: '14px',
             WebkitFontSmoothing: "antialiased",
-            fontFamily: '"Roboto","Helvetica Neue",Arial,sans-serif',
+            fontFamily: '"ProximaNova","Roboto","Helvetica Neue",Arial,sans-serif',
             fontWeight: '400',
             color: '#FFFFFF'
 
