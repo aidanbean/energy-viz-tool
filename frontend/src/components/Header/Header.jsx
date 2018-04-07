@@ -70,9 +70,9 @@ class Header extends Component{
                     {/*</Navbar.Brand>*/}
                     {/*<Navbar.Toggle onClick={this.mobileSidebarToggle}/>*/}
                 {/*</Navbar.Header>*/}
-                <Navbar.Collapse>
-                    <HeaderLinks callback={this.headerCallback}/>
-                </Navbar.Collapse>
+                {/*<Navbar.Collapse>*/}
+                    {/*<HeaderLinks callback={this.headerCallback}/>*/}
+                {/*</Navbar.Collapse>*/}
             </Navbar>
         );
     }

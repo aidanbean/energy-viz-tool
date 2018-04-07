@@ -1,3 +1,5 @@
+
+
 import React, { Component } from 'react';
 import {
     Route,
@@ -12,6 +14,8 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import {style} from "../../variables/Variables.jsx";
 
 import appRoutes from '../../routes/app.jsx';
+
+// import TableList from './TableList.jsx'
 
 class App extends Component {
     constructor(props){
@@ -57,7 +61,7 @@ class App extends Component {
         //     title: (<span data-notify="icon" className="pe-7s-gift"></span>),
         //     message: (
         //         <div>
-        //             Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer.
+        //             Welcome to <b>Light Bootstrap Search</b> - a beautiful freebie for every web developer.
         //         </div>
         //     ),
         //     level: level,
@@ -92,7 +96,7 @@ class App extends Component {
         //     title: (<span data-notify="icon" className="pe-7s-gift"></span>),
         //     message: (
         //         <div>
-        //             Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer.
+        //             Welcome to <b>Light Bootstrap Search</b> - a beautiful freebie for every web developer.
         //         </div>
         //     ),
         //     level: level,
@@ -122,8 +126,13 @@ class App extends Component {
         })
     }
     render() {
-        return (
 
+        const { data } = this.state;
+        const fieldMap = ["building", "equipmentType", "equipmentNumber", "SensorType"];
+        const heads = ["Building", "Equipment Type", "Equipment Number", "Sensor Type"];
+
+
+        return (
                 <div className="wrapper">
                     <NotificationSystem ref="notificationSystem" style={style}/>
                     <Sidebar {...this.props} />

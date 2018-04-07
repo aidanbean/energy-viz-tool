@@ -8,6 +8,12 @@ Backend uses Node.js, Express.js, MongoDB, GraphQL, and [additional packages her
 
 Frontend uses React, HighCharts, and [additional packages here] and was built with [create-react-app](https://github.com/facebookincubator/create-react-app).
 
+## Demo
+
+frontend: https://energytool-frontend.herokuapp.com/#/dashboard
+
+backend: https://ecs193energytool.herokuapp.com/api/graphql
+
 ## Getting Started ##
 
 1) clone the repository to your local machine: 
