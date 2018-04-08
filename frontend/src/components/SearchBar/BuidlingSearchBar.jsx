@@ -1,4 +1,5 @@
 import Select from 'react-select';
+import { Row, Col } from 'react-bootstrap';
 import 'react-select/dist/react-select.css';
 import React from 'react';
 import createClass from 'create-react-class';
@@ -9,7 +10,7 @@ const Building = require('./Building');
 var SelectStyle = {
     marginTop: 10,
     position: 'relative',
-    width: 137,
+    // width: 137,
     borderRadius: 3,
     display: 'inline-block',
     verticalAlign: 'middle',

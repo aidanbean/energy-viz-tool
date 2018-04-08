@@ -1,51 +1,38 @@
-import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
-import 'react-select/dist/react-select.css';
-import React from 'react';
-import createClass from 'create-react-class';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import Datetime from 'react-datetime';
+import 'react-datetime/css/react-datetime.css';
+import { FormGroup } from 'react-bootstrap';
 
-class EndForm extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+class EndForm extends Component {
 
-    this.handleChange = this.handleChange.bind(this);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-      value: ''
-    };
-  }
+        this.handleEvent = this.handleEvent.bind(this);
 
-  getValidationState() {
-    const length = this.state.value.length;
-    if (length == 14 || length == 15) return 'success';
-    else if (length > 0) return 'warning';
-    return null;
-  }
+        this.state = {
+            value: null
+        };
+    }
 
-  handleChange(e) {
-    this.setState({ value: e.target.value }, () => {
-        this.props.callback(this.state.value);
-    });
-  }
+    handleEvent(event, picker) {
+        this.setState({
+            startDate: picker.startDate,
+            endDate: picker.endDate,
+        });
+        console.log("here");
+    }
 
-  render() {
-    return (
-      <form>
-        <FormGroup
-          controlId="formBasicText"
-          validationState={this.getValidationState()}
-        >
-          <FormControl
-            type="text"
-            value={this.state.value}
-            placeholder="12-11-2017-12pm"
-            onChange={this.handleChange}
-          />
-          <FormControl.Feedback />
-        </FormGroup>
-      </form>
-    );
-  }
+    render() {
+        return (
+            <FormGroup>
+              <Datetime
+                  inputProps={{placeholder:"End Date"}}
+              />
+            </FormGroup>
+        );
+    }
+
 }
 
 export default EndForm;

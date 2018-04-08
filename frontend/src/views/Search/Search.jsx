@@ -4,11 +4,13 @@ import { HashLoader } from 'react-spinners';
 import ReactHighcharts from 'react-highcharts';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import HeaderLinks from '../../components/Header/HeaderLinks.jsx';
 import Building from '../../components/SearchBar/BuidlingSearchBar'
 import EquipType from '../../components/SearchBar/EquipmentTypeSearchBar'
 import EquipNum from '../../components/SearchBar/EquipmentNumberSearchBar'
 import Sensor from '../../components/SearchBar/SensorTypeSearchBar'
-import PredefinedRanges from '../../components/SearchBar/StartForm';
+import Start from '../../components/SearchBar/StartForm';
+import End from '../../components/SearchBar/EndForm';
 import Interval from '../../components/SearchBar/IntervalForm';
 import {Card} from '../../components/Card/Card.jsx';
 
@@ -143,36 +145,11 @@ class Dashboard extends Component {
         // this.updateConfig(dataToRender);
         clearTimeout();
         return (
-            <div className="content">
+            <div>
+                <Row> d </Row>
                 <Row>
-                    <Col md={2} > </Col>
-                    <Col md={2}>
-                        <Building/>
-                    </Col>
-                    <Col md={2}>
-                        <EquipType />
-                    </Col>
-                    <Col md={2}>
-                        <EquipNum/>
-                    </Col>
-                    <Col md={2}>
-                        <Sensor/>
-                    </Col>
-                    <Col md={2}> </Col>
+                    <HeaderLinks />
                 </Row>
-                <br />
-                <Row>
-                    <Col md={2}> </Col>
-                    <Col md={4}>
-                        <PredefinedRanges />
-                    </Col>
-                    <Col md={2}><Interval /> </Col>
-                    <Col md={2}>
-                        <Button bsStyle="primary" onClick={this.buttonHandler}>Submit</Button>
-                    </Col>
-                    <Col md={2}> </Col>
-                </Row>
-                <hr />
                 <Row>
                     <Col md={12}>
                         <Card

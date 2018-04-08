@@ -1,9 +1,18 @@
-import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, Row, Col } from 'react-bootstrap';
 import 'react-select/dist/react-select.css';
 import React from 'react';
 import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
+
+var SelectStyle = {
+    marginTop: 2,
+    position: 'relative',
+    // width: 138,
+    borderRadius: 3,
+    display: 'inline-block',
+    verticalAlign: 'middle',
+};
 
 var IntervalForm = createClass({
     displayName: 'ValuesAsNumbersField',
@@ -33,12 +42,13 @@ var IntervalForm = createClass({
         return (
             <div className="section">
                 <Select
+                    placeholder = "Interval"
                     onChange={this.onChange}
+                    style={SelectStyle}
                     options={this.state.options}
                     simpleValue
                     value={this.state.value}
                 />
-
             </div>
         );
     }

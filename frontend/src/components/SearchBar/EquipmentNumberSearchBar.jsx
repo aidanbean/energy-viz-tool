@@ -1,4 +1,5 @@
 import Select from 'react-select';
+import { Row, Col } from 'react-bootstrap';
 // import { Async } from 'react-select';
 import 'react-select/dist/react-select.css';
 import React from 'react';
@@ -10,7 +11,7 @@ const EquipmentNumber = require('./EquipmentNumber');
 var SelectStyle = {
     marginTop: 10,
     position: 'relative',
-    width: 138,
+    // width:
     borderRadius: 3,
     display: 'inline-block',
     verticalAlign: 'middle',
@@ -87,7 +88,6 @@ var EquipNumField = createClass({
                     rtl={this.state.rtl}
                     searchable={this.state.searchable}
                 />
-
             </div>
         );
     }
