@@ -33,7 +33,7 @@ function dataFetcher(len = 5553) {
     return range(len).map(d => {
         return {
             ...fakeData(),
-            // children: range(10).map(fakeData)
+            children: range(10).map(fakeData)
         };
     });
 }

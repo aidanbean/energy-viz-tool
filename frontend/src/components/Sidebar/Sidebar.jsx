@@ -3,10 +3,11 @@ import { NavLink } from 'react-router-dom';
 
 import HeaderLinks from '../Header/HeaderLinks.jsx';
 
-import imagine from '../../assets/img/sidebar-3.jpg';
-import logo from '../../assets/img/reactlogo.png';
+import logo from '../../assets/img/energyviz-logo.png';
 
 import appRoutes from '../../routes/app.jsx';
+
+
 
 class Sidebar extends Component{
     constructor(props){
@@ -26,23 +27,26 @@ class Sidebar extends Component{
         window.addEventListener("resize", this.updateDimensions.bind(this));
     }
     render(){
-        const sidebarBackground = {
-            backgroundImage: 'url(' + imagine + ')'
-        };
         return (
-            <div id="sidebar" className="sidebar" data-color="black" data-image={imagine}>
-                <div className="sidebar-background" style={sidebarBackground}></div>
+            <div id="sidebar" className="sidebar" data-color="black">
                     <div className="logo">
-                        <a href="#" className="simple-text logo-mini">
-                            <div className="logo-img">
-                                <img src={logo} alt="logo_image"/>
-                            </div>
+                        <div style={{display: 'flex', justifyContent: 'center'}}>
+                            <a href="#" className="simple-text logo-mini">
+                                <div className="logo-img">
+                                    <img src={logo} alt="logo_image"/>
+                                </div>
+                            </a>
+                        </div>
+                        <div style={{display: 'flex', justifyContent: 'center'}}>
+                            <a href="#" className="simple-text logo-normal">
+                                Energy Viz
+                            </a>
+                        </div>
 
-                        </a>
-                        <a href="#" className="simple-text logo-normal">
-                            Visualize Tool
-                        </a>
                     </div>
+
+
+
                 <div className="sidebar-wrapper">
                     <ul className="nav">
                         { this.state.width <= 991 ? (<HeaderLinks />):null }

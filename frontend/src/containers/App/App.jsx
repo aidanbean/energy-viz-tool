@@ -1,3 +1,5 @@
+
+
 import React, { Component } from 'react';
 import moment from 'moment';
 import {
@@ -13,6 +15,8 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import {style} from "../../variables/Variables.jsx";
 
 import appRoutes from '../../routes/app.jsx';
+
+// import TableList from './TableList.jsx'
 
 class App extends Component {
     constructor(props){
@@ -121,8 +125,13 @@ class App extends Component {
         })
     }
     render() {
-        return (
 
+        const { data } = this.state;
+        const fieldMap = ["building", "equipmentType", "equipmentNumber", "SensorType"];
+        const heads = ["Building", "Equipment Type", "Equipment Number", "Sensor Type"];
+
+
+        return (
                 <div className="wrapper">
                     <NotificationSystem ref="notificationSystem" style={style}/>
                     <Sidebar {...this.props} />
