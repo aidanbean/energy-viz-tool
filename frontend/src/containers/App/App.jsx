@@ -25,9 +25,11 @@ class App extends Component {
         this.handleNotificationClick = this.handleNotificationClick.bind(this);
         this.dataByMinutes = this.dataByMinutes.bind(this);
         // this._getByMinutes = this._getByMinutes.bind(this);
-        var initialStart = moment().subtract(30, 'days').format('MM-DD-YYYY-ha');
+        // var initialStart = moment().subtract(30, 'days').format('MM-DD-YYYY-ha');
+        var initialStart = '03-20-2018-6am';
         console.log(initialStart);
-        var initialEnd = moment().format('MM-DD-YYYY-ha');
+        // var initialEnd = moment().format('MM-DD-YYYY-ha');
+        var initialEnd = '03-21-2018-6pm';
         console.log(initialEnd);
         this.state = {
             _notificationSystem: null,
@@ -38,7 +40,7 @@ class App extends Component {
                 sensorType     : 'Outside Air Temp',
                 startTime      : initialStart,
                 endTime        : initialEnd,
-                interval       : '30m'
+                interval       : '20m'
             }
         };
         console.log(this.state);

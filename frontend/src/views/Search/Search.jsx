@@ -34,7 +34,7 @@ class Dashboard extends Component {
                 },
                 series: [{
                     data: [],
-                    color: '#00cc00'
+                    color: '#9acd32'
                 }],
                 title: {
                     text: null
@@ -91,7 +91,7 @@ class Dashboard extends Component {
                 },
                 series: [{
                     data: y,
-                     color: '#00cc00'
+                     color: '#9acd32'
                 }],
                 title: {
                     text: null
@@ -168,7 +168,7 @@ class Dashboard extends Component {
                 <Row>
                     <Col md={12}>
                         <Card
-                            statsIcon="fa fa-history"
+                            statsIcon="fa fa-refresh"
                             id="chartHours"
                             title={this.props.headerData.sensorType}
                             category={this.props.headerData.building}
