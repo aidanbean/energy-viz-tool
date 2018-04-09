@@ -33,7 +33,8 @@ class Dashboard extends Component {
                     categories: []
                 },
                 series: [{
-                    data: []
+                    data: [],
+                    color: '#00cc00'
                 }],
                 title: {
                     text: null
@@ -89,7 +90,8 @@ class Dashboard extends Component {
                     categories: x
                 },
                 series: [{
-                    data: y
+                    data: y,
+                     color: '#00cc00'
                 }],
                 title: {
                     text: null

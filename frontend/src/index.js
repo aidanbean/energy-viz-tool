@@ -24,7 +24,7 @@ import './assets/css/pe-icon-7-stroke.css';
 const host = process.env.HOST
 const port = process.env.PORT
 
-const httpLink = new HttpLink({ uri: `http://localhost:4000` })
+const httpLink = new HttpLink({ uri: `http://localhost:4000/api/graphql` })
 // const httpLink = new HttpLink({ uri: `https://ecs193energytool.herokuapp.com/api/graphql` })
 
 const client = new ApolloClient({
