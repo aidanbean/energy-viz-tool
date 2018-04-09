@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col, ProgressBar, Button } from 'react-bootstrap';
+import { Grid, Row, Col, ProgressBar, Button, Jumbotron } from 'react-bootstrap';
 import { HashLoader } from 'react-spinners';
 import ReactHighcharts from 'react-highcharts';
 import { graphql } from 'react-apollo';
@@ -18,6 +18,7 @@ import {Card} from '../../components/Card/Card.jsx';
 class Dashboard extends Component {
     constructor(props) {
         super(props);
+        this.headerCallback = this.headerCallback.bind(this);
         this.state = {
             didMount: false,
             progress: 0,
@@ -65,7 +66,8 @@ class Dashboard extends Component {
             console.log("Invalid Data");
             return;
         }
-
+        console.log("Here!!");
+        console.log(nextProps);
         const x = [];
         (nextProps.data.dataByMinutes).forEach(function(element) {
             x.push(element.Timestamp);
@@ -103,6 +105,11 @@ class Dashboard extends Component {
         this.setState({ didMount: true });
     }
 
+    headerCallback(dataFromHeader) {
+        console.log("In Header.jsx");
+        console.log(dataFromHeader);
+        this.props.callback(dataFromHeader);
+    }
 
     render() {
 
@@ -119,9 +126,9 @@ class Dashboard extends Component {
                                 title="Fetching your data..."
                                 content={
                                     <HashLoader
-                                             color={'#3C4858'}
-                                             loading={this.props.data.loading}
-                                           />
+                                        color={'#3C4858'}
+                                        loading={this.props.data.loading}
+                                    />
                                 }
                             />
                         </Col>
@@ -134,7 +141,12 @@ class Dashboard extends Component {
             clearTimeout();
             return (
                 <div>
-                    Error
+                    <Jumbotron>
+                      <h1><center><font color="red">Error</font></center></h1>
+                        <center>
+                        There was a problem.
+                        </center>
+                    </Jumbotron>;
                 </div>
             );
         }
@@ -148,7 +160,7 @@ class Dashboard extends Component {
             <div>
                 <Row> d </Row>
                 <Row>
-                    <HeaderLinks />
+                    <HeaderLinks callback={this.headerCallback}/>
                 </Row>
                 <Row>
                     <Col md={12}>
@@ -161,7 +173,7 @@ class Dashboard extends Component {
                             content={
                                 <div className="ct-chart">
                                     <ReactHighcharts
-                                            config={this.state.config}
+                                        config={this.state.config}
                                         ref = 'ct-chart'
                                     />
                                 </div>

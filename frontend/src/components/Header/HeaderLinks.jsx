@@ -89,16 +89,16 @@ class HeaderLinks extends Component{
                 <Row>
                     <Col md={2} > </Col>
                     <Col md={2}>
-                        <Building/>
+                        <Building label="Building" callback={this.buildingHandler} searchable />
                     </Col>
                     <Col md={2}>
-                        <EquipType />
+                        <EquipType label="Equipment Type" building={this.state.building} callback={this.equipTypeHandler} searchable />
                     </Col>
                     <Col md={2}>
-                        <EquipNum/>
+                        <EquipNum label="Equipment Number" building={this.state.building} equipType={this.state.equipNum} callback={this.equipNumHandler} searchable />
                     </Col>
                     <Col md={2}>
-                        <Sensor/>
+                        <Sensor label="Sensor Type" building={this.state.building} equipNum={this.state.equpNum} equipType={this.state.equipType} callback={this.sensorTypeHandler} searchable />
                     </Col>
                     <Col md={2}> </Col>
                 </Row>
@@ -106,14 +106,16 @@ class HeaderLinks extends Component{
                 <Row>
                     <Col md={2} > </Col>
                     <Col md={2}>
-                        <Start />
+                        <Start label="Start" callback={this.startHandler}/>
                     </Col>
                     <Col md={2}>
-                        <End />
+                        <End label="End" callback={this.endHandler}/>
                     </Col>
-                    <Col md={2}><Interval /> </Col>
                     <Col md={2}>
-                        <Button bsStyle="success" bsSize="medium" block onClick={this.buttonHandler}>Submit</Button>
+                        <Interval label="Interval" callback={this.intervalHandler}/> 
+                    </Col>
+                    <Col md={2}>
+                        <Button bsStyle="success" block onClick={this.buttonHandler}>Submit</Button>
                     </Col>
                     <Col md={2}> </Col>
                 </Row>

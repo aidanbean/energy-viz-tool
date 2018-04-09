@@ -15,12 +15,13 @@ class EndForm extends Component {
         };
     }
 
-    handleEvent(event, picker) {
+    handleEvent(value) {
         this.setState({
-            startDate: picker.startDate,
-            endDate: picker.endDate,
+            value: value,
+        }, () => {
+            var time = value.format('MM-DD-YYYY-ha');
+            this.props.callback(time);
         });
-        console.log("here");
     }
 
     render() {
@@ -28,6 +29,7 @@ class EndForm extends Component {
             <FormGroup>
               <Datetime
                   inputProps={{placeholder:"End Date"}}
+                  onChange={this.handleEvent}
               />
             </FormGroup>
         );

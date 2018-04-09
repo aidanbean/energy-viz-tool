@@ -79,7 +79,7 @@ var EquipmentField = createClass({
                     autoFocus
                     simpleValue
                     options={options}
-                    clearable={this.clearValue}
+                    clearable={this.state.clearable}
                     name="selected-state"
                     disabled={this.state.disabled}
                     value={this.state.selectValue}

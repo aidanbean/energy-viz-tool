@@ -54,7 +54,7 @@ var BuildingField = createClass({
         this.setState({
             selectValue: newValue,
         }, () => {
-            this.props.setState(this.state.selectValue);
+            this.props.callback(this.state.selectValue);
         });
     },
     focusStateSelect () {

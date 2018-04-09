@@ -23,20 +23,22 @@ var IntervalForm = createClass({
     getInitialState () {
         return {
         options :[
-            { value: 5, label: '5 minutes'},
-            { value: 10, label: '10 minutes' },
-            { value: 15, label: '15 minutes' },
-            { value: 30, label: '30 minutes' },
-            { value: 45, label: '45 minutes' },
-            { value: 60, label: '60 minutes' }
+            { value: '5m', label: '5 minutes' },
+            { value: '10m', label: '10 minutes' },
+            { value: '15m', label: '15 minutes' },
+            { value: '30m', label: '30 minutes' },
+            { value: '45m', label: '45 minutes' },
+            { value: '60m', label: '60 minutes' }
         ],
             value: null,
             multi: false
         };
     },
     onChange(value) {
-        this.setState({ value });
-        console.log('Numeric Select value changed to', value);
+        this.setState({ value }, () => {
+            console.log('Numeric Select value changed to', value);
+            this.props.callback(this.state.value);
+        });
     },
     render () {
         return (

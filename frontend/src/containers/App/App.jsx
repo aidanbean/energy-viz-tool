@@ -121,7 +121,7 @@ class App extends Component {
                     <NotificationSystem ref="notificationSystem" style={style}/>
                     <Sidebar {...this.props} />
                     <div id="main-panel" className="main-panel">
-                        <Header {...this.props} callback={this.dataByMinutes}/>
+                        <Header {...this.props} />
                             <Switch>
                                 {
                                     appRoutes.map((prop,key) => {
@@ -148,6 +148,7 @@ class App extends Component {
                                                         <prop.component
                                                             {...redirectProps}
                                                             headerData={this.state.headerData}
+                                                            callback={this.dataByMinutes}
                                                         />}
                                                 />
                                             );
@@ -159,6 +160,7 @@ class App extends Component {
                                                     <prop.component
                                                         {...routeProps}
                                                         headerData={this.state.headerData}
+                                                        callback={this.dataByMinutes}
                                                     />}
                                             />
                                         );
