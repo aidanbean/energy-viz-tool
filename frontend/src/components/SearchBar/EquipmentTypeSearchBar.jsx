@@ -4,6 +4,8 @@ import 'react-select/dist/react-select.css';
 import React from 'react';
 import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 const EquipmentType = require('./EquipmentType');
 
@@ -12,8 +14,8 @@ var SelectStyle = {
     position: 'relative',
     // width: 138,
     borderRadius: 3,
-    display: 'inline-block',
-    verticalAlign: 'middle',
+    // display: 'inline-block',
+    // verticalAlign: 'middle',
 };
 
 
@@ -32,10 +34,12 @@ var EquipmentField = createClass({
     getInitialState () {
         return {
             type: 'EquipmentTypes',
+            options: EquipmentType['EquipmentTypes'],
             disabled: false,
             searchable: this.props.searchable,
             selectValue: 'new-south-wales',
             clearable: true,
+            isLoading: true,
             rtl: false,
         };
     },
@@ -53,6 +57,7 @@ var EquipmentField = createClass({
         this.setState({
             selectValue: newValue,
         }, () => {
+            console.log("calling callback");
             this.props.callback(this.state.selectValue);
         });
     },
@@ -64,21 +69,38 @@ var EquipmentField = createClass({
         newState[e.target.name] = e.target.checked;
         this.setState(newState);
     },
-
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.data && !nextProps.data.loading) {
+            var options = [];
+            (nextProps.data.sensorData).forEach(function(element) {
+                        const optionsObj = {label: element.equipmentType, value: element.equipmentType, className: "equipmentType"};
+                        options.push(optionsObj);
+            });
+            options = options.filter((option, index, self) =>
+                index === self.findIndex((t) => (
+                    t.value === option.value
+                ))
+            );
+        }
+        this.setState({
+            options: options,
+            isLoading: false
+        });
+    },
     render () {
-        var options = EquipmentType[this.state.type];
         return (
             <div>
                 <Select
                     placeholder = "Equipment Type"
                     style={SelectStyle}
                     id="state-select"
+                    isLoading={this.state.isLoading}
                     ref={(ref) => { this.select = ref; }}
                     onBlurResetsInput={false}
                     onSelectResetsInput={false}
                     autoFocus
                     simpleValue
-                    options={options}
+                    options={this.state.options}
                     clearable={this.state.clearable}
                     name="selected-state"
                     disabled={this.state.disabled}
@@ -93,4 +115,22 @@ var EquipmentField = createClass({
     }
 });
 
-export default EquipmentField;
+const TYPE_QUERY = gql`
+    query MinutesQuery(
+        $building       : String,
+    ) {
+        sensorData(
+            building       : $building
+        ) {
+            equipmentType
+        }
+    }
+`;
+
+export default graphql(TYPE_QUERY, {
+    options: (props) => ({
+        variables: {
+            building       : props.building,
+        }
+    }),
+})(EquipmentField);

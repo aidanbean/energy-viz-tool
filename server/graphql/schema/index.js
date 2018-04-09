@@ -82,10 +82,17 @@ var schema = buildSchema(`
             equipmentType: String,
             equipmentNumber: String,
             sensorType: String,
-        ): DataPoint
+        ): DataPoint,
 
         buildingData(building: String): BuildingData,
-        sensorData(building: String): SensorData
+
+        sensorData
+        (
+            building: String,
+            equipmentType: String,
+            equipmentNumber: String,
+            sensorType: String,
+        ): [SensorData]
     }
 
 `);
@@ -173,15 +180,31 @@ var root = {
         return bData;
     },
 
-    sensorData: async function ({building}) {
-        const dbEntry = {
-            "building": building,
-        };
+    sensorData: async function ({building, equipmentType, equipmentNumber, sensorType}) {
+        const dbEntry = {};
+        if((typeof building !== "undefined") && (building != null)) {
+            dbEntry["building"] = building;
+        }
+        if((typeof equipmentType !== "undefined") && (equipmentType != null)) {
+            dbEntry["equipmentType"] = equipmentType;
+        }
+        if((typeof equipmentNumber !== "undefined") && (equipmentNumber != null)) {
+            dbEntry["equipmentNumber"] = equipmentNumber;
+        }
+        if((typeof sensorType !== "undefined") && (sensorType != null)) {
+            dbEntry["sensorType"] = sensorType;
+        }
         console.log(dbEntry);
         const cursor = db.collection("good_data").find(dbEntry);
-        let dbResult = await cursor.next();
-        const sData = new SensorData(dbResult.webId, dbResult.tagName, dbResult.building, dbResult.equipmentType, dbResult.equipmentNumber, dbResult.sensorType);
-        return sData;
+        const results = await DataModel.find(dbEntry);
+        // let dbResult = await cursor.next();
+        console.log(results);
+        var listOfData = [];
+        (results).forEach( function(element) {
+            const sData = new SensorData(element.webId, element.tagName, element.building, element.equipmentType, element.equipmentNumber, element.sensorType);
+            listOfData.push(sData);
+        });
+        return listOfData;
     },
 }
 

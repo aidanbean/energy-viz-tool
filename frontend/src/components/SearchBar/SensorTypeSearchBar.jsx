@@ -4,6 +4,8 @@ import 'react-select/dist/react-select.css';
 import React from 'react';
 import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 const SensorType = require('./SensorType');
 
@@ -12,8 +14,8 @@ var SelectStyle = {
     position: 'relative',
     // width: 138,
     borderRadius: 3,
-    display: 'inline-block',
-    verticalAlign: 'middle',
+    // display: 'inline-block',
+    // verticalAlign: 'middle',
 };
 
 
@@ -33,6 +35,7 @@ var SensorField = createClass({
     getInitialState () {
         return {
             sensor: 'SensorTypes',
+            options: SensorType['SensorTypes'],
             disabled: false,
             searchable: this.props.searchable,
             selectValue: 'new-south-wales',
@@ -65,7 +68,24 @@ var SensorField = createClass({
         newState[e.target.name] = e.target.checked;
         this.setState(newState);
     },
-
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.data && !nextProps.data.loading) {
+            var options = [];
+            (nextProps.data.sensorData).forEach(function(element) {
+                        const optionsObj = {label: element.sensorType, value: element.sensorType, className: "sensorType"};
+                        options.push(optionsObj);
+            });
+            options = options.filter((option, index, self) =>
+                index === self.findIndex((t) => (
+                    t.value === option.value
+                ))
+            );
+        }
+        this.setState({
+            options: options,
+            isLoading: false
+        });
+    },
     render () {
         var options = SensorType[this.state.sensor];
         return (
@@ -79,7 +99,7 @@ var SensorField = createClass({
                     onSelectResetsInput={false}
                     autoFocus
                     simpleValue
-                    options={options}
+                    options={this.state.options}
                     clearable={this.state.clearable}
                     name="selected-state"
                     disabled={this.state.disabled}
@@ -88,13 +108,33 @@ var SensorField = createClass({
                     rtl={this.state.rtl}
                     searchable={this.state.searchable}
                 />
-
-
-                {/*<button style={{ dmarginTop: '15px' }}  type="button" onClick={this.focusStateSelect}>Focus Select</button>*/}
-                {/*<button style={{ marginTop: '15px' }} type="button" onClick={this.clearValue}>Clear Value</button>*/}
             </div>
         );
     }
 });
 
-export default SensorField;
+const NUM_QUERY = gql`
+    query MinutesQuery(
+        $building       : String,
+        $equipmentType  : String,
+        $equipmentNumber: String,
+    ) {
+        sensorData(
+            building       : $building,
+            equipmentType  : $equipmentType,
+            equipmentNumber: $equipmentNumber,
+        ) {
+            sensorType
+        }
+    }
+`;
+
+export default graphql(NUM_QUERY, {
+    options: (props) => ({
+        variables: {
+            building       : props.building,
+            equipmentType  : props.equipType,
+            equipmentNumber: props.equipNum,
+        }
+    }),
+})(SensorField);

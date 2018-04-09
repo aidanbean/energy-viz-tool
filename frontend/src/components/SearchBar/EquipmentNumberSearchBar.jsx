@@ -5,6 +5,8 @@ import 'react-select/dist/react-select.css';
 import React from 'react';
 import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 const EquipmentNumber = require('./EquipmentNumber');
 
@@ -13,8 +15,8 @@ var SelectStyle = {
     position: 'relative',
     // width:
     borderRadius: 3,
-    display: 'inline-block',
-    verticalAlign: 'middle',
+    // display: 'inline-block',
+    // verticalAlign: 'middle',
 };
 
 
@@ -33,6 +35,7 @@ var EquipNumField = createClass({
     getInitialState () {
         return {
             country: 'EquipmentNumbers',
+            options: EquipmentNumber['EquipmentNumbers'],
             disabled: false,
             searchable: this.props.searchable,
             selectValue: 'new-south-wales',
@@ -65,9 +68,33 @@ var EquipNumField = createClass({
         newState[e.target.name] = e.target.checked;
         this.setState(newState);
     },
-
+    componentWillReceiveProps(nextProps) {
+        console.log("here");
+        console.log(nextProps.equipType);
+        if(nextProps.equipType == "CHW" || nextProps.equipType == "HHW") {
+            this.setState({
+                disabled: true
+            });
+        }
+        else if(nextProps.data && !nextProps.data.loading) {
+            var options = [];
+            (nextProps.data.sensorData).forEach(function(element) {
+                        const optionsObj = {label: element.equipmentNumber, value: element.equipmentNumber, className: "equipmentNumber"};
+                        options.push(optionsObj);
+            });
+            options = options.filter((option, index, self) =>
+                index === self.findIndex((t) => (
+                    t.value === option.value
+                ))
+            );
+            this.setState({
+                options: options,
+                isLoading: false,
+                disabled: false
+            });
+        }
+    },
     render () {
-        var options = EquipmentNumber[this.state.country];
         return (
             <div>
                 <Select
@@ -79,7 +106,7 @@ var EquipNumField = createClass({
                     onSelectResetsInput={false}
                     autoFocus
                     simpleValue
-                    options={options}
+                    options={this.state.options}
                     clearable={this.state.clearable}
                     name="selected-state"
                     disabled={this.state.disabled}
@@ -93,4 +120,25 @@ var EquipNumField = createClass({
     }
 });
 
-export default EquipNumField;
+const NUM_QUERY = gql`
+    query MinutesQuery(
+        $building       : String,
+        $equipmentType  : String,
+    ) {
+        sensorData(
+            building       : $building,
+            equipmentType  : $equipmentType,
+        ) {
+            equipmentNumber
+        }
+    }
+`;
+
+export default graphql(NUM_QUERY, {
+    options: (props) => ({
+        variables: {
+            building       : props.building,
+            equipmentType  : props.equipType,
+        }
+    }),
+})(EquipNumField);

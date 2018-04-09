@@ -95,10 +95,10 @@ class HeaderLinks extends Component{
                         <EquipType label="Equipment Type" building={this.state.building} callback={this.equipTypeHandler} searchable />
                     </Col>
                     <Col md={2}>
-                        <EquipNum label="Equipment Number" building={this.state.building} equipType={this.state.equipNum} callback={this.equipNumHandler} searchable />
+                        <EquipNum label="Equipment Number" building={this.state.building} equipType={this.state.equipmentType} callback={this.equipNumHandler} searchable />
                     </Col>
                     <Col md={2}>
-                        <Sensor label="Sensor Type" building={this.state.building} equipNum={this.state.equpNum} equipType={this.state.equipType} callback={this.sensorTypeHandler} searchable />
+                        <Sensor label="Sensor Type" building={this.state.building} equipNum={this.state.equpmentNumber} equipType={this.state.equipmentType} callback={this.sensorTypeHandler} searchable />
                     </Col>
                     <Col md={2}> </Col>
                 </Row>
@@ -112,7 +112,7 @@ class HeaderLinks extends Component{
                         <End label="End" callback={this.endHandler}/>
                     </Col>
                     <Col md={2}>
-                        <Interval label="Interval" callback={this.intervalHandler}/> 
+                        <Interval label="Interval" callback={this.intervalHandler}/>
                     </Col>
                     <Col md={2}>
                         <Button bsStyle="success" block onClick={this.buttonHandler}>Submit</Button>

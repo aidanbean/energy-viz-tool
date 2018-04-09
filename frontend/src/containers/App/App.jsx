@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import {
     Route,
     Switch,
@@ -20,18 +21,23 @@ class App extends Component {
         this.handleNotificationClick = this.handleNotificationClick.bind(this);
         this.dataByMinutes = this.dataByMinutes.bind(this);
         // this._getByMinutes = this._getByMinutes.bind(this);
+        var initialStart = moment().subtract(30, 'days').format('MM-DD-YYYY-ha');
+        console.log(initialStart);
+        var initialEnd = moment().format('MM-DD-YYYY-ha');
+        console.log(initialEnd);
         this.state = {
             _notificationSystem: null,
             headerData: {
-                building       : 'ACAD',
+                building       : 'MU',
                 equipmentType  : 'AHU',
-                equipmentNumber: 'AHU01',
-                sensorType     : 'Building Static Pressure',
-                startTime      : '12-11-2017-6am',
-                endTime        : '12-11-2017-12pm',
-                interval       : '15m'
+                equipmentNumber: 'AHU01_PENT',
+                sensorType     : 'Outside Air Temp',
+                startTime      : initialStart,
+                endTime        : initialEnd,
+                interval       : '30m'
             }
         };
+        console.log(this.state);
     }
     handleNotificationClick(position){
         var color = Math.floor((Math.random() * 4) + 1);

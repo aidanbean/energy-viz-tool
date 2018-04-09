@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import moment from 'moment-timezone';
 import { Grid, Row, Col, ProgressBar, Button, Jumbotron } from 'react-bootstrap';
-import { HashLoader } from 'react-spinners';
+import { BarLoader } from 'react-spinners';
 import ReactHighcharts from 'react-highcharts';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -70,7 +71,7 @@ class Dashboard extends Component {
         console.log(nextProps);
         const x = [];
         (nextProps.data.dataByMinutes).forEach(function(element) {
-            x.push(element.Timestamp);
+            x.push(moment.tz(element.Timestamp, "US/Pacific").format('YYYY-MM-DDTHH:MM'));
         });
         const y = [];
         (nextProps.data.dataByMinutes).forEach(function(element) {
@@ -123,9 +124,9 @@ class Dashboard extends Component {
                     <Row>
                         <Col md={12}>
                             <Card
-                                title="Fetching your data..."
+                                title="Loading"
                                 content={
-                                    <HashLoader
+                                    <BarLoader
                                         color={'#3C4858'}
                                         loading={this.props.data.loading}
                                     />
@@ -144,7 +145,7 @@ class Dashboard extends Component {
                     <Jumbotron>
                       <h1><center><font color="red">Error</font></center></h1>
                         <center>
-                        There was a problem.
+                        All forms need to be filled out.  Also, make sure your time range is valid.  Please reload the page.
                         </center>
                     </Jumbotron>;
                 </div>
