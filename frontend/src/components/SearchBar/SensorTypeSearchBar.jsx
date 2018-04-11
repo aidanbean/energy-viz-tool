@@ -97,7 +97,6 @@ var SensorField = createClass({
                     ref={(ref) => { this.select = ref; }}
                     onBlurResetsInput={false}
                     onSelectResetsInput={false}
-                    autoFocus
                     simpleValue
                     options={this.state.options}
                     clearable={this.state.clearable}

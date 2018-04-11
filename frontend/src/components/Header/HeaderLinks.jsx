@@ -92,13 +92,13 @@ class HeaderLinks extends Component{
                         <Building label="Building" callback={this.buildingHandler} searchable />
                     </Col>
                     <Col md={2}>
-                        <EquipType label="Equipment Type" building={this.state.building} callback={this.equipTypeHandler} searchable />
+                        <EquipType label="Equipment Type" building={this.state.building} callback={this.equipTypeHandler}  searchable />
                     </Col>
                     <Col md={2}>
                         <EquipNum label="Equipment Number" building={this.state.building} equipType={this.state.equipmentType} callback={this.equipNumHandler} searchable />
                     </Col>
                     <Col md={2}>
-                        <Sensor label="Sensor Type" building={this.state.building} equipNum={this.state.equpmentNumber} equipType={this.state.equipmentType} callback={this.sensorTypeHandler} searchable />
+                        <Sensor label="Sensor Type" building={this.state.building} equipNum={this.state.equipmentNumber} equipType={this.state.equipmentType} callback={this.sensorTypeHandler} searchable />
                     </Col>
                     <Col md={2}> </Col>
                 </Row>

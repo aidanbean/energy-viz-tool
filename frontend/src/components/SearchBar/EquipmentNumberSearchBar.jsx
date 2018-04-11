@@ -38,7 +38,7 @@ var EquipNumField = createClass({
             options: EquipmentNumber['EquipmentNumbers'],
             disabled: false,
             searchable: this.props.searchable,
-            selectValue: 'new-south-wales',
+            selectValue: '',
             clearable: true,
             rtl: false,
         };
@@ -71,12 +71,16 @@ var EquipNumField = createClass({
     componentWillReceiveProps(nextProps) {
         console.log("here");
         console.log(nextProps.equipType);
-        if(nextProps.equipType == "CHW" || nextProps.equipType == "HHW") {
-            this.setState({
-                disabled: true
-            });
-        }
-        else if(nextProps.data && !nextProps.data.loading) {
+        if(nextProps.data && !nextProps.data.loading) {
+            if(nextProps.equipType == "CHW" || nextProps.equipType == "HHW") {
+                this.setState({
+                    disabled: true,
+                    selectValue: '',
+                }, () => {
+                    this.props.callback(this.state.selectValue);
+                });
+                return;
+            }
             var options = [];
             (nextProps.data.sensorData).forEach(function(element) {
                         const optionsObj = {label: element.equipmentNumber, value: element.equipmentNumber, className: "equipmentNumber"};
@@ -104,7 +108,6 @@ var EquipNumField = createClass({
                     ref={(ref) => { this.select = ref; }}
                     onBlurResetsInput={false}
                     onSelectResetsInput={false}
-                    autoFocus
                     simpleValue
                     options={this.state.options}
                     clearable={this.state.clearable}

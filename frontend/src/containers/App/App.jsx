@@ -40,7 +40,7 @@ class App extends Component {
                 sensorType     : 'Outside Air Temp',
                 startTime      : initialStart,
                 endTime        : initialEnd,
-                interval       : '20m'
+                interval       : '30m'
             }
         };
         console.log(this.state);
@@ -123,6 +123,7 @@ class App extends Component {
         this.setState({
             headerData: dataFromHeader
         }, () => {
+            // if(this.state.headerData.)
             console.log(this.state);
         })
     }
@@ -134,58 +135,58 @@ class App extends Component {
 
 
         return (
-                <div className="wrapper">
-                    <NotificationSystem ref="notificationSystem" style={style}/>
-                    <Sidebar {...this.props} />
-                    <div id="main-panel" className="main-panel">
-                        <Header {...this.props} />
-                            <Switch>
-                                {
-                                    appRoutes.map((prop,key) => {
-                                        if(prop.name === "Notifications")
-                                            return (
-                                                <Route
-                                                    path={prop.path}
-                                                    key={key}
-                                                    render={routeProps =>
-                                                       <prop.component
-                                                           {...routeProps}
-                                                           handleClick={this.handleNotificationClick}
-                                                           headerData={this.state.headerData}
-                                                       />}
-                                                />
-                                            );
-                                        if(prop.redirect)
-                                            return (
-                                                <Redirect
-                                                    from={prop.path}
-                                                    to={prop.to}
-                                                    key={key}
-                                                    render={redirectProps =>
-                                                        <prop.component
-                                                            {...redirectProps}
-                                                            headerData={this.state.headerData}
-                                                            callback={this.dataByMinutes}
-                                                        />}
-                                                />
-                                            );
-                                        return (
-                                            <Route
-                                                path={prop.path}
-                                                key={key}
-                                                render={routeProps =>
-                                                    <prop.component
-                                                        {...routeProps}
-                                                        headerData={this.state.headerData}
-                                                        callback={this.dataByMinutes}
-                                                    />}
-                                            />
-                                        );
-                                    })
-                                }
-                            </Switch>
-                    </div>
+            <div className="wrapper">
+                <NotificationSystem ref="notificationSystem" style={style}/>
+                <Sidebar {...this.props} />
+                <div id="main-panel" className="main-panel">
+                    <Header {...this.props} />
+                    <Switch>
+                        {
+                            appRoutes.map((prop,key) => {
+                                if(prop.name === "Notifications")
+                                    return (
+                                        <Route
+                                            path={prop.path}
+                                            key={key}
+                                            render={routeProps =>
+                                               <prop.component
+                                                   {...routeProps}
+                                                   handleClick={this.handleNotificationClick}
+                                                   headerData={this.state.headerData}
+                                               />}
+                                        />
+                                    );
+                                if(prop.redirect)
+                                    return (
+                                        <Redirect
+                                            from={prop.path}
+                                            to={prop.to}
+                                            key={key}
+                                            render={redirectProps =>
+                                                <prop.component
+                                                    {...redirectProps}
+                                                    headerData={this.state.headerData}
+                                                    callback={this.dataByMinutes}
+                                                />}
+                                        />
+                                    );
+                                return (
+                                    <Route
+                                        path={prop.path}
+                                        key={key}
+                                        render={routeProps =>
+                                            <prop.component
+                                                {...routeProps}
+                                                headerData={this.state.headerData}
+                                                callback={this.dataByMinutes}
+                                            />}
+                                    />
+                                );
+                            })
+                        }
+                    </Switch>
                 </div>
+            </div>
         );
     }
 }

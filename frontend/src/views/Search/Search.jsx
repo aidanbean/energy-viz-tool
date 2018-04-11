@@ -123,6 +123,10 @@ class Dashboard extends Component {
         if (this.props.data && this.props.data.loading) {
             return (
                 <div>
+                    <Row> d </Row>
+                    <Row>
+                        <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData}/>
+                    </Row>
                     <Row>
                         <Col md={12}>
                             <Card
@@ -144,26 +148,25 @@ class Dashboard extends Component {
             clearTimeout();
             return (
                 <div>
+                    <Row> d </Row>
+                    <Row>
+                        <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData}/>
+                    </Row>
                     <Jumbotron>
                       <h1><center><font color="red">Error</font></center></h1>
                         <center>
-                        All forms need to be filled out.  Also, make sure your time range is valid.  Please reload the page.
+                        All forms need to be filled out.  Also, make sure your time range is valid.
                         </center>
                     </Jumbotron>;
                 </div>
             );
         }
 
-
-        const dataToRender = this.props.data.dataByMinutes;
-        console.log(this.props.data.dataByMinutes[0].Value);
-        // this.updateConfig(dataToRender);
-        clearTimeout();
         return (
             <div>
                 <Row> d </Row>
                 <Row>
-                    <HeaderLinks callback={this.headerCallback}/>
+                    <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData}/>
                 </Row>
                 <Row>
                     <Col md={12}>

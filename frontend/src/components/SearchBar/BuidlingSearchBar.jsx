@@ -45,30 +45,12 @@ var BuildingField = createClass({
             arrowRenderer: true
         };
     },
-    clearValue (e) {
-        this.select.setInputValue('');
-    },
-    switchCountry (e) {
-        var newBuilding = e.target.value;
-        this.setState({
-            building: newBuilding,
-            selectValue: newBuilding,
-        });
-    },
     updateValue (newValue) {
         this.setState({
             selectValue: newValue,
         }, () => {
             this.props.callback(this.state.selectValue);
         });
-    },
-    focusStateSelect () {
-        this.refs.stateSelect.focus();
-    },
-    toggleCheckbox (e) {
-        let newState = {};
-        newState[e.target.name] = e.target.checked;
-        this.setState(newState);
     },
     componentWillReceiveProps(nextProps) {
         if(nextProps.data && !nextProps.data.loading) {
@@ -82,20 +64,15 @@ var BuildingField = createClass({
                     t.value === option.value
                 ))
             );
+            this.setState({
+                options: options,
+                disabled: false,
+                isLoading: false
+            });
         }
-        this.setState({
-            options: options,
-            disabled: false,
-            isLoading: false
-        });
     },
 
     render () {
-        // if(this.state.isLoading) {
-        //     return(
-        //         <div>
-        //     )
-        // }
         return (
             <div>
                 <Select
