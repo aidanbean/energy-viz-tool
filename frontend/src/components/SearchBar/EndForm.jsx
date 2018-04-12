@@ -25,11 +25,16 @@ class EndForm extends Component {
     }
 
     render() {
+        var yesterday = Datetime.moment();
+        var valid = function ( current ) {
+            return current.isBefore( yesterday );
+        };
         return (
             <FormGroup>
               <Datetime
                   inputProps={{placeholder:"End Date"}}
                   onChange={this.handleEvent}
+                  isValidDate={ valid }
               />
             </FormGroup>
         );
