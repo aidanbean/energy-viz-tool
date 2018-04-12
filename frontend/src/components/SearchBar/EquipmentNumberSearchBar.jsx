@@ -8,15 +8,10 @@ import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-const EquipmentNumber = require('./EquipmentNumber');
-
 var SelectStyle = {
     marginTop: 10,
     position: 'relative',
-    // width:
     borderRadius: 3,
-    // display: 'inline-block',
-    // verticalAlign: 'middle',
 };
 
 
@@ -35,7 +30,6 @@ var EquipNumField = createClass({
     getInitialState () {
         return {
             country: 'EquipmentNumbers',
-            options: EquipmentNumber['EquipmentNumbers'],
             disabled: false,
             searchable: this.props.searchable,
             selectValue: '',

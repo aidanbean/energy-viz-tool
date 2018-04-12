@@ -7,15 +7,10 @@ import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-const SensorType = require('./SensorType');
-
 var SelectStyle = {
     marginTop: 10,
     position: 'relative',
-    // width: 138,
     borderRadius: 3,
-    // display: 'inline-block',
-    // verticalAlign: 'middle',
 };
 
 
@@ -35,7 +30,6 @@ var SensorField = createClass({
     getInitialState () {
         return {
             sensor: 'SensorTypes',
-            options: SensorType['SensorTypes'],
             disabled: false,
             searchable: this.props.searchable,
             selectValue: 'new-south-wales',

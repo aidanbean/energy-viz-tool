@@ -7,15 +7,10 @@ import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-const EquipmentType = require('./EquipmentType');
-
 var SelectStyle = {
     marginTop: 10,
     position: 'relative',
-    // width: 138,
     borderRadius: 3,
-    // display: 'inline-block',
-    // verticalAlign: 'middle',
 };
 
 
@@ -34,7 +29,6 @@ var EquipmentField = createClass({
     getInitialState () {
         return {
             type: 'EquipmentTypes',
-            options: EquipmentType['EquipmentTypes'],
             disabled: false,
             searchable: this.props.searchable,
             selectValue: 'new-south-wales',

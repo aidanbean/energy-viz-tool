@@ -7,8 +7,6 @@ import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-const Building = require('./Building');
-
 var SelectStyle = {
     marginTop: 10,
     position: 'relative',
@@ -35,7 +33,6 @@ var BuildingField = createClass({
     getInitialState () {
         return {
             building: 'Buildings',
-            options: Building['Buildings'],
             isLoading: true,
             disabled: true,
             searchable: this.props.searchable,
