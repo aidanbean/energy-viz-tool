@@ -81,7 +81,6 @@ var SensorField = createClass({
         });
     },
     render () {
-        var options = SensorType[this.state.sensor];
         return (
             <div>
                 <Select
