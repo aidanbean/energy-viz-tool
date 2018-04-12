@@ -6,13 +6,6 @@ import ReactHighcharts from 'react-highcharts';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import HeaderLinks from '../../components/Header/HeaderLinks.jsx';
-import Building from '../../components/SearchBar/BuidlingSearchBar'
-import EquipType from '../../components/SearchBar/EquipmentTypeSearchBar'
-import EquipNum from '../../components/SearchBar/EquipmentNumberSearchBar'
-import Sensor from '../../components/SearchBar/SensorTypeSearchBar'
-import Start from '../../components/SearchBar/StartForm';
-import End from '../../components/SearchBar/EndForm';
-import Interval from '../../components/SearchBar/IntervalForm';
 import {Card} from '../../components/Card/Card.jsx';
 
 
@@ -127,18 +120,20 @@ class Dashboard extends Component {
                     <Row>
                         <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData}/>
                     </Row>
-                    <Row>
-                        <Col md={12}>
+                    <Row style={{height:200}}>
+                        <Col md={2}></Col>
+                        <Col md={8}>
                             <Card
                                 title="Loading"
+                                s
                                 content={
                                     <BarLoader
                                         color={'#3C4858'}
                                         loading={this.props.data.loading}
                                     />
-                                }
-                            />
+                                }/>
                         </Col>
+                        <Col md={2}></Col>
                     </Row>
                 </div>
             );
