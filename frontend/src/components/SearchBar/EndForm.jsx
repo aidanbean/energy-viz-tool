@@ -1,51 +1,45 @@
-import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
-import 'react-select/dist/react-select.css';
-import React from 'react';
-import createClass from 'create-react-class';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import Datetime from 'react-datetime';
+import 'react-datetime/css/react-datetime.css';
+import { FormGroup } from 'react-bootstrap';
 
-class EndForm extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+class EndForm extends Component {
 
-    this.handleChange = this.handleChange.bind(this);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-      value: ''
-    };
-  }
+        this.handleEvent = this.handleEvent.bind(this);
 
-  getValidationState() {
-    const length = this.state.value.length;
-    if (length == 14 || length == 15) return 'success';
-    else if (length > 0) return 'warning';
-    return null;
-  }
+        this.state = {
+            value: null
+        };
+    }
 
-  handleChange(e) {
-    this.setState({ value: e.target.value }, () => {
-        this.props.callback(this.state.value);
-    });
-  }
+    handleEvent(value) {
+        this.setState({
+            value: value,
+        }, () => {
+            var time = value.format('MM-DD-YYYY-ha');
+            this.props.callback(time);
+        });
+    }
 
-  render() {
-    return (
-      <form>
-        <FormGroup
-          controlId="formBasicText"
-          validationState={this.getValidationState()}
-        >
-          <FormControl
-            type="text"
-            value={this.state.value}
-            placeholder="12-11-2017-12pm"
-            onChange={this.handleChange}
-          />
-          <FormControl.Feedback />
-        </FormGroup>
-      </form>
-    );
-  }
+    render() {
+        var yesterday = Datetime.moment();
+        var valid = function ( current ) {
+            return current.isBefore( yesterday );
+        };
+        return (
+            <FormGroup>
+              <Datetime
+                  inputProps={{placeholder:"End Date"}}
+                  onChange={this.handleEvent}
+                  isValidDate={ valid }
+              />
+            </FormGroup>
+        );
+    }
+
 }
 
 export default EndForm;

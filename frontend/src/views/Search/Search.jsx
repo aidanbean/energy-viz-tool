@@ -1,37 +1,25 @@
 import React, { Component } from 'react';
-import ChartistGraph from 'react-chartist';
-import { Grid, Row, Col, ProgressBar } from 'react-bootstrap';
-import { HashLoader } from 'react-spinners';
-
+import moment from 'moment-timezone';
+import { Grid, Row, Col, ProgressBar, Button, Jumbotron } from 'react-bootstrap';
+import { BarLoader } from 'react-spinners';
+import ReactHighcharts from 'react-highcharts';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-
+import HeaderLinks from '../../components/Header/HeaderLinks.jsx';
 import {Card} from '../../components/Card/Card.jsx';
-import {StatsCard} from '../../components/StatsCard/StatsCard.jsx';
-import {Tasks} from '../../components/Tasks/Tasks.jsx';
-import {
-    dataPie,
-    legendPie,
-    dataSales,
-    optionsSales,
-    responsiveSales,
-    legendSales,
-    dataBar,
-    optionsBar,
-    responsiveBar,
-    legendBar,
-    HighChartsDummyData
-} from '../../variables/Variables.jsx';
 
-const ReactHighcharts = require('react-highcharts');
 
 class Dashboard extends Component {
     constructor(props) {
         super(props);
+        this.headerCallback = this.headerCallback.bind(this);
         this.state = {
             didMount: false,
             progress: 0,
             config: {
+                legend: {
+                    enabled: false
+                },
                 chart: {
                     height: 400,
                     type: 'line',
@@ -41,7 +29,8 @@ class Dashboard extends Component {
                     categories: []
                 },
                 series: [{
-                    data: []
+                    data: [],
+                    color: '#9acd32'
                 }],
                 title: {
                     text: null
@@ -75,10 +64,11 @@ class Dashboard extends Component {
             console.log("Invalid Data");
             return;
         }
-
+        console.log("Here!!");
+        console.log(nextProps);
         const x = [];
         (nextProps.data.dataByMinutes).forEach(function(element) {
-            x.push(element.Timestamp);
+            x.push(moment.tz(element.Timestamp, "US/Pacific").format('YYYY-MM-DDTHH:MM'));
         });
         const y = [];
         (nextProps.data.dataByMinutes).forEach(function(element) {
@@ -87,6 +77,9 @@ class Dashboard extends Component {
         this.setState({
             progress: 0,
             config: {
+                legend: {
+                    enabled: false
+                },
                 chart: {
                     height: 400,
                     type: 'line',
@@ -96,7 +89,8 @@ class Dashboard extends Component {
                     categories: x
                 },
                 series: [{
-                    data: y
+                    data: y,
+                     color: '#9acd32'
                 }],
                 title: {
                     text: null
@@ -113,6 +107,12 @@ class Dashboard extends Component {
         this.setState({ didMount: true });
     }
 
+    headerCallback(dataFromHeader) {
+        console.log("In Header.jsx");
+        console.log(dataFromHeader);
+        this.props.callback(dataFromHeader);
+    }
+
     render() {
 
         if (this.state.didMount) {
@@ -122,18 +122,24 @@ class Dashboard extends Component {
         if (this.props.data && this.props.data.loading) {
             return (
                 <div>
+                    <Row> d </Row>
                     <Row>
-                        <Col md={12}>
+                        <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData}/>
+                    </Row>
+                    <Row style={{height:200}}>
+                        <Col md={2}></Col>
+                        <Col md={8}>
                             <Card
-                                title="Fetching your data..."
+                                title="Loading"
+                                s
                                 content={
-                                    <HashLoader
-                                             color={'#3C4858'}
-                                             loading={this.props.data.loading}
-                                           />
-                                }
-                            />
+                                    <BarLoader
+                                        color={'#3C4858'}
+                                        loading={this.props.data.loading}
+                                    />
+                                }/>
                         </Col>
+                        <Col md={2}></Col>
                     </Row>
                 </div>
             );
@@ -143,45 +149,55 @@ class Dashboard extends Component {
             clearTimeout();
             return (
                 <div>
-                    Error
+                    <Row> d </Row>
+                    <Row>
+                        <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData}/>
+                    </Row>
+                    <Jumbotron>
+                      <h1><center><font color="red">Error</font></center></h1>
+                        <center>
+                        All forms need to be filled out.  Also, make sure your time range is valid.
+                        </center>
+                    </Jumbotron>;
                 </div>
             );
         }
 
-        const dataToRender = this.props.data.dataByMinutes;
-        console.log(this.props.data.dataByMinutes[0].Value);
-        // this.updateConfig(dataToRender);
-        clearTimeout();
         return (
-            <div className="content">
-                    <Row>
-                        <Col md={12}>
-                            <Card
-                                statsIcon="fa fa-history"
-                                id="chartHours"
-                                title={this.props.headerData.sensorType}
-                                category={this.props.headerData.building}
-                                stats="Updated just now"
-                                content={
-                                    <div className="ct-chart">
-                                        <ReactHighcharts
-                                                config={this.state.config}
-                                            ref = 'ct-chart'
-                                        />
-                                    </div>
-                                    }
-                                legend={
-                                    <div>
-                                        <p>padding</p>
-                                        <p>padding</p>
-                                        <p>padding</p>
-                                        <p>padding</p>
-                                    </div>
+            <div>
+                <Row> d </Row>
+                <Row>
+                    <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData}/>
+                </Row>
+                <Row>
+                    <Col md={1}></Col>
+                    <Col md={10}>
+                        <Card
+                            statsIcon="fa fa-refresh"
+                            id="chartHours"
+                            title={this.props.headerData.sensorType}
+                            category={this.props.headerData.building}
+                            stats="Updated just now"
+                            content={
+                                <div className="ct-chart">
+                                    <ReactHighcharts
+                                        config={this.state.config}
+                                        ref = 'ct-chart'
+                                    />
+                                </div>
                                 }
-                            />
-                        </Col>
-
-                    </Row>
+                            legend={
+                                <div>
+                                    <p>padding</p>
+                                    <p>padding</p>
+                                    <p>padding</p>
+                                    <p>padding</p>
+                                </div>
+                            }
+                        />
+                    </Col>
+                    <Col md={1}></Col>
+                </Row>
             </div>
         );
     }

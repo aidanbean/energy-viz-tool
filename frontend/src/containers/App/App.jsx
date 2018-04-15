@@ -1,6 +1,7 @@
 
 
 import React, { Component } from 'react';
+import moment from 'moment';
 import {
     Route,
     Switch,
@@ -24,18 +25,25 @@ class App extends Component {
         this.handleNotificationClick = this.handleNotificationClick.bind(this);
         this.dataByMinutes = this.dataByMinutes.bind(this);
         // this._getByMinutes = this._getByMinutes.bind(this);
+        // var initialStart = moment().subtract(30, 'days').format('MM-DD-YYYY-ha');
+        var initialStart = '03-20-2018-6am';
+        console.log(initialStart);
+        // var initialEnd = moment().format('MM-DD-YYYY-ha');
+        var initialEnd = '03-21-2018-6pm';
+        console.log(initialEnd);
         this.state = {
             _notificationSystem: null,
             headerData: {
-                building       : 'ACAD',
+                building       : 'MU',
                 equipmentType  : 'AHU',
-                equipmentNumber: 'AHU01',
-                sensorType     : 'Building Static Pressure',
-                startTime      : '12-11-2017-6am',
-                endTime        : '12-11-2017-12pm',
-                interval       : '15m'
+                equipmentNumber: 'AHU01_PENT',
+                sensorType     : 'Outside Air Temp',
+                startTime      : initialStart,
+                endTime        : initialEnd,
+                interval       : '30m'
             }
         };
+        console.log(this.state);
     }
     handleNotificationClick(position){
         var color = Math.floor((Math.random() * 4) + 1);
@@ -113,15 +121,9 @@ class App extends Component {
         console.log("In App.jsx");
         console.log(dataFromHeader);
         this.setState({
-            // building: dataFromHeader.building,
-            // equipType: dataFromHeader.equipType,
-            // equipNum: dataFromHeader.equipNum,
-            // sensorType: dataFromHeader.sensorType,
-            // startTime: dataFromHeader.startTime,
-            // endTime: dataFromHeader.endTime,
-            // interval: dataFromHeader.interval
             headerData: dataFromHeader
         }, () => {
+            // if(this.state.headerData.)
             console.log(this.state);
         })
     }
@@ -133,56 +135,58 @@ class App extends Component {
 
 
         return (
-                <div className="wrapper">
-                    <NotificationSystem ref="notificationSystem" style={style}/>
-                    <Sidebar {...this.props} />
-                    <div id="main-panel" className="main-panel">
-                        <Header {...this.props} callback={this.dataByMinutes}/>
-                            <Switch>
-                                {
-                                    appRoutes.map((prop,key) => {
-                                        if(prop.name === "Notifications")
-                                            return (
-                                                <Route
-                                                    path={prop.path}
-                                                    key={key}
-                                                    render={routeProps =>
-                                                       <prop.component
-                                                           {...routeProps}
-                                                           handleClick={this.handleNotificationClick}
-                                                           headerData={this.state.headerData}
-                                                       />}
-                                                />
-                                            );
-                                        if(prop.redirect)
-                                            return (
-                                                <Redirect
-                                                    from={prop.path}
-                                                    to={prop.to}
-                                                    key={key}
-                                                    render={redirectProps =>
-                                                        <prop.component
-                                                            {...redirectProps}
-                                                            headerData={this.state.headerData}
-                                                        />}
-                                                />
-                                            );
-                                        return (
-                                            <Route
-                                                path={prop.path}
-                                                key={key}
-                                                render={routeProps =>
-                                                    <prop.component
-                                                        {...routeProps}
-                                                        headerData={this.state.headerData}
-                                                    />}
-                                            />
-                                        );
-                                    })
-                                }
-                            </Switch>
-                    </div>
+            <div className="wrapper">
+                <NotificationSystem ref="notificationSystem" style={style}/>
+                <Sidebar {...this.props} />
+                <div id="main-panel" className="main-panel">
+                    <Header {...this.props} />
+                    <Switch>
+                        {
+                            appRoutes.map((prop,key) => {
+                                if(prop.name === "Notifications")
+                                    return (
+                                        <Route
+                                            path={prop.path}
+                                            key={key}
+                                            render={routeProps =>
+                                               <prop.component
+                                                   {...routeProps}
+                                                   handleClick={this.handleNotificationClick}
+                                                   headerData={this.state.headerData}
+                                               />}
+                                        />
+                                    );
+                                if(prop.redirect)
+                                    return (
+                                        <Redirect
+                                            from={prop.path}
+                                            to={prop.to}
+                                            key={key}
+                                            render={redirectProps =>
+                                                <prop.component
+                                                    {...redirectProps}
+                                                    headerData={this.state.headerData}
+                                                    callback={this.dataByMinutes}
+                                                />}
+                                        />
+                                    );
+                                return (
+                                    <Route
+                                        path={prop.path}
+                                        key={key}
+                                        render={routeProps =>
+                                            <prop.component
+                                                {...routeProps}
+                                                headerData={this.state.headerData}
+                                                callback={this.dataByMinutes}
+                                            />}
+                                    />
+                                );
+                            })
+                        }
+                    </Switch>
                 </div>
+            </div>
         );
     }
 }

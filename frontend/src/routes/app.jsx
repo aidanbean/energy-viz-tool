@@ -17,7 +17,7 @@ const appRoutes = [
     // { path: "/icons", name: "Icons", icon: "pe-7s-science", component: Icons },
     // { path: "/maps", name: "Maps", icon: "pe-7s-map-marker", component: Maps },
     // { path: "/notifications", name: "Notifications", icon: "pe-7s-bell", component: Notifications },
-    // { redirect: true, path:"/", to:"/dashboard", name: "Search" }
+    { redirect: true, path:"/", to:"/table", name: "Table" }
 ];
 
 export default appRoutes;

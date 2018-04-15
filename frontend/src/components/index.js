@@ -37,8 +37,8 @@ import ItemGrid from './Grid/ItemGrid.jsx';
 // // // Header
 // #############################
 
-import Header from './Header/Header.jsx';
-import HeaderLinks from './Header/HeaderLinks.jsx';
+// import Header from './Header/Header.jsx';
+// import HeaderLinks from './Header/HeaderLinks.jsx';
 
 // ##############################
 // // // Sidebar
@@ -92,7 +92,7 @@ export {
     // Grid
     ItemGrid,
     // Header
-    Header, HeaderLinks,
+    // Header, HeaderLinks,
     // Sidebar
     Sidebar,
     //Snackbar
