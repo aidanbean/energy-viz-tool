@@ -17,6 +17,9 @@ class Dashboard extends Component {
             didMount: false,
             progress: 0,
             config: {
+                legend: {
+                    enabled: false
+                },
                 chart: {
                     height: 400,
                     type: 'line',
@@ -74,6 +77,9 @@ class Dashboard extends Component {
         this.setState({
             progress: 0,
             config: {
+                legend: {
+                    enabled: false
+                },
                 chart: {
                     height: 400,
                     type: 'line',
@@ -164,7 +170,8 @@ class Dashboard extends Component {
                     <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData}/>
                 </Row>
                 <Row>
-                    <Col md={12}>
+                    <Col md={1}></Col>
+                    <Col md={10}>
                         <Card
                             statsIcon="fa fa-refresh"
                             id="chartHours"
@@ -189,6 +196,7 @@ class Dashboard extends Component {
                             }
                         />
                     </Col>
+                    <Col md={1}></Col>
                 </Row>
             </div>
         );
