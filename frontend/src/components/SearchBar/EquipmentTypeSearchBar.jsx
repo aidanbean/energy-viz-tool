@@ -13,19 +13,20 @@ var SelectStyle = {
     borderRadius: 3,
 };
 
-
 var EquipmentField = createClass({
     displayName: 'EquipmentField',
     propTypes: {
         label: PropTypes.string,
         searchable: PropTypes.bool,
     },
+
     getDefaultProps () {
         return {
             label: 'Equips',
             searchable: true,
         };
     },
+
     getInitialState () {
         return {
             type: 'EquipmentTypes',
@@ -34,12 +35,13 @@ var EquipmentField = createClass({
             selectValue: 'new-south-wales',
             clearable: true,
             isLoading: true,
-            rtl: false,
         };
     },
+
     clearValue (e) {
         this.select.setInputValue('');
     },
+
     switchCountry (e) {
         var newType = e.target.value;
         this.setState({
@@ -47,6 +49,7 @@ var EquipmentField = createClass({
             selectValue: null,
         });
     },
+
     updateValue (newValue) {
         this.setState({
             selectValue: newValue,
@@ -55,14 +58,17 @@ var EquipmentField = createClass({
             this.props.callback(this.state.selectValue);
         });
     },
+
     focusStateSelect () {
         this.refs.stateSelect.focus();
     },
+
     toggleCheckbox (e) {
         let newState = {};
         newState[e.target.name] = e.target.checked;
         this.setState(newState);
     },
+
     componentWillReceiveProps(nextProps) {
         if(nextProps.data && !nextProps.data.loading) {
             var options = [];
@@ -81,6 +87,7 @@ var EquipmentField = createClass({
             isLoading: false
         });
     },
+
     render () {
         return (
             <div>
@@ -99,7 +106,6 @@ var EquipmentField = createClass({
                     disabled={this.state.disabled}
                     value={this.state.selectValue}
                     onChange={this.updateValue}
-                    rtl={this.state.rtl}
                     searchable={this.state.searchable}
                 />
 

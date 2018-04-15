@@ -7,13 +7,12 @@ import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
+const Buildings = require('./Buildings');
+
 var SelectStyle = {
     marginTop: 10,
     position: 'relative',
-    // width: 137,
     borderRadius: 3,
-    // display: 'inline-block',
-    // verticalAlign: 'middle',
 
 };
 
@@ -33,6 +32,7 @@ var BuildingField = createClass({
     getInitialState () {
         return {
             building: 'Buildings',
+            options: Buildings['Buildings'],
             isLoading: true,
             disabled: true,
             searchable: this.props.searchable,
@@ -46,27 +46,17 @@ var BuildingField = createClass({
         this.setState({
             selectValue: newValue,
         }, () => {
+            console.log(newValue);
             this.props.callback(this.state.selectValue);
         });
     },
+
     componentWillReceiveProps(nextProps) {
-        if(nextProps.data && !nextProps.data.loading) {
-            var options = [];
-            (nextProps.data.sensorData).forEach(function(element) {
-                        const optionsObj = {label: element.building, value: element.building, className: "buildingName"};
-                        options.push(optionsObj);
-            });
-            options = options.filter((option, index, self) =>
-                index === self.findIndex((t) => (
-                    t.value === option.value
-                ))
-            );
-            this.setState({
-                options: options,
-                disabled: false,
-                isLoading: false
-            });
-        }
+        this.setState({
+            disabled: false,
+            isLoading: false
+
+        })
     },
 
     render () {
@@ -88,7 +78,6 @@ var BuildingField = createClass({
                     disabled={this.state.disabled}
                     value={this.state.selectValue}
                     onChange={this.updateValue}
-                    rtl={this.state.rtl}
                     searchable={this.state.searchable}
                 />
             </div>
@@ -106,4 +95,4 @@ const BLDG_QUERY = gql`
     }
 `;
 
-export default graphql(BLDG_QUERY)(BuildingField);
+export default BuildingField;

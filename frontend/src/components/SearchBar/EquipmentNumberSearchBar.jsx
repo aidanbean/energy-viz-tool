@@ -109,7 +109,6 @@ var EquipNumField = createClass({
                     disabled={this.state.disabled}
                     value={this.state.selectValue}
                     onChange={this.updateValue}
-                    rtl={this.state.rtl}
                     searchable={this.state.searchable}
                 />
             </div>
