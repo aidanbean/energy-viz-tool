@@ -48,7 +48,7 @@ var SensorField = createClass({
     },
     componentWillReceiveProps(nextProps) {
         console.log(nextProps.data);
-        if(nextProps.data && !nextProps.data.loading) {
+        if(nextProps.data && !nextProps.data.loading && nextProps.data.sensorFilter !== "undefined") {
             var options = [];
             (nextProps.data.sensorFilter).forEach(function(element) {
                         const optionsObj = {label: element.sensorType, value: element.sensorType, className: "sensorType"};

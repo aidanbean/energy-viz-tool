@@ -47,7 +47,7 @@ var EquipNumField = createClass({
         });
     },
     componentWillReceiveProps(nextProps) {
-        if(nextProps.data && !nextProps.data.loading) {
+        if(nextProps.data && !nextProps.data.loading && nextProps.data.sensorData !== "undefined") {
             if(nextProps.equipType === "CHW" || nextProps.equipType === "HHW") {
                 this.setState({
                     disabled: true,
