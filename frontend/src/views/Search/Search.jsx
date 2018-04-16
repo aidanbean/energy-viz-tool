@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment-timezone';
-import {Row, Col, ProgressBar, Button, Jumbotron } from 'react-bootstrap';
+import {Row, Col, Jumbotron } from 'react-bootstrap';
 import { BarLoader } from 'react-spinners';
 import ReactHighcharts from 'react-highcharts';
 import { graphql } from 'react-apollo';

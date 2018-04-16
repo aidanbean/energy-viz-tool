@@ -75,26 +75,26 @@ class App extends Component {
     //     });
     // }
     componentDidMount(){
-        this.setState({_notificationSystem: this.refs.notificationSystem});
-        var _notificationSystem = this.refs.notificationSystem;
-        var color = Math.floor((Math.random() * 4) + 1);
-        var level;
-        switch (color) {
-            case 1:
-                level = 'success';
-                break;
-            case 2:
-                level = 'warning';
-                break;
-            case 3:
-                level = 'error';
-                break;
-            case 4:
-                level = 'info';
-                break;
-            default:
-                break;
-        }
+        // this.setState({_notificationSystem: this.refs.notificationSystem});
+        // var _notificationSystem = this.refs.notificationSystem;
+        // var color = Math.floor((Math.random() * 4) + 1);
+        // var level;
+        // switch (color) {
+        //     case 1:
+        //         level = 'success';
+        //         break;
+        //     case 2:
+        //         level = 'warning';
+        //         break;
+        //     case 3:
+        //         level = 'error';
+        //         break;
+        //     case 4:
+        //         level = 'info';
+        //         break;
+        //     default:
+        //         break;
+        // }
 
         // don't need notification system
         // _notificationSystem.addNotification({
@@ -125,12 +125,6 @@ class App extends Component {
         })
     }
     render() {
-
-        const { data } = this.state;
-        const fieldMap = ["building", "equipmentType", "equipmentNumber", "SensorType"];
-        const heads = ["Building", "Equipment Type", "Equipment Number", "Sensor Type"];
-
-
         return (
             <div className="wrapper">
                 <NotificationSystem ref="notificationSystem" style={style}/>

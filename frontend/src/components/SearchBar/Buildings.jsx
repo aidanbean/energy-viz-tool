@@ -1,3 +1,7 @@
+/* This is a static list of all the buildings
+so we don't have to make initial queries to the DB
+to list all the buildings available. */
+
 exports.Buildings = [
     { label: 'ACAD', value:'ACAD', className:'buildingName' },
     { label: 'AMRL', value:'AMRL', className:'buildingName' },
