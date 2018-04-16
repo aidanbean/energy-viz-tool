@@ -70,11 +70,7 @@ class HeaderLinks extends Component{
             interval: selection,
         });
     }
-    buttonHandler(e) {
-        console.log(e);
-        this.setState({
-            isGraphing:false,
-        });
+    buttonHandler() {
         this.props.callback(this.state);
     }
 
@@ -111,7 +107,7 @@ class HeaderLinks extends Component{
                         <Interval label="Interval" callback={this.intervalHandler}/>
                     </Col>
                     <Col md={2}>
-                        <Button bsStyle="success" block callback={this.buttonHandler}>Graph</Button>
+                        <Button onClick={this.buttonHandler}>Graph</Button>
                     </Col>
                     <Col md={2}> </Col>
                 </Row>

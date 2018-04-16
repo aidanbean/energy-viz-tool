@@ -6,16 +6,21 @@ class GraphButton extends React.Component {
         super(props, context);
 
         this.state = {
-            isLoading: true
+            isLoading: false
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps.data);
+    handleClick() {
         this.setState({
-            isLoading:false
-        })
+            isLoading: true
+        });
     }
+    // componentWillReceiveProps(nextProps) {
+    //     console.log(nextProps.data);
+    //     this.setState({
+    //         isLoading:false
+    //     })
+    // }
 
     render() {
         const isLoading = this.state.isLoading;
@@ -23,7 +28,7 @@ class GraphButton extends React.Component {
             <Button
                 bsStyle='success'
                 disabled={isLoading}
-                // onClick={!isLoading ? this.handleClick() : null}
+                onClick={!isLoading ? this.handleClick() : null}
             >
                 {isLoading ? 'Graphing' : 'Graph'}
             </Button>
