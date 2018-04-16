@@ -57,6 +57,7 @@ class Dashboard extends Component {
     /* when new query parameters are recieved in the props,
     we refetch the graphQL query and convert the timezone. */
     componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
         this.props.data.refetch();
         if(typeof nextProps.data.dataByMinutes === 'undefined') {
             return;

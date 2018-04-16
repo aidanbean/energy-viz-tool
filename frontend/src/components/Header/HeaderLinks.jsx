@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import Building from '../SearchBar/BuildingSearchBar'
 import EquipType from '../SearchBar/EquipmentTypeSearchBar'
 import EquipNum from '../SearchBar/EquipmentNumberSearchBar'
@@ -7,6 +7,7 @@ import Sensor from '../SearchBar/SensorTypeSearchBar'
 import Start from '../SearchBar/StartForm';
 import End from '../SearchBar/EndForm';
 import Interval from '../SearchBar/IntervalForm';
+import Button from '../SearchBar/GraphButton';
 
 class HeaderLinks extends Component{
     constructor() {
@@ -27,7 +28,8 @@ class HeaderLinks extends Component{
             sensorType: '',
             startTime: '',
             endTime: '',
-            interval: ''
+            interval: '',
+            isGraphing: false
         };
 
     /* The following are different callbacks that are triggered
@@ -68,7 +70,11 @@ class HeaderLinks extends Component{
             interval: selection,
         });
     }
-    buttonHandler() {
+    buttonHandler(e) {
+        console.log(e);
+        this.setState({
+            isGraphing:false,
+        });
         this.props.callback(this.state);
     }
 
@@ -105,7 +111,7 @@ class HeaderLinks extends Component{
                         <Interval label="Interval" callback={this.intervalHandler}/>
                     </Col>
                     <Col md={2}>
-                        <Button bsStyle="success" block onClick={this.buttonHandler}>Submit</Button>
+                        <Button bsStyle="success" block callback={this.buttonHandler}>Graph</Button>
                     </Col>
                     <Col md={2}> </Col>
                 </Row>
