@@ -46,6 +46,9 @@ class HeaderLinks extends Component{
     equipNumHandler(selection) {
         this.setState({
             equipmentNumber: selection,
+        }, () => {
+            console.log(this.state);
+            console.log(typeof this.state.equipmentNumber);
         });
     }
     sensorTypeHandler(selection) {
@@ -105,7 +108,7 @@ class HeaderLinks extends Component{
                         <Interval label="Interval" callback={this.intervalHandler}/>
                     </Col>
                     <Col md={2}>
-                        <Button bsStyle="success" block onClick={this.buttonHandler}>Submit</Button>
+                        <Button bsStyle="success" block onClick={this.buttonHandler} >Submit</Button>
                     </Col>
                     <Col md={2}> </Col>
                 </Row>

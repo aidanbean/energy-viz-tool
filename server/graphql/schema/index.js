@@ -2,7 +2,7 @@
 import mongoose from 'mongoose';
 import DataModel from '../../config/models/data_model';
 import fetchAPI from '../../pi/piFetchers';
-import {DataPoint, BuildingData, SensorData} from './classes';
+import {DataPoint, BuildingData, SensorData, StreamType} from './classes';
 
 const db = mongoose.connection;
 
@@ -13,12 +13,20 @@ import {
 let schema = buildSchema(`
 
     type DataPoint {
-        Timestamp:String,
-        Value: Float,
+        Timestamp        : String,
+        Value            : Float,
         UnitsAbbreviation: String,
-        Good: Boolean,
-        Questionable: Boolean,
-        Substituted: Boolean
+        Good             : Boolean,
+        Questionable     : Boolean,
+        Substituted      : Boolean
+    }
+
+    type StreamType {
+        building       : String,
+        equipmentType  : String,
+        equipmentNumber: String,
+        sensorType     : String,
+        stream         : [DataPoint]
     }
 
     type Coord {
@@ -68,7 +76,7 @@ let schema = buildSchema(`
             startTime      : String,
             endTime        : String,
             interval       : String
-        ): [DataPoint],
+        ): [StreamType],
 
         latestSummary
         (
@@ -81,6 +89,14 @@ let schema = buildSchema(`
         buildingData(building: String): BuildingData,
 
         sensorData
+        (
+            building: String,
+            equipmentType: String,
+            equipmentNumber: String,
+            sensorType: String,
+        ): [SensorData]
+
+        sensorFilter
         (
             building: String,
             equipmentType: String,
@@ -115,26 +131,60 @@ var root = {
     },
 
     dataByMinutes: async function ({building, equipmentType, equipmentNumber, sensorType, startTime, endTime, interval}) {
-        const dbEntry = {
-            "building": building,
-            "equipmentType": equipmentType,
-            "equipmentNumber": equipmentNumber,
-            "sensorType": sensorType
-        };
-        const dbResult = await DataModel.findOne(dbEntry);
-        var piResult = await fetchAPI.fetchStream_byMinutes(dbResult.webId,
-                                                             startTime,
-                                                             endTime,
-                                                             interval );
-        var listOfPoints = [];
-        (piResult.Items).forEach( function(element) {
-            if (element.Good === false) {
-                element.Value = null;
-            }
-            const point = new DataPoint(element.Timestamp, element.Value, element.UnitsAbbreviation, element.Good, element.Questionable, element.Substituted);
-            listOfPoints.push(point);
+        var dbQuery = {}
+        // Example Query that we want to construct:
+            // "$and": [
+            //     {"building": "ACAD"},
+            //     {"equipmentType": "AHU"},
+            //     {"$or": [
+            //         {"sensorType": "Building Static Pressure"},
+            //         {"sensorType": "Supply Air Fan Start/Stop"}
+            //     ]}
+            // ],
+            // "$or": [
+            //     {"equipmentNumber": "AHU01"},
+            //     {"equipmentNumber": "AHU03"}
+            // ]
+        var andList = [{"building": building}, {"equipmentType": equipmentType}];
+        var andOrField = {}
+        var andOrList = [];
+        sensorType.split(',').forEach(function(element) {
+            const andOrEntry = {"sensorType": element}
+            andOrList.push(andOrEntry);
         });
-        return listOfPoints;
+        andOrField["$or"] = andOrList;
+        andList.push(andOrField);
+        var orList = [];
+        equipmentNumber.split(',').forEach(function(element) {
+            const orEntry = {"equipmentNumber": element}
+            orList.push(orEntry);
+        });
+        dbQuery["$and"] = andList;
+        dbQuery["$or"] = orList;
+        console.log(dbQuery);
+        // At this point we have constructed the query. Now, use it to query the db.
+        const dbResult = await DataModel.find(dbQuery);
+        console.log(dbResult);
+        // Get the data stream for each webID and format the result.
+        var streamList = [];
+        for(var i = 0; i < dbResult.length; i++) {
+            var piResult = await fetchAPI.fetchStream_byMinutes(dbResult[i].webId,
+                                                                 startTime,
+                                                                 endTime,
+                                                                 interval );
+            var stream = [];
+            (piResult.Items).forEach(function(element) {
+                if (element.Good === false) {
+                    element.Value = null;
+                }
+                const point = new DataPoint(element.Timestamp, element.Value, element.UnitsAbbreviation, element.Good, element.Questionable, element.Substituted);
+                stream.push(point);
+            });
+            console.log(stream);
+            var streamObject = new StreamType(dbResult[i].building, dbResult[i].equipmentNumber, dbResult[i].equipmentType, dbResult[i].sensorType, stream);
+            streamList.push(streamObject);
+        }
+        return streamList;
     },
 
     latestSummary: async function ({building, equipmentType, equipmentNumber, sensorType}) {
@@ -182,6 +232,39 @@ var root = {
         });
         return listOfData;
     },
+
+    sensorFilter: async function ({building, equipmentType, equipmentNumber, sensorType}) {
+        var dbQuery = {};
+        // Example Query that we want to construct:
+            // "$and": [
+            //     {"building": "ACAD"},
+            //     {"equipmentType": "AHU"},
+            // ],
+            // "$or": [
+            //     {"equipmentNumber": "AHU01"},
+            //     {"equipmentNumber": "AHU03"}
+            // ]
+        var andList = [{"building": building}, {"equipmentType": equipmentType}];
+        var orList = [];
+        equipmentNumber.split(',').forEach(function(element) {
+            const orEntry = {"equipmentNumber": element}
+            orList.push(orEntry);
+        });
+        dbQuery["$and"] = andList;
+        dbQuery["$or"] = orList;
+        console.log(dbQuery);
+        // At this point we have constructed the query. Now, use it to query the db.
+        const dbResult = await DataModel.find(dbQuery);
+        console.log(dbResult);
+
+        var listOfData = [];
+        (dbResult).forEach(function(element) {
+            const sData = new SensorData(element.webId, element.tagName, element.building, element.equipmentType, element.equipmentNumber, element.sensorType);
+            listOfData.push(sData);
+        });
+        return listOfData;
+    },
+
 };
 
 export { schema, root };

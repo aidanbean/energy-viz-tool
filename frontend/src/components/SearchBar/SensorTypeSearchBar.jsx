@@ -27,28 +27,30 @@ var SensorField = createClass({
     },
     getInitialState () {
         return {
-            sensor: 'SensorTypes',
-            disabled: false,
             searchable: this.props.searchable,
-            selectValue: 'new-south-wales',
             clearable: true,
+            removeSelected: true,
+            disabled: false,
+            stayOpen: false,
+            value: [],
             rtl: false,
         };
     },
     clearValue (e) {
         this.select.setInputValue('');
     },
-    updateValue (newValue) {
+    handleSelectChange (value) {
         this.setState({
-            selectValue: newValue,
+            value,
         }, () => {
-            this.props.callback(this.state.selectValue);
+            this.props.callback(this.state.value);
         });
     },
     componentWillReceiveProps(nextProps) {
+        console.log(nextProps.data);
         if(nextProps.data && !nextProps.data.loading) {
             var options = [];
-            (nextProps.data.sensorData).forEach(function(element) {
+            (nextProps.data.sensorFilter).forEach(function(element) {
                         const optionsObj = {label: element.sensorType, value: element.sensorType, className: "sensorType"};
                         options.push(optionsObj);
             });
@@ -59,7 +61,7 @@ var SensorField = createClass({
             );
 
             if(nextProps.building === null || nextProps.equipType === null || nextProps.equipNum === null) {
-                this.updateValue(null);
+                this.handleSelectChange(null);
                 options = [];
             }
 
@@ -73,22 +75,20 @@ var SensorField = createClass({
     render () {
         return (
             <div>
-                <Select
-                    placeholder = "Sensor Type"
-                    style={SelectStyle}
-                    id="state-select"
-                    ref={(ref) => { this.select = ref; }}
-                    onBlurResetsInput={false}
-                    onSelectResetsInput={false}
-                    simpleValue
-                    options={this.state.options}
-                    clearable={this.state.clearable}
-                    name="selected-state"
-                    disabled={this.state.disabled}
-                    value={this.state.selectValue}
-                    onChange={this.updateValue}
-                    searchable={this.state.searchable}
-                />
+            <Select
+                style={SelectStyle}
+                closeOnSelect={!this.state.stayOpen}
+                autosize={true}
+                disabled={this.state.disabled}
+                multi
+                onChange={this.handleSelectChange}
+                options={this.state.options}
+                placeholder="Equipment Number"
+                removeSelected={this.state.removeSelected}
+                rtl={this.state.rtl}
+                simpleValue
+                value={this.state.value}
+            />
             </div>
         );
     }
@@ -100,7 +100,7 @@ const NUM_QUERY = gql`
         $equipmentType  : String,
         $equipmentNumber: String,
     ) {
-        sensorData(
+        sensorFilter(
             building       : $building,
             equipmentType  : $equipmentType,
             equipmentNumber: $equipmentNumber,

@@ -61,36 +61,50 @@ class Dashboard extends Component {
         if(typeof nextProps.data.dataByMinutes === 'undefined') {
             return;
         }
-        const x = [];
-        (nextProps.data.dataByMinutes).forEach(function(element) {
-            x.push(moment.tz(element.Timestamp, "US/Pacific").format('YYYY-MM-DDTHH:mm'));
-        });
-        const y = [];
-        (nextProps.data.dataByMinutes).forEach(function(element) {
-            y.push(element.Value);
-        });
-        this.setState({
-            progress: 0,
-            config: {
-                legend: {
-                    enabled: false
-                },
-                chart: {
-                    height: 400,
-                    type: 'line',
-                    zoomType: 'x'
-                },
-                xAxis: {
-                    categories: x
-                },
-                series: [{
-                    data: y,
-                     color: '#9acd32'
-                }],
-                title: {
-                    text: null
-                }
+        var config = {};
+        var series = [];
+        for(var i = 0; i < nextProps.data.dataByMinutes.length; i++) {
+            const x = [];
+            (nextProps.data.dataByMinutes[i].stream).forEach(function(element) {
+                x.push(moment.tz(element.Timestamp, "US/Pacific").format('YYYY-MM-DDTHH:mm'));
+            });
+            const y = [];
+            (nextProps.data.dataByMinutes[i].stream).forEach(function(element) {
+                y.push(element.Value);
+            });
+            if(i === 0) {
+                config = {
+                    legend: {
+                        enabled: true
+                    },
+                    chart: {
+                        height: 400,
+                        type: 'line',
+                        zoomType: 'x'
+                    },
+                    xAxis: {
+                        categories: x
+                    },
+                    title: {
+                        text: null
+                    }
+                };
             }
+            // generate a random color.
+            var color = '#'+Math.floor(Math.random()*16777215).toString(16);
+            var name = `${nextProps.data.dataByMinutes[i].equipmentNumber}.${nextProps.data.dataByMinutes[i].sensorType}`;
+            var serie = {
+                data: y,
+                color: color,
+                name: name
+            };
+            series.push(serie);
+        }
+        config["series"] = series;
+        this.setState({
+                config: config
+        }, () => {
+            console.log(this.state.config);
         });
     }
 
@@ -124,8 +138,8 @@ class Dashboard extends Component {
                             <Card
                                 statsIcon="fa fa-refresh"
                                 id="chartHours"
-                                title={this.props.headerData.sensorType}
-                                category={this.props.headerData.building}
+                                title={this.props.headerData.building}
+                                category={this.props.headerData.equipmentType}
                                 content={
                                     <center>
                                         <h3><center><font color="GREEN">Loading</font></center></h3>
@@ -168,12 +182,12 @@ class Dashboard extends Component {
                 </Row>
                 <Row style={{'marginRight': '0px', 'marginLeft': '0px'}}>
                     <Col md={1}></Col>
-                    <Col md={10}>
+                    <Col md={12}>
                         <Card
                             statsIcon="fa fa-refresh"
                             id="chartHours"
-                            title={this.props.headerData.sensorType}
-                            category={this.props.headerData.building}
+                            title={this.props.headerData.building}
+                            category={this.props.headerData.equipmentType}
                             // stats={}
                             content={
                                 <div className="ct-chart">
@@ -220,8 +234,14 @@ const MINUTES_QUERY = gql`
             endTime        : $endTime,
             interval       : $interval
         ) {
-            Timestamp
-            Value
+            building
+            equipmentType
+            equipmentNumber
+            sensorType
+            stream {
+                Timestamp
+                Value
+            }
         }
     }
 `;

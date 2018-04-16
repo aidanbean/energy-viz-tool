@@ -42,7 +42,6 @@ var BuildingField = createClass({
         this.setState({
             selectValue: newValue,
         }, () => {
-            console.log(newValue);
             this.props.callback(this.state.selectValue);
         });
     },

@@ -26,11 +26,12 @@ var EquipNumField = createClass({
     },
     getInitialState () {
         return {
-            country: 'EquipmentNumbers',
-            disabled: false,
             searchable: this.props.searchable,
-            selectValue: '',
             clearable: true,
+            removeSelected: true,
+            disabled: false,
+            stayOpen: false,
+            value: [],
             rtl: false,
         };
     },
@@ -38,11 +39,11 @@ var EquipNumField = createClass({
     clearValue (e) {
         this.select.setInputValue('');
     },
-    updateValue (newValue) {
+    handleSelectChange (value) {
         this.setState({
-            selectValue: newValue,
+            value
         }, () => {
-            this.props.callback(this.state.selectValue);
+            this.props.callback(this.state.value);
         });
     },
     componentWillReceiveProps(nextProps) {
@@ -50,7 +51,7 @@ var EquipNumField = createClass({
             if(nextProps.equipType === "CHW" || nextProps.equipType === "HHW") {
                 this.setState({
                     disabled: true,
-                    selectValue: '',
+                    value: [],
                 }, () => {
                     this.props.callback(this.state.selectValue);
                 });
@@ -67,7 +68,7 @@ var EquipNumField = createClass({
                 ))
             );
             if(nextProps.building === null || nextProps.equipType === null) {
-                this.updateValue(null);
+                this.handleSelectChange(null);
                 options = [];
             }
             this.setState({
@@ -81,20 +82,17 @@ var EquipNumField = createClass({
         return (
             <div>
                 <Select
-                    placeholder = "Equipment Number"
                     style={SelectStyle}
-                    id="state-select"
-                    ref={(ref) => { this.select = ref; }}
-                    onBlurResetsInput={false}
-                    onSelectResetsInput={false}
-                    simpleValue
-                    options={this.state.options}
-                    clearable={this.state.clearable}
-                    name="selected-state"
+                    closeOnSelect={!this.state.stayOpen}
                     disabled={this.state.disabled}
-                    value={this.state.selectValue}
-                    onChange={this.updateValue}
-                    searchable={this.state.searchable}
+                    multi
+                    onChange={this.handleSelectChange}
+                    options={this.state.options}
+                    placeholder="Equipment Number"
+                    removeSelected={this.state.removeSelected}
+                    rtl={this.state.rtl}
+                    simpleValue
+                    value={this.state.value}
                 />
             </div>
         );
