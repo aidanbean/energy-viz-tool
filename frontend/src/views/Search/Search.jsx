@@ -117,7 +117,7 @@ class Dashboard extends Component {
             return (
                 <div>
                     <Row style={{'marginRight': '0px', 'marginLeft': '0px'}}>
-                        <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData}/>
+                        <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData} isLoading={true}/>
                     </Row>
                     <Row style={{'height': '200px', 'marginRight': '0px', 'marginLeft': '0px'}}>
                         <Col md={1}></Col>
@@ -149,7 +149,7 @@ class Dashboard extends Component {
             return (
                 <div>
                     <Row style={{'marginRight': '0px', 'marginLeft': '0px'}}>
-                        <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData}/>
+                        <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData} isLoading={false}/>
                     </Row>
                     <Jumbotron>
                       <h3><center><font color="red">Error</font></center></h3>
@@ -165,7 +165,7 @@ class Dashboard extends Component {
         return (
             <div>
                 <Row style={{'marginRight': '0px', 'marginLeft': '0px'}}>
-                    <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData}/>
+                    <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData} isLoading={false}/>
                 </Row>
                 <Row style={{'marginRight': '0px', 'marginLeft': '0px'}}>
                     <Col md={1}></Col>

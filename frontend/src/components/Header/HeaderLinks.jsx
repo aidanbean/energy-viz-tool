@@ -109,10 +109,10 @@ class HeaderLinks extends Component{
                         <Button
                             bsStyle="success"
                             block
-                            disabled={this.state.isGraphing}
+                            disabled={this.props.isLoading}
                             onClick={this.buttonHandler}
                         >
-                            {this.state.isGraphing ? 'Graphing' : 'Graph'}
+                            Submit
                         </Button>
                     </Col>
                     <Col md={2}> </Col>
