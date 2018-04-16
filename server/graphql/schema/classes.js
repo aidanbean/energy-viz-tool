@@ -22,7 +22,6 @@ class Coord {
 
 class BuildingData {
      constructor(bldgKey, nameTag, buildingType, long, lat, primaryPercent, primaryUse, secondaryPercent, secondaryUse, active) {
-         // this._id = id;
          this.bldgKey = bldgKey;
          this.nameTag = nameTag;
          this.buildingType = buildingType;

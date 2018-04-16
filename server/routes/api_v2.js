@@ -1,7 +1,7 @@
 /**
  *
  * Trying to make a PI route callable by the react frontend.
- *
+ * DEPRECATED: we are using GraphQL, not this.
  */
 
 import { Router } from 'express';

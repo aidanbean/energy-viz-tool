@@ -31,14 +31,14 @@ class Sidebar extends Component{
             <div id="sidebar" className="sidebar" data-color="black">
                     <div className="logo">
                         <div style={{display: 'flex', justifyContent: 'center'}}>
-                            <a href="#" className="simple-text logo-mini">
+                            <a href="google.com" className="simple-text logo-mini">
                                 <div className="logo-img">
                                     <img src={logo} alt="logo_image"/>
                                 </div>
                             </a>
                         </div>
                         <div style={{display: 'flex', justifyContent: 'center'}}>
-                            <a href="#" className="simple-text logo-normal">
+                            <a href="google.com" className="simple-text logo-normal">
                                 Energy Viz
                             </a>
                         </div>

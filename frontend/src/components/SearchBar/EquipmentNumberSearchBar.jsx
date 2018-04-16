@@ -12,7 +12,6 @@ var SelectStyle = {
     borderRadius: 3,
 };
 
-
 var EquipNumField = createClass({
     displayName: 'StatesField',
     propTypes: {
@@ -38,7 +37,6 @@ var EquipNumField = createClass({
     clearValue (e) {
         this.select.setInputValue('');
     },
-
     updateValue (newValue) {
         this.setState({
             selectValue: newValue,
@@ -55,9 +53,6 @@ var EquipNumField = createClass({
         this.setState(newState);
     },
     componentWillReceiveProps(nextProps) {
-        console.log("EquipmentNumberSearchBar");
-        console.log(nextProps);
-        // console.log(nextProps.equipType);
         if(nextProps.data && !nextProps.data.loading) {
             if(nextProps.equipType === "CHW" || nextProps.equipType === "HHW") {
                 this.setState({
@@ -69,9 +64,6 @@ var EquipNumField = createClass({
                 return;
             }
             var options = [];
-
-
-
             (nextProps.data.sensorData).forEach(function(element) {
                         const optionsObj = {label: element.equipmentNumber, value: element.equipmentNumber, className: "equipmentNumber"};
                         options.push(optionsObj);
@@ -81,13 +73,10 @@ var EquipNumField = createClass({
                     t.value === option.value
                 ))
             );
-
-
             if(nextProps.building === null || nextProps.equipType === null) {
                 this.updateValue(null);
                 options = [];
             }
-
             this.setState({
                 options: options,
                 isLoading: false,

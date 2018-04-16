@@ -3,7 +3,6 @@ import 'react-select/dist/react-select.css';
 import React from 'react';
 import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import gql from 'graphql-tag';
 
 const Buildings = require('./Buildings');
 
@@ -13,7 +12,6 @@ var SelectStyle = {
     borderRadius: 3,
 
 };
-
 
 var BuildingField = createClass({
     displayName: 'Building',
@@ -44,28 +42,22 @@ var BuildingField = createClass({
         this.setState({
             selectValue: newValue,
         }, () => {
-            console.log(newValue);
             this.props.callback(this.state.selectValue);
         });
     },
-
     componentWillReceiveProps(nextProps) {
         this.setState({
             disabled: false,
             isLoading: false
-
         })
     },
-
     clearValue(){
         this.setState({
-            selectValue: null,
+            selectValue: '',
         }, () => {
-            console.log("set null");
             this.props.callback(this.state.selectValue);
         });
     },
-
     render () {
         return (
             <div>
@@ -85,22 +77,12 @@ var BuildingField = createClass({
                     disabled={this.state.disabled}
                     value={this.state.selectValue}
                     onChange={this.updateValue}
-                    // clearValue={this.state.clearValue}
+                    clearValue={this.state.clearValue}
                     searchable={this.state.searchable}
                 />
             </div>
         );
     }
 });
-
-const BLDG_QUERY = gql`
-    query MinutesQuery
-    {
-        sensorData
-        {
-            building
-        }
-    }
-`;
 
 export default BuildingField;

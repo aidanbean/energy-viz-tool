@@ -7,10 +7,7 @@ import Select from 'react-select';
 var SelectStyle = {
     marginTop: 2,
     position: 'relative',
-    // width: 138,
     borderRadius: 3,
-    // display: 'inline-block',
-    // verticalAlign: 'middle',
 };
 
 var IntervalForm = createClass({
@@ -18,7 +15,6 @@ var IntervalForm = createClass({
     propTypes: {
         label: PropTypes.string
     },
-
     getInitialState () {
         return {
         options :[
@@ -41,7 +37,6 @@ var IntervalForm = createClass({
     },
     onChange(value) {
         this.setState({ value }, () => {
-            console.log('Numeric Select value changed to', value);
             this.props.callback(this.state.value);
         });
     },

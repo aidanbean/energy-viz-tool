@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Row, Col, NavItem, Nav, NavDropdown, MenuItem, Button } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 import Building from '../SearchBar/BuildingSearchBar'
 import EquipType from '../SearchBar/EquipmentTypeSearchBar'
 import EquipNum from '../SearchBar/EquipmentNumberSearchBar'
@@ -11,6 +11,7 @@ import Interval from '../SearchBar/IntervalForm';
 class HeaderLinks extends Component{
     constructor() {
         super();
+        // bind the different callbacks and set initial state.
         this.buttonHandler = this.buttonHandler.bind(this);
         this.buildingHandler = this.buildingHandler.bind(this);
         this.equipTypeHandler = this.equipTypeHandler.bind(this);
@@ -28,59 +29,47 @@ class HeaderLinks extends Component{
             endTime: '',
             interval: ''
         };
+
+    /* The following are different callbacks that are triggered
+    whenever the user makes a new selection in a search bar. */
     }
     buildingHandler(selection) {
         this.setState({
             building: selection,
-        }, () => {
-            console.log(this.state);
         });
     }
     equipTypeHandler(selection) {
         this.setState({
             equipmentType: selection,
-        }, () => {
-            console.log(this.state);
         });
     }
     equipNumHandler(selection) {
         this.setState({
             equipmentNumber: selection,
-        }, () => {
-            console.log(this.state);
         });
     }
     sensorTypeHandler(selection) {
         this.setState({
             sensorType: selection,
-        }, () => {
-            console.log(this.state);
         });
     }
     startHandler(selection) {
         this.setState({
             startTime: selection,
-        }, () => {
-            console.log(this.state);
         });
     }
     endHandler(selection) {
         this.setState({
             endTime: selection,
-        }, () => {
-            console.log(this.state);
         });
     }
     intervalHandler(selection) {
         this.setState({
             interval: selection,
-        }, () => {
-            console.log(this.state);
         });
     }
     buttonHandler() {
         this.props.callback(this.state);
-        // console.log(this.state);
     }
 
     render(){

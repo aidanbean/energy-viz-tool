@@ -1,5 +1,3 @@
-
-
 import React, { Component } from 'react';
 import {
     Route,
@@ -14,20 +12,12 @@ import {style} from "../../variables/Variables.jsx";
 
 import appRoutes from '../../routes/app.jsx';
 
-
 class App extends Component {
     constructor(props){
         super(props);
-        this.componentDidMount = this.componentDidMount.bind(this);
+        // this.componentDidMount = this.componentDidMount.bind(this);
         // this.handleNotificationClick = this.handleNotificationClick.bind(this);
         this.dataByMinutes = this.dataByMinutes.bind(this);
-        // this._getByMinutes = this._getByMinutes.bind(this);
-        // var initialStart = moment().subtract(30, 'days').format('MM-DD-YYYY-ha');
-        var initialStart = '03-20-2018-6am';
-        console.log(initialStart);
-        // var initialEnd = moment().format('MM-DD-YYYY-ha');
-        var initialEnd = '03-21-2018-6pm';
-        console.log(initialEnd);
         this.state = {
             _notificationSystem: null,
             headerData: {
@@ -35,12 +25,11 @@ class App extends Component {
                 equipmentType  : 'AHU',
                 equipmentNumber: 'AHU01_PENT',
                 sensorType     : 'Outside Air Temp',
-                startTime      : initialStart,
-                endTime        : initialEnd,
+                startTime      : '03-20-2018-6am',
+                endTime        : '03-21-2018-6pm',
                 interval       : '30m'
             }
         };
-        console.log(this.state);
     }
     // handleNotificationClick(position){
     //     var color = Math.floor((Math.random() * 4) + 1);
@@ -74,63 +63,52 @@ class App extends Component {
     //         autoDismiss: 15,
     //     });
     // }
-    componentDidMount(){
-        this.setState({_notificationSystem: this.refs.notificationSystem});
-        var _notificationSystem = this.refs.notificationSystem;
-        var color = Math.floor((Math.random() * 4) + 1);
-        var level;
-        switch (color) {
-            case 1:
-                level = 'success';
-                break;
-            case 2:
-                level = 'warning';
-                break;
-            case 3:
-                level = 'error';
-                break;
-            case 4:
-                level = 'info';
-                break;
-            default:
-                break;
-        }
-
-        // don't need notification system
-        // _notificationSystem.addNotification({
-        //     title: (<span data-notify="icon" className="pe-7s-gift"></span>),
-        //     message: (
-        //         <div>
-        //             Welcome to <b>Light Bootstrap Search</b> - a beautiful freebie for every web developer.
-        //         </div>
-        //     ),
-        //     level: level,
-        //     position: "tr",
-        //     autoDismiss: 15,
-        // });
-    }
+    // componentDidMount(){
+    //     this.setState({_notificationSystem: this.refs.notificationSystem});
+    //     var _notificationSystem = this.refs.notificationSystem;
+    //     var color = Math.floor((Math.random() * 4) + 1);
+    //     var level;
+    //     switch (color) {
+    //         case 1:
+    //             level = 'success';
+    //             break;
+    //         case 2:
+    //             level = 'warning';
+    //             break;
+    //         case 3:
+    //             level = 'error';
+    //             break;
+    //         case 4:
+    //             level = 'info';
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    //
+    //     don't need notification system
+    //     _notificationSystem.addNotification({
+    //         title: (<span data-notify="icon" className="pe-7s-gift"></span>),
+    //         message: (
+    //             <div>
+    //                 Welcome to <b>Light Bootstrap Search</b> - a beautiful freebie for every web developer.
+    //             </div>
+    //         ),
+    //         level: level,
+    //         position: "tr",
+    //         autoDismiss: 15,
+    //     });
+    // }
     componentDidUpdate(e){
         if(window.innerWidth < 993 && e.history.location.pathname !== e.location.pathname && document.documentElement.className.indexOf('nav-open') !== -1){
             document.documentElement.classList.toggle('nav-open');
         }
     }
     dataByMinutes(dataFromHeader) {
-        console.log("In App.jsx");
-        console.log(dataFromHeader);
         this.setState({
             headerData: dataFromHeader
-        }, () => {
-            // if(this.state.headerData.)
-            console.log(this.state);
-        })
+        });
     }
     render() {
-
-        const { data } = this.state;
-        const fieldMap = ["building", "equipmentType", "equipmentNumber", "SensorType"];
-        const heads = ["Building", "Equipment Type", "Equipment Number", "Sensor Type"];
-
-
         return (
             <div className="wrapper">
                 <NotificationSystem ref="notificationSystem" style={style}/>

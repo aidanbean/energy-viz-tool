@@ -60,14 +60,14 @@ class Header extends Component{
         this.props.callback(dataFromHeader);
     }
     render(){
-        const notification = (
-            <div>
-                <i className="fa fa-globe"></i>
-                <b className="caret"></b>
-                <span className="notification">5</span>
-                <p className="hidden-lg hidden-md">Notification</p>
-            </div>
-        );
+        // const notification = (
+        //     <div>
+        //         <i className="fa fa-globe"></i>
+        //         <b className="caret"></b>
+        //         <span className="notification">5</span>
+        //         <p className="hidden-lg hidden-md">Notification</p>
+        //     </div>
+        // );
         return (
             <Navbar fluid>
                 <Navbar.Header>

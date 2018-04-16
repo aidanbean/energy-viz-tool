@@ -1,10 +1,6 @@
-/**
- *
- * Database Config
- * Examples:
- */
+// Connect to MongoDB.
 
-//  MongoDB
+// import Mongoose
 import mongoose from 'mongoose';
 
 // Here we find an appropriate database to connect to, defaulting to
@@ -31,36 +27,3 @@ process.on('SIGINT', function() {
         process.exit(0);
     });
 });
-
-/*
- * Mysql
- * import mysql from 'mysql';
- * import env from './env';
- * const settings = {
- *  dev: {
- *    host: 'xxxx',
- *    user: 'xxxx',
- *    database: 'xxxxx'
- *  },
- *  production: {
- *    host: 'xxxx',
- *    user: 'xxxx',
- *    database: 'xxxxx'
- *  }
- * };
- * const pool = mysql.createPool(settings[env.name]);
- * const getMysqlConnection = (cb) {
- *  pool.getConnection((err, connection) => {
- *    if (err) throw err;
- *    cb(connection);
- *  });
- * }
- * export default getMysqlConnection;
- */
-
-/*
- * Or you can also use ORM:
- *
- *  - Bookshelf.js
- *  - Sequelize.js
- */

@@ -1,8 +1,5 @@
 /* Entry point for GraphQL */
 
-/* NOTE: Trying a different implementation .  Ignore "query.js" and ./types
- * folder for this implementation
- */
 import mongoose from 'mongoose';
 import DataModel from '../../config/models/data_model';
 import BuildingModel from '../../config/models/building_model';
@@ -107,15 +104,11 @@ var root = {
             "equipmentNumber": equipmentNumber,
             "sensorType": sensorType
         };
-        console.log(dbEntry);
         const dbResult = await DataModel.findOne(dbEntry);
-        console.log("WebId just fetched:");
-        console.log(dbResult.webId);
         var piResult = await fetchAPI.fetchStream_byMonths(dbResult.webId,
                                                              startDate,
                                                              endDate,
                                                              interval );
-        console.log(piResult.Items);
         var listOfPoints = [];
         (piResult.Items).forEach( function(element) {
             const point = new DataPoint(element.Timestamp, element.Value, element.UnitsAbbreviation, element.Good, element.Questionable, element.Substituted);
@@ -131,15 +124,11 @@ var root = {
             "equipmentNumber": equipmentNumber,
             "sensorType": sensorType
         };
-        console.log(dbEntry);
         const dbResult = await DataModel.findOne(dbEntry);
-        console.log("WebId just fetched:");
-        console.log(dbResult.webId);
         var piResult = await fetchAPI.fetchStream_byMinutes(dbResult.webId,
                                                              startTime,
                                                              endTime,
                                                              interval );
-        console.log(piResult.Items);
         var listOfPoints = [];
         (piResult.Items).forEach( function(element) {
             if (element.Good == false) {
@@ -158,12 +147,8 @@ var root = {
             "equipmentNumber": equipmentNumber,
             "sensorType": sensorType
         };
-        console.log(dbEntry);
         const dbResult = await DataModel.findOne(dbEntry);
-        console.log("WebId just fetched:");
-        console.log(dbResult.webId);
         var piResult = await fetchAPI.fetchStream_value(dbResult.webId);
-        console.log(piResult);
         const point = new DataPoint(piResult.Timestamp, piResult.Value, piResult.UnitsAbbreviation, piResult.Good, piResult.Questionable, piResult.Substituted);
         return point;
     },
@@ -172,10 +157,8 @@ var root = {
         const dbEntry = {
             "nameTag": building,
         };
-        console.log(dbEntry);
         const cursor = db.collection("buildings").find(dbEntry);
         let dbResult = await cursor.next();
-        // console.log(dbResult);
         const bData = new BuildingData(dbResult.bldgKey, dbResult.nameTag, dbResult.buildingType, dbResult.center.long, dbResult.center.lat, dbResult.primaryPercent, dbResult.primaryUse, dbResult.secondaryPercent, dbResult.secondaryUse, dbResult.active);
         return bData;
     },
@@ -194,11 +177,7 @@ var root = {
         if((typeof sensorType !== "undefined") && (sensorType != null)) {
             dbEntry["sensorType"] = sensorType;
         }
-        console.log(dbEntry);
-        const cursor = db.collection("good_data").find(dbEntry);
         const results = await DataModel.find(dbEntry);
-        // let dbResult = await cursor.next();
-        console.log(results);
         var listOfData = [];
         (results).forEach( function(element) {
             const sData = new SensorData(element.webId, element.tagName, element.building, element.equipmentType, element.equipmentNumber, element.sensorType);

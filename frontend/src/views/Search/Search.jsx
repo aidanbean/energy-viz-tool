@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import moment from 'moment-timezone';
-import {Row, Col, ProgressBar, Button, Jumbotron } from 'react-bootstrap';
+import {Row, Col, Jumbotron } from 'react-bootstrap';
 import { BarLoader } from 'react-spinners';
 import ReactHighcharts from 'react-highcharts';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import HeaderLinks from '../../components/Header/HeaderLinks.jsx';
 import {Card} from '../../components/Card/Card.jsx';
-
 
 class Dashboard extends Component {
     constructor(props) {
@@ -54,22 +53,16 @@ class Dashboard extends Component {
         }
         return legend;
     }
-
-    // componentDidMount() {
-    //
-    // }
-
+    /* when new query parameters are recieved in the props,
+    we refetch the graphQL query and convert the timezone. */
     componentWillReceiveProps(nextProps) {
         this.props.data.refetch();
         if(typeof nextProps.data.dataByMinutes === 'undefined') {
-            console.log("Invalid Data");
             return;
         }
-        console.log("Here!!");
-        console.log(nextProps);
         const x = [];
         (nextProps.data.dataByMinutes).forEach(function(element) {
-            x.push(moment.tz(element.Timestamp, "US/Pacific").format('YYYY-MM-DDTHH:MM'));
+            x.push(moment.tz(element.Timestamp, "US/Pacific").format('YYYY-MM-DDTHH:mm'));
         });
         const y = [];
         (nextProps.data.dataByMinutes).forEach(function(element) {
@@ -109,8 +102,6 @@ class Dashboard extends Component {
     }
 
     headerCallback(dataFromHeader) {
-        console.log("In Header.jsx");
-        console.log(dataFromHeader);
         this.props.callback(dataFromHeader);
     }
 
@@ -131,7 +122,6 @@ class Dashboard extends Component {
                         <Col md={8}>
                             <Card
                                 title="Loading"
-                                s
                                 content={
                                     <BarLoader
                                         color={'#3C4858'}
@@ -146,28 +136,6 @@ class Dashboard extends Component {
         }
 
 
-
-
-        // if(subtract ) {
-        //
-        //     console.log(this.props.headerData.endTime);
-        //     console.log(this.props.headerData.startTime);
-        //
-        //     clearTimeout();
-        //     return (
-        //         <div>
-        //             <Row style = {{'marginRight': '0px', 'marginLeft': '0px'}}>
-        //                 <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData}/>
-        //             </Row>
-        //             <Jumbotron>
-        //                 <h1><center><font color="red">Time Range Invalid</font></center></h1>
-        //                 <center>
-        //                     start time
-        //                 </center>
-        //             </Jumbotron>;
-        //         </div>
-        //     );
-        // }
 
 
         if (this.props.data && this.props.data.error) {
@@ -186,11 +154,7 @@ class Dashboard extends Component {
                 </div>
             );
         }
-
-
-
-
-
+        
 
         return (
             <div>
