@@ -35,7 +35,8 @@ class Dashboard extends Component {
                 title: {
                     text: null
                 }
-            }
+            },
+            time: new Date()
         }
     }
 
@@ -59,7 +60,7 @@ class Dashboard extends Component {
     // }
 
     componentWillReceiveProps(nextProps) {
-        this.props.data.refetch()
+        this.props.data.refetch();
         if(typeof nextProps.data.dataByMinutes === 'undefined') {
             console.log("Invalid Data");
             return;
@@ -122,11 +123,10 @@ class Dashboard extends Component {
         if (this.props.data && this.props.data.loading) {
             return (
                 <div>
-                    <Row> d </Row>
-                    <Row>
+                    <Row style = {{'marginRight': '0px', 'marginLeft': '0px'}}>
                         <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData}/>
                     </Row>
-                    <Row style={{height:200}}>
+                    <Row style={{'height':'200px', 'marginRight': '0px', 'marginLeft': '0px'}}>
                         <Col md={2}></Col>
                         <Col md={8}>
                             <Card
@@ -145,12 +145,36 @@ class Dashboard extends Component {
             );
         }
 
+
+
+
+        // if(subtract ) {
+        //
+        //     console.log(this.props.headerData.endTime);
+        //     console.log(this.props.headerData.startTime);
+        //
+        //     clearTimeout();
+        //     return (
+        //         <div>
+        //             <Row style = {{'marginRight': '0px', 'marginLeft': '0px'}}>
+        //                 <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData}/>
+        //             </Row>
+        //             <Jumbotron>
+        //                 <h1><center><font color="red">Time Range Invalid</font></center></h1>
+        //                 <center>
+        //                     start time
+        //                 </center>
+        //             </Jumbotron>;
+        //         </div>
+        //     );
+        // }
+
+
         if (this.props.data && this.props.data.error) {
             clearTimeout();
             return (
                 <div>
-                    <Row> d </Row>
-                    <Row>
+                    <Row style = {{'marginRight': '0px', 'marginLeft': '0px'}}>
                         <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData}/>
                     </Row>
                     <Jumbotron>
@@ -163,13 +187,17 @@ class Dashboard extends Component {
             );
         }
 
+
+
+
+
+
         return (
             <div>
-                <Row> d </Row>
-                <Row>
+                <Row style = {{'marginRight': '0px', 'marginLeft': '0px'}}>
                     <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData}/>
                 </Row>
-                <Row>
+                <Row style = {{'marginRight': '0px', 'marginLeft': '0px'}}>
                     <Col md={1}></Col>
                     <Col md={10}>
                         <Card
@@ -177,7 +205,7 @@ class Dashboard extends Component {
                             id="chartHours"
                             title={this.props.headerData.sensorType}
                             category={this.props.headerData.building}
-                            stats="Updated just now"
+                            // stats={}
                             content={
                                 <div className="ct-chart">
                                     <ReactHighcharts

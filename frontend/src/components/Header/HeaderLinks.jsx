@@ -86,7 +86,8 @@ class HeaderLinks extends Component{
     render(){
         return (
             <div className="content">
-                <Row>
+                <br/>
+                <Row style = {{'marginRight': '0px', 'marginLeft': '0px'}}>
                     <Col md={2} > </Col>
                     <Col md={2}>
                         <Building label="Building" callback={this.buildingHandler} searchable />
@@ -103,7 +104,7 @@ class HeaderLinks extends Component{
                     <Col md={2}> </Col>
                 </Row>
                 <br />
-                <Row>
+                <Row style = {{'marginRight': '0px', 'marginLeft': '0px'}}>
                     <Col md={2} > </Col>
                     <Col md={2}>
                         <Start label="Start" callback={this.startHandler}/>
@@ -119,7 +120,7 @@ class HeaderLinks extends Component{
                     </Col>
                     <Col md={2}> </Col>
                 </Row>
-                <hr />
+                <br/>
             </div>
         );
     }
