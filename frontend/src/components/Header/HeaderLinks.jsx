@@ -108,7 +108,7 @@ class HeaderLinks extends Component{
                         <Interval label="Interval" callback={this.intervalHandler}/>
                     </Col>
                     <Col md={2}>
-                        <Button bsStyle="success" block onClick={this.buttonHandler} >Submit</Button>
+                        <Button bsStyle="success" block onClick={this.buttonHandler} disabled={this.props.isLoading}>Submit</Button>
                     </Col>
                     <Col md={2}> </Col>
                 </Row>
