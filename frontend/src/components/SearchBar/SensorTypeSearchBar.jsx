@@ -74,7 +74,16 @@ var SensorField = createClass({
                     t.value === option.value
                 ))
             );
+
+            if(nextProps.building === null || nextProps.equipType === null || nextProps.equipNum === null) {
+                options = [];
+            }
+
         }
+
+
+
+
         this.setState({
             options: options,
             isLoading: false

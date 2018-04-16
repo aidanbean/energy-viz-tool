@@ -1,6 +1,4 @@
 import Select from 'react-select';
-import { Row, Col } from 'react-bootstrap';
-// import { Async } from 'react-select';
 import 'react-select/dist/react-select.css';
 import React from 'react';
 import createClass from 'create-react-class';
@@ -40,13 +38,7 @@ var EquipNumField = createClass({
     clearValue (e) {
         this.select.setInputValue('');
     },
-    switchCountry (e) {
-        var newCountry = e.target.value;
-        this.setState({
-            country: newCountry,
-            selectValue: null,
-        });
-    },
+
     updateValue (newValue) {
         this.setState({
             selectValue: newValue,
@@ -63,8 +55,9 @@ var EquipNumField = createClass({
         this.setState(newState);
     },
     componentWillReceiveProps(nextProps) {
-        console.log("here");
-        console.log(nextProps.equipType);
+        console.log("EquipmentNumberSearchBar");
+        console.log(nextProps);
+        // console.log(nextProps.equipType);
         if(nextProps.data && !nextProps.data.loading) {
             if(nextProps.equipType == "CHW" || nextProps.equipType == "HHW") {
                 this.setState({
@@ -76,6 +69,9 @@ var EquipNumField = createClass({
                 return;
             }
             var options = [];
+
+
+
             (nextProps.data.sensorData).forEach(function(element) {
                         const optionsObj = {label: element.equipmentNumber, value: element.equipmentNumber, className: "equipmentNumber"};
                         options.push(optionsObj);
@@ -85,6 +81,12 @@ var EquipNumField = createClass({
                     t.value === option.value
                 ))
             );
+
+
+            if(nextProps.building === null || nextProps.equipType === null) {
+                options = [];
+            }
+
             this.setState({
                 options: options,
                 isLoading: false,
