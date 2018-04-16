@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Row, Col, NavItem, Nav, NavDropdown, MenuItem, Button } from 'react-bootstrap';
-import Building from '../SearchBar/BuidlingSearchBar'
+import Building from '../SearchBar/BuildingSearchBar'
 import EquipType from '../SearchBar/EquipmentTypeSearchBar'
 import EquipNum from '../SearchBar/EquipmentNumberSearchBar'
 import Sensor from '../SearchBar/SensorTypeSearchBar'

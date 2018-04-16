@@ -153,6 +153,40 @@ const fetchStream_byMinutes = (WebId, startTime, endTime, interval) => {
             .then(res => res.json());
 };
 
+const fetchStream_recorded = (WebId, startTime, endTime) => {
+    /*  Return a JSON PI stream with data from startMinute to endMinute with
+        interval minutes in between.
+
+        startTime, endTime formats
+        12-11-2017-6am, 12-11-2017-12pm
+
+        Example fetch URL:
+        https://ucd-pi-iis.ou.ad3.ucdavis.edu/piwebapi/streams/
+        P09KoOKByvc0-uxyvoTV1UfQhyIAAAVVRJTC1QSS1QXEdIQVVTSV9DSElMTEVEV0FURVJfRVVJ/
+        recorded?startTime=12-11-2017-6am&endTime=12-11-2017-12pm
+    */
+    return fetch(`${piBaseUrl}streams/${WebId}/recorded?startTime=${startTime}
+                &endTime=${endTime}`)
+            .then(res => res.json());
+};
+
+const fetchStream_plot = (WebId, startTime, endTime) => {
+    /*  Return a JSON PI stream with data from startMinute to endMinute with
+        interval minutes in between.
+
+        startTime, endTime formats
+        12-11-2017-6am, 12-11-2017-12pm
+
+        Example fetch URL:
+        https://ucd-pi-iis.ou.ad3.ucdavis.edu/piwebapi/streams/
+        P09KoOKByvc0-uxyvoTV1UfQhyIAAAVVRJTC1QSS1QXEdIQVVTSV9DSElMTEVEV0FURVJfRVVJ/
+        recorded?startTime=12-11-2017-6am&endTime=12-11-2017-12pm
+    */
+    return fetch(`${piBaseUrl}streams/${WebId}/plot?startTime=${startTime}
+                &endTime=${endTime}`)
+            .then(res => res.json());
+};
+
 module.exports = {
     fetchWebId_byPoint,
     fetchWebId_byDataServer,
