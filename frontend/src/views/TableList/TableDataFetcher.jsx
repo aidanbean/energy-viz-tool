@@ -14,7 +14,6 @@ const range = len => {
 
 
 const fakeData = () => {
-    const statusChance = Math.random();
     var num = Math.floor((Math.random() * 11));
     return {
         building: buildingArray[num],

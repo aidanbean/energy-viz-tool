@@ -41,7 +41,6 @@ class DraggableTable extends Component {
 
             header.ondrop = e => {
                 e.preventDefault();
-                const { target, dataTransfer } = e;
                 this.reorder.push({ a: i, b: this.dragged });
                 this.setState({ trigger: Math.random() });
             };

@@ -59,7 +59,7 @@ var EquipNumField = createClass({
         console.log(nextProps);
         // console.log(nextProps.equipType);
         if(nextProps.data && !nextProps.data.loading) {
-            if(nextProps.equipType == "CHW" || nextProps.equipType == "HHW") {
+            if(nextProps.equipType === "CHW" || nextProps.equipType === "HHW") {
                 this.setState({
                     disabled: true,
                     selectValue: '',

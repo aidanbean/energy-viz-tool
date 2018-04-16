@@ -1,7 +1,6 @@
 
 
 import React, { Component } from 'react';
-import moment from 'moment';
 import {
     Route,
     Switch,
@@ -9,20 +8,18 @@ import {
 } from 'react-router-dom';
 import NotificationSystem from 'react-notification-system';
 import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
 import Sidebar from '../../components/Sidebar/Sidebar';
 
 import {style} from "../../variables/Variables.jsx";
 
 import appRoutes from '../../routes/app.jsx';
 
-// import TableList from './TableList.jsx'
 
 class App extends Component {
     constructor(props){
         super(props);
         this.componentDidMount = this.componentDidMount.bind(this);
-        this.handleNotificationClick = this.handleNotificationClick.bind(this);
+        // this.handleNotificationClick = this.handleNotificationClick.bind(this);
         this.dataByMinutes = this.dataByMinutes.bind(this);
         // this._getByMinutes = this._getByMinutes.bind(this);
         // var initialStart = moment().subtract(30, 'days').format('MM-DD-YYYY-ha');
@@ -45,38 +42,38 @@ class App extends Component {
         };
         console.log(this.state);
     }
-    handleNotificationClick(position){
-        var color = Math.floor((Math.random() * 4) + 1);
-        var level;
-        switch (color) {
-            case 1:
-                level = 'success';
-                break;
-            case 2:
-                level = 'warning';
-                break;
-            case 3:
-                level = 'error';
-                break;
-            case 4:
-                level = 'info';
-                break;
-            default:
-                break;
-        }
-        // don't need notification system
-        // this.state._notificationSystem.addNotification({
-        //     title: (<span data-notify="icon" className="pe-7s-gift"></span>),
-        //     message: (
-        //         <div>
-        //             Welcome to <b>Light Bootstrap Search</b> - a beautiful freebie for every web developer.
-        //         </div>
-        //     ),
-        //     level: level,
-        //     position: position,
-        //     autoDismiss: 15,
-        // });
-    }
+    // handleNotificationClick(position){
+    //     var color = Math.floor((Math.random() * 4) + 1);
+    //     var level;
+    //     switch (color) {
+    //         case 1:
+    //             level = 'success';
+    //             break;
+    //         case 2:
+    //             level = 'warning';
+    //             break;
+    //         case 3:
+    //             level = 'error';
+    //             break;
+    //         case 4:
+    //             level = 'info';
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    //     // don't need notification system
+    //     this.state._notificationSystem.addNotification({
+    //         title: (<span data-notify="icon" className="pe-7s-gift"></span>),
+    //         message: (
+    //             <div>
+    //                 Welcome to <b>Light Bootstrap Search</b> - a beautiful freebie for every web developer.
+    //             </div>
+    //         ),
+    //         level: level,
+    //         position: position,
+    //         autoDismiss: 15,
+    //     });
+    // }
     componentDidMount(){
         this.setState({_notificationSystem: this.refs.notificationSystem});
         var _notificationSystem = this.refs.notificationSystem;

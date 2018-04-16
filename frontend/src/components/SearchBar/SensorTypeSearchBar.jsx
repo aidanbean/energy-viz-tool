@@ -1,5 +1,4 @@
 import Select from 'react-select';
-import { Row, Col } from 'react-bootstrap';
 import 'react-select/dist/react-select.css';
 import React from 'react';
 import createClass from 'create-react-class';
