@@ -1,8 +1,5 @@
 /* Entry point for GraphQL */
 
-/* NOTE: Trying a different implementation .  Ignore "query.js" and ./types
- * folder for this implementation
- */
 import mongoose from 'mongoose';
 import DataModel from '../../config/models/data_model';
 import BuildingModel from '../../config/models/building_model';

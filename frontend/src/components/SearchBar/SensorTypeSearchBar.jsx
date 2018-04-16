@@ -19,7 +19,6 @@ var SensorField = createClass({
         label: PropTypes.string,
         searchable: PropTypes.bool,
     },
-
     getDefaultProps () {
         return {
             label: 'Sensor:',
@@ -80,10 +79,7 @@ var SensorField = createClass({
             }
 
         }
-
-
-
-
+        
         this.setState({
             options: options,
             isLoading: false

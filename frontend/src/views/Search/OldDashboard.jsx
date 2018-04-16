@@ -1,3 +1,5 @@
+// This is the old dashboard view for reference.
+
 import React, { Component } from 'react';
 import ChartistGraph from 'react-chartist';
 import { Grid, Row, Col } from 'react-bootstrap';

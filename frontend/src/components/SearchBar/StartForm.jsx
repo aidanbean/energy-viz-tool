@@ -5,12 +5,9 @@ import { FormGroup } from 'react-bootstrap';
 // import FormInputs from '../FormInputs/FormInputs.jsx';
 
 class StartForm extends Component {
-
     constructor(props) {
         super(props);
-
         this.handleEvent = this.handleEvent.bind(this);
-
         this.state = {
             value: null
         };

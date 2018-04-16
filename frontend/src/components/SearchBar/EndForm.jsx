@@ -26,8 +26,8 @@ class EndForm extends Component {
 
     render() {
         var yesterday = Datetime.moment();
-        var valid = function ( current ) {
-            return current.isBefore( yesterday );
+        var valid = function (current) {
+            return current.isBefore(yesterday);
         };
         return (
             <FormGroup>

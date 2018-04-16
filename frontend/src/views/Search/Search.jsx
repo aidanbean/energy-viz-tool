@@ -8,7 +8,6 @@ import gql from 'graphql-tag';
 import HeaderLinks from '../../components/Header/HeaderLinks.jsx';
 import {Card} from '../../components/Card/Card.jsx';
 
-
 class Dashboard extends Component {
     constructor(props) {
         super(props);
@@ -54,18 +53,11 @@ class Dashboard extends Component {
         return legend;
     }
 
-    // componentDidMount() {
-    //
-    // }
-
     componentWillReceiveProps(nextProps) {
         this.props.data.refetch()
         if(typeof nextProps.data.dataByMinutes === 'undefined') {
-            console.log("Invalid Data");
             return;
         }
-        console.log("Here!!");
-        console.log(nextProps);
         const x = [];
         (nextProps.data.dataByMinutes).forEach(function(element) {
             x.push(moment.tz(element.Timestamp, "US/Pacific").format('YYYY-MM-DDTHH:MM'));
@@ -108,8 +100,6 @@ class Dashboard extends Component {
     }
 
     headerCallback(dataFromHeader) {
-        console.log("In Header.jsx");
-        console.log(dataFromHeader);
         this.props.callback(dataFromHeader);
     }
 

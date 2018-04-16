@@ -45,14 +45,12 @@ var BuildingField = createClass({
             this.props.callback(this.state.selectValue);
         });
     },
-
     componentWillReceiveProps(nextProps) {
         this.setState({
             disabled: false,
             isLoading: false
         })
     },
-
     clearValue(){
         this.setState({
             selectValue: '',
@@ -60,7 +58,6 @@ var BuildingField = createClass({
             this.props.callback(this.state.selectValue);
         });
     },
-
     render () {
         return (
             <div>

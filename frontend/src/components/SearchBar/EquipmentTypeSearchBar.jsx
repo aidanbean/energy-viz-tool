@@ -18,14 +18,12 @@ var EquipmentField = createClass({
         label: PropTypes.string,
         searchable: PropTypes.bool,
     },
-
     getDefaultProps () {
         return {
             label: 'Equips',
             searchable: true,
         };
     },
-
     getInitialState () {
         return {
             type: 'EquipmentTypes',
@@ -36,35 +34,25 @@ var EquipmentField = createClass({
             isLoading: true,
         };
     },
-
     clearValue (e) {
         this.select.setInputValue('');
     },
-
-
     updateValue (newValue) {
         this.setState({
             selectValue: newValue,
         }, () => {
-            // console.log("calling callback");
             this.props.callback(this.state.selectValue);
         });
     },
-
     focusStateSelect () {
         this.refs.stateSelect.focus();
     },
-
     toggleCheckbox (e) {
         let newState = {};
         newState[e.target.name] = e.target.checked;
         this.setState(newState);
     },
-
     componentWillReceiveProps(nextProps) {
-        // console.log("TypeSearchBar");
-        // console.log(nextProps);
-
         if(nextProps.data && !nextProps.data.loading) {
             var options = [];
             (nextProps.data.sensorData).forEach(function(element) {
@@ -77,12 +65,10 @@ var EquipmentField = createClass({
                 ))
             );
         }
-
         this.setState({
             options: options,
             isLoading: false
         });
-
         if(nextProps.building === null) {
             this.updateValue(null);
             options = [];
@@ -92,7 +78,6 @@ var EquipmentField = createClass({
             });
         }
     },
-
     render () {
         return (
             <div>
