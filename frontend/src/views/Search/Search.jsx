@@ -52,7 +52,8 @@ class Dashboard extends Component {
         }
         return legend;
     }
-
+    /* when new query parameters are recieved in the props,
+    we refetch the graphQL query and convert the timezone. */
     componentWillReceiveProps(nextProps) {
         this.props.data.refetch()
         if(typeof nextProps.data.dataByMinutes === 'undefined') {
@@ -60,7 +61,7 @@ class Dashboard extends Component {
         }
         const x = [];
         (nextProps.data.dataByMinutes).forEach(function(element) {
-            x.push(moment.tz(element.Timestamp, "US/Pacific").format('YYYY-MM-DDTHH:MM'));
+            x.push(moment.tz(element.Timestamp, "US/Pacific").format('YYYY-MM-DDTHH:mm'));
         });
         const y = [];
         (nextProps.data.dataByMinutes).forEach(function(element) {
@@ -121,7 +122,6 @@ class Dashboard extends Component {
                         <Col md={8}>
                             <Card
                                 title="Loading"
-                                s
                                 content={
                                     <BarLoader
                                         color={'#3C4858'}
