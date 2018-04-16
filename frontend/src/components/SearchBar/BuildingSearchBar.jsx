@@ -1,10 +1,8 @@
 import Select from 'react-select';
-import { Row, Col } from 'react-bootstrap';
 import 'react-select/dist/react-select.css';
 import React from 'react';
 import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 const Buildings = require('./Buildings');
@@ -59,6 +57,15 @@ var BuildingField = createClass({
         })
     },
 
+    clearValue(){
+        this.setState({
+            selectValue: null,
+        }, () => {
+            console.log("set null");
+            this.props.callback(this.state.selectValue);
+        });
+    },
+
     render () {
         return (
             <div>
@@ -78,6 +85,7 @@ var BuildingField = createClass({
                     disabled={this.state.disabled}
                     value={this.state.selectValue}
                     onChange={this.updateValue}
+                    // clearValue={this.state.clearValue}
                     searchable={this.state.searchable}
                 />
             </div>

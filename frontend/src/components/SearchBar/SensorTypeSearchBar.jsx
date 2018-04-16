@@ -1,5 +1,4 @@
 import Select from 'react-select';
-import { Row, Col } from 'react-bootstrap';
 import 'react-select/dist/react-select.css';
 import React from 'react';
 import createClass from 'create-react-class';
@@ -74,7 +73,17 @@ var SensorField = createClass({
                     t.value === option.value
                 ))
             );
+
+            if(nextProps.building === null || nextProps.equipType === null || nextProps.equipNum === null) {
+                this.updateValue(null);
+                options = [];
+            }
+
         }
+
+
+
+
         this.setState({
             options: options,
             isLoading: false

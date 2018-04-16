@@ -1,5 +1,4 @@
 import Select from 'react-select';
-import { Row, Col } from 'react-bootstrap';
 import 'react-select/dist/react-select.css';
 import React from 'react';
 import createClass from 'create-react-class';
@@ -42,19 +41,12 @@ var EquipmentField = createClass({
         this.select.setInputValue('');
     },
 
-    switchCountry (e) {
-        var newType = e.target.value;
-        this.setState({
-            type: newType,
-            selectValue: null,
-        });
-    },
 
     updateValue (newValue) {
         this.setState({
             selectValue: newValue,
         }, () => {
-            console.log("calling callback");
+            // console.log("calling callback");
             this.props.callback(this.state.selectValue);
         });
     },
@@ -70,6 +62,9 @@ var EquipmentField = createClass({
     },
 
     componentWillReceiveProps(nextProps) {
+        // console.log("TypeSearchBar");
+        // console.log(nextProps);
+
         if(nextProps.data && !nextProps.data.loading) {
             var options = [];
             (nextProps.data.sensorData).forEach(function(element) {
@@ -82,10 +77,20 @@ var EquipmentField = createClass({
                 ))
             );
         }
+
         this.setState({
             options: options,
             isLoading: false
         });
+
+        if(nextProps.building === null) {
+            this.updateValue(null);
+            options = [];
+            this.setState({
+                options: options,
+                isLoading: false
+            });
+        }
     },
 
     render () {

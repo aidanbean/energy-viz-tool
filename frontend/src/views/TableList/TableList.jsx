@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col, Table } from 'react-bootstrap';
+import { Grid, Row, Col} from 'react-bootstrap';
 
-import ReactTable, { ReactTableDefaults } from "react-table";
 import "react-table/react-table.css";
 import matchSorter from 'match-sorter';
 
 import Card from '../../components/Card/Card.jsx';
 
 import dataFetcher from './TableDataFetcher.jsx';
-import {CSVLink, CSVDownload} from 'react-csv';
+import {CSVLink} from 'react-csv';
 import DraggableTable from './DraggableTable';
 
 
@@ -63,8 +62,6 @@ class TableList extends Component {
                                                 accessor: "building",
                                                 filterMethod: (filter, row) =>
                                                     String(row[filter.id]).toLocaleLowerCase().includes(filter.value.toLocaleLowerCase())
-                                                // startsWith(filter.value.toLocaleLowerCase())
-                                                // String(row[filter.id]).toLocaleLowerCase().endsWith(filter.value.toLocaleLowerCase())
                                             },
                                             {
                                                 Header: "Equipment Type",
@@ -110,45 +107,6 @@ class TableList extends Component {
                                 }
                             />
                         </Col>
-
-                        {/*<Col md={12}>*/}
-                        {/*<Card*/}
-                        {/*plain*/}
-                        {/*title="Air Handler Unit Data"*/}
-                        {/*category="AHU Data"*/}
-                        {/*ctTableFullWidth ctTableResponsive*/}
-                        {/*content={*/}
-                        {/*<Table hover>*/}
-                        {/*<thead>*/}
-                        {/*<tr>*/}
-                        {/*{*/}
-                        {/*thArray.map((prop, key) => {*/}
-                        {/*return (*/}
-                        {/*<th  key={key}>{prop}</th>*/}
-                        {/*);*/}
-                        {/*})*/}
-                        {/*}*/}
-                        {/*</tr>*/}
-                        {/*</thead>*/}
-                        {/*<tbody>*/}
-                        {/*{*/}
-                        {/*tdArray.map((prop,key) => {*/}
-                        {/*return (*/}
-                        {/*<tr key={key}>{*/}
-                        {/*prop.map((prop,key)=> {*/}
-                        {/*return (*/}
-                        {/*<td  key={key}>{prop}</td>*/}
-                        {/*);*/}
-                        {/*})*/}
-                        {/*}</tr>*/}
-                        {/*)*/}
-                        {/*})*/}
-                        {/*}*/}
-                        {/*</tbody>*/}
-                        {/*</Table>*/}
-                        {/*}*/}
-                        {/*/>*/}
-                        {/*</Col>*/}
                     </Row>
                 </Grid>
             </div>
