@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 import Building from '../SearchBar/BuildingSearchBar'
 import EquipType from '../SearchBar/EquipmentTypeSearchBar'
 import EquipNum from '../SearchBar/EquipmentNumberSearchBar'
@@ -7,7 +7,6 @@ import Sensor from '../SearchBar/SensorTypeSearchBar'
 import Start from '../SearchBar/StartForm';
 import End from '../SearchBar/EndForm';
 import Interval from '../SearchBar/IntervalForm';
-import Button from '../SearchBar/GraphButton';
 
 class HeaderLinks extends Component{
     constructor() {
@@ -107,7 +106,11 @@ class HeaderLinks extends Component{
                         <Interval label="Interval" callback={this.intervalHandler}/>
                     </Col>
                     <Col md={2}>
-                        <Button onClick={this.buttonHandler}>Graph</Button>
+                        <Button
+                            bsStyle="success"
+                            block
+                            disabled={this.state.isGraphing}
+                            onClick={this.buttonHandler}>Graph</Button>
                     </Col>
                     <Col md={2}> </Col>
                 </Row>

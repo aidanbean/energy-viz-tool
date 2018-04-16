@@ -2,9 +2,10 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 
 class GraphButton extends React.Component {
-    constructor(props, context) {
-        super(props, context);
+    constructor(props) {
+        super(props);
 
+        this.handleClick = this.handleClick.bind(this);
         this.state = {
             isLoading: false
         };
