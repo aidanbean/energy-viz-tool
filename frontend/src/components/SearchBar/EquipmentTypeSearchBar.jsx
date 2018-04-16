@@ -84,6 +84,7 @@ var EquipmentField = createClass({
         });
 
         if(nextProps.building === null) {
+            this.updateValue(null);
             options = [];
             this.setState({
                 options: options,

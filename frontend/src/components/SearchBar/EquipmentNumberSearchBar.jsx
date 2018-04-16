@@ -84,6 +84,7 @@ var EquipNumField = createClass({
 
 
             if(nextProps.building === null || nextProps.equipType === null) {
+                this.updateValue(null);
                 options = [];
             }
 
