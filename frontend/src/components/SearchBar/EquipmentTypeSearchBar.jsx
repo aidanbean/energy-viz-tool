@@ -44,14 +44,6 @@ var EquipmentField = createClass({
             this.props.callback(this.state.selectValue);
         });
     },
-    focusStateSelect () {
-        this.refs.stateSelect.focus();
-    },
-    toggleCheckbox (e) {
-        let newState = {};
-        newState[e.target.name] = e.target.checked;
-        this.setState(newState);
-    },
     componentWillReceiveProps(nextProps) {
         if(nextProps.data && !nextProps.data.loading) {
             var options = [];

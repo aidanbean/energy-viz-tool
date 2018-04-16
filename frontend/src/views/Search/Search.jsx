@@ -39,20 +39,21 @@ class Dashboard extends Component {
         }
     }
 
-    createLegend(json){
-        var legend = [];
-        for(var i = 0; i < json["names"].length; i++){
-            var type = "fa fa-circle text-"+json["types"][i];
-            legend.push(
-                <i className={type} key={i}></i>
-            );
-            legend.push(" ");
-            legend.push(
-                json["names"][i]
-            );
-        }
-        return legend;
-    }
+    // static createLegend(json){
+    //     var legend = [];
+    //     for(var i = 0; i < json["names"].length; i++){
+    //         var type = "fa fa-circle text-"+json["types"][i];
+    //         legend.push(
+    //             <i className={type} key={i}></i>
+    //         );
+    //         legend.push(" ");
+    //         legend.push(
+    //             json["names"][i]
+    //         );
+    //     }
+    //     return legend;
+    // }
+
     /* when new query parameters are recieved in the props,
     we refetch the graphQL query and convert the timezone. */
     componentWillReceiveProps(nextProps) {
@@ -114,39 +115,43 @@ class Dashboard extends Component {
         if (this.props.data && this.props.data.loading) {
             return (
                 <div>
-                    <Row style = {{'marginRight': '0px', 'marginLeft': '0px'}}>
+                    <Row style={{'marginRight': '0px', 'marginLeft': '0px'}}>
                         <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData}/>
                     </Row>
-                    <Row style={{'height':'200px', 'marginRight': '0px', 'marginLeft': '0px'}}>
-                        <Col md={2}></Col>
-                        <Col md={8}>
+                    <Row style={{'height': '200px', 'marginRight': '0px', 'marginLeft': '0px'}}>
+                        <Col md={1}></Col>
+                        <Col md={10}>
                             <Card
-                                title="Loading"
+                                statsIcon="fa fa-refresh"
+                                id="chartHours"
+                                title={this.props.headerData.sensorType}
+                                category={this.props.headerData.building}
                                 content={
-                                    <BarLoader
-                                        color={'#3C4858'}
-                                        loading={this.props.data.loading}
-                                    />
-                                }/>
+                                    <center>
+                                        <h3><center><font color="GREEN">Loading</font></center></h3>
+                                        <BarLoader
+                                            color={'#3C4858'}
+                                            loading={this.props.data.loading}
+                                        />
+                                    </center>
+                                }
+                            />
                         </Col>
-                        <Col md={2}></Col>
+                        <Col md={1}></Col>
                     </Row>
                 </div>
             );
         }
 
-
-
-
         if (this.props.data && this.props.data.error) {
             clearTimeout();
             return (
                 <div>
-                    <Row style = {{'marginRight': '0px', 'marginLeft': '0px'}}>
+                    <Row style={{'marginRight': '0px', 'marginLeft': '0px'}}>
                         <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData}/>
                     </Row>
                     <Jumbotron>
-                      <h1><center><font color="red">Error</font></center></h1>
+                      <h3><center><font color="red">Error</font></center></h3>
                         <center>
                         All forms need to be filled out.  Also, make sure your time range is valid.
                         </center>
@@ -154,14 +159,14 @@ class Dashboard extends Component {
                 </div>
             );
         }
-        
+
 
         return (
             <div>
-                <Row style = {{'marginRight': '0px', 'marginLeft': '0px'}}>
+                <Row style={{'marginRight': '0px', 'marginLeft': '0px'}}>
                     <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData}/>
                 </Row>
-                <Row style = {{'marginRight': '0px', 'marginLeft': '0px'}}>
+                <Row style={{'marginRight': '0px', 'marginLeft': '0px'}}>
                     <Col md={1}></Col>
                     <Col md={10}>
                         <Card

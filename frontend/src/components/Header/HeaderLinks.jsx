@@ -76,13 +76,13 @@ class HeaderLinks extends Component{
         return (
             <div className="content">
                 <br/>
-                <Row style = {{'marginRight': '0px', 'marginLeft': '0px'}}>
+                <Row style={{'marginRight': '0px', 'marginLeft': '0px'}}>
                     <Col md={2} > </Col>
                     <Col md={2}>
                         <Building label="Building" callback={this.buildingHandler} searchable />
                     </Col>
                     <Col md={2}>
-                        <EquipType label="Equipment Type" building={this.state.building} callback={this.equipTypeHandler}  searchable />
+                        <EquipType label="Equipment Type" building={this.state.building} callback={this.equipTypeHandler} searchable />
                     </Col>
                     <Col md={2}>
                         <EquipNum label="Equipment Number" building={this.state.building} equipType={this.state.equipmentType} callback={this.equipNumHandler} searchable />
@@ -93,13 +93,13 @@ class HeaderLinks extends Component{
                     <Col md={2}> </Col>
                 </Row>
                 <br />
-                <Row style = {{'marginRight': '0px', 'marginLeft': '0px'}}>
+                <Row style={{'marginRight': '0px', 'marginLeft': '0px'}}>
                     <Col md={2} > </Col>
                     <Col md={2}>
                         <Start label="Start" callback={this.startHandler}/>
                     </Col>
                     <Col md={2}>
-                        <End label="End" callback={this.endHandler}/>
+                        <End label="End" startTime={this.state.startTime} callback={this.endHandler}/>
                     </Col>
                     <Col md={2}>
                         <Interval label="Interval" callback={this.intervalHandler}/>

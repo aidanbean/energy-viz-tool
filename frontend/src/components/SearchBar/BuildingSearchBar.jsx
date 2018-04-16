@@ -10,7 +10,6 @@ var SelectStyle = {
     marginTop: 10,
     position: 'relative',
     borderRadius: 3,
-
 };
 
 var BuildingField = createClass({
@@ -29,8 +28,8 @@ var BuildingField = createClass({
         return {
             building: 'Buildings',
             options: Buildings['Buildings'],
-            isLoading: true,
-            disabled: true,
+            isLoading: false,
+            disabled: false,
             searchable: this.props.searchable,
             selectValue: '',
             clearable: true,
@@ -38,10 +37,12 @@ var BuildingField = createClass({
             arrowRenderer: true
         };
     },
+
     updateValue (newValue) {
         this.setState({
             selectValue: newValue,
         }, () => {
+            console.log(newValue);
             this.props.callback(this.state.selectValue);
         });
     },

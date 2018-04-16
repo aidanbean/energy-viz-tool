@@ -10,9 +10,6 @@ import {Tasks} from '../../components/Tasks/Tasks.jsx';
 import {
     dataPie,
     legendPie,
-    dataSales,
-    optionsSales,
-    responsiveSales,
     legendSales,
     dataBar,
     optionsBar,
@@ -38,6 +35,7 @@ class Dashboard extends Component {
         }
         return legend;
     }
+
     render() {
         return (
             <div className="content">
@@ -95,7 +93,7 @@ class Dashboard extends Component {
                                             ref = 'ct-chart'
                                         />
                                     </div>
-                                    }
+                                }
                                 legend={
                                     <div className="legend">
                                         {this.createLegend(legendSales)}

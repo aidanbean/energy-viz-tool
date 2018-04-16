@@ -1,19 +1,16 @@
 /* Entry point for GraphQL */
-
 import mongoose from 'mongoose';
 import DataModel from '../../config/models/data_model';
-import BuildingModel from '../../config/models/building_model';
 import fetchAPI from '../../pi/piFetchers';
-import {DataPoint, Coord, BuildingData, SensorData} from './classes';
+import {DataPoint, BuildingData, SensorData} from './classes';
 
 const db = mongoose.connection;
 
 import {
-    graphql,
     buildSchema
 } from 'graphql';
 
-var schema = buildSchema(`
+let schema = buildSchema(`
 
     type DataPoint {
         Timestamp:String,
@@ -131,7 +128,7 @@ var root = {
                                                              interval );
         var listOfPoints = [];
         (piResult.Items).forEach( function(element) {
-            if (element.Good == false) {
+            if (element.Good === false) {
                 element.Value = null;
             }
             const point = new DataPoint(element.Timestamp, element.Value, element.UnitsAbbreviation, element.Good, element.Questionable, element.Substituted);
@@ -185,6 +182,6 @@ var root = {
         });
         return listOfData;
     },
-}
+};
 
 export { schema, root };

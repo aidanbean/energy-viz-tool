@@ -38,27 +38,12 @@ var SensorField = createClass({
     clearValue (e) {
         this.select.setInputValue('');
     },
-    switchCountry (e) {
-        var newSensor = e.target.value;
-        this.setState({
-            sensor: newSensor,
-            selectValue: null,
-        });
-    },
     updateValue (newValue) {
         this.setState({
             selectValue: newValue,
         }, () => {
             this.props.callback(this.state.selectValue);
         });
-    },
-    focusStateSelect () {
-        this.refs.stateSelect.focus();
-    },
-    toggleCheckbox (e) {
-        let newState = {};
-        newState[e.target.name] = e.target.checked;
-        this.setState(newState);
     },
     componentWillReceiveProps(nextProps) {
         if(nextProps.data && !nextProps.data.loading) {
@@ -79,7 +64,7 @@ var SensorField = createClass({
             }
 
         }
-        
+
         this.setState({
             options: options,
             isLoading: false
