@@ -74,7 +74,7 @@ let schema = buildSchema(`
             interval       : String
         ): [DataPoint],
 
-        dataByMinutes
+        dataStream
         (
             building       : String,
             equipmentType  : String,
@@ -103,22 +103,6 @@ let schema = buildSchema(`
         ): DataPoint,
 
         buildingData(building: String): BuildingData,
-
-        sensorData
-        (
-            building: String,
-            equipmentType: String,
-            equipmentNumber: String,
-            sensorType: String,
-        ): [SensorData]
-
-        sensorFilter
-        (
-            building: String,
-            equipmentType: String,
-            equipmentNumber: String,
-            sensorType: String,
-        ): [SensorData],
 
         searchFilter
         (
@@ -154,42 +138,69 @@ var root = {
         return listOfPoints;
     },
 
-    dataByMinutes: async function ({building, equipmentType, equipmentNumber, sensorType, startTime, endTime, interval}) {
-        var dbQuery = {}
+    dataStream: async function ({building, equipmentType, equipmentNumber, sensorType, startTime, endTime, interval}) {
         // Example Query that we want to construct:
             // "$and": [
-            //     {"building": "ACAD"},
-            //     {"equipmentType": "AHU"},
+            //     {"$or": [
+            //         {"building": "ACAD"},
+            //         {"sensorType": "PH_GEO"}
+            //     ]},
+            //     {"$or": [
+            //         {"equipmentType": "AHU"},
+            //         {"equipmentType": "CHW"}
+            //     ]},
+            //     {"$or": [
+            //         {"equipmentNumber": "AHU01"},
+            //         {"equipmentNumber": "AHU02"}
+            //     ]},
             //     {"$or": [
             //         {"sensorType": "Building Static Pressure"},
             //         {"sensorType": "Supply Air Fan Start/Stop"}
             //     ]}
-            // ],
-            // "$or": [
-            //     {"equipmentNumber": "AHU01"},
-            //     {"equipmentNumber": "AHU03"}
             // ]
-        var andList = [{"building": building}, {"equipmentType": equipmentType}];
-        var andOrField = {}
-        var andOrList = [];
-        sensorType.split(',').forEach(function(element) {
-            const andOrEntry = {"sensorType": element}
-            andOrList.push(andOrEntry);
-        });
-        andOrField["$or"] = andOrList;
-        andList.push(andOrField);
-        var orList = [];
-        equipmentNumber.split(',').forEach(function(element) {
-            const orEntry = {"equipmentNumber": element}
-            orList.push(orEntry);
-        });
-        dbQuery["$and"] = andList;
-        dbQuery["$or"] = orList;
-        console.log(dbQuery);
-        // At this point we have constructed the query. Now, use it to query the db.
-        const dbResult = await DataModel.find(dbQuery);
+        var query = [];
+        var buildingList = [];
+        var equipTypeList = [];
+        var equipNumList = [];
+        var sensorTypeList = [];
+        if((typeof building !== "undefined") && (building != null)) {
+            building.split(',').forEach(function(element) {
+                const listEntry = {"building": element}
+                buildingList.push(listEntry);
+            });
+            query.push({$or: buildingList});
+        }
+        if((typeof equipmentType !== "undefined") && (equipmentType != null)) {
+            equipmentType.split(',').forEach(function(element) {
+                const listEntry = {"equipmentType": element}
+                equipTypeList.push(listEntry);
+                // if(element == "CCW" || element == "HHW") {
+                //     equipNumList.push({"equipmentNumber": ""});
+                // }
+            });
+            query.push({$or: equipTypeList});
+        }
+        if((typeof equipmentNumber !== "undefined") && (equipmentNumber != null)) {
+            equipmentNumber.split(',').forEach(function(element) {
+                const listEntry = {"equipmentNumber": element}
+                equipNumList.push(listEntry);
+            });
+            query.push({$or: equipNumList});
+        }
+        if((typeof sensorType !== "undefined") && (sensorType != null)) {
+            sensorType.split(',').forEach(function(element) {
+                const listEntry = {"sensorType": element}
+                sensorTypeList.push(listEntry);
+            });
+            query.push({$or: sensorTypeList});
+        }
+        var finalQuery = {};
+        if (query.length != 0) {
+            finalQuery = {$and: query};
+        }
+        // console.log(finalQuery);
+        const dbResult = await DataModel.find(finalQuery);
         console.log(dbResult);
-        // Get the data stream for each webID and format the result.
         var streamList = [];
         for(var i = 0; i < dbResult.length; i++) {
             var piResult = await fetchAPI.fetchStream_byMinutes(dbResult[i].webId,
@@ -204,7 +215,7 @@ var root = {
                 const point = new DataPoint(element.Timestamp, element.Value, element.UnitsAbbreviation, element.Good, element.Questionable, element.Substituted);
                 stream.push(point);
             });
-            console.log(stream);
+            // console.log(stream);
             var streamObject = new StreamType(dbResult[i].building, dbResult[i].equipmentNumber, dbResult[i].equipmentType, dbResult[i].sensorType, stream);
             streamList.push(streamObject);
         }
@@ -297,61 +308,6 @@ var root = {
         return bData;
     },
 
-    sensorData: async function ({building, equipmentType, equipmentNumber, sensorType}) {
-        const dbEntry = {};
-        if((typeof building !== "undefined") && (building != null)) {
-            dbEntry["building"] = building;
-        }
-        if((typeof equipmentType !== "undefined") && (equipmentType != null)) {
-            dbEntry["equipmentType"] = equipmentType;
-        }
-        if((typeof equipmentNumber !== "undefined") && (equipmentNumber != null)) {
-            dbEntry["equipmentNumber"] = equipmentNumber;
-        }
-        if((typeof sensorType !== "undefined") && (sensorType != null)) {
-            dbEntry["sensorType"] = sensorType;
-        }
-        const results = await DataModel.find(dbEntry);
-        var listOfData = [];
-        (results).forEach( function(element) {
-            const sData = new SensorData(element.webId, element.tagName, element.building, element.equipmentType, element.equipmentNumber, element.sensorType);
-            listOfData.push(sData);
-        });
-        return listOfData;
-    },
-
-    sensorFilter: async function ({building, equipmentType, equipmentNumber, sensorType}) {
-        var dbQuery = {};
-        // Example Query that we want to construct:
-            // "$and": [
-            //     {"building": "ACAD"},
-            //     {"equipmentType": "AHU"},
-            // ],
-            // "$or": [
-            //     {"equipmentNumber": "AHU01"},
-            //     {"equipmentNumber": "AHU03"}
-            // ]
-        var andList = [{"building": building}, {"equipmentType": equipmentType}];
-        var orList = [];
-        equipmentNumber.split(',').forEach(function(element) {
-            const orEntry = {"equipmentNumber": element}
-            orList.push(orEntry);
-        });
-        dbQuery["$and"] = andList;
-        dbQuery["$or"] = orList;
-        console.log(dbQuery);
-        // At this point we have constructed the query. Now, use it to query the db.
-        const dbResult = await DataModel.find(dbQuery);
-        console.log(dbResult);
-
-        var listOfData = [];
-        (dbResult).forEach(function(element) {
-            const sData = new SensorData(element.webId, element.tagName, element.building, element.equipmentType, element.equipmentNumber, element.sensorType);
-            listOfData.push(sData);
-        });
-        return listOfData;
-    },
-
     searchFilter: async function ({building, equipmentType, equipmentNumber, sensorType}) {
         var query = [];
         var buildingList = [];
@@ -369,9 +325,9 @@ var root = {
             equipmentType.split(',').forEach(function(element) {
                 const listEntry = {"equipmentType": element}
                 equipTypeList.push(listEntry);
-                if(element == "CCW" || element == "HHW") {
-                    equipNumList.push({"equipmentNumber": ""});
-                }
+                // if(element == "CCW" || element == "HHW") {
+                //     equipNumList.push({"equipmentNumber": ""});
+                // }
             });
             query.push({$or: equipTypeList});
         }
@@ -389,7 +345,7 @@ var root = {
             });
             query.push({$or: sensorTypeList});
         }
-        console.log(query);
+        // console.log(query);
         var finalQuery = {};
         if (query.length != 0) {
             finalQuery = {$and: query};
@@ -399,7 +355,7 @@ var root = {
         const equipmentNumbers = await DataModel.distinct("equipmentNumber", finalQuery);
         const sensorTypes = await DataModel.distinct("sensorType", finalQuery);
         const result = new FilterType(buildings, equipmentTypes, equipmentNumbers, sensorTypes);
-        console.log(result);
+        // console.log(result);
         return result;
     }
 }

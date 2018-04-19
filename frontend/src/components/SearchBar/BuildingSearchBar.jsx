@@ -3,6 +3,8 @@ import 'react-select/dist/react-select.css';
 import React from 'react';
 import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 const Buildings = require('./Buildings');
 
@@ -26,63 +28,94 @@ var BuildingField = createClass({
     },
     getInitialState () {
         return {
-            building: 'Buildings',
             options: Buildings['Buildings'],
-            isLoading: false,
-            disabled: false,
             searchable: this.props.searchable,
-            selectValue: '',
             clearable: true,
+            removeSelected: true,
+            disabled: false,
+            stayOpen: false,
+            isLoading: true,
+            value: null,
             rtl: false,
-            arrowRenderer: true
         };
     },
-
-    updateValue (newValue) {
+    clearValue (e) {
+        this.select.setInputValue(null);
+    },
+    handleSelectChange (value) {
         this.setState({
-            selectValue: newValue,
+            value
         }, () => {
-            this.props.callback(this.state.selectValue);
+            if(this.state.value === "") {
+                this.setState({
+                    value: null
+                }, () => {
+                    this.props.callback(this.state.value);
+                });
+            } else {
+                this.props.callback(this.state.value);
+            }
         });
     },
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            disabled: false,
-            isLoading: false
-        })
-    },
-    clearValue(){
-        this.setState({
-            selectValue: '',
-        }, () => {
-            this.props.callback(this.state.selectValue);
-        });
+        if(nextProps.data && !nextProps.data.loading) {
+            var options = [];
+            (nextProps.data.searchFilter.buildings).forEach(function(element) {
+                        const optionsObj = {label: element, value: element, className: "building"};
+                        options.push(optionsObj);
+            });
+            this.setState({
+                options: options,
+                isLoading: false
+            });
+        }
     },
     render () {
         return (
             <div>
                 <Select
-                    placeholder = "Building"
                     style={SelectStyle}
-                    isLoading={this.state.isLoading}
-                    id="state-select"
-                    ref={(ref) => { this.select = ref; }}
-                    onBlurResetsInput={false}
-                    onSelectResetsInput={false}
-                    autoFocus
-                    simpleValue
-                    options={this.state.options}
-                    clearable={this.state.clearable}
-                    name="selected-state"
+                    closeOnSelect={!this.state.stayOpen}
                     disabled={this.state.disabled}
-                    value={this.state.selectValue}
-                    onChange={this.updateValue}
-                    clearValue={this.state.clearValue}
-                    searchable={this.state.searchable}
+                    multi
+                    onChange={this.handleSelectChange}
+                    options={this.state.options}
+                    placeholder="Building"
+                    removeSelected={this.state.removeSelected}
+                    rtl={this.state.rtl}
+                    simpleValue
+                    value={this.state.value}
+                    isLoading={this.state.isLoading}
                 />
             </div>
         );
     }
 });
 
-export default BuildingField;
+// export default BuildingField;
+
+const BLDG_QUERY = gql`
+    query BuildingsQuery(
+        $equipmentType  : String,
+        $equipmentNumber: String,
+        $sensorType     : String
+    ) {
+        searchFilter(
+            equipmentType  : $equipmentType,
+            equipmentNumber: $equipmentNumber,
+            sensorType     : $sensorType,
+        ) {
+            buildings
+        }
+    }
+`;
+
+export default graphql(BLDG_QUERY, {
+    options: (props) => ({
+        variables: {
+            equipmentType  : props.selection.equipmentType,
+            equipmentNumber: props.selection.equipmentNumber,
+            sensorType     : props.selection.sensorType
+        }
+    }),
+})(BuildingField);

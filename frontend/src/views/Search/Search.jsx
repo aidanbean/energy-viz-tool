@@ -59,21 +59,21 @@ class Dashboard extends Component {
     componentWillReceiveProps(nextProps) {
         console.log(nextProps);
         this.props.data.refetch();
-        if(typeof nextProps.data.dataByMinutes === 'undefined') {
+        if(typeof nextProps.data.dataStream === 'undefined') {
             return;
         }
         var config = {};
         var series = [];
-        for(var i = 0; i < nextProps.data.dataByMinutes.length; i++) {
-            const x = [];
-            (nextProps.data.dataByMinutes[i].stream).forEach(function(element) {
-                x.push(moment.tz(element.Timestamp, "US/Pacific").format('YYYY-MM-DDTHH:mm'));
-            });
+        for(var i = 0; i < nextProps.data.dataStream.length; i++) {
             const y = [];
-            (nextProps.data.dataByMinutes[i].stream).forEach(function(element) {
+            (nextProps.data.dataStream[i].stream).forEach(function(element) {
                 y.push(element.Value);
             });
             if(i === 0) {
+                const x = [];
+                (nextProps.data.dataStream[i].stream).forEach(function(element) {
+                    x.push(moment.tz(element.Timestamp, "US/Pacific").format('YYYY-MM-DDTHH:mm'));
+                });
                 config = {
                     legend: {
                         enabled: true
@@ -93,7 +93,7 @@ class Dashboard extends Component {
             }
             // generate a random color.
             var color = '#'+Math.floor(Math.random()*16777215).toString(16);
-            var name = `${nextProps.data.dataByMinutes[i].equipmentNumber}.${nextProps.data.dataByMinutes[i].sensorType}`;
+            var name = `${nextProps.data.dataStream[i].equipmentNumber}.${nextProps.data.dataStream[i].sensorType}`;
             var serie = {
                 data: y,
                 color: color,
@@ -131,7 +131,7 @@ class Dashboard extends Component {
             return (
                 <div>
                     <Row style={{'marginRight': '0px', 'marginLeft': '0px'}}>
-                        <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData} isLoading={true}/>
+                        <HeaderLinks callback={this.headerCallback} isLoading={false}/>
                     </Row>
                     <Row style={{'height': '200px', 'marginRight': '0px', 'marginLeft': '0px'}}>
                         <Col md={1}></Col>
@@ -143,7 +143,8 @@ class Dashboard extends Component {
                                 category={this.props.headerData.equipmentType}
                                 content={
                                     <center>
-                                        <h3><center><font color="GREEN">Loading</font></center></h3>
+                                        <h3><center><font color="#9acd32">Loading</font></center></h3>
+                                        <p><center><font>If this is taking too long, you may want to refine your query.</font></center></p>
                                         <BarLoader
                                             color={'#3C4858'}
                                             loading={this.props.data.loading}
@@ -163,7 +164,7 @@ class Dashboard extends Component {
             return (
                 <div>
                     <Row style={{'marginRight': '0px', 'marginLeft': '0px'}}>
-                        <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData} isLoading={false}/>
+                        <HeaderLinks callback={this.headerCallback} isLoading={false}/>
                     </Row>
                     <Jumbotron>
                       <h3><center><font color="red">Error</font></center></h3>
@@ -179,7 +180,7 @@ class Dashboard extends Component {
         return (
             <div>
                 <Row style={{'marginRight': '0px', 'marginLeft': '0px'}}>
-                    <HeaderLinks callback={this.headerCallback} initialState={this.props.headerData} isLoading={false}/>
+                    <HeaderLinks callback={this.headerCallback} isLoading={false}/>
                 </Row>
                 <Row style={{'marginRight': '0px', 'marginLeft': '0px'}}>
                     <Col md={1}></Col>
@@ -215,8 +216,8 @@ class Dashboard extends Component {
     }
 }
 
-const MINUTES_QUERY = gql`
-    query MinutesQuery(
+const DATA_QUERY = gql`
+    query DataQuery(
         $building       : String,
         $equipmentType  : String,
         $equipmentNumber: String,
@@ -225,7 +226,7 @@ const MINUTES_QUERY = gql`
         $endTime        : String,
         $interval       : String
     ) {
-        dataByMinutes
+        dataStream
         (
             building       : $building,
             equipmentType  : $equipmentType,
@@ -247,7 +248,7 @@ const MINUTES_QUERY = gql`
     }
 `;
 
-export default graphql(MINUTES_QUERY, {
+export default graphql(DATA_QUERY, {
     options: (props) => ({
         variables: {
             building       : props.headerData.building,

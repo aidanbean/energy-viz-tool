@@ -25,8 +25,8 @@ class App extends Component {
                 equipmentType  : 'AHU',
                 equipmentNumber: 'AHU01_PENT',
                 sensorType     : 'Outside Air Temp',
-                startTime: '03-20-2018-6am',
-                endTime: '03-21-2018-6pm',
+                startTime      : '03-20-2018-6am',
+                endTime        : '03-21-2018-6pm',
                 interval       : '30m'
             }
         };
