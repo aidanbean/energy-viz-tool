@@ -13,57 +13,55 @@ var SelectStyle = {
 };
 
 var EquipmentField = createClass({
-    displayName: 'EquipmentField',
+    displayName: 'Euipment Type',
     propTypes: {
         label: PropTypes.string,
         searchable: PropTypes.bool,
     },
     getDefaultProps () {
         return {
-            label: 'Equips',
+            label: 'Euipment Type',
             searchable: true,
         };
     },
     getInitialState () {
         return {
-            type: 'EquipmentTypes',
-            disabled: false,
             searchable: this.props.searchable,
-            selectValue: 'new-south-wales',
             clearable: true,
+            removeSelected: true,
+            disabled: false,
+            stayOpen: false,
             isLoading: true,
+            value: null,
+            rtl: false,
         };
     },
     clearValue (e) {
-        this.select.setInputValue('');
+        this.select.setInputValue(null);
     },
-    updateValue (newValue) {
+    handleSelectChange (value) {
         this.setState({
-            selectValue: newValue,
+            value
         }, () => {
-            this.props.callback(this.state.selectValue);
+            if(this.state.value === "") {
+                this.setState({
+                    value: null
+                }, () => {
+                    this.props.callback(this.state.value);
+                });
+            } else {
+                this.props.callback(this.state.value);
+            }
         });
     },
     componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
         if(nextProps.data && !nextProps.data.loading) {
             var options = [];
-            (nextProps.data.sensorData).forEach(function(element) {
-                        const optionsObj = {label: element.equipmentType, value: element.equipmentType, className: "equipmentType"};
+            (nextProps.data.searchFilter.equipmentTypes).forEach(function(element) {
+                        const optionsObj = {label: element, value: element, className: "equipmentType"};
                         options.push(optionsObj);
             });
-            options = options.filter((option, index, self) =>
-                index === self.findIndex((t) => (
-                    t.value === option.value
-                ))
-            );
-        }
-        this.setState({
-            options: options,
-            isLoading: false
-        });
-        if(nextProps.building === null) {
-            this.updateValue(null);
-            options = [];
             this.setState({
                 options: options,
                 isLoading: false
@@ -74,36 +72,36 @@ var EquipmentField = createClass({
         return (
             <div>
                 <Select
-                    placeholder = "Equipment Type"
                     style={SelectStyle}
-                    id="state-select"
-                    isLoading={this.state.isLoading}
-                    ref={(ref) => { this.select = ref; }}
-                    onBlurResetsInput={false}
-                    onSelectResetsInput={false}
-                    simpleValue
-                    options={this.state.options}
-                    clearable={this.state.clearable}
-                    name="selected-state"
+                    closeOnSelect={!this.state.stayOpen}
                     disabled={this.state.disabled}
-                    value={this.state.selectValue}
-                    onChange={this.updateValue}
-                    searchable={this.state.searchable}
+                    multi
+                    onChange={this.handleSelectChange}
+                    options={this.state.options}
+                    placeholder="Equipment Type"
+                    removeSelected={this.state.removeSelected}
+                    rtl={this.state.rtl}
+                    simpleValue
+                    value={this.state.value}
+                    isLoading={this.state.isLoading}
                 />
-
             </div>
         );
     }
 });
 
 const TYPE_QUERY = gql`
-    query MinutesQuery(
+    query TypesQuery(
         $building       : String,
+        $equipmentNumber: String,
+        $sensorType     : String
     ) {
-        sensorData(
-            building       : $building
+        searchFilter(
+            building       : $building,
+            equipmentNumber: $equipmentNumber,
+            sensorType     : $sensorType
         ) {
-            equipmentType
+            equipmentTypes
         }
     }
 `;
@@ -111,7 +109,9 @@ const TYPE_QUERY = gql`
 export default graphql(TYPE_QUERY, {
     options: (props) => ({
         variables: {
-            building       : props.building,
+            building       : props.selection.building,
+            equipmentNumber: props.selection.equipmentNumber,
+            sensorType     : props.selection.sensorType
         }
     }),
 })(EquipmentField);

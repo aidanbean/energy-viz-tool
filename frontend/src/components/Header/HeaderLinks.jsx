@@ -21,10 +21,10 @@ class HeaderLinks extends Component{
         this.endHandler = this.endHandler.bind(this);
         this.intervalHandler = this.intervalHandler.bind(this);
         this.state = {
-            building: '',
-            equipmentType: '',
-            equipmentNumber: '',
-            sensorType: '',
+            building: null,
+            equipmentType: null,
+            equipmentNumber: null,
+            sensorType: null,
             startTime: '',
             endTime: '',
             interval: ''
@@ -36,36 +36,50 @@ class HeaderLinks extends Component{
     buildingHandler(selection) {
         this.setState({
             building: selection,
+        }, () => {
+            console.log(this.state);
         });
     }
     equipTypeHandler(selection) {
         this.setState({
             equipmentType: selection,
+        }, () => {
+            console.log(this.state);
         });
     }
     equipNumHandler(selection) {
         this.setState({
             equipmentNumber: selection,
+        }, () => {
+            console.log(this.state);
         });
     }
     sensorTypeHandler(selection) {
         this.setState({
             sensorType: selection,
+        }, () => {
+            console.log(this.state);
         });
     }
     startHandler(selection) {
         this.setState({
             startTime: selection,
+        }, () => {
+            console.log(this.state);
         });
     }
     endHandler(selection) {
         this.setState({
             endTime: selection,
+        }, () => {
+            console.log(this.state);
         });
     }
     intervalHandler(selection) {
         this.setState({
             interval: selection,
+        }, () => {
+            console.log(this.state);
         });
     }
     buttonHandler() {
@@ -79,16 +93,16 @@ class HeaderLinks extends Component{
                 <Row style={{'marginRight': '0px', 'marginLeft': '0px'}}>
                     <Col md={2} > </Col>
                     <Col md={2}>
-                        <Building label="Building" callback={this.buildingHandler} searchable />
+                        <Building label="Building" callback={this.buildingHandler} selection={this.state} searchable />
                     </Col>
                     <Col md={2}>
-                        <EquipType label="Equipment Type" building={this.state.building} callback={this.equipTypeHandler} searchable />
+                        <EquipType label="Equipment Type" callback={this.equipTypeHandler} selection={this.state} searchable />
                     </Col>
                     <Col md={2}>
-                        <EquipNum label="Equipment Number" building={this.state.building} equipType={this.state.equipmentType} callback={this.equipNumHandler} searchable />
+                        <EquipNum label="Equipment Number" callback={this.equipNumHandler} selection={this.state} searchable />
                     </Col>
                     <Col md={2}>
-                        <Sensor label="Sensor Type" building={this.state.building} equipNum={this.state.equipmentNumber} equipType={this.state.equipmentType} callback={this.sensorTypeHandler} searchable />
+                        <Sensor label="Sensor Type" callback={this.sensorTypeHandler} selection={this.state} searchable />
                     </Col>
                     <Col md={2}> </Col>
                 </Row>
@@ -105,7 +119,7 @@ class HeaderLinks extends Component{
                         <Interval label="Interval" callback={this.intervalHandler}/>
                     </Col>
                     <Col md={2}>
-                        <Button bsStyle="success" block onClick={this.buttonHandler}>Submit</Button>
+                        <Button bsStyle="success" block onClick={this.buttonHandler} disabled={this.props.isLoading}>Submit</Button>
                     </Col>
                     <Col md={2}> </Col>
                 </Row>

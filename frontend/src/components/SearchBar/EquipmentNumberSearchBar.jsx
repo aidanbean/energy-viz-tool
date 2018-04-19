@@ -13,67 +13,59 @@ var SelectStyle = {
 };
 
 var EquipNumField = createClass({
-    displayName: 'StatesField',
+    displayName: 'Equipment Number',
     propTypes: {
         label: PropTypes.string,
         searchable: PropTypes.bool,
     },
     getDefaultProps () {
         return {
-            label: 'Data:',
+            label: 'Equipment Number',
             searchable: true,
         };
     },
     getInitialState () {
         return {
-            country: 'EquipmentNumbers',
-            disabled: false,
             searchable: this.props.searchable,
-            selectValue: '',
             clearable: true,
+            removeSelected: true,
+            disabled: false,
+            stayOpen: false,
+            isLoading: true,
+            value: null,
             rtl: false,
         };
     },
 
     clearValue (e) {
-        this.select.setInputValue('');
+        this.select.setInputValue(null);
     },
-    updateValue (newValue) {
+    handleSelectChange (value) {
         this.setState({
-            selectValue: newValue,
+            value
         }, () => {
-            this.props.callback(this.state.selectValue);
+            if(this.state.value === "") {
+                this.setState({
+                    value: null
+                }, () => {
+                    this.props.callback(this.state.value);
+                });
+            } else {
+                this.props.callback(this.state.value);
+            }
         });
     },
     componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
         if(nextProps.data && !nextProps.data.loading) {
-            if(nextProps.equipType === "CHW" || nextProps.equipType === "HHW") {
-                this.setState({
-                    disabled: true,
-                    selectValue: '',
-                }, () => {
-                    this.props.callback(this.state.selectValue);
-                });
-                return;
-            }
             var options = [];
-            (nextProps.data.sensorData).forEach(function(element) {
-                        const optionsObj = {label: element.equipmentNumber, value: element.equipmentNumber, className: "equipmentNumber"};
+            (nextProps.data.searchFilter.equipmentNumbers).forEach(function(element) {
+                        const optionsObj = {label: element, value: element, className: "equipmentNumber"};
                         options.push(optionsObj);
             });
-            options = options.filter((option, index, self) =>
-                index === self.findIndex((t) => (
-                    t.value === option.value
-                ))
-            );
-            if(nextProps.building === null || nextProps.equipType === null) {
-                this.updateValue(null);
-                options = [];
-            }
             this.setState({
                 options: options,
-                isLoading: false,
-                disabled: false
+                isLoading: false
             });
         }
     },
@@ -81,20 +73,18 @@ var EquipNumField = createClass({
         return (
             <div>
                 <Select
-                    placeholder = "Equipment Number"
                     style={SelectStyle}
-                    id="state-select"
-                    ref={(ref) => { this.select = ref; }}
-                    onBlurResetsInput={false}
-                    onSelectResetsInput={false}
-                    simpleValue
-                    options={this.state.options}
-                    clearable={this.state.clearable}
-                    name="selected-state"
+                    closeOnSelect={!this.state.stayOpen}
                     disabled={this.state.disabled}
-                    value={this.state.selectValue}
-                    onChange={this.updateValue}
-                    searchable={this.state.searchable}
+                    multi
+                    onChange={this.handleSelectChange}
+                    options={this.state.options}
+                    placeholder="Equipment Number"
+                    removeSelected={this.state.removeSelected}
+                    rtl={this.state.rtl}
+                    simpleValue
+                    value={this.state.value}
+                    isLoading={this.state.isLoading}
                 />
             </div>
         );
@@ -102,15 +92,17 @@ var EquipNumField = createClass({
 });
 
 const NUM_QUERY = gql`
-    query MinutesQuery(
+    query NumsQuery(
         $building       : String,
         $equipmentType  : String,
+        $sensorType     : String
     ) {
-        sensorData(
+        searchFilter(
             building       : $building,
             equipmentType  : $equipmentType,
+            sensorType     : $sensorType,
         ) {
-            equipmentNumber
+            equipmentNumbers
         }
     }
 `;
@@ -118,8 +110,10 @@ const NUM_QUERY = gql`
 export default graphql(NUM_QUERY, {
     options: (props) => ({
         variables: {
-            building       : props.building,
-            equipmentType  : props.equipType,
+            building       : props.selection.building,
+            equipmentType  : props.selection.equipmentType,
+            equipmentNumber: props.selection.equipmentNumber,
+            sensorType     : props.selection.sensorType
         }
     }),
 })(EquipNumField);

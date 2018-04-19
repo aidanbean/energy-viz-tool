@@ -14,108 +14,106 @@ var SelectStyle = {
 
 
 var SensorField = createClass({
-    displayName: 'StatesField',
+    displayName: 'Sensor Type',
     propTypes: {
         label: PropTypes.string,
         searchable: PropTypes.bool,
     },
     getDefaultProps () {
         return {
-            label: 'Sensor:',
+            label: 'Sensor Type',
             searchable: true,
         };
     },
     getInitialState () {
         return {
-            sensor: 'SensorTypes',
-            disabled: false,
             searchable: this.props.searchable,
-            selectValue: 'new-south-wales',
             clearable: true,
+            removeSelected: true,
+            disabled: false,
+            stayOpen: false,
+            isLoading: true,
+            value: null,
             rtl: false,
         };
     },
+
     clearValue (e) {
-        this.select.setInputValue('');
+        this.select.setInputValue(null);
     },
-    updateValue (newValue) {
+    handleSelectChange (value) {
         this.setState({
-            selectValue: newValue,
+            value
         }, () => {
-            this.props.callback(this.state.selectValue);
+            if(this.state.value === "") {
+                this.setState({
+                    value: null
+                }, () => {
+                    this.props.callback(this.state.value);
+                });
+            } else {
+                this.props.callback(this.state.value);
+            }
         });
     },
     componentWillReceiveProps(nextProps) {
         if(nextProps.data && !nextProps.data.loading) {
             var options = [];
-            (nextProps.data.sensorData).forEach(function(element) {
-                        const optionsObj = {label: element.sensorType, value: element.sensorType, className: "sensorType"};
+            (nextProps.data.searchFilter.sensorTypes).forEach(function(element) {
+                        const optionsObj = {label: element, value: element, className: "sensorType"};
                         options.push(optionsObj);
             });
-            options = options.filter((option, index, self) =>
-                index === self.findIndex((t) => (
-                    t.value === option.value
-                ))
-            );
-
-            if(nextProps.building === null || nextProps.equipType === null || nextProps.equipNum === null) {
-                this.updateValue(null);
-                options = [];
-            }
-
+            this.setState({
+                options: options,
+                isLoading: false
+            });
         }
-
-        this.setState({
-            options: options,
-            isLoading: false
-        });
     },
     render () {
         return (
             <div>
                 <Select
-                    placeholder = "Sensor Type"
                     style={SelectStyle}
-                    id="state-select"
-                    ref={(ref) => { this.select = ref; }}
-                    onBlurResetsInput={false}
-                    onSelectResetsInput={false}
-                    simpleValue
-                    options={this.state.options}
-                    clearable={this.state.clearable}
-                    name="selected-state"
+                    closeOnSelect={!this.state.stayOpen}
                     disabled={this.state.disabled}
-                    value={this.state.selectValue}
-                    onChange={this.updateValue}
-                    searchable={this.state.searchable}
+                    multi
+                    onChange={this.handleSelectChange}
+                    options={this.state.options}
+                    placeholder="Sensor Type"
+                    removeSelected={this.state.removeSelected}
+                    rtl={this.state.rtl}
+                    simpleValue
+                    value={this.state.value}
+                    isLoading={this.state.isLoading}
                 />
             </div>
         );
     }
 });
 
-const NUM_QUERY = gql`
-    query MinutesQuery(
+const SENS_QUERY = gql`
+    query SensorQuery(
         $building       : String,
         $equipmentType  : String,
         $equipmentNumber: String,
     ) {
-        sensorData(
+        searchFilter(
             building       : $building,
             equipmentType  : $equipmentType,
-            equipmentNumber: $equipmentNumber,
+            equipmentNumber: $equipmentNumber
         ) {
-            sensorType
+            sensorTypes
         }
     }
 `;
 
-export default graphql(NUM_QUERY, {
+export default graphql(SENS_QUERY, {
     options: (props) => ({
         variables: {
-            building       : props.building,
-            equipmentType  : props.equipType,
-            equipmentNumber: props.equipNum,
+            building       : props.selection.building,
+            equipmentType  : props.selection.equipmentType,
+            equipmentNumber: props.selection.equipmentNumber,
+            sensorType     : props.selection.sensorType
         }
     }),
 })(SensorField);
