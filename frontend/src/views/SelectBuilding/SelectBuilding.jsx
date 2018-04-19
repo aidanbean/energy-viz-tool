@@ -15,8 +15,13 @@ class SelectBuilding extends React.Component {
         super();
         this.buildingHandler = this.buildingHandler.bind(this);
         this.state = {
-            building: '',
-
+            building: null,
+            equipmentType: null,
+            equipmentNumber: null,
+            sensorType: null,
+            startTime: '',
+            endTime: '',
+            interval: ''
         };
     }
     buildingHandler(selection) {
@@ -34,7 +39,7 @@ class SelectBuilding extends React.Component {
                     <Col md={4}></Col>
                     <Col md={2}>
                         <h5><center> Select Building </center></h5>
-                        <Building label="Building" callback={this.buildingHandler} searchable />
+                        <Building label="Building" callback={this.buildingHandler} selection={this.state} searchable />
                     </Col>
                     <Col md={6}></Col>
                 </Row>
