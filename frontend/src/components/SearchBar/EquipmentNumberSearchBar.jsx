@@ -58,15 +58,10 @@ var EquipNumField = createClass({
                 return;
             }
             var options = [];
-            (nextProps.data.sensorData).forEach(function(element) {
-                        const optionsObj = {label: element.equipmentNumber, value: element.equipmentNumber, className: "equipmentNumber"};
+            (nextProps.data.searchFilter.equipmentNumbers).forEach(function(element) {
+                        const optionsObj = {label: element, value: element, className: "equipmentNumber"};
                         options.push(optionsObj);
             });
-            options = options.filter((option, index, self) =>
-                index === self.findIndex((t) => (
-                    t.value === option.value
-                ))
-            );
             if(nextProps.building === null || nextProps.equipType === null) {
                 this.handleSelectChange(null);
                 options = [];
@@ -104,11 +99,11 @@ const NUM_QUERY = gql`
         $building       : String,
         $equipmentType  : String,
     ) {
-        sensorData(
+        searchFilter(
             building       : $building,
             equipmentType  : $equipmentType,
         ) {
-            equipmentNumber
+            equipmentNumbers
         }
     }
 `;

@@ -2,7 +2,7 @@
 import mongoose from 'mongoose';
 import DataModel from '../../config/models/data_model';
 import fetchAPI from '../../pi/piFetchers';
-import {DataPoint, BuildingData, SensorData, StreamType} from './classes';
+import {DataPoint, BuildingData, SensorData, StreamType, FilterType} from './classes';
 
 const db = mongoose.connection;
 
@@ -55,6 +55,13 @@ let schema = buildSchema(`
         sensorType     : String,
     }
 
+    type FilterType {
+        buildings       : [String],
+        equipmentTypes  : [String],
+        equipmentNumbers: [String],
+        sensorTypes     : [String],
+    }
+
     type Query {
         dataByMonths
         (
@@ -72,6 +79,15 @@ let schema = buildSchema(`
             building       : String,
             equipmentType  : String,
             equipmentNumber: String,
+            sensorType     : String,
+            startTime      : String,
+            endTime        : String,
+            interval       : String
+        ): [StreamType],
+
+        selectBuilding
+        (
+            building       : String,
             sensorType     : String,
             startTime      : String,
             endTime        : String,
@@ -102,7 +118,15 @@ let schema = buildSchema(`
             equipmentType: String,
             equipmentNumber: String,
             sensorType: String,
-        ): [SensorData]
+        ): [SensorData],
+
+        searchFilter
+        (
+            building: String,
+            equipmentType: String,
+            equipmentNumber: String,
+            sensorType: String
+        ): FilterType
     }
 
 `);
@@ -187,6 +211,69 @@ var root = {
         return streamList;
     },
 
+    selectBuilding: async function ({building, sensorType, startTime, endTime, interval}) {
+        const equipNums = await DataModel.distinct("equipmentNumber", {$and: [{building: building}, {equipmentType: "AHU"}]});
+        console.log(equipNums);
+        // Example Query that we want to construct:
+            // "$and": [
+            //     {"building": "ACAD"},
+            //     {"equipmentType": "AHU"},
+            //     {"$or": [
+            //         {"sensorType": "Building Static Pressure"},
+            //         {"sensorType": "Supply Air Fan Start/Stop"}
+            //     ]}
+            // ],
+            // "$or": [
+            //     {"equipmentNumber": "AHU01"},
+            //     {"equipmentNumber": "AHU03"}
+            // ]
+        var streamQueries = [];
+        for (const i in equipNums) {
+            var dbQuery = {
+                $and: [
+                    {building: building},
+                    {equipmentType: "AHU"},
+                    {equipmentNumber: equipNums[i]},
+                ],
+            };
+            var orList = [];
+            sensorType.split(',').forEach(function(element) {
+                const orEntry = {"sensorType": element}
+                orList.push(orEntry);
+            });
+            dbQuery["$or"] = orList;
+            console.log(dbQuery);
+            // At this point we have constructed the query. Now, use it to query the db.
+            const dbResult = await DataModel.find(dbQuery);
+            console.log(dbResult);
+            if(dbResult.length != 2) {
+                continue;
+            } else {
+                streamQueries.push(dbResult[0]);
+                streamQueries.push(dbResult[1]);
+            }
+        }
+        var streamList = [];
+        for(var i = 0; i < streamQueries.length; i++) {
+            var piResult = await fetchAPI.fetchStream_byMinutes(streamQueries[i].webId,
+                                                                 startTime,
+                                                                 endTime,
+                                                                 interval );
+            var stream = [];
+            (piResult.Items).forEach(function(element) {
+                if (element.Good === false) {
+                    element.Value = null;
+                }
+                const point = new DataPoint(element.Timestamp, element.Value, element.UnitsAbbreviation, element.Good, element.Questionable, element.Substituted);
+                stream.push(point);
+            });
+            console.log(stream);
+            var streamObject = new StreamType(streamQueries[i].building, streamQueries[i].equipmentNumber, streamQueries[i].equipmentType, streamQueries[i].sensorType, stream);
+            streamList.push(streamObject);
+        }
+        return streamList;
+    },
+
     latestSummary: async function ({building, equipmentType, equipmentNumber, sensorType}) {
         const dbEntry = {
             "building": building,
@@ -265,6 +352,56 @@ var root = {
         return listOfData;
     },
 
-};
+    searchFilter: async function ({building, equipmentType, equipmentNumber, sensorType}) {
+        var query = [];
+        var buildingList = [];
+        var equipTypeList = [];
+        var equipNumList = [];
+        var sensorTypeList = [];
+        if((typeof building !== "undefined") && (building != null)) {
+            building.split(',').forEach(function(element) {
+                const listEntry = {"building": element}
+                buildingList.push(listEntry);
+            });
+            query.push({$or: buildingList});
+        }
+        if((typeof equipmentType !== "undefined") && (equipmentType != null)) {
+            equipmentType.split(',').forEach(function(element) {
+                const listEntry = {"equipmentType": element}
+                equipTypeList.push(listEntry);
+                if(element == "CCW" || element == "HHW") {
+                    equipNumList.push({"equipmentNumber": ""});
+                }
+            });
+            query.push({$or: equipTypeList});
+        }
+        if((typeof equipmentNumber !== "undefined") && (equipmentNumber != null)) {
+            equipmentNumber.split(',').forEach(function(element) {
+                const listEntry = {"equipmentNumber": element}
+                equipNumList.push(listEntry);
+            });
+            query.push({$or: equipNumList});
+        }
+        if((typeof sensorType !== "undefined") && (sensorType != null)) {
+            sensorType.split(',').forEach(function(element) {
+                const listEntry = {"sensorType": element}
+                sensorTypeList.push(listEntry);
+            });
+            query.push({$or: sensorTypeList});
+        }
+        console.log(query);
+        var finalQuery = {};
+        if (query.length != 0) {
+            finalQuery = {$and: query};
+        }
+        const buildings = await DataModel.distinct("building", finalQuery);
+        const equipmentTypes = await DataModel.distinct("equipmentType", finalQuery);
+        const equipmentNumbers = await DataModel.distinct("equipmentNumber", finalQuery);
+        const sensorTypes = await DataModel.distinct("sensorType", finalQuery);
+        const result = new FilterType(buildings, equipmentTypes, equipmentNumbers, sensorTypes);
+        console.log(result);
+        return result;
+    }
+}
 
 export { schema, root };

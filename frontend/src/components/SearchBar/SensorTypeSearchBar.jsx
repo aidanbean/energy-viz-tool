@@ -50,15 +50,10 @@ var SensorField = createClass({
         console.log(nextProps.data);
         if(nextProps.data && !nextProps.data.loading && nextProps.data.sensorFilter !== "undefined") {
             var options = [];
-            (nextProps.data.sensorFilter).forEach(function(element) {
-                        const optionsObj = {label: element.sensorType, value: element.sensorType, className: "sensorType"};
+            (nextProps.data.searchFilter.sensorTypes).forEach(function(element) {
+                        const optionsObj = {label: element, value: element, className: "sensorType"};
                         options.push(optionsObj);
             });
-            options = options.filter((option, index, self) =>
-                index === self.findIndex((t) => (
-                    t.value === option.value
-                ))
-            );
 
             if(nextProps.building === null || nextProps.equipType === null || nextProps.equipNum === null) {
                 this.handleSelectChange(null);
@@ -100,12 +95,12 @@ const NUM_QUERY = gql`
         $equipmentType  : String,
         $equipmentNumber: String,
     ) {
-        sensorFilter(
+        searchFilter(
             building       : $building,
             equipmentType  : $equipmentType,
             equipmentNumber: $equipmentNumber,
         ) {
-            sensorType
+            sensorTypes
         }
     }
 `;

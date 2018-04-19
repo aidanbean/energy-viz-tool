@@ -28,6 +28,7 @@ var EquipmentField = createClass({
         return {
             type: 'EquipmentTypes',
             disabled: false,
+            options: [],
             searchable: this.props.searchable,
             selectValue: 'new-south-wales',
             clearable: true,
@@ -47,15 +48,10 @@ var EquipmentField = createClass({
     componentWillReceiveProps(nextProps) {
         if(nextProps.data && !nextProps.data.loading) {
             var options = [];
-            (nextProps.data.sensorData).forEach(function(element) {
-                        const optionsObj = {label: element.equipmentType, value: element.equipmentType, className: "equipmentType"};
+            (nextProps.data.searchFilter.equipmentTypes).forEach(function(element) {
+                        const optionsObj = {label: element, value: element, className: "equipmentType"};
                         options.push(optionsObj);
             });
-            options = options.filter((option, index, self) =>
-                index === self.findIndex((t) => (
-                    t.value === option.value
-                ))
-            );
         }
         this.setState({
             options: options,
@@ -100,10 +96,10 @@ const TYPE_QUERY = gql`
     query MinutesQuery(
         $building       : String,
     ) {
-        sensorData(
+        searchFilter(
             building       : $building
         ) {
-            equipmentType
+            equipmentTypes
         }
     }
 `;

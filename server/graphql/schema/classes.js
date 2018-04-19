@@ -23,6 +23,15 @@ class StreamType {
     }
 }
 
+class FilterType {
+    constructor(buildings, equipmentTypes, equipmentNumbers, sensorTypes) {
+        this.buildings = buildings;
+        this.equipmentTypes = equipmentTypes;
+        this.equipmentNumbers = equipmentNumbers;
+        this.sensorTypes = sensorTypes;
+    }
+}
+
 class Coord {
     constructor(long, lat) {
         this.long = long;
@@ -57,4 +66,4 @@ class SensorData {
 }
 
 
-export { DataPoint, Coord, BuildingData, SensorData, StreamType };
+export { DataPoint, Coord, BuildingData, SensorData, StreamType, FilterType };
