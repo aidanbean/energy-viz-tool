@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import moment from 'moment-timezone';
 import {Row, Col, Jumbotron } from 'react-bootstrap';
 import { BarLoader } from 'react-spinners';
-import ReactHighcharts from 'react-highcharts';
+import Highcharts from 'react-highcharts';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import HeaderLinks from '../../components/Header/HeaderLinks.jsx';
 import {Card} from '../../components/Card/Card.jsx';
+
+require('highcharts/modules/exporting')(Highcharts.Highcharts);
+require('highcharts/modules/export-data')(Highcharts.Highcharts);
+
 
 class Dashboard extends Component {
     constructor(props) {
@@ -57,13 +61,15 @@ class Dashboard extends Component {
     /* when new query parameters are recieved in the props,
     we refetch the graphQL query and convert the timezone. */
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
         this.props.data.refetch();
+        console.log(nextProps.data);
         if(typeof nextProps.data.dataStream === 'undefined') {
             return;
         }
         var config = {};
         var series = [];
+        const variables = nextProps.data.variables;
+        const fileName = `${variables.building}_${variables.equipmentType}_${variables.equipmentNumber}_${variables.sensorType}`;
         for(var i = 0; i < nextProps.data.dataStream.length; i++) {
             const y = [];
             (nextProps.data.dataStream[i].stream).forEach(function(element) {
@@ -87,7 +93,17 @@ class Dashboard extends Component {
                         categories: x
                     },
                     title: {
-                        text: null
+                        text: `${variables.building}`,
+                        style: {
+                            fontSize: '2em',
+                            fontWeight: 'bold',
+                        }
+                    },
+                    subtitle: {
+                        text: `${variables.equipmentType}`,
+                    },
+                    exporting: {
+                        filename: fileName
                     }
                 };
             }
@@ -105,7 +121,7 @@ class Dashboard extends Component {
         this.setState({
                 config: config
         }, () => {
-            console.log(this.state.config);
+            // console.log(this.state.config);
         });
     }
 
@@ -134,13 +150,12 @@ class Dashboard extends Component {
                         <HeaderLinks callback={this.headerCallback} isLoading={false}/>
                     </Row>
                     <Row style={{'height': '200px', 'marginRight': '0px', 'marginLeft': '0px'}}>
-                        <Col md={1}></Col>
-                        <Col md={10}>
+                        <Col md={12}>
                             <Card
-                                statsIcon="fa fa-refresh"
-                                id="chartHours"
-                                title={this.props.headerData.building}
-                                category={this.props.headerData.equipmentType}
+                                // statsIcon="fa fa-refresh"
+                                // id="chartHours"
+                                // title={this.props.headerData.building}
+                                // category={this.props.headerData.equipmentType}
                                 content={
                                     <center>
                                         <h3><center><font color="#9acd32">Loading</font></center></h3>
@@ -153,7 +168,6 @@ class Dashboard extends Component {
                                 }
                             />
                         </Col>
-                        <Col md={1}></Col>
                     </Row>
                 </div>
             );
@@ -183,20 +197,15 @@ class Dashboard extends Component {
                     <HeaderLinks callback={this.headerCallback} isLoading={false}/>
                 </Row>
                 <Row style={{'marginRight': '0px', 'marginLeft': '0px'}}>
-                    <Col md={1}></Col>
                     <Col md={12}>
                         <Card
-                            statsIcon="fa fa-refresh"
-                            id="chartHours"
-                            title={this.props.headerData.building}
-                            category={this.props.headerData.equipmentType}
-                            // stats={}
                             content={
                                 <div className="ct-chart">
-                                    <ReactHighcharts
+                                    <Highcharts
                                         config={this.state.config}
                                         ref = 'ct-chart'
                                     />
+
                                 </div>
                                 }
                             legend={
@@ -209,7 +218,6 @@ class Dashboard extends Component {
                             }
                         />
                     </Col>
-                    <Col md={1}></Col>
                 </Row>
             </div>
         );
