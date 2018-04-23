@@ -73,6 +73,28 @@ class EconGraph extends Component {
             return;
         }
         var series = [];
+        var config = {
+            legend: {
+                enabled: true
+            },
+            chart: {
+                height: 400,
+                type: 'scatter',
+                zoomType: 'xy'
+            },
+            xAxis: {
+                title: {
+                    enabled: true,
+                    text: 'Outside Air Temperature'
+                }
+            },
+            yAxis: {
+                title: {
+                    enabled: true,
+                    text: 'Mixed Air Temperature'
+                }
+            }
+        };
         for(var i = 0; i < nextProps.data.selectBuilding.length; i+=2) {
             var points = [];
             for(var j = 0; j < nextProps.data.selectBuilding[i].stream.length; j++) {
@@ -80,30 +102,6 @@ class EconGraph extends Component {
                 point.push(nextProps.data.selectBuilding[i+1].stream[j].Value);
                 point.push(nextProps.data.selectBuilding[i].stream[j].Value);
                 points.push(point);
-            }
-            if(i === 0) {
-                var config = {
-                    legend: {
-                        enabled: true
-                    },
-                    chart: {
-                        height: 400,
-                        type: 'scatter',
-                        zoomType: 'xy'
-                    },
-                    xAxis: {
-                        title: {
-                            enabled: true,
-                            text: 'Outside Air Temperature'
-                        }
-                    },
-                    yAxis: {
-                        title: {
-                            enabled: true,
-                            text: 'Mixed Air Temperature'
-                        }
-                    }
-                };
             }
             // generate a random color.
             var color = '#'+Math.floor(Math.random()*16777215).toString(16);
