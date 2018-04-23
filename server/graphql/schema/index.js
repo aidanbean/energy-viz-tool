@@ -223,45 +223,42 @@ var root = {
     },
 
     selectBuilding: async function ({building, sensorType, startTime, endTime, interval}) {
-        const equipNums = await DataModel.distinct("equipmentNumber", {$and: [{building: building}, {equipmentType: "AHU"}]});
-        console.log(equipNums);
-        // Example Query that we want to construct:
-            // "$and": [
-            //     {"building": "ACAD"},
-            //     {"equipmentType": "AHU"},
-            //     {"$or": [
-            //         {"sensorType": "Building Static Pressure"},
-            //         {"sensorType": "Supply Air Fan Start/Stop"}
-            //     ]}
-            // ],
-            // "$or": [
-            //     {"equipmentNumber": "AHU01"},
-            //     {"equipmentNumber": "AHU03"}
-            // ]
-        var streamQueries = [];
-        for (const i in equipNums) {
-            var dbQuery = {
-                $and: [
-                    {building: building},
-                    {equipmentType: "AHU"},
-                    {equipmentNumber: equipNums[i]},
-                ],
-            };
-            var orList = [];
-            sensorType.split(',').forEach(function(element) {
-                const orEntry = {"sensorType": element}
-                orList.push(orEntry);
+        var query = {};
+        var buildingList = [];
+        if((typeof building !== "undefined") && (building != null)) {
+            building.split(',').forEach(function(element) {
+                const listEntry = {"building": element}
+                buildingList.push(listEntry);
             });
-            dbQuery["$or"] = orList;
-            console.log(dbQuery);
-            // At this point we have constructed the query. Now, use it to query the db.
-            const dbResult = await DataModel.find(dbQuery);
-            console.log(dbResult);
-            if(dbResult.length != 2) {
-                continue;
-            } else {
-                streamQueries.push(dbResult[0]);
-                streamQueries.push(dbResult[1]);
+            query = ({$or: buildingList});
+        }
+        const buildings = await DataModel.distinct("building", {$and: [query, {equipmentType: "AHU"}]});
+        var streamQueries = [];
+        for (const i in buildings) {
+            const equipNums = await DataModel.distinct("equipmentNumber", {$and: [{building: buildings[i]}, {equipmentType: "AHU"}]});
+            for (const j in equipNums) {
+                var dbQuery = {
+                    $and: [
+                        {building: buildings[i]},
+                        {equipmentType: "AHU"},
+                        {equipmentNumber: equipNums[j]},
+                    ],
+                };
+                var sensorList = [];
+                sensorType.split(',').forEach(function(element) {
+                    const sensor = {"sensorType": element}
+                    sensorList.push(sensor);
+                });
+                dbQuery["$or"] = sensorList;
+                console.log(dbQuery);
+                const dbResult = await DataModel.find(dbQuery).sort({sensorType: 1});
+                console.log(dbResult);
+                if(dbResult.length != 2) {
+                    continue;
+                } else {
+                    streamQueries.push(dbResult[0]);
+                    streamQueries.push(dbResult[1]);
+                }
             }
         }
         var streamList = [];
