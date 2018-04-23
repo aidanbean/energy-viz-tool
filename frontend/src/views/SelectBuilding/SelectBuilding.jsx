@@ -48,8 +48,7 @@ class SelectBuilding extends React.Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col md={12}>
-                    </Col>
+                    <Col md={12}></Col>
                 </Row>
             </Grid>
             </div>

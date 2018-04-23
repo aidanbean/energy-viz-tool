@@ -155,8 +155,7 @@ class EconGraph extends Component {
             return (
                 <div>
                     <Row style={{'height': '200px', 'marginRight': '0px', 'marginLeft': '0px'}}>
-                        <Col md={1}></Col>
-                        <Col md={10}>
+                        <Col md={12}>
                             <Card
                                 content={
                                     <center>
@@ -169,7 +168,6 @@ class EconGraph extends Component {
                                 }
                             />
                         </Col>
-                        <Col md={1}></Col>
                     </Row>
                 </div>
             );
