@@ -5,14 +5,8 @@ import Building from '../../components/SearchBar/BuildingSearchBar';
 // import Header from '../../components/Header/SelectBuildingHeader.jsx';
 import PreBake1 from '../../components/Graphs/Economizer.jsx';
 import PreBake2 from '../../components/Graphs/AirTemp-AirTempSP.jsx';
-// const styles = {
-//     block: {
-//         maxWidth: 250,
-//     },
-//     checkbox: {
-//         marginBottom: 16,
-//     }
-// }
+
+
 class SelectBuilding extends React.Component {
     constructor(props) {
         super(props);
@@ -54,10 +48,8 @@ class SelectBuilding extends React.Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col md={1}></Col>
                     <Col md={12}>
                     </Col>
-                    <Col md={1}></Col>
                 </Row>
             </Grid>
             </div>

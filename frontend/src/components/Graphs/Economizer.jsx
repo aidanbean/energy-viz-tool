@@ -5,10 +5,13 @@ import React, { Component } from 'react';
 import moment from 'moment-timezone';
 import {Row, Col, Jumbotron } from 'react-bootstrap';
 import { BarLoader } from 'react-spinners';
-import ReactHighcharts from 'react-highcharts';
+import Highcharts from 'react-highcharts';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import {Card} from '../../components/Card/Card.jsx';
+
+require('highcharts/modules/exporting')(Highcharts.Highcharts);
+require('highcharts/modules/export-data')(Highcharts.Highcharts);
 
 class EconGraph extends Component {
     constructor(props) {
@@ -19,6 +22,9 @@ class EconGraph extends Component {
             config: {
                 legend: {
                     enabled: true
+                },
+                exporting: {
+                    showTable: false
                 },
                 chart: {
                     height: 400,
@@ -68,6 +74,7 @@ class EconGraph extends Component {
     componentWillReceiveProps(nextProps) {
         console.log(nextProps);
         this.props.data.refetch();
+        var fileName = `$(nextProps.data.variables.building)_Economizer_data`;
         if(this.props.data.selectBuilding == 'undefined') {
             console.log("loading");
             return;
@@ -76,6 +83,10 @@ class EconGraph extends Component {
         var config = {
             legend: {
                 enabled: true
+            },
+            exporting: {
+                showTable: false,
+                fileName: fileName
             },
             chart: {
                 height: 400,
@@ -93,7 +104,14 @@ class EconGraph extends Component {
                     enabled: true,
                     text: 'Mixed Air Temperature'
                 }
+            },
+            title: {
+                text: nextProps.data.variables.building
+            },
+            subtitle: {
+                text: 'Economizer Evaluation'
             }
+
         };
         for(var i = 0; i < nextProps.data.selectBuilding.length; i+=2) {
             var points = [];
@@ -140,10 +158,6 @@ class EconGraph extends Component {
                         <Col md={1}></Col>
                         <Col md={10}>
                             <Card
-                                statsIcon="fa fa-refresh"
-                                id="chartHours"
-                                title={this.props.building}
-                                category="Economizer Analysis"
                                 content={
                                     <center>
                                         <h3><center><font color="#9acd32">Loading</font></center></h3>
@@ -177,32 +191,16 @@ class EconGraph extends Component {
         return (
             <div>
                 <Row style={{'marginRight': '0px', 'marginLeft': '0px'}}>
-                    <Col md={1}></Col>
                     <Col md={12}>
                         <Card
-                            statsIcon="fa fa-refresh"
-                            id="chartHours"
-                            title={this.props.building}
-                            category="Economizer Evaluation"
                             content={
-                                <div className="ct-chart">
-                                    <ReactHighcharts
+                                    <Highcharts
                                         config={this.state.config}
                                         ref = 'ct-chart'
                                     />
-                                </div>
                                 }
-                            legend={
-                                <div>
-                                    <p>padding</p>
-                                    <p>padding</p>
-                                    <p>padding</p>
-                                    <p>padding</p>
-                                </div>
-                            }
                         />
                     </Col>
-                    <Col md={1}></Col>
                 </Row>
             </div>
         );

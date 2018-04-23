@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { BarLoader } from 'react-spinners';
 import Header from '../../components/Header/AllBuildingsHeader.jsx';
-import PreBake1 from '../../components/Economizer.jsx';
+import PreBake1 from '../../components/Graphs/Economizer.jsx';
 import PreBake2 from '../../components/Graphs/AirTemp-AirTempSP.jsx';
 // const styles = {
 //     block: {
@@ -42,18 +42,14 @@ class SelectBuilding extends React.Component {
                 </Row>
                 <br/>
                 <Row>
-                    <Col md={1}></Col>
                     <Col md={12}>
                         <PreBake1 headerData={this.state} />
                     </Col>
-                    <Col md={1}></Col>
                 </Row>
                 <Row>
-                    <Col md={1}></Col>
                     <Col md={12}>
                         <PreBake2 headerData={this.state} />
                     </Col>
-                    <Col md={1}></Col>
                 </Row>
             </div>
         );
