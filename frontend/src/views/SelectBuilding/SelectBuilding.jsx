@@ -48,7 +48,9 @@ class SelectBuilding extends React.Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col md={12}></Col>
+                    <Col md={12}>
+                        <PreBake2 building={this.state.building} />
+                    </Col>
                 </Row>
             </Grid>
             </div>
