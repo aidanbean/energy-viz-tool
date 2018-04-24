@@ -26,7 +26,7 @@ class Dashboard extends Component {
                 chart: {
                     height: 400,
                     type: 'line',
-                    zoomType: 'x'
+                    zoomType: 'xy'
                 },
                 xAxis: {
                     categories: []
@@ -87,7 +87,7 @@ class Dashboard extends Component {
                     chart: {
                         height: 400,
                         type: 'line',
-                        zoomType: 'x'
+                        zoomType: 'xy'
                     },
                     xAxis: {
                         categories: x
