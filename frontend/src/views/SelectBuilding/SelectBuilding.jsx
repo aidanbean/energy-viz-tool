@@ -34,12 +34,12 @@ class SelectBuilding extends React.Component {
             <div>
             <Grid fluid>
                 <Row>
-                    <Col md={4}></Col>
+                    <Col md={5}></Col>
                     <Col md={2}>
                         <h5><center> Select Building </center></h5>
                         <Building label={'Building'} callback={this.buildingHandler} selection={this.state} searchable />
                     </Col>
-                    <Col md={6}></Col>
+                    <Col md={5}></Col>
                 </Row>
                 <br/>
                 <Row>

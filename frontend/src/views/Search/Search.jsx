@@ -109,7 +109,8 @@ class Dashboard extends Component {
             }
             // generate a random color.
             var color = '#'+Math.floor(Math.random()*16777215).toString(16);
-            var name = `${nextProps.data.dataStream[i].equipmentNumber}.${nextProps.data.dataStream[i].sensorType}`;
+            var dataStream = nextProps.data.dataStream[i];
+            var name = `${dataStream.building}.${dataStream.equipmentNumber}.${dataStream.sensorType}`;
             var serie = {
                 data: y,
                 color: color,
@@ -200,22 +201,11 @@ class Dashboard extends Component {
                     <Col md={12}>
                         <Card
                             content={
-                                <div className="ct-chart">
                                     <Highcharts
                                         config={this.state.config}
                                         ref = 'ct-chart'
                                     />
-
-                                </div>
                                 }
-                            legend={
-                                <div>
-                                    <p>padding</p>
-                                    <p>padding</p>
-                                    <p>padding</p>
-                                    <p>padding</p>
-                                </div>
-                            }
                         />
                     </Col>
                 </Row>

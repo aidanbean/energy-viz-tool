@@ -123,7 +123,8 @@ class EconGraph extends Component {
             }
             // generate a random color.
             var color = '#'+Math.floor(Math.random()*16777215).toString(16);
-            var name = `${nextProps.data.selectBuilding[i].equipmentNumber}`;
+            var data = nextProps.data.selectBuilding[i]
+            var name = `${data.building}.${data.equipmentNumber}`;
             var serie = {
                 data: points,
                 color: color,
