@@ -1,3 +1,5 @@
+//TODO: edit dataFetcher to get stats data from PI client
+
 // implement data fetcher, depends on what client want to display in the table
 
 const buildingArray = ["Kemper", "ACAD", "Silo", "Dutton", "Miller", "Peter A. Rock", "MU", "Bainer", "Wellman", "Meyer", "Giedt"];
