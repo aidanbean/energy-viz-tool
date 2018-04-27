@@ -44,10 +44,10 @@ class TableList extends Component {
             <div className="content">
                 <Grid fluid>
                     <Row>
-                        <Col md={12}>
+                        <Col md={15}>
                             <CSVLink data={data}>Download me</CSVLink>
                             <Card
-                                title="Air Handler Unit Data"
+                                title="Building Statistics"
                                 category="AHU"
                                 ctTableFullWidth ctTableResponsive
                                 content={
@@ -60,45 +60,33 @@ class TableList extends Component {
                                             {
                                                 Header: "Building",
                                                 accessor: "building",
+                                                // TODO: Change below to get all data
                                                 filterMethod: (filter, row) =>
                                                     String(row[filter.id]).toLocaleLowerCase().includes(filter.value.toLocaleLowerCase())
                                             },
                                             {
-                                                Header: "Equipment Type",
+                                                // Header: "Equipment Type",
+                                                Header: "Maximum",
                                                 id: "equipmentType",
+                                                // TODO: change this below to get all data
                                                 accessor: d => d.equipmentType,
                                                 filterMethod: (filter, rows) =>
                                                     matchSorter(rows, filter.value, {keys: ["equipmentType"]}),
                                                 filterAll: true
                                             },
                                             {
-                                                Header: "Equipment Number",
+                                                // Header: "Equipment Number",
+                                                Header: "Minimum",
                                                 accessor: "equipmentNumber",
                                             },
                                             {
-                                                Header: "Sensor Type",
-                                                accessor: "SensorType",
-                                                id: "over",
-                                                Cell: ({value}) => (value >= 21 ? "Yes" : "No"),
-                                                filterMethod: (filter, row) => {
-                                                    if (filter.value === "all") {
-                                                        return true;
-                                                    }
-                                                    if (filter.value === "true") {
-                                                        return row[filter.id] >= 21;
-                                                    }
-                                                    return row[filter.id] < 21;
-                                                },
-                                                Filter: ({filter, onChange}) =>
-                                                    <select
-                                                        onChange={event => onChange(event.target.value)}
-                                                        style={{width: "100%"}}
-                                                        value={filter ? filter.value : "all"}
-                                                    >
-                                                        <option value="all">Show All</option>
-                                                        <option value="true">type1</option>
-                                                        <option value="false">type2</option>
-                                                    </select>
+                                                // Header: "Sensor Type",
+                                                Header: "Average",
+                                                id: "Sensor Type"
+                                            },
+                                            {
+                                                Header: "Standard Deviation"
+                                                // id: ""
                                             }
                                         ]}
                                         defaultPageSize={10}
