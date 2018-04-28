@@ -76,13 +76,13 @@ class TableList extends Component {
                                             },
                                             {
                                                 // Header: "Equipment Number",
-                                                Header: "Minimum",
-                                                accessor: "equipmentNumber",
+                                                Header: "Minimum"
+                                                // accessor: "equipmentNumber",
                                             },
                                             {
                                                 // Header: "Sensor Type",
-                                                Header: "Average",
-                                                id: "Sensor Type"
+                                                Header: "Average"
+                                                // id: ""
                                             },
                                             {
                                                 Header: "Standard Deviation"

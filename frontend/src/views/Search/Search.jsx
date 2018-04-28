@@ -7,6 +7,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import HeaderLinks from '../../components/Header/HeaderLinks.jsx';
 import {Card} from '../../components/Card/Card.jsx';
+import TableList from '../TableList/TableList';
 
 require('highcharts/modules/exporting')(Highcharts.Highcharts);
 require('highcharts/modules/export-data')(Highcharts.Highcharts);
@@ -206,6 +207,11 @@ class Dashboard extends Component {
                                         ref = 'ct-chart'
                                     />
                                 }
+                        />
+                    </Col>
+                    <Col md={12}>
+                        <Card
+                            content={<TableList/>}
                         />
                     </Col>
                 </Row>
