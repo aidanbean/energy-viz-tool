@@ -2,7 +2,7 @@
 import mongoose from 'mongoose';
 import DataModel from '../../config/models/data_model';
 import fetchAPI from '../../pi/piFetchers';
-import {DataPoint, BuildingData, SensorData, StreamType, FilterType} from './classes';
+import {DataPoint, BuildingData, SensorData, StreamType, FilterType, SummaryData} from './classes';
 
 const db = mongoose.connection;
 
@@ -11,7 +11,7 @@ import {
 } from 'graphql';
 
 let schema = buildSchema(`
-
+    
     type DataPoint {
         Timestamp        : String,
         Value            : Float,
@@ -27,6 +27,11 @@ let schema = buildSchema(`
         equipmentNumber: String,
         sensorType     : String,
         stream         : [DataPoint]
+    }
+    
+    type SummaryData {
+        Type: String,
+        Value:  DataPoint
     }
 
     type Coord {
@@ -100,7 +105,7 @@ let schema = buildSchema(`
             equipmentType: String,
             equipmentNumber: String,
             sensorType: String,
-        ): DataPoint,
+        ): [SummaryData],
 
         buildingData(building: String): BuildingData,
 
@@ -275,7 +280,7 @@ var root = {
                 const point = new DataPoint(element.Timestamp, element.Value, element.UnitsAbbreviation, element.Good, element.Questionable, element.Substituted);
                 stream.push(point);
             });
-            console.log(stream);
+
             var streamObject = new StreamType(streamQueries[i].building, streamQueries[i].equipmentNumber, streamQueries[i].equipmentType, streamQueries[i].sensorType, stream);
             streamList.push(streamObject);
         }
@@ -290,9 +295,18 @@ var root = {
             "sensorType": sensorType
         };
         const dbResult = await DataModel.findOne(dbEntry);
-        var piResult = await fetchAPI.fetchStream_value(dbResult.webId);
-        const point = new DataPoint(piResult.Timestamp, piResult.Value, piResult.UnitsAbbreviation, piResult.Good, piResult.Questionable, piResult.Substituted);
-        return point;
+        const piResult = await fetchAPI.fetchStream_summary_AllType(dbResult.webId);
+        console.log(dbResult.webId);
+        var summaryDataList = [];
+        for (var summaryData in piResult) {
+            var eachDataPoint = piResult[summaryData].Value;
+            if (eachDataPoint.Good) {
+                var dataPoint = new DataPoint(eachDataPoint.Timestamp, eachDataPoint.Value, eachDataPoint.UnitsAbbreviation, eachDataPoint.Good, eachDataPoint.Questionable, eachDataPoint.Substituted);
+                var point = new SummaryData(piResult[summaryData].Type, dataPoint);
+                summaryDataList.push(point);
+            }
+        }
+        return summaryDataList;
     },
 
     buildingData: async function ({building}) {

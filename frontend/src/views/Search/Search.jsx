@@ -249,6 +249,7 @@ const DATA_QUERY = gql`
                 Value
             }
         }
+        
     }
 `;
 

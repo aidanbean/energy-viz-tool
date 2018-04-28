@@ -51,8 +51,6 @@ app.use(cors());
 ===================================*/
 
 import expressGraphQL from 'express-graphql';
-import { buildSchema } from 'graphql';
-
 import { schema, root } from './graphql/schema';
 
 // use the GraphQL schema defined in server/graphql

@@ -23,6 +23,13 @@ class StreamType {
     }
 }
 
+class SummaryData {
+    constructor(type, value) {
+        this.Type = type;
+        this.Value = value;
+    }
+}
+
 class FilterType {
     constructor(buildings, equipmentTypes, equipmentNumbers, sensorTypes) {
         this.buildings = buildings;
@@ -66,4 +73,4 @@ class SensorData {
 }
 
 
-export { DataPoint, Coord, BuildingData, SensorData, StreamType, FilterType };
+export { DataPoint, Coord, BuildingData, SensorData, StreamType, FilterType, SummaryData};
