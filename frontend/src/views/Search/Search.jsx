@@ -1,16 +1,18 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import moment from 'moment-timezone';
-import {Row, Col, Jumbotron } from 'react-bootstrap';
-import { BarLoader } from 'react-spinners';
+import {Row, Col, Jumbotron, Grid} from 'react-bootstrap';
+import {BarLoader} from 'react-spinners';
 import Highcharts from 'react-highcharts';
-import { graphql } from 'react-apollo';
+import {graphql} from 'react-apollo';
 import gql from 'graphql-tag';
 import HeaderLinks from '../../components/Header/HeaderLinks.jsx';
 import {Card} from '../../components/Card/Card.jsx';
 
+
+
+
 require('highcharts/modules/exporting')(Highcharts.Highcharts);
 require('highcharts/modules/export-data')(Highcharts.Highcharts);
-
 
 class Dashboard extends Component {
     constructor(props) {
@@ -63,21 +65,21 @@ class Dashboard extends Component {
     componentWillReceiveProps(nextProps) {
         this.props.data.refetch();
         console.log(nextProps.data);
-        if(typeof nextProps.data.dataStream === 'undefined') {
+        if (typeof nextProps.data.dataStream === 'undefined') {
             return;
         }
         var config = {};
         var series = [];
         const variables = nextProps.data.variables;
         const fileName = `${variables.building}_${variables.equipmentType}_${variables.equipmentNumber}_${variables.sensorType}`;
-        for(var i = 0; i < nextProps.data.dataStream.length; i++) {
+        for (var i = 0; i < nextProps.data.dataStream.length; i++) {
             const y = [];
-            (nextProps.data.dataStream[i].stream).forEach(function(element) {
+            (nextProps.data.dataStream[i].stream).forEach(function (element) {
                 y.push(element.Value);
             });
-            if(i === 0) {
+            if (i === 0) {
                 const x = [];
-                (nextProps.data.dataStream[i].stream).forEach(function(element) {
+                (nextProps.data.dataStream[i].stream).forEach(function (element) {
                     x.push(moment.tz(element.Timestamp, "US/Pacific").format('YYYY-MM-DDTHH:mm'));
                 });
                 config = {
@@ -108,7 +110,7 @@ class Dashboard extends Component {
                 };
             }
             // generate a random color.
-            var color = '#'+Math.floor(Math.random()*16777215).toString(16);
+            var color = '#' + Math.floor(Math.random() * 16777215).toString(16);
             var dataStream = nextProps.data.dataStream[i];
             var name = `${dataStream.building}.${dataStream.equipmentNumber}.${dataStream.sensorType}`;
             var serie = {
@@ -120,7 +122,7 @@ class Dashboard extends Component {
         }
         config["series"] = series;
         this.setState({
-                config: config
+            config: config
         }, () => {
             // console.log(this.state.config);
         });
@@ -131,7 +133,7 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
-        this.setState({ didMount: true });
+        this.setState({didMount: true});
     }
 
     headerCallback(dataFromHeader) {
@@ -159,8 +161,13 @@ class Dashboard extends Component {
                                 // category={this.props.headerData.equipmentType}
                                 content={
                                     <center>
-                                        <h3><center><font color="#9acd32">Loading</font></center></h3>
-                                        <p><center><font>If this is taking too long, you may want to refine your query.</font></center></p>
+                                        <h3>
+                                            <center><font color="#9acd32">Loading</font></center>
+                                        </h3>
+                                        <p>
+                                            <center><font>If this is taking too long, you may want to refine your
+                                                query.</font></center>
+                                        </p>
                                         <BarLoader
                                             color={'#3C4858'}
                                             loading={this.props.data.loading}
@@ -182,9 +189,11 @@ class Dashboard extends Component {
                         <HeaderLinks callback={this.headerCallback} isLoading={false}/>
                     </Row>
                     <Jumbotron>
-                      <h3><center><font color="red">Error</font></center></h3>
+                        <h3>
+                            <center><font color="red">Error</font></center>
+                        </h3>
                         <center>
-                        All forms need to be filled out.  Also, make sure your time range is valid.
+                            All forms need to be filled out. Also, make sure your time range is valid.
                         </center>
                     </Jumbotron>;
                 </div>
@@ -193,26 +202,36 @@ class Dashboard extends Component {
 
 
         return (
-            <div>
-                <Row style={{'marginRight': '0px', 'marginLeft': '0px'}}>
-                    <HeaderLinks callback={this.headerCallback} isLoading={false}/>
-                </Row>
-                <Row style={{'marginRight': '0px', 'marginLeft': '0px'}}>
-                    <Col md={12}>
-                        <Card
-                            content={
-                                    <Highcharts
-                                        config={this.state.config}
-                                        ref = 'ct-chart'
-                                    />
-                                }
-                        />
-                    </Col>
-                </Row>
+            <div className="content">
+                <Grid fluid>
+                    <Row>
+                        <Col md={12}>
+                            <div>
+                                <Row style={{'marginRight': '0px', 'marginLeft': '0px'}}>
+                                    <HeaderLinks callback={this.headerCallback} isLoading={false}/>
+                                </Row>
+                                <Row style={{'marginRight': '0px', 'marginLeft': '0px'}}>
+                                    <Col md={12}>
+                                        <Card
+                                            content={
+                                                <Highcharts
+                                                    config={this.state.config}
+                                                    ref='ct-chart'
+                                                />
+                                            }
+                                        />
+                                    </Col>
+                                </Row>
+                            </div>
+                        </Col>
+                    </Row>
+                </Grid>
             </div>
+
         );
     }
 }
+
 
 const DATA_QUERY = gql`
     query DataQuery(
@@ -249,13 +268,13 @@ const DATA_QUERY = gql`
 export default graphql(DATA_QUERY, {
     options: (props) => ({
         variables: {
-            building       : props.headerData.building,
-            equipmentType  : props.headerData.equipmentType,
+            building: props.headerData.building,
+            equipmentType: props.headerData.equipmentType,
             equipmentNumber: props.headerData.equipmentNumber,
-            sensorType     : props.headerData.sensorType,
-            startTime      : props.headerData.startTime,
-            endTime        : props.headerData.endTime,
-            interval       : props.headerData.interval
+            sensorType: props.headerData.sensorType,
+            startTime: props.headerData.startTime,
+            endTime: props.headerData.endTime,
+            interval: props.headerData.interval
         }
     }),
 })(Dashboard);

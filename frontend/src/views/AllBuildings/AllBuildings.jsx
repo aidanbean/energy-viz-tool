@@ -1,17 +1,9 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
-import { BarLoader } from 'react-spinners';
 import Header from '../../components/Header/AllBuildingsHeader.jsx';
 import PreBake1 from '../../components/Graphs/Economizer.jsx';
 import PreBake2 from '../../components/Graphs/AirTemp-AirTempSP.jsx';
-// const styles = {
-//     block: {
-//         maxWidth: 250,
-//     },
-//     checkbox: {
-//         marginBottom: 16,
-//     }
-// }
+
 class SelectBuilding extends React.Component {
     constructor() {
         super();

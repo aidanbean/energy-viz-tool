@@ -1,13 +1,8 @@
 import React, {Component} from 'react';
 import { NavLink } from 'react-router-dom';
-
-import HeaderLinks from '../Header/HeaderLinks.jsx';
-
 import logo from '../../assets/img/energyviz-logo.png';
 
 import appRoutes from '../../routes/app.jsx';
-
-
 
 class Sidebar extends Component{
     constructor(props){
@@ -46,15 +41,13 @@ class Sidebar extends Component{
                     </div>
 
 
-
                 <div className="sidebar-wrapper">
                     <ul className="nav">
-                        { this.state.width <= 991 ? (<HeaderLinks />):null }
                         {
                             appRoutes.map((prop,key) => {
                                 if(!prop.redirect)
                                     return (
-                                        <li className={prop.upgrade ? "active active-pro":this.activeRoute(prop.path)} key={key}>
+                                        <li className={this.activeRoute(prop.path)} key={key}>
                                             <NavLink to={prop.path} className="nav-link" activeClassName="active">
                                                 <i className={prop.icon}></i>
                                                 <p>{prop.name}</p>

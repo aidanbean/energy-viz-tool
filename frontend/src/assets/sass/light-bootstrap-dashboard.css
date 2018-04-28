@@ -578,6 +578,7 @@ body > .navbar-collapse[data-color="purple"]:after {
     position: relative;
     float: right;
     width: calc(100% - 260px);
+    height: 100%;
 }
 
 .main-panel > .content {
