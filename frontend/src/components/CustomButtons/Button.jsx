@@ -1,31 +1,27 @@
-import React from 'react';
-import {
-    withStyles, Button
-} from 'material-ui';
-import PropTypes from 'prop-types';
+import React, {Component} from 'react';
+import {button} from 'react-bootstrap';
 
-import { buttonStyle } from '../../variables/styles';
+class Button extends Component {
+    constructor() {
+        super();
+        this.state = {
+            color_black: true
+        }
 
-class RegularButton extends React.Component{
-    render(){
-        const { classes, color, round, children, fullWidth, disabled, ...rest } = this.props ;
+
+    }
+
+    changeColor() {
+        this.setState({color_black: !this.state.color_black})
+    }
+
+    render() {
+        let bgColor = this.state.color_black ? "white" : "rgb(188, 228, 236)";
         return (
-            <Button
-                {...rest}
-                className={classes.button + ( color ? " " + classes[color]:"") + ( round ? " " + classes.round:"") + (fullWidth ? " " + classes.fullWidth:"") + (disabled ? " " + classes.disabled:"")}
-                >
-                {children}
-            </Button>
-        );
+            <button style={{backgroundColor: bgColor}} onClick={this.changeColor.bind(this)}
+                    className="button">{this.props.text}</button>
+        )
     }
 }
 
-RegularButton.propTypes = {
-    classes: PropTypes.object.isRequired,
-    color: PropTypes.oneOf(['primary','info','success','warning','danger','rose','white','simple','transparent']),
-    round: PropTypes.bool,
-    fullWidth: PropTypes.bool,
-    disabled: PropTypes.bool,
-};
-
-export default withStyles(buttonStyle)(RegularButton);
+export default Button;

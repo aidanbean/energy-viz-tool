@@ -13,6 +13,7 @@
 		"graphql-tag": "^2.8.0",
 		"highcharts": "^6.0.4",
 		"match-sorter": "^2.2.0",
+		"material-ui": "^0.20.0",
 		"moment": "^2.22.0",
 		"moment-timezone": "^0.5.14",
 		"namor": "^1.0.1",

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
-
+import DateSelection from '../../components/DateSelection/DateSelection.jsx'
 import Card from '../../components/Card/Card.jsx'
 
 class Typography extends Component {
@@ -15,6 +15,7 @@ class Typography extends Component {
                                 category="Created using Roboto Font Family"
                                 content={
                                     <div>
+                                        <DateSelection/>
                                         <div className="typo-line">
                                             <h1><p className="category">Header 1</p>Light Bootstrap Table Heading </h1>
                                         </div>
