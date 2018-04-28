@@ -11,7 +11,7 @@ class WeekdayPicker extends Component {
                 <Button text={day}/>
             );
             return (
-                <span>{listItems}</span>
+                <div>{listItems}</div>
             );
         }
 

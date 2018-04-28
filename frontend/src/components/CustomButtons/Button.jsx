@@ -15,10 +15,12 @@ class Button extends Component {
         this.setState({color_black: !this.state.color_black})
     }
 
+    
+
     render() {
         let bgColor = this.state.color_black ? "white" : "rgb(188, 228, 236)";
         return (
-            <button style={{backgroundColor: bgColor}} onClick={this.changeColor.bind(this)}
+            <button style={{backgroundColor: bgColor}} onClick={this.changeColor.bind(this)} //TODO: style CSS depend on mock up Demo
                     className="button">{this.props.text}</button>
         )
     }

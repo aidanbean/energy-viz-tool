@@ -1,16 +1,20 @@
 import React, {Component} from 'react';
 import WeekdayPicker from './WeekdayPicker';
-
+import HourPicker from './HourPicker';
+import MonthDayPicker from './MonthDayPicker';
+import MonthPicker from './MonthPicker';
+import CustomButton from '../../elements/CustomButton/CustomButton.jsx'
 class DateSelection extends Component {
     render() {
-        var modifiers = {
-            'weekend': function (weekday) {
-                return weekday == 0 || weekday == 6;
-            }
-        };
 
         return (
-            <WeekdayPicker/>
+            <div>
+                <WeekdayPicker/>
+                <HourPicker/>
+                <MonthDayPicker/>
+                <MonthPicker/>
+            </div>
+
         );
     }
 }
