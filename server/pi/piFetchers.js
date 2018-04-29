@@ -192,5 +192,7 @@ module.exports = {
     fetchWebId_byDataServer,
     fetchStream_value,
     fetchStream_byMonths,
-    fetchStream_byMinutes
+    fetchStream_byMinutes,
+    fetchStream_recorded,
+    fetchStream_plot
 }

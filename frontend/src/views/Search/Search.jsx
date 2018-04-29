@@ -85,7 +85,7 @@ class Dashboard extends Component {
                         enabled: true
                     },
                     chart: {
-                        height: 400,
+                        height: 700,
                         type: 'line',
                         zoomType: 'xy'
                     },
