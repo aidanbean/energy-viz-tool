@@ -5,31 +5,31 @@ const fetch = require('node-fetch');
 
 const piBaseUrl = 'https://ucd-pi-iis.ou.ad3.ucdavis.edu/piwebapi/';
 const piWebIdPath = 'points?path=\\\\util-pi-p\\';
-const dataServer = 'dataservers/s09KoOKByvc0-uxyvoTV1UfQVVRJTC1QSS1Q/points?nameFilter=';
+const dataServer =
+  'dataservers/s09KoOKByvc0-uxyvoTV1UfQVVRJTC1QSS1Q/points?nameFilter=';
 
-const fetchWebId_byPoint = (tagName) => {
-    /* Example fetch URL:
+const fetchWebId_byPoint = tagName => {
+  /* Example fetch URL:
         https://ucd-pi-iis.ou.ad3.ucdavis.edu/piwebapi/
         points?path=\\UTIL-PI-P\Giedt_Electricity_demand_kbtu
     */
-    return fetch(`${piBaseUrl}${piWebIdPath}${tagName}`)
-        .then(res => res.json())
-        .then(json => json.WebId);
+  return fetch(`${piBaseUrl}${piWebIdPath}${tagName}`)
+    .then(res => res.json())
+    .then(json => json.WebId);
 };
 
-const fetchWebId_byDataServer = (tagName) => {
-    /*  Querying via dataServer allows fetching with wildcards (*)
+const fetchWebId_byDataServer = tagName => {
+  /*  Querying via dataServer allows fetching with wildcards (*)
 
         Example fetch URL:
         https://ucd-pi-iis.ou.ad3.ucdavis.edu/piwebapi/
         dataservers/s09KoOKByvc0-uxyvoTV1UfQVVRJTC1QSS1Q/points?nameFilter=Ghausi.CHW*
     */
-    return fetch(`${piBaseUrl}${dataServer}${tagName}`)
-        .then(res => res.json());
+  return fetch(`${piBaseUrl}${dataServer}${tagName}`).then(res => res.json());
 };
 
-const fetchStream_value = (WebId) => {
-    /*  Return a single JSON PI stream value using a WebId
+const fetchStream_value = WebId => {
+  /*  Return a single JSON PI stream value using a WebId
 
         Example fetch URL:
         https://ucd-pi-iis.ou.ad3.ucdavis.edu/piwebapi/streams/P09KoOKByvc0-uxyvoTV1UfQhyIAAAVVRJTC1QSS1QXEdIQVVTSV9DSElMTEVEV0FURVJfRVVJ/value
@@ -44,12 +44,11 @@ const fetchStream_value = (WebId) => {
             "Substituted": false
         }
     */
-    return fetch(`${piBaseUrl}streams/${WebId}/value`)
-        .then(res => res.json())
+  return fetch(`${piBaseUrl}streams/${WebId}/value`).then(res => res.json());
 };
 
 const fetchStream_byMonths = (WebId, startDate, endDate, interval) => {
-    /*  Return a JSON PI stream with data from startDate to endDate with
+  /*  Return a JSON PI stream with data from startDate to endDate with
         interval months in between.
 
         startDate, endDate, interval formats:
@@ -92,16 +91,17 @@ const fetchStream_byMonths = (WebId, startDate, endDate, interval) => {
         }
     */
 
-    let startTime = startDate + '%20%2B0mo-1s'; // startMonth + 0 months - 1 second
-    let endTime = endDate + '%20%2B0mo-1s'; // endMonth + 0 months - 1 second
+  let startTime = startDate + '%20%2B0mo-1s'; // startMonth + 0 months - 1 second
+  let endTime = endDate + '%20%2B0mo-1s'; // endMonth + 0 months - 1 second
 
-    return fetch(`${piBaseUrl}streams/${WebId}/interpolated?startTime=${startTime}
-                &endTime=${endTime}&interval=${interval}`)
-            .then(res => res.json());
+  return fetch(`${piBaseUrl}streams/${WebId}/interpolated?startTime=${startTime}
+                &endTime=${endTime}&interval=${interval}`).then(res =>
+    res.json()
+  );
 };
 
 const fetchStream_byMinutes = (WebId, startTime, endTime, interval) => {
-    /*  Return a JSON PI stream with data from startMinute to endMinute with
+  /*  Return a JSON PI stream with data from startMinute to endMinute with
         interval minutes in between.
 
         startMinute, endMinute, interval formats:
@@ -143,19 +143,20 @@ const fetchStream_byMinutes = (WebId, startTime, endTime, interval) => {
          "UnitsAbbreviation": ""
         }
     */
-    return fetch(`${piBaseUrl}streams/${WebId}/interpolated?startTime=${startTime}
-                &endTime=${endTime}&interval=${interval}`)
-            .then(res => res.json());
+  return fetch(`${piBaseUrl}streams/${WebId}/interpolated?startTime=${startTime}
+                &endTime=${endTime}&interval=${interval}`).then(res =>
+    res.json()
+  );
 };
 
-const fetchStream_byDefault = (WebId) => {
-    // default by previous 24 hours.
+const fetchStream_byDefault = WebId => {
+  // default by previous 24 hours.
 
-    return fetch(`${piBaseUrl}streams/${WebId}/interpolated?`)
+  return fetch(`${piBaseUrl}streams/${WebId}/interpolated?`);
 };
 
 const fetchStream_recorded = (WebId, startTime, endTime) => {
-    /*  Return a JSON PI stream with data from startMinute to endMinute with
+  /*  Return a JSON PI stream with data from startMinute to endMinute with
         interval minutes in between.
 
         startTime, endTime formats
@@ -164,13 +165,12 @@ const fetchStream_recorded = (WebId, startTime, endTime) => {
         Example fetch URL:
         https://ucd-pi-iis.ou.ad3.ucdavis.edu/piwebapi/streams/P09KoOKByvc0-uxyvoTV1UfQhyIAAAVVRJTC1QSS1QXEdIQVVTSV9DSElMTEVEV0FURVJfRVVJ/recorded?startTime=12-11-2017-6am&endTime=12-11-2017-12pm
     */
-    return fetch(`${piBaseUrl}streams/${WebId}/recorded?startTime=${startTime}
-                &endTime=${endTime}`)
-            .then(res => res.json());
+  return fetch(`${piBaseUrl}streams/${WebId}/recorded?startTime=${startTime}
+                &endTime=${endTime}`).then(res => res.json());
 };
 
 const fetchStream_plot = (WebId, startTime, endTime) => {
-    /*  Return a JSON PI stream with data from startMinute to endMinute with
+  /*  Return a JSON PI stream with data from startMinute to endMinute with
         interval minutes in between.
 
         startTime, endTime formats
@@ -179,105 +179,124 @@ const fetchStream_plot = (WebId, startTime, endTime) => {
         Example fetch URL:
         https://ucd-pi-iis.ou.ad3.ucdavis.edu/piwebapi/streams/P09KoOKByvc0-uxyvoTV1UfQhyIAAAVVRJTC1QSS1QXEdIQVVTSV9DSElMTEVEV0FURVJfRVVJ/recorded?startTime=12-11-2017-6am&endTime=12-11-2017-12pm
     */
-    return fetch(`${piBaseUrl}streams/${WebId}/plot?startTime=${startTime}&endTime=${endTime}`)
-            .then(res => res.json());
+  return fetch(
+    `${piBaseUrl}streams/${WebId}/plot?startTime=${startTime}&endTime=${endTime}`
+  ).then(res => res.json());
 };
 
-const fetchStream_summary_AllType = (WebId) => {
-    // {
-    //     "Links": {},
-    //     "Items": [
-    //     {
-    //         "Type": "PercentGood",
-    //         "Value": {
-    //             "Timestamp": "2018-04-27T17:28:01.1682014Z",
-    //             "Value": 100,
-    //             "UnitsAbbreviation": "",
-    //             "Good": true,
-    //             "Questionable": false,
-    //             "Substituted": false
-    //         }
-    //     },
-    //     {
-    //         "Type": "Total",
-    //         "Value": {
-    //             "Timestamp": "2018-04-27T17:28:01.1682014Z",
-    //             "Value": 66.06138119394916,
-    //             "UnitsAbbreviation": "",
-    //             "Good": true,
-    //             "Questionable": false,
-    //             "Substituted": false
-    //         }
-    //     },
+const fetchStream_summary_AllType = WebId => {
+  // {
+  //     "Links": {},
+  //     "Items": [
+  //     {
+  //         "Type": "PercentGood",
+  //         "Value": {
+  //             "Timestamp": "2018-04-27T17:28:01.1682014Z",
+  //             "Value": 100,
+  //             "UnitsAbbreviation": "",
+  //             "Good": true,
+  //             "Questionable": false,
+  //             "Substituted": false
+  //         }
+  //     },
+  //     {
+  //         "Type": "Total",
+  //         "Value": {
+  //             "Timestamp": "2018-04-27T17:28:01.1682014Z",
+  //             "Value": 66.06138119394916,
+  //             "UnitsAbbreviation": "",
+  //             "Good": true,
+  //             "Questionable": false,
+  //             "Substituted": false
+  //         }
+  //     },
 
-    return fetch(`${piBaseUrl}streams/${WebId}/summary?summaryType=All`).then(res => res.json()).then(json=>json.Items);
+  return fetch(`${piBaseUrl}streams/${WebId}/summary?summaryType=All`)
+    .then(res => res.json())
+    .then(json => json.Items);
 };
 
-const fetchStream_summary_AllType_byMinutes = (WebId, startTime, endTime, summaryDuration) => {
-
-    return fetch(`${piBaseUrl}streams/${WebId}/summary?startTime=${startTime}&endTime=${endTime}&summaryDuration=${summaryDuration}&summaryType=All`)
-        .then(res => res.json())
+const fetchStream_summary_AllType_byMinutes = (
+  WebId,
+  startTime,
+  endTime,
+  summaryDuration
+) => {
+  return fetch(
+    `${piBaseUrl}streams/${WebId}/summary?startTime=${startTime}&endTime=${endTime}&summaryDuration=${summaryDuration}&summaryType=All`
+  ).then(res => res.json());
 };
 
-const fetchStream_summary_AllType_byMonths = (WebId, startDate, endDate, summaryDuration) => {
-    // example:
-    // https://ucd-pi-iis.ou.ad3.ucdavis.edu/piwebapi/streams/P09KoOKByvc0-uxyvoTV1UfQhyIAAAVVRJTC1QSS1QXEdIQVVTSV9DSElMTEVEV0FURVJfRVVJ/summary?startTime=2016-01-01%20%2B1mo-1s&endTime=2016-12-01%20%2B1mo-1s&summaryDuration=1mo&summaryType=Minimum
+const fetchStream_summary_AllType_byMonths = (
+  WebId,
+  startDate,
+  endDate,
+  summaryDuration
+) => {
+  // example:
+  // https://ucd-pi-iis.ou.ad3.ucdavis.edu/piwebapi/streams/P09KoOKByvc0-uxyvoTV1UfQhyIAAAVVRJTC1QSS1QXEdIQVVTSV9DSElMTEVEV0FURVJfRVVJ/summary?startTime=2016-01-01%20%2B1mo-1s&endTime=2016-12-01%20%2B1mo-1s&summaryDuration=1mo&summaryType=Minimum
 
+  // {
+  //     "Links": {},
+  //     "Items": [
+  //     {
+  //         "Type": "Minimum",
+  //         "Value": {
+  //             "Timestamp": "2016-02-04T07:59:00Z",
+  //             "Value": 79,
+  //             "UnitsAbbreviation": "",
+  //             "Good": true,
+  //             "Questionable": false,
+  //             "Substituted": false
+  //         }
+  //     },
+  //     {
+  //         "Type": "Minimum",
+  //         "Value": {
+  //             "Timestamp": "2016-03-31T06:59:00Z",
+  //             "Value": 78,
+  //             "UnitsAbbreviation": "",
+  //             "Good": true,
+  //             "Questionable": false,
+  //             "Substituted": false
+  //         }
+  //     }
+  // ]
+  // }
 
-    // {
-    //     "Links": {},
-    //     "Items": [
-    //     {
-    //         "Type": "Minimum",
-    //         "Value": {
-    //             "Timestamp": "2016-02-04T07:59:00Z",
-    //             "Value": 79,
-    //             "UnitsAbbreviation": "",
-    //             "Good": true,
-    //             "Questionable": false,
-    //             "Substituted": false
-    //         }
-    //     },
-    //     {
-    //         "Type": "Minimum",
-    //         "Value": {
-    //             "Timestamp": "2016-03-31T06:59:00Z",
-    //             "Value": 78,
-    //             "UnitsAbbreviation": "",
-    //             "Good": true,
-    //             "Questionable": false,
-    //             "Substituted": false
-    //         }
-    //     }
-    // ]
-    // }
+  let startTime = startDate + '%20%2B0mo-1s'; // startMonth + 0 months - 1 second
+  let endTime = endDate + '%20%2B0mo-1s'; // endMonth + 0 months - 1 second
 
-    let startTime = startDate + '%20%2B0mo-1s'; // startMonth + 0 months - 1 second
-    let endTime = endDate + '%20%2B0mo-1s'; // endMonth + 0 months - 1 second
-
-    return fetch(`${piBaseUrl}streams${WebId}/summary?startTime=${startTime}&endTime=${endTime}&summaryDuration=${summaryDuration}&summaryType=All`)
-        .then(res => res.json())
-
+  return fetch(
+    `${piBaseUrl}streams${WebId}/summary?startTime=${startTime}&endTime=${endTime}&summaryDuration=${summaryDuration}&summaryType=All`
+  ).then(res => res.json());
 };
 
-const fetchStream_summary_byType = (WebId, startTime, endTime, summaryDuration, type) => {
-
-    return fetch(`${piBaseUrl}streams/${WebId}/summary?startTime=${startTime}&endTime=${endTime}&summaryDuration=${summaryDuration}&summaryType=${type}`)
-        .then(res => res.json())
-        .then(json, json.Value)
+const fetchStream_summary_byType = (
+  WebId,
+  startTime,
+  endTime,
+  summaryDuration,
+  type
+) => {
+  return fetch(
+    `${piBaseUrl}streams/${WebId}/summary?startTime=${startTime}&endTime=${endTime}&summaryDuration=${summaryDuration}&summaryType=${type}`
+  )
+    .then(res => res.json())
+    .then(json, json.Value);
 };
 
 module.exports = {
-    fetchWebId_byPoint,
-    fetchWebId_byDataServer,
-    fetchStream_value,
-    fetchStream_byDefault,
-    fetchStream_byMonths,
-    fetchStream_byMinutes,
-    fetchStream_summary_AllType,
-    fetchStream_recorded,
-    fetchStream_plot,
-    fetchStream_summary_AllType_byMinutes,
-    fetchStream_summary_AllType_byMonths,
-    fetchStream_summary_byType
-}
+  fetchWebId_byPoint,
+  fetchWebId_byDataServer,
+  fetchStream_value,
+  fetchStream_byDefault,
+  fetchStream_byMonths,
+  fetchStream_byMinutes,
+  fetchStream_summary_AllType,
+  fetchStream_recorded,
+  fetchStream_plot,
+  fetchStream_summary_AllType_byMinutes,
+  fetchStream_summary_AllType_byMonths,
+  fetchStream_summary_byType
+};

@@ -69,38 +69,53 @@ import Tasks from './Tasks/Tasks.jsx';
 // // // Typography
 // #############################
 
-import P from "./Typography/P.jsx";
-import Quote from "./Typography/Quote.jsx";
-import Muted from "./Typography/Muted.jsx";
-import Primary from "./Typography/Primary.jsx";
-import Info from "./Typography/Info.jsx";
-import Success from "./Typography/Success.jsx";
-import Warning from "./Typography/Warning.jsx";
-import Danger from "./Typography/Danger.jsx";
-import Small from "./Typography/Small.jsx";
+import P from './Typography/P.jsx';
+import Quote from './Typography/Quote.jsx';
+import Muted from './Typography/Muted.jsx';
+import Primary from './Typography/Primary.jsx';
+import Info from './Typography/Info.jsx';
+import Success from './Typography/Success.jsx';
+import Warning from './Typography/Warning.jsx';
+import Danger from './Typography/Danger.jsx';
+import Small from './Typography/Small.jsx';
 import A from './Typography/A.jsx';
 
 export {
-    // Cards
-    ChartCard, ProfileCard, RegularCard, StatsCard, TasksCard,
-    // CustomButtons
-    Button, IconButton,
-    // CustomInput
-    CustomInput,
-    // Footer
-    Footer,
-    // Grid
-    ItemGrid,
-    // Header
-    // Header, HeaderLinks,
-    // Sidebar
-    Sidebar,
-    //Snackbar
-    Snackbar, SnackbarContent,
-    // Table
-    Table,
-    // Tasks
-    Tasks,
-    // Typography
-    P, Quote, Muted, Primary, Info, Success, Warning, Danger, Small, A,
+  // Cards
+  ChartCard,
+  ProfileCard,
+  RegularCard,
+  StatsCard,
+  TasksCard,
+  // CustomButtons
+  Button,
+  IconButton,
+  // CustomInput
+  CustomInput,
+  // Footer
+  Footer,
+  // Grid
+  ItemGrid,
+  // Header
+  // Header, HeaderLinks,
+  // Sidebar
+  Sidebar,
+  //Snackbar
+  Snackbar,
+  SnackbarContent,
+  // Table
+  Table,
+  // Tasks
+  Tasks,
+  // Typography
+  P,
+  Quote,
+  Muted,
+  Primary,
+  Info,
+  Success,
+  Warning,
+  Danger,
+  Small,
+  A
 };
