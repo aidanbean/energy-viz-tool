@@ -8,26 +8,21 @@ class DateSelection extends Component {
 
 
     render() {
-
-        var container_frame = {
-            width: 300
-        }
-        
         return (
             <div>
-                <div style={this.container_frame}>
+                <div>
                     <span>Month</span>
                     <MonthPicker/>
                 </div>
-                <div style={this.container_frame}>
+                <div>
                     <span>Day of Month</span>
                     <MonthDayPicker/>
                 </div>
-                <div style={this.container_frame}>
+                <div>
                     <span>Day of Week</span>
                     <WeekdayPicker/>
                 </div>
-                <div style={this.container_frame}>
+                <div>
                     <span>Hour of day</span>
                     <HourPicker/>
                 </div>

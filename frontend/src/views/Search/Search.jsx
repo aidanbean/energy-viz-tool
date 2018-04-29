@@ -8,9 +8,6 @@ import gql from 'graphql-tag';
 import HeaderLinks from '../../components/Header/HeaderLinks.jsx';
 import {Card} from '../../components/Card/Card.jsx';
 
-
-
-
 require('highcharts/modules/exporting')(Highcharts.Highcharts);
 require('highcharts/modules/export-data')(Highcharts.Highcharts);
 

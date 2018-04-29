@@ -2,13 +2,14 @@ import Search from '../views/Search/Search';
 import TableList from '../views/TableList/TableList';
 import Typography from '../views/Typography/Typography';
 import SelectBuilding from '../views/SelectBuilding/SelectBuilding';
+import AllBuildings from "../views/AllBuildings/SelectBuilding";
 
 const appRoutes = [
-    { path: "/typography", name: "All Buildings", icon: "pe-7s-home", component: Typography },
+    { path: "/all-building", name: "All Buildings", icon: "pe-7s-home", component: AllBuildings },
     { path: "/select", name: "Select Building", icon: "pe-7s-pin", component: SelectBuilding },
     { path: "/table", name: "Table", icon: "pe-7s-note2", component: TableList },
     { path: "/search", name: "Search", icon: "pe-7s-search", component: Search },
-    { redirect: true, path:"/", to:"/table", name: "Table" }
+    { redirect: true, path:"/", to:"/all-building", name: "All Buildings" }
 ];
 
 export default appRoutes;

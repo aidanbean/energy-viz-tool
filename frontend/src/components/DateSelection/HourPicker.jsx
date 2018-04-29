@@ -8,7 +8,7 @@ class HourPicker extends Component {
         function HourList(props) {
             const hour = props.hour;
             const listItems = hour.map((hour) =>
-                <Button text={hour}/>
+                <Button id={hour} text={hour}/>
             );
             return (
                 <div>{listItems}</div>

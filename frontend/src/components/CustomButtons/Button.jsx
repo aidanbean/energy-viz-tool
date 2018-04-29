@@ -9,7 +9,7 @@ class Button extends Component {
         };
     }
 
-    changeColor() {
+    clickHandler() {
         this.setState(
             {
                 clicked: !this.state.clicked,
@@ -25,10 +25,10 @@ class Button extends Component {
             paddingLeft: 0,
             paddingRight: 0,
             backgroundColor: "rgb(188, 228, 236)",
-            marginBottom: 10,
-            marginTop: 10,
-            marginLeft: 10,
-            marginRight: 10,
+            marginBottom: 5,
+            marginTop: 5,
+            marginLeft: 5,
+            marginRight: 5,
             fontWeight: 'normal'
         };
         var clicked = this.state.clicked;
@@ -40,7 +40,7 @@ class Button extends Component {
         }
 
         return (
-            <button style={buttonStyle} onClick={this.changeColor.bind(this)} //TODO: style CSS depend on mock up Demo
+            <button style={buttonStyle} onClick={this.clickHandler().bind(this)} //TODO: button style CSS depend on mock up Demo
                     className="button">{this.props.text}</button>
         )
     }
