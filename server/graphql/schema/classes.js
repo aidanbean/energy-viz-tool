@@ -14,12 +14,13 @@ class DataPoint {
 }
 
 class StreamType {
-    constructor(building, equipmentNumber, equipmentType, sensorType, stream) {
+    constructor(building, equipmentNumber, equipmentType, sensorType, stream, summary) {
         this.building = building;
         this.equipmentType = equipmentType;
         this.equipmentNumber = equipmentNumber;
         this.sensorType = sensorType;
         this.stream = stream;
+        this.summary = summary;
     }
 }
 
@@ -27,6 +28,16 @@ class SummaryData {
     constructor(type, value) {
         this.Type = type;
         this.Value = value;
+    }
+}
+
+class PointSummary {
+    constructor(building, equipmentNumber, equipmentType, sensorType, summary) {
+        this.building = building;
+        this.equipmentType = equipmentType;
+        this.equipmentNumber = equipmentNumber;
+        this.sensorType = sensorType;
+        this.summary = summary;
     }
 }
 
@@ -73,4 +84,4 @@ class SensorData {
 }
 
 
-export { DataPoint, Coord, BuildingData, SensorData, StreamType, FilterType, SummaryData};
+export { DataPoint, PointSummary, Coord, BuildingData, SensorData, StreamType, FilterType, SummaryData};

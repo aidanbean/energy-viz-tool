@@ -3,12 +3,13 @@ import mongoose from "mongoose";
 import DataModel from "../../config/models/data_model";
 import fetchAPI from "../../pi/piFetchers";
 import {
-  DataPoint,
-  BuildingData,
-  SensorData,
-  StreamType,
-  FilterType,
-  SummaryData
+    DataPoint,
+    BuildingData,
+    SensorData,
+    StreamType,
+    FilterType,
+    SummaryData,
+    PointSummary,
 } from "./classes";
 
 const db = mongoose.connection;
@@ -25,18 +26,27 @@ let schema = buildSchema(`
         Questionable     : Boolean,
         Substituted      : Boolean
     }
+        
+    type SummaryData {
+        Type: String,
+        Value:  DataPoint
+    }
 
     type StreamType {
         building       : String,
         equipmentType  : String,
         equipmentNumber: String,
         sensorType     : String,
-        stream         : [DataPoint]
+        stream         : [DataPoint],
+        summary        : [SummaryData]
     }
     
-    type SummaryData {
-        Type: String,
-        Value:  DataPoint
+    type PointSummary {
+        building       : String,
+        equipmentType  : String,
+        equipmentNumber: String,
+        sensorType     : String,
+        summary        : [SummaryData]
     }
 
     type Coord {
@@ -113,7 +123,7 @@ let schema = buildSchema(`
             startTime      : String,
             endTime        : String,
             summaryDuration: String         
-        ): [SummaryData],
+        ): [PointSummary],
 
         buildingData(building: String): BuildingData,
 
@@ -236,14 +246,22 @@ var root = {
       finalQuery = { $and: query };
     }
     const dbResult = await DataModel.find(finalQuery);
+
     var streamList = [];
     for (var i = 0; i < dbResult.length; i++) {
+        var summaryResult = await fetchAPI.fetchStream_summary_AllType_WithTimes(
+            dbResult[i].webId,
+            startTime,
+            endTime
+        );
+
       var piResult = await fetchAPI.fetchStream_byMinutes(
         dbResult[i].webId,
         startTime,
         endTime,
         interval
       );
+
       var stream = [];
       piResult.Items.forEach(function(element) {
         if (element.Good === false) {
@@ -259,12 +277,29 @@ var root = {
         );
         stream.push(point);
       });
+      var summary = [];
+      summaryResult.forEach(function (element) {
+         const dataPointValues = element.Value;
+         if (dataPointValues.Good) {
+             const dataPoint = new DataPoint(
+                 dataPointValues.Timestamp,
+                 dataPointValues.Value,
+                 dataPointValues.UnitsAbbreviation,
+                 dataPointValues.Good,
+                 dataPointValues.Questionable,
+                 dataPointValues.Substituted
+             );
+             const singleSummary = new SummaryData(element.Type, dataPoint);
+             summary.push(singleSummary);
+         }
+      });
       var streamObject = new StreamType(
         dbResult[i].building,
         dbResult[i].equipmentNumber,
         dbResult[i].equipmentType,
         dbResult[i].sensorType,
-        stream
+        stream,
+          summary
       );
       streamList.push(streamObject);
     }
@@ -361,36 +396,82 @@ var root = {
                                     startTime=null,
                                     endTime=null
   }) {
-    const dbEntry = {
-      building: building,
-      equipmentType: equipmentType,
-      equipmentNumber: equipmentNumber,
-      sensorType: sensorType
-    };
-    const dbResult = await DataModel.findOne(dbEntry);
-    var piResult;
-    if (startTime && endTime) {
-        piResult = await fetchAPI.fetchStream_summary_AllType_WithTimes(dbResult.webId, startTime, endTime);
-    } else {
-      // lastest 24 hrs data summary
-        piResult = await fetchAPI.fetchStream_summary_AllType(dbResult.webId);
-    }
-    var summaryDataList = [];
-    piResult.forEach(function (element) {
-      const dataPointValues = element.Value;
-      if (dataPointValues.Good) {
-        const dataPoint = new DataPoint(
-            dataPointValues.Timestamp,
-            dataPointValues.Value,
-            dataPointValues.UnitsAbbreviation,
-            dataPointValues.Good,
-            dataPointValues.Questionable,
-            dataPointValues.Substituted
-        );
-        const point = new SummaryData(element.Type, dataPoint);
-        summaryDataList.push(point);
+      var query = [];
+      var buildingList = [];
+      var equipTypeList = [];
+      var equipNumList = [];
+      var sensorTypeList = [];
+      if (typeof building !== "undefined" && building != null) {
+          building.split(",").forEach(function(element) {
+              const listEntry = { building: element };
+              buildingList.push(listEntry);
+          });
+          query.push({ $or: buildingList });
       }
-    });
+      if (typeof equipmentType !== "undefined" && equipmentType != null) {
+          equipmentType.split(",").forEach(function(element) {
+              const listEntry = { equipmentType: element };
+              equipTypeList.push(listEntry);
+              // if(element == "CCW" || element == "HHW") {
+              //     equipNumList.push({"equipmentNumber": ""});
+              // }
+          });
+          query.push({ $or: equipTypeList });
+      }
+      if (typeof equipmentNumber !== "undefined" && equipmentNumber != null) {
+          equipmentNumber.split(",").forEach(function(element) {
+              const listEntry = { equipmentNumber: element };
+              equipNumList.push(listEntry);
+          });
+          query.push({ $or: equipNumList });
+      }
+      if (typeof sensorType !== "undefined" && sensorType != null) {
+          sensorType.split(",").forEach(function(element) {
+              const listEntry = { sensorType: element };
+              sensorTypeList.push(listEntry);
+          });
+          query.push({ $or: sensorTypeList });
+      }
+      var finalQuery = {};
+      if (query.length != 0) {
+          finalQuery = { $and: query };
+      }
+      const dbResult = await DataModel.find(finalQuery);
+
+    var summaryDataList = [];
+    for (var i = 0; i < dbResult.length; i++ ) {
+        var piResult = await fetchAPI.fetchStream_summary_AllType_WithTimes(
+          dbResult[i].webId,
+          startTime,
+          endTime
+        );
+
+        var singleSummaryData = [];
+        piResult.forEach(function (element) {
+            const dataPointValues = element.Value;
+            if (dataPointValues.Good) {
+                const dataPoint = new DataPoint(
+                    dataPointValues.Timestamp,
+                    dataPointValues.Value,
+                    dataPointValues.UnitsAbbreviation,
+                    dataPointValues.Good,
+                    dataPointValues.Questionable,
+                    dataPointValues.Substituted
+                );
+                const point =  new SummaryData(element.Type, dataPoint);
+                singleSummaryData.push(point);
+            }
+        });
+        var eachPointSummary = new PointSummary(
+            dbResult[i].building,
+            dbResult[i].equipmentNumber,
+            dbResult[i].equipmentType,
+            dbResult[i].sensorType,
+            singleSummaryData
+        );
+        summaryDataList.push(eachPointSummary);
+        console.log(summaryDataList);
+    }
     return summaryDataList;
   },
 

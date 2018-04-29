@@ -266,6 +266,10 @@ const DATA_QUERY = gql`
         Timestamp
         Value
       }
+      summary {
+        Type
+        Value
+      }
     }
   }
 `;
