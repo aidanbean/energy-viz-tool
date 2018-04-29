@@ -104,12 +104,15 @@ let schema = buildSchema(`
             interval       : String
         ): [StreamType],
 
-        latestSummary
+        dataSummary
         (
             building: String,
             equipmentType: String,
             equipmentNumber: String,
             sensorType: String,
+            startTime      : String,
+            endTime        : String,
+            summaryDuration: String         
         ): [SummaryData],
 
         buildingData(building: String): BuildingData,
@@ -232,9 +235,7 @@ var root = {
     if (query.length != 0) {
       finalQuery = { $and: query };
     }
-    // console.log(finalQuery);
     const dbResult = await DataModel.find(finalQuery);
-    console.log(dbResult);
     var streamList = [];
     for (var i = 0; i < dbResult.length; i++) {
       var piResult = await fetchAPI.fetchStream_byMinutes(
@@ -246,7 +247,7 @@ var root = {
       var stream = [];
       piResult.Items.forEach(function(element) {
         if (element.Good === false) {
-          element.Value = null;
+            return;
         }
         const point = new DataPoint(
           element.Timestamp,
@@ -258,7 +259,6 @@ var root = {
         );
         stream.push(point);
       });
-      // console.log(stream);
       var streamObject = new StreamType(
         dbResult[i].building,
         dbResult[i].equipmentNumber,
@@ -309,9 +309,7 @@ var root = {
           sensorList.push(sensor);
         });
         dbQuery["$or"] = sensorList;
-        console.log(dbQuery);
         const dbResult = await DataModel.find(dbQuery).sort({ sensorType: 1 });
-        console.log(dbResult);
         if (dbResult.length != 2) {
           continue;
         } else {
@@ -330,8 +328,8 @@ var root = {
       );
       var stream = [];
       piResult.Items.forEach(function(element) {
-        if (element.Good === false) {
-          element.Value = null;
+        if (element.Good) {
+          return;
         }
         const point = new DataPoint(
           element.Timestamp,
@@ -343,7 +341,6 @@ var root = {
         );
         stream.push(point);
       });
-
       var streamObject = new StreamType(
         streamQueries[i].building,
         streamQueries[i].equipmentNumber,
@@ -356,11 +353,13 @@ var root = {
     return streamList;
   },
 
-  latestSummary: async function({
-    building,
-    equipmentType,
-    equipmentNumber,
-    sensorType
+  dataSummary: async function({
+                                    building,
+                                    equipmentType,
+                                    equipmentNumber,
+                                    sensorType,
+                                    startTime=null,
+                                    endTime=null
   }) {
     const dbEntry = {
       building: building,
@@ -369,24 +368,29 @@ var root = {
       sensorType: sensorType
     };
     const dbResult = await DataModel.findOne(dbEntry);
-    const piResult = await fetchAPI.fetchStream_summary_AllType(dbResult.webId);
-    console.log(dbResult.webId);
+    var piResult;
+    if (startTime && endTime) {
+        piResult = await fetchAPI.fetchStream_summary_AllType_WithTimes(dbResult.webId, startTime, endTime);
+    } else {
+      // lastest 24 hrs data summary
+        piResult = await fetchAPI.fetchStream_summary_AllType(dbResult.webId);
+    }
     var summaryDataList = [];
-    for (var summaryData in piResult) {
-      var eachDataPoint = piResult[summaryData].Value;
-      if (eachDataPoint.Good) {
-        var dataPoint = new DataPoint(
-          eachDataPoint.Timestamp,
-          eachDataPoint.Value,
-          eachDataPoint.UnitsAbbreviation,
-          eachDataPoint.Good,
-          eachDataPoint.Questionable,
-          eachDataPoint.Substituted
+    piResult.forEach(function (element) {
+      const dataPointValues = element.Value;
+      if (dataPointValues.Good) {
+        const dataPoint = new DataPoint(
+            dataPointValues.Timestamp,
+            dataPointValues.Value,
+            dataPointValues.UnitsAbbreviation,
+            dataPointValues.Good,
+            dataPointValues.Questionable,
+            dataPointValues.Substituted
         );
-        var point = new SummaryData(piResult[summaryData].Type, dataPoint);
+        const point = new SummaryData(element.Type, dataPoint);
         summaryDataList.push(point);
       }
-    }
+    });
     return summaryDataList;
   },
 

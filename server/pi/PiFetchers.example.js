@@ -26,7 +26,6 @@ fetchAPI.fetchWebId_byPoint(test_tagName).then(WebId_response => {
     )
     .then(json_response => {
       console.log('fetchStream_byMonths test');
-      console.log(json_response);
     });
 });
 

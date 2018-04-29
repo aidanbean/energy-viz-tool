@@ -31,7 +31,7 @@ class SelectHeader extends Component{
         this.setState({
             building: selection,
         }, () => {
-            console.log(this.state);
+            // console.log(this.state);
         });
     }
     // sensorTypeHandler(selection) {
@@ -45,21 +45,18 @@ class SelectHeader extends Component{
         this.setState({
             startTime: selection,
         }, () => {
-            console.log(this.state);
         });
     }
     endHandler(selection) {
         this.setState({
             endTime: selection,
         }, () => {
-            console.log(this.state);
         });
     }
     intervalHandler(selection) {
         this.setState({
             interval: selection,
         }, () => {
-            console.log(this.state);
         });
     }
     buttonHandler() {

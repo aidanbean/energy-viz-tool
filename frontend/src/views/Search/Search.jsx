@@ -64,16 +64,14 @@ class Dashboard extends Component {
     we refetch the graphQL query and convert the timezone. */
   componentWillReceiveProps(nextProps) {
     this.props.data.refetch();
-    console.log(nextProps.data);
     if (typeof nextProps.data.dataStream === "undefined") {
       return;
     }
     var config = {};
     var series = [];
     const variables = nextProps.data.variables;
-    const fileName = `${variables.building}_${variables.equipmentType}_${
-      variables.equipmentNumber
-    }_${variables.sensorType}`;
+    const fileName = `${variables.building}_${variables.equipmentType}_${variables.equipmentNumber}_${variables.sensorType}`;
+    console.log(nextProps.data.dataStream);
     for (var i = 0; i < nextProps.data.dataStream.length; i++) {
       const y = [];
       nextProps.data.dataStream[i].stream.forEach(function(element) {
@@ -242,7 +240,7 @@ class Dashboard extends Component {
 }
 
 const DATA_QUERY = gql`
-  query DataQuery(
+  query DataQuery (
     $building: String
     $equipmentType: String
     $equipmentNumber: String
@@ -251,7 +249,7 @@ const DATA_QUERY = gql`
     $endTime: String
     $interval: String
   ) {
-    dataStream(
+    dataStream (
       building: $building
       equipmentType: $equipmentType
       equipmentNumber: $equipmentNumber

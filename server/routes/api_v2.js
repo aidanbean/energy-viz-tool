@@ -32,8 +32,6 @@ function fetch_by_monthly(req, res) {
         (req.body.interval = '1mo')
       )
       .then(json_response => {
-        console.log('fetchStream_byMonths test');
-        console.log(json_response);
         res.status(200).send(json_response);
       });
   });

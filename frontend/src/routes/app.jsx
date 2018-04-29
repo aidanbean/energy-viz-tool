@@ -16,7 +16,6 @@ const appRoutes = [
     icon: 'pe-7s-pin',
     component: SelectBuilding
   },
-  // { path: "/table", name: "Table", icon: "pe-7s-note2", component: TableList }, // don't need this anymore
   { path: '/search', name: 'Search', icon: 'pe-7s-search', component: Search },
   { redirect: true, path: '/', to: '/table', name: 'Table' }
 ];

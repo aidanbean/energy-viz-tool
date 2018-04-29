@@ -37,49 +37,49 @@ class HeaderLinks extends Component{
         this.setState({
             building: selection,
         }, () => {
-            console.log(this.state);
+            // console.log(this.state);
         });
     }
     equipTypeHandler(selection) {
         this.setState({
             equipmentType: selection,
         }, () => {
-            console.log(this.state);
+            // console.log(this.state);
         });
     }
     equipNumHandler(selection) {
         this.setState({
             equipmentNumber: selection,
         }, () => {
-            console.log(this.state);
+            // console.log(this.state);
         });
     }
     sensorTypeHandler(selection) {
         this.setState({
             sensorType: selection,
         }, () => {
-            console.log(this.state);
+            // console.log(this.state);
         });
     }
     startHandler(selection) {
         this.setState({
             startTime: selection,
         }, () => {
-            console.log(this.state);
+            // console.log(this.state);
         });
     }
     endHandler(selection) {
         this.setState({
             endTime: selection,
         }, () => {
-            console.log(this.state);
+            // console.log(this.state);
         });
     }
     intervalHandler(selection) {
         this.setState({
             interval: selection,
         }, () => {
-            console.log(this.state);
+            // console.log(this.state);
         });
     }
     buttonHandler() {

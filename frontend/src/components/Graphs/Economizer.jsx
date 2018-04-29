@@ -136,7 +136,6 @@ class EconGraph extends Component {
         this.setState({
                 config: config
         }, () => {
-            console.log(this.state.config);
         });
     }
 

@@ -33,7 +33,6 @@ class SelectHeader extends Component{
         this.setState({
             building: selection,
         }, () => {
-            console.log(this.state);
             this.props.callback(this.state);
         });
     }
