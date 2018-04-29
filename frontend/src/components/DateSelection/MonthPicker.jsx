@@ -7,7 +7,7 @@ class MonthPicker extends Component {
         function MonthList(props) {
             const months = props.months;
             const listItems = months.map((month) =>
-                <Button id={month} text={month}/>
+                <Button text={month}/>
             );
             return (
                 <div>{listItems}</div>

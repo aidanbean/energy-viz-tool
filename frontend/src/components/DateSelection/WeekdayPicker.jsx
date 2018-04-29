@@ -8,7 +8,7 @@ class WeekdayPicker extends Component {
         function DayList(props) {
             const week = props.week;
             const listItems = week.map((day) =>
-                <Button id={day} text={day}/>
+                <Button text={day}/>
             );
             return (
                 <div>{listItems}</div>

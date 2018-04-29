@@ -40,7 +40,7 @@ class Button extends Component {
         }
 
         return (
-            <button style={buttonStyle} onClick={this.clickHandler().bind(this)} //TODO: button style CSS depend on mock up Demo
+            <button style={buttonStyle} onClick={() => this.clickHandler()} //TODO: button style CSS depend on mock up Demo
                     className="button">{this.props.text}</button>
         )
     }
