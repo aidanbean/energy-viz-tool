@@ -3,4 +3,3 @@
  * Example custom middleware
  *
  */
-

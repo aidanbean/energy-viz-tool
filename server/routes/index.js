@@ -11,5 +11,5 @@ import page from './page';
 export default {
   api_v1,
   api_v2,
-  page
+  page,
 };

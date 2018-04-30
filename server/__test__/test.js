@@ -4,7 +4,7 @@
 
 require('../config/database.js');
 var mongoose = require('mongoose');
-console.log(mongoose.connection.readyState)
+console.log(mongoose.connection.readyState);
 
 // describe('Mongoose Connection Check', () => {
 //   test('Example Test 1', () => {
