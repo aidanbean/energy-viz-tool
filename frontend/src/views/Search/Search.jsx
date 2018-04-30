@@ -105,10 +105,29 @@ class Dashboard extends Component {
           data: y,
           color: color,
           name: name,
-          maximum: max,
-          minimum: min,
-          average: avg,
-          standdev: stddev,
+          tooltip: {
+            headerFormat: "<small>{point.key}</small><table>",
+            pointFormat:
+            '<tr><td style="color: {series.color}">{series.name}: </td>' +
+            '<td style="text-align: right"><b>{point.y} {unit}</b></td></tr>' +
+            '<tr><td style="color: {series.color}"> Average</td>' +
+            '<td style="text-align: right"><b>' +
+            avg +
+            '</b></td></tr>' +
+            '<tr><td style="color: {series.color}"> Minimum </td>' +
+            '<td style="text-align: right"><b>' +
+            min +
+            '</b></td></tr>' +
+            '<tr><td style="color: {series.color}"> Maximum</td>' +
+            '<td style="text-align: right"><b>' +
+            max +
+            '</b></td></tr>' +
+            '<tr><td style="color: {series.color}"> Standard Deviation</td>' +
+            '<td style="text-align: right"><b>' +
+            stddev +
+            '</b></td></tr>',
+            footerFormat: '</table>',
+          }
       };
       xLines.push(serie);
     }
@@ -120,7 +139,7 @@ class Dashboard extends Component {
               height: 400,
               type: "line",
               zoomType: "xy",
-              
+
           },
           xAxis: {
               categories: x
@@ -140,19 +159,7 @@ class Dashboard extends Component {
           },
           tooltip: {
               useHTML: true,
-              shared: true,
-              headerFormat: "<small>{point.key}</small><table>",
-              pointFormat:
-              '<tr><td style="color: {series.color}">{series.name}: </td>' +
-              '<td style="text-align: right"><b> {point.y} </b></td></tr>',
-              footerFormat: "</table>",
-              // formatter: function () {
-              //   let s = "";
-              //     xLines.forEach(function (element) {
-              //         s = '<b>' + element.maximum + '</b>' + '<br/>' + element.minimum + '<br/>' + element.standdev;
-              //     });
-              //     return s;
-              // }
+              shared: false,
           }
       };
     debugger;
