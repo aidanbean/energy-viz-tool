@@ -8,14 +8,14 @@ class WeekdayPicker extends Component {
         function DayList(props) {
             const week = props.week;
             const listItems = week.map((day) =>
-                <Button text={day}/>
+                <Button name={'w_' + day.toString()} text={day}/>
             );
             return (
                 <div>{listItems}</div>
             );
         }
 
-        const WEEKDAYS_SHORT = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+        const WEEKDAYS_SHORT = ['U', 'M', 'T', 'W', 'R', 'F', 'S'];
 
         return (
             <DayList week={WEEKDAYS_SHORT}/>

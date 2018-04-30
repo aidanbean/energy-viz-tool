@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 
 class Button extends Component {
-    constructor() {
-        super();
+
+    constructor(props) {
+        super(props);
         this.state = {
             clicked: false,
 
         };
+        this.observer = props.observer;
     }
 
     clickHandler() {
@@ -35,6 +37,7 @@ class Button extends Component {
         if (clicked) {
             buttonStyle.backgroundColor = "rgb(188, 228, 236)";
             buttonStyle.fontWeight = 'bold';
+            this.observer.publish("hello",'this is data');
         } else {
             buttonStyle.backgroundColor = "white";
         }

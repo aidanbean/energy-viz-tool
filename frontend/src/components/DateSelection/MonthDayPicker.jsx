@@ -8,7 +8,7 @@ class MonthDayPicker extends Component {
         function MonthList(props) {
             const day = props.day;
             const listItems = day.map((day) =>
-                <Button text={day}/>
+                <Button name={'d_' + day.toString()} text={day}/>
             );
             return (
                 <div>{listItems}</div>

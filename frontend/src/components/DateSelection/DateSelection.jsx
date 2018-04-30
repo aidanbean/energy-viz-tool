@@ -4,28 +4,40 @@ import HourPicker from './HourPicker';
 import MonthDayPicker from './MonthDayPicker';
 import MonthPicker from './MonthPicker';
 import CustomButton from '../../elements/CustomButton/CustomButton.jsx'
+import ReactObserver from 'react-event-observer';
+
+
+
 class DateSelection extends Component {
+    // constructor(props){
+    //     super(props);
+    //     this.observer = ReactObserver();
+    // }
 
 
     render() {
+        // var listener = observer.subscribe('exampleEvent',(data)=>{
+        //     console.log('data is: '+data);
+        // });
+
         return (
             <div>
-                <div>
-                    <span>Month</span>
-                    <MonthPicker/>
-                </div>
+                {/*<div>*/}
+                    {/*<span>Month</span>*/}
+                    {/*<MonthPicker observer={this.observer}/>*/}
+                {/*</div>*/}
                 <div>
                     <span>Day of Month</span>
-                    <MonthDayPicker/>
+                    <MonthDayPicker />
                 </div>
-                <div>
-                    <span>Day of Week</span>
-                    <WeekdayPicker/>
-                </div>
-                <div>
-                    <span>Hour of day</span>
-                    <HourPicker/>
-                </div>
+                {/*<div>*/}
+                    {/*<span>Day of Week</span>*/}
+                    {/*<WeekdayPicker/>*/}
+                {/*</div>*/}
+                {/*<div>*/}
+                    {/*<span>Hour of day</span>*/}
+                    {/*<HourPicker/>*/}
+                {/*</div>*/}
             </div>
 
         );
