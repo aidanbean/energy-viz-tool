@@ -24,9 +24,6 @@ class SelectBuilding extends React.Component {
     this.setState(
       {
         building: selection,
-      },
-      () => {
-        console.log(this.state);
       }
     );
   }

@@ -1,16 +1,16 @@
 // Pre-Baked Graph #2:
 // Average Hourly Supply Air Temp. vs. Average Hourly Supply Air Temp SP  (is it controlling well?)
-import React, { Component } from 'react';
-import moment from 'moment-timezone';
-import { Row, Col, Jumbotron } from 'react-bootstrap';
-import { BarLoader } from 'react-spinners';
-import Highcharts from 'react-highcharts';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
-import { Card } from '../../components/Card/Card.jsx';
+import React, { Component } from "react";
+import moment from "moment-timezone";
+import { Row, Col, Jumbotron } from "react-bootstrap";
+import { BarLoader } from "react-spinners";
+import Highcharts from "react-highcharts";
+import { graphql } from "react-apollo";
+import gql from "graphql-tag";
+import { Card } from "../../components/Card/Card.jsx";
 
-require('highcharts/modules/exporting')(Highcharts.Highcharts);
-require('highcharts/modules/export-data')(Highcharts.Highcharts);
+require("highcharts/modules/exporting")(Highcharts.Highcharts);
+require("highcharts/modules/export-data")(Highcharts.Highcharts);
 
 class EconGraph extends Component {
   constructor(props) {
@@ -20,38 +20,38 @@ class EconGraph extends Component {
       progress: 0,
       config: {
         legend: {
-          enabled: true,
+          enabled: true
         },
         exporting: {
-          showTable: false,
+          showTable: false
         },
         chart: {
           height: 400,
-          type: 'scatter',
-          zoomType: 'xy',
+          type: "scatter",
+          zoomType: "xy"
         },
         xAxis: {
           title: {
             enabled: true,
-            text: 'Supply Air Temperature Set Point',
+            text: "Supply Air Temperature Set Point"
           },
           startOnTick: true,
           endOnTick: true,
-          showLastLabel: true,
+          showLastLabel: true
         },
         yAxis: {
           title: {
-            text: 'Supply Air Temperature',
-          },
+            text: "Supply Air Temperature"
+          }
         },
         series: [
           {
             data: [],
-            color: '#9acd32',
-          },
-        ],
+            color: "#9acd32"
+          }
+        ]
       },
-      time: new Date(),
+      time: new Date()
     };
   }
 
@@ -75,42 +75,45 @@ class EconGraph extends Component {
   componentWillReceiveProps(nextProps) {
     this.props.data.refetch();
     var fileName = `$(nextProps.data.variables.building)_SupplyTemp_data`;
-    if (this.props.data.selectBuilding == 'undefined') {
-      console.log('loading');
+    if (this.props.data.selectBuilding == "undefined") {
+      console.log("loading");
       return;
     }
     var series = [];
     var config = {
       legend: {
-        enabled: true,
+        enabled: true
       },
       exporting: {
         showTable: false,
-        fileName: fileName,
+        fileName: fileName
       },
       chart: {
         height: 400,
-        type: 'scatter',
-        zoomType: 'xy',
+        type: "scatter",
+        zoomType: "xy"
       },
       xAxis: {
         title: {
           enabled: true,
-          text: 'Supply Air Temperature Set Point',
-        },
+          text: "Supply Air Temperature Set Point"
+        }
       },
       yAxis: {
         title: {
           enabled: true,
-          text: 'Supply Air Temperature',
-        },
+          text: "Supply Air Temperature"
+        }
       },
       title: {
-        text: nextProps.data.variables.building,
+        text: nextProps.data.variables.building
       },
       subtitle: {
-        text: 'Supply Air Temperature Evaluation',
+        text: "Supply Air Temperature Evaluation"
       },
+      tooltip: {
+        useHTML: true
+      }
     };
     for (var i = 0; i < nextProps.data.selectBuilding.length; i += 2) {
       var points = [];
@@ -118,23 +121,34 @@ class EconGraph extends Component {
         var point = [];
         point.push(nextProps.data.selectBuilding[i + 1].stream[j].Value);
         point.push(nextProps.data.selectBuilding[i].stream[j].Value);
+        point.push(nextProps.data.selectBuilding[i].stream[j].Timestamp);
         points.push(point);
       }
       // generate a random color.
-      var color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+      var color = "#" + Math.floor(Math.random() * 16777215).toString(16);
       var data = nextProps.data.selectBuilding[i];
       var name = `${data.building}.${data.equipmentNumber}`;
       var serie = {
         data: points,
         color: color,
         name: name,
+        tooltip: {
+          headerFormat: "<small>{point.data.z}</small><table>",
+          pointFormat:
+            '<tr><td style="color: {series.color}">{series.name} </td></tr>' +
+            '<tr><td style="color: {series.color}">Supply Air Temp :</td>' +
+            '<td style="text-align: right"><b> {point.y} </b></td></tr>' +
+            '<tr><td style="color: {series.color}">Supply Air Temp SP :</td>' +
+            '<td style="text-align: right"><b>{point.x} </b></td></tr>',
+          footerFormat: "</table>"
+        }
       };
       series.push(serie);
     }
-    config['series'] = series;
+    config["series"] = series;
     this.setState(
       {
-        config: config,
+        config: config
       },
       () => {
         console.log(this.state.config);
@@ -157,7 +171,7 @@ class EconGraph extends Component {
       return (
         <div>
           <Row
-            style={{ height: '200px', marginRight: '0px', marginLeft: '0px' }}
+            style={{ height: "200px", marginRight: "0px", marginLeft: "0px" }}
           >
             <Col md={12}>
               <Card
@@ -169,7 +183,7 @@ class EconGraph extends Component {
                       </center>
                     </h3>
                     <BarLoader
-                      color={'#3C4858'}
+                      color={"#3C4858"}
                       loading={this.props.data.loading}
                     />
                   </center>
@@ -198,7 +212,7 @@ class EconGraph extends Component {
 
     return (
       <div>
-        <Row style={{ marginRight: '0px', marginLeft: '0px' }}>
+        <Row style={{ marginRight: "0px", marginLeft: "0px" }}>
           <Col md={12}>
             <Card
               content={<Highcharts config={this.state.config} ref="ct-chart" />}
@@ -241,10 +255,10 @@ export default graphql(DATA_QUERY, {
   options: props => ({
     variables: {
       building: props.building,
-      sensorType: 'Supply Air Temp,Supply Air Temp Sp',
-      startTime: '01-01-2017-6am',
-      endTime: '02-01-2017-6am',
-      interval: '1h',
-    },
-  }),
+      sensorType: "Supply Air Temp,Supply Air Temp Sp",
+      startTime: "01-01-2017-6am",
+      endTime: "02-01-2017-6am",
+      interval: "1h"
+    }
+  })
 })(EconGraph);

@@ -1,17 +1,17 @@
 // Pre-Baked Graph #1:
 // Average Hourly Mixed Air Temperature  vs. Corresponding Average Hourly OAT (economizer function)
 // Let's you visualize whether the economizers are working properly.
-import React, { Component } from 'react';
-import moment from 'moment-timezone';
-import { Row, Col, Jumbotron } from 'react-bootstrap';
-import { BarLoader } from 'react-spinners';
-import Highcharts from 'react-highcharts';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
-import { Card } from '../../components/Card/Card.jsx';
+import React, { Component } from "react";
+import moment from "moment-timezone";
+import { Row, Col, Jumbotron } from "react-bootstrap";
+import { BarLoader } from "react-spinners";
+import Highcharts from "react-highcharts";
+import { graphql } from "react-apollo";
+import gql from "graphql-tag";
+import { Card } from "../../components/Card/Card.jsx";
 
-require('highcharts/modules/exporting')(Highcharts.Highcharts);
-require('highcharts/modules/export-data')(Highcharts.Highcharts);
+require("highcharts/modules/exporting")(Highcharts.Highcharts);
+require("highcharts/modules/export-data")(Highcharts.Highcharts);
 
 class EconGraph extends Component {
   constructor(props) {
@@ -21,38 +21,38 @@ class EconGraph extends Component {
       progress: 0,
       config: {
         legend: {
-          enabled: true,
+          enabled: true
         },
         exporting: {
-          showTable: false,
+          showTable: false
         },
         chart: {
           height: 400,
-          type: 'scatter',
-          zoomType: 'xy',
+          type: "scatter",
+          zoomType: "xy"
         },
         xAxis: {
           title: {
             enabled: true,
-            text: 'Outside Air Temperature',
+            text: "Outside Air Temperature"
           },
           startOnTick: true,
           endOnTick: true,
-          showLastLabel: true,
+          showLastLabel: true
         },
         yAxis: {
           title: {
-            text: 'Mixed Air Temperature',
-          },
+            text: "Mixed Air Temperature"
+          }
         },
         series: [
           {
             data: [],
-            color: '#9acd32',
-          },
-        ],
+            color: "#9acd32"
+          }
+        ]
       },
-      time: new Date(),
+      time: new Date()
     };
   }
 
@@ -77,42 +77,45 @@ class EconGraph extends Component {
     console.log(nextProps);
     this.props.data.refetch();
     var fileName = `$(nextProps.data.variables.building)_Economizer_data`;
-    if (this.props.data.selectBuilding == 'undefined') {
-      console.log('loading');
+    if (this.props.data.selectBuilding == "undefined") {
+      console.log("loading");
       return;
     }
     var series = [];
     var config = {
       legend: {
-        enabled: true,
+        enabled: true
       },
       exporting: {
         showTable: false,
-        fileName: fileName,
+        fileName: fileName
       },
       chart: {
         height: 400,
-        type: 'scatter',
-        zoomType: 'xy',
+        type: "scatter",
+        zoomType: "xy"
       },
       xAxis: {
         title: {
           enabled: true,
-          text: 'Outside Air Temperature',
-        },
+          text: "Outside Air Temperature"
+        }
       },
       yAxis: {
         title: {
           enabled: true,
-          text: 'Mixed Air Temperature',
-        },
+          text: "Mixed Air Temperature"
+        }
       },
       title: {
-        text: nextProps.data.variables.building,
+        text: nextProps.data.variables.building
       },
       subtitle: {
-        text: 'Economizer Evaluation',
+        text: "Economizer Evaluation"
       },
+      tooltip: {
+        useHTML: true
+      }
     };
     for (var i = 0; i < nextProps.data.selectBuilding.length; i += 2) {
       var points = [];
@@ -120,26 +123,35 @@ class EconGraph extends Component {
         var point = [];
         point.push(nextProps.data.selectBuilding[i + 1].stream[j].Value);
         point.push(nextProps.data.selectBuilding[i].stream[j].Value);
+        point.push(nextProps.data.selectBuilding[i + 1].stream[j].Timestamp);
         points.push(point);
       }
       // generate a random color.
-      var color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+      var color = "#" + Math.floor(Math.random() * 16777215).toString(16);
       var data = nextProps.data.selectBuilding[i];
       var name = `${data.building}.${data.equipmentNumber}`;
+      debugger;
       var serie = {
         data: points,
         color: color,
         name: name,
+        tooltip: {
+          headerFormat: "<small>{point.data.z}</small><table>",
+          pointFormat:
+            '<tr><td style="color: {series.color}">{series.name} </td></tr>' +
+            '<tr><td style="color: {series.color}">Mixed Air Temp :</td>' +
+            '<td style="text-align: right"><b> {point.y} </b></td></tr>' +
+            '<tr><td style="color: {series.color}">Outside Air Temp :</td>' +
+            '<td style="text-align: right"><b>{point.x} </b></td></tr>',
+          footerFormat: "</table>"
+        }
       };
       series.push(serie);
     }
-    config['series'] = series;
-    this.setState(
-      {
-        config: config,
-      },
-      () => {}
-    );
+    config["series"] = series;
+    this.setState({
+      config: config
+    });
   }
 
   refresh() {
@@ -157,7 +169,7 @@ class EconGraph extends Component {
       return (
         <div>
           <Row
-            style={{ height: '200px', marginRight: '0px', marginLeft: '0px' }}
+            style={{ height: "200px", marginRight: "0px", marginLeft: "0px" }}
           >
             <Col md={12}>
               <Card
@@ -169,7 +181,7 @@ class EconGraph extends Component {
                       </center>
                     </h3>
                     <BarLoader
-                      color={'#3C4858'}
+                      color={"#3C4858"}
                       loading={this.props.data.loading}
                     />
                   </center>
@@ -198,7 +210,7 @@ class EconGraph extends Component {
 
     return (
       <div>
-        <Row style={{ marginRight: '0px', marginLeft: '0px' }}>
+        <Row style={{ marginRight: "0px", marginLeft: "0px" }}>
           <Col md={12}>
             <Card
               content={<Highcharts config={this.state.config} ref="ct-chart" />}
@@ -241,10 +253,10 @@ export default graphql(DATA_QUERY, {
   options: props => ({
     variables: {
       building: props.building,
-      sensorType: 'Mixed Air Temp,Outside Air Temp',
-      startTime: '01-01-2017-6am',
-      endTime: '02-01-2017-6am',
-      interval: '1h',
-    },
-  }),
+      sensorType: "Mixed Air Temp,Outside Air Temp",
+      startTime: "01-01-2017-6am",
+      endTime: "02-01-2017-6am",
+      interval: "1h"
+    }
+  })
 })(EconGraph);
