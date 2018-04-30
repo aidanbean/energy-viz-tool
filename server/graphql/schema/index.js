@@ -363,7 +363,7 @@ var root = {
       );
       var stream = [];
       piResult.Items.forEach(function(element) {
-        if (element.Good) {
+        if (!element.Good) {
           return;
         }
         const point = new DataPoint(

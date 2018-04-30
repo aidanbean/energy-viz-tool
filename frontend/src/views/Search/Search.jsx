@@ -159,10 +159,8 @@ class Dashboard extends Component {
           },
           tooltip: {
               useHTML: true,
-              shared: false,
           }
       };
-    debugger;
     config["series"] = xLines;
     this.setState(
       {
