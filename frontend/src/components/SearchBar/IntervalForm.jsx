@@ -31,7 +31,7 @@ var IntervalForm = createClass({
         { value: '1w', label: '1 week' },
         { value: '1mo', label: '1 month' },
       ],
-      value: null,
+      value: '1h',
       multi: false,
     };
   },

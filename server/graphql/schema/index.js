@@ -17,7 +17,7 @@ const db = mongoose.connection;
 import { buildSchema } from "graphql";
 
 let schema = buildSchema(`
-    
+
     type DataPoint {
         Timestamp        : String,
         Value            : Float,
@@ -26,7 +26,7 @@ let schema = buildSchema(`
         Questionable     : Boolean,
         Substituted      : Boolean
     }
-        
+
     type SummaryData {
         Type: String,
         Value:  DataPoint
@@ -40,7 +40,7 @@ let schema = buildSchema(`
         stream         : [DataPoint],
         summary        : [SummaryData]
     }
-    
+
     type PointSummary {
         building       : String,
         equipmentType  : String,
@@ -122,7 +122,7 @@ let schema = buildSchema(`
             sensorType: String,
             startTime      : String,
             endTime        : String,
-            summaryDuration: String         
+            summaryDuration: String
         ): [PointSummary],
 
         buildingData(building: String): BuildingData,
@@ -264,8 +264,8 @@ var root = {
 
       var stream = [];
       piResult.Items.forEach(function(element) {
-        if (element.Good === false) {
-          return;
+        if (!element.Good) {
+          element.Value = null;
         }
         const point = new DataPoint(
           element.Timestamp,
@@ -364,7 +364,7 @@ var root = {
       var stream = [];
       piResult.Items.forEach(function(element) {
         if (!element.Good) {
-          return;
+          element.Value = null;
         }
         const point = new DataPoint(
           element.Timestamp,

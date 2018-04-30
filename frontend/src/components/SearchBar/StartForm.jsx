@@ -2,17 +2,21 @@ import React, { Component } from 'react';
 import 'react-datetime/css/react-datetime.css';
 import Datetime from 'react-datetime';
 import { FormGroup } from 'react-bootstrap';
+import moment from 'moment';
 
 class StartForm extends Component {
   constructor(props) {
     super(props);
     this.handleEvent = this.handleEvent.bind(this);
     this.state = {
-      value: null,
+      value: moment().subtract(2, 'months'),
     };
   }
 
   handleEvent(value) {
+    if(typeof value == "string") {
+        value = moment(value);
+    }
     this.setState(
       {
         value: value,
@@ -32,6 +36,7 @@ class StartForm extends Component {
     return (
       <FormGroup>
         <Datetime
+          defaultValue={moment().subtract(2, 'months')}
           inputProps={{ placeholder: 'Start Date' }}
           onChange={this.handleEvent}
           isValidDate={valid}

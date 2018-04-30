@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import NotificationSystem from 'react-notification-system';
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/Sidebar/Sidebar';
+import moment from 'moment';
 
 import { style } from '../../variables/Variables.jsx';
 
@@ -13,6 +14,7 @@ class App extends Component {
     super(props);
     // this.componentDidMount = this.componentDidMount.bind(this);
     // this.handleNotificationClick = this.handleNotificationClick.bind(this);
+    console.log(moment().subtract(1, 'months').format("MM-DD-YYYY-Ha"));
     this.dataByMinutes = this.dataByMinutes.bind(this);
     this.state = {
       _notificationSystem: null,
@@ -20,9 +22,9 @@ class App extends Component {
         building: 'MU',
         equipmentType: 'AHU',
         equipmentNumber: 'AHU01_PENT',
-        sensorType: 'Outside Air Temp',
-        startTime: '03-20-2018-6am',
-        endTime: '03-21-2018-6pm',
+        sensorType: 'Supply Air Temp',
+        startTime: moment().subtract(2, 'months').format("MM-DD-YYYY-Ha"),
+        endTime: moment().subtract(1, 'months').format("MM-DD-YYYY-Ha"),
         interval: '30m',
       },
     };
