@@ -25,19 +25,19 @@ const transition = {
   MozTransition: 'all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1)',
   OTransition: 'all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1)',
   MsTransition: 'all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1)',
-  transition: 'all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1)'
+  transition: 'all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1)',
 };
 
 const container = {
   paddingRight: '15px',
   paddingLeft: '15px',
   marginRight: 'auto',
-  marginLeft: 'auto'
+  marginLeft: 'auto',
 };
 
 const boxShadow = {
   boxShadow:
-    '0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)'
+    '0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)',
 };
 
 const card = {
@@ -48,13 +48,13 @@ const card = {
   boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.14)',
   borderRadius: '3px',
   color: 'rgba(0, 0, 0, 0.87)',
-  background: '#fff'
+  background: '#fff',
 };
 
 const defaultFont = {
   fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
   fontWeight: '300',
-  lineHeight: '1.5em'
+  lineHeight: '1.5em',
 };
 
 const primaryColor = '#9c27b0';
@@ -67,44 +67,44 @@ const grayColor = '#999999';
 
 const primaryBoxShadow = {
   boxShadow:
-    '0 12px 20px -10px rgba(156, 39, 176, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(156, 39, 176, 0.2)'
+    '0 12px 20px -10px rgba(156, 39, 176, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(156, 39, 176, 0.2)',
 };
 const infoBoxShadow = {
   boxShadow:
-    '0 12px 20px -10px rgba(0, 188, 212, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(0, 188, 212, 0.2)'
+    '0 12px 20px -10px rgba(0, 188, 212, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(0, 188, 212, 0.2)',
 };
 const successBoxShadow = {
   boxShadow:
-    '0 12px 20px -10px rgba(76, 175, 80, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(76, 175, 80, 0.2)'
+    '0 12px 20px -10px rgba(76, 175, 80, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(76, 175, 80, 0.2)',
 };
 const warningBoxShadow = {
   boxShadow:
-    '0 12px 20px -10px rgba(255, 152, 0, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(255, 152, 0, 0.2)'
+    '0 12px 20px -10px rgba(255, 152, 0, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(255, 152, 0, 0.2)',
 };
 const dangerBoxShadow = {
   boxShadow:
-    '0 12px 20px -10px rgba(244, 67, 54, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(244, 67, 54, 0.2)'
+    '0 12px 20px -10px rgba(244, 67, 54, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(244, 67, 54, 0.2)',
 };
 
 const orangeCardHeader = {
   background: 'linear-gradient(60deg, #ffa726, #fb8c00)',
-  ...warningBoxShadow
+  ...warningBoxShadow,
 };
 const greenCardHeader = {
   background: 'linear-gradient(60deg, #66bb6a, #43a047)',
-  ...successBoxShadow
+  ...successBoxShadow,
 };
 const redCardHeader = {
   background: 'linear-gradient(60deg, #ef5350, #e53935)',
-  ...dangerBoxShadow
+  ...dangerBoxShadow,
 };
 const blueCardHeader = {
   background: 'linear-gradient(60deg, #26c6da, #00acc1)',
-  ...infoBoxShadow
+  ...infoBoxShadow,
 };
 const purpleCardHeader = {
   background: 'linear-gradient(60deg, #ab47bc, #8e24aa)',
-  ...primaryBoxShadow
+  ...primaryBoxShadow,
 };
 
 const cardActions = {
@@ -112,13 +112,13 @@ const cardActions = {
   paddingTop: '10px',
   borderTop: '1px solid #eeeeee',
   height: 'auto',
-  ...defaultFont
+  ...defaultFont,
 };
 
 const cardHeader = {
   margin: '-20px 15px 0',
   borderRadius: '3px',
-  padding: '15px'
+  padding: '15px',
 };
 
 const defaultBoxShadow = {
@@ -131,7 +131,7 @@ const defaultBoxShadow = {
   MozTransition: 'all 150ms ease 0s',
   OTransition: 'all 150ms ease 0s',
   MsTransition: 'all 150ms ease 0s',
-  transition: 'all 150ms ease 0s'
+  transition: 'all 150ms ease 0s',
 };
 
 // ##############################
@@ -142,28 +142,28 @@ const appStyle = theme => ({
   wrapper: {
     position: 'relative',
     top: '0',
-    height: '100vh'
+    height: '100vh',
   },
   mainPanel: {
     [theme.breakpoints.up('md')]: {
-      width: `calc(100% - ${drawerWidth}px)`
+      width: `calc(100% - ${drawerWidth}px)`,
     },
     overflow: 'auto',
     position: 'relative',
     float: 'right',
     ...transition,
     maxHeight: '100%',
-    width: '100%'
+    width: '100%',
   },
   content: {
     marginTop: '70px',
     padding: '30px 15px',
-    minHeight: 'calc(100% - 123px)'
+    minHeight: 'calc(100% - 123px)',
   },
   container,
   map: {
-    marginTop: '70px'
-  }
+    marginTop: '70px',
+  },
 });
 
 // ##############################
@@ -184,7 +184,7 @@ const sidebarStyle = theme => ({
     [theme.breakpoints.up('md')]: {
       width: drawerWidth,
       position: 'fixed',
-      height: '100%'
+      height: '100%',
     },
     [theme.breakpoints.down('sm')]: {
       width: drawerWidth,
@@ -207,8 +207,8 @@ const sidebarStyle = theme => ({
       OTransform: `translate3d(${drawerWidth}px, 0, 0)`,
       MsTransform: `translate3d(${drawerWidth}px, 0, 0)`,
       transform: `translate3d(${drawerWidth}px, 0, 0)`,
-      ...transition
-    }
+      ...transition,
+    },
   },
   logo: {
     position: 'relative',
@@ -222,8 +222,8 @@ const sidebarStyle = theme => ({
       height: '1px',
       right: '15px',
       width: 'calc(100% - 30px)',
-      backgroundColor: 'rgba(180, 180, 180, 0.3)'
-    }
+      backgroundColor: 'rgba(180, 180, 180, 0.3)',
+    },
   },
   logoLink: {
     ...defaultFont,
@@ -237,22 +237,22 @@ const sidebarStyle = theme => ({
     textDecoration: 'none',
     backgroundColor: 'transparent',
     '&,&:hover': {
-      color: '#FFFFFF'
-    }
+      color: '#FFFFFF',
+    },
   },
   logoImage: {
     width: '30px',
     display: 'inline-block',
     maxHeight: '30px',
     marginLeft: '10px',
-    marginRight: '15px'
+    marginRight: '15px',
   },
   img: {
     width: '35px',
     top: '22px',
     position: 'absolute',
     verticalAlign: 'middle',
-    border: '0'
+    border: '0',
   },
   background: {
     position: 'absolute',
@@ -272,8 +272,8 @@ const sidebarStyle = theme => ({
       content: '""',
       display: 'block',
       background: '#000',
-      opacity: '.8'
-    }
+      opacity: '.8',
+    },
   },
   list: {
     marginTop: '20px',
@@ -281,12 +281,12 @@ const sidebarStyle = theme => ({
     paddingTop: '0',
     paddingBottom: '0',
     marginBottom: '0',
-    listStyle: 'none'
+    listStyle: 'none',
   },
   item: {
     position: 'relative',
     display: 'block',
-    textDecoration: 'none'
+    textDecoration: 'none',
   },
   itemLink: {
     WebkitTransition: 'all 300ms linear',
@@ -300,7 +300,7 @@ const sidebarStyle = theme => ({
     display: 'block',
     padding: '10px 15px',
     backgroundColor: 'transparent',
-    ...defaultFont
+    ...defaultFont,
   },
   itemIcon: {
     width: '24px',
@@ -309,25 +309,25 @@ const sidebarStyle = theme => ({
     marginRight: '15px',
     textAlign: 'center',
     verticalAlign: 'middle',
-    color: 'rgba(255, 255, 255, 0.8)'
+    color: 'rgba(255, 255, 255, 0.8)',
   },
   itemText: {
     ...defaultFont,
     margin: '0',
     lineHeight: '30px',
     fontSize: '14px',
-    color: '#FFFFFF'
+    color: '#FFFFFF',
   },
   whiteFont: {
-    color: '#FFFFFF'
+    color: '#FFFFFF',
   },
   purple: {
     backgroundColor: primaryColor,
     ...primaryBoxShadow,
     '&:hover': {
       backgroundColor: primaryColor,
-      ...primaryBoxShadow
-    }
+      ...primaryBoxShadow,
+    },
   },
   blue: {
     backgroundColor: infoColor,
@@ -336,8 +336,8 @@ const sidebarStyle = theme => ({
     '&:hover': {
       backgroundColor: infoColor,
       boxShadow:
-        '0 12px 20px -10px rgba(0,188,212,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(0,188,212,.2)'
-    }
+        '0 12px 20px -10px rgba(0,188,212,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(0,188,212,.2)',
+    },
   },
   green: {
     backgroundColor: successColor,
@@ -346,8 +346,8 @@ const sidebarStyle = theme => ({
     '&:hover': {
       backgroundColor: successColor,
       boxShadow:
-        '0 12px 20px -10px rgba(76,175,80,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(76,175,80,.2)'
-    }
+        '0 12px 20px -10px rgba(76,175,80,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(76,175,80,.2)',
+    },
   },
   orange: {
     backgroundColor: warningColor,
@@ -356,8 +356,8 @@ const sidebarStyle = theme => ({
     '&:hover': {
       backgroundColor: warningColor,
       boxShadow:
-        '0 12px 20px -10px rgba(255,152,0,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(255,152,0,.2)'
-    }
+        '0 12px 20px -10px rgba(255,152,0,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(255,152,0,.2)',
+    },
   },
   red: {
     backgroundColor: dangerColor,
@@ -366,16 +366,16 @@ const sidebarStyle = theme => ({
     '&:hover': {
       backgroundColor: dangerColor,
       boxShadow:
-        '0 12px 20px -10px rgba(244,67,54,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(244,67,54,.2)'
-    }
+        '0 12px 20px -10px rgba(244,67,54,.28), 0 4px 20px 0 rgba(0,0,0,.12), 0 7px 8px -5px rgba(244,67,54,.2)',
+    },
   },
   sidebarWrapper: {
     position: 'relative',
     height: 'calc(100vh - 75px)',
     overflow: 'auto',
     width: '260px',
-    zIndex: '4'
-  }
+    zIndex: '4',
+  },
 });
 
 // ##############################
@@ -386,7 +386,7 @@ const headerStyle = theme => ({
   appBar: {
     top: '-30px',
     [theme.breakpoints.down('md')]: {
-      top: '-15px'
+      top: '-15px',
     },
     backgroundColor: 'transparent',
     boxShadow: 'none',
@@ -406,11 +406,11 @@ const headerStyle = theme => ({
     MsTransition: 'all 150ms ease 0s',
     transition: 'all 150ms ease 0s',
     minHeight: '50px',
-    display: 'block'
+    display: 'block',
   },
   container,
   flex: {
-    flex: 1
+    flex: 1,
   },
   title: {
     ...defaultFont,
@@ -421,37 +421,37 @@ const headerStyle = theme => ({
     color: 'inherit',
     top: '10px',
     '&:hover,&:focus': {
-      background: 'transparent'
-    }
+      background: 'transparent',
+    },
   },
   appResponsive: {
-    top: '8px'
+    top: '8px',
   },
   primary: {
     backgroundColor: primaryColor,
     color: '#FFFFFF',
-    ...defaultBoxShadow
+    ...defaultBoxShadow,
   },
   info: {
     backgroundColor: infoColor,
     color: '#FFFFFF',
-    ...defaultBoxShadow
+    ...defaultBoxShadow,
   },
   success: {
     backgroundColor: successColor,
     color: '#FFFFFF',
-    ...defaultBoxShadow
+    ...defaultBoxShadow,
   },
   warning: {
     backgroundColor: warningColor,
     color: '#FFFFFF',
-    ...defaultBoxShadow
+    ...defaultBoxShadow,
   },
   danger: {
     backgroundColor: dangerColor,
     color: '#FFFFFF',
-    ...defaultBoxShadow
-  }
+    ...defaultBoxShadow,
+  },
 });
 
 // ##############################
@@ -460,7 +460,7 @@ const headerStyle = theme => ({
 
 const headerLinksStyle = theme => ({
   popperClose: {
-    pointerEvents: 'none'
+    pointerEvents: 'none',
   },
   search: {
     [theme.breakpoints.down('sm')]: {
@@ -470,36 +470,36 @@ const headerLinksStyle = theme => ({
       paddingBottom: '1px',
       padding: '10px 15px',
       width: 'auto',
-      marginTop: '40px'
-    }
+      marginTop: '40px',
+    },
   },
   linkText: {
     zIndex: '4',
     ...defaultFont,
-    fontSize: '14px'
+    fontSize: '14px',
   },
   buttonLink: {
     top: '-6px',
     [theme.breakpoints.down('sm')]: {
       display: 'flex',
       marginLeft: '30px',
-      width: 'auto'
-    }
+      width: 'auto',
+    },
   },
   searchButton: {
     [theme.breakpoints.down('sm')]: {
       top: '-50px !important',
       marginRight: '22px',
-      float: 'right'
-    }
+      float: 'right',
+    },
   },
   top: {
     top: '-6px',
-    zIndex: '4'
+    zIndex: '4',
   },
   searchIcon: {
     width: '17px',
-    zIndex: '4'
+    zIndex: '4',
   },
   links: {
     width: '20px',
@@ -510,8 +510,8 @@ const headerLinksStyle = theme => ({
       width: '30px',
       height: '30px',
       color: '#a9afbb',
-      marginRight: '15px'
-    }
+      marginRight: '15px',
+    },
   },
   notifications: {
     zIndex: '4',
@@ -529,13 +529,13 @@ const headerLinksStyle = theme => ({
       textAlign: 'center',
       lineHeight: '16px',
       verticalAlign: 'middle',
-      display: 'block'
+      display: 'block',
     },
     [theme.breakpoints.down('sm')]: {
       ...defaultFont,
       fontSize: '14px',
-      marginRight: '8px'
-    }
+      marginRight: '8px',
+    },
   },
   dropdown: {
     borderRadius: '3px',
@@ -551,7 +551,7 @@ const headerLinksStyle = theme => ({
     listStyle: 'none',
     backgroundColor: '#fff',
     WebkitBackgroundClip: 'padding-box',
-    backgroundClip: 'padding-box'
+    backgroundClip: 'padding-box',
   },
   pooperResponsive: {
     [theme.breakpoints.down('sm')]: {
@@ -564,8 +564,8 @@ const headerLinksStyle = theme => ({
       border: '0',
       WebkitBoxShadow: 'none',
       boxShadow: 'none',
-      color: 'black'
-    }
+      color: 'black',
+    },
   },
   dropdownItem: {
     ...defaultFont,
@@ -587,9 +587,9 @@ const headerLinksStyle = theme => ({
     '&:hover': {
       backgroundColor: primaryColor,
       color: '#FFFFFF',
-      ...primaryBoxShadow
-    }
-  }
+      ...primaryBoxShadow,
+    },
+  },
 });
 
 // ##############################
@@ -607,39 +607,39 @@ const footerStyle = {
     display: 'block',
     ...defaultFont,
     fontWeight: '500',
-    fontSize: '12px'
+    fontSize: '12px',
   },
   left: {
     float: 'left!important',
-    display: 'block'
+    display: 'block',
   },
   right: {
     padding: '15px 0',
     margin: '0',
     fontSize: '14px',
-    float: 'right!important'
+    float: 'right!important',
   },
   footer: {
     bottom: '0',
     borderTop: '1px solid #e7e7e7',
     padding: '15px 0',
-    ...defaultFont
+    ...defaultFont,
   },
   container,
   a: {
     color: primaryColor,
     textDecoration: 'none',
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   list: {
     marginBottom: '0',
     padding: '0',
-    marginTop: '0'
+    marginTop: '0',
   },
   inlineBlock: {
     display: 'inline-block',
-    paddingTop: '0px'
-  }
+    paddingTop: '0px',
+  },
 };
 
 // ##############################
@@ -648,12 +648,12 @@ const footerStyle = {
 
 const dashboardStyle = {
   successText: {
-    color: successColor
+    color: successColor,
   },
   upArrowCardCategory: {
     width: 14,
-    height: 14
-  }
+    height: 14,
+  },
 };
 
 // ##############################
@@ -665,11 +665,11 @@ const iconsStyle = {
     width: '100%',
     height: '500px',
     border: '0',
-    ...boxShadow
+    ...boxShadow,
   },
   iframeContainer: {
-    margin: '0 -20px 0'
-  }
+    margin: '0 -20px 0',
+  },
 };
 
 // ##############################
@@ -681,7 +681,7 @@ const statsCardStyle = {
   cardHeader: {
     ...cardHeader,
     float: 'left',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   orangeCardHeader,
   greenCardHeader,
@@ -691,76 +691,76 @@ const statsCardStyle = {
   cardContent: {
     textAlign: 'right',
     paddingTop: '10px',
-    padding: '15px 20px'
+    padding: '15px 20px',
   },
   cardIcon: {
     width: '40px',
     height: '36px',
-    fill: '#fff'
+    fill: '#fff',
   },
   cardAvatar: {
-    margin: '8px'
+    margin: '8px',
   },
   cardCategory: {
     marginBottom: '0',
     color: grayColor,
     margin: '0 0 10px',
-    ...defaultFont
+    ...defaultFont,
   },
   cardTitle: {
     margin: '0',
     ...defaultFont,
-    fontSize: '1.625em'
+    fontSize: '1.625em',
   },
   cardTitleSmall: {
     fontSize: '65%',
     fontWeight: '400',
     lineHeight: '1',
-    color: '#777'
+    color: '#777',
   },
   cardActions: {
     ...cardActions,
-    padding: '0!important'
+    padding: '0!important',
   },
   cardStats: {
     lineHeight: '22px',
     color: grayColor,
     fontSize: '12px',
     display: 'inline-block',
-    margin: '0!important'
+    margin: '0!important',
   },
   cardStatsIcon: {
     position: 'relative',
     top: '4px',
     width: '16px',
-    height: '16px'
+    height: '16px',
   },
   warningCardStatsIcon: {
-    color: warningColor
+    color: warningColor,
   },
   primaryCardStatsIcon: {
-    color: primaryColor
+    color: primaryColor,
   },
   dangerCardStatsIcon: {
-    color: dangerColor
+    color: dangerColor,
   },
   successCardStatsIcon: {
-    color: successColor
+    color: successColor,
   },
   infoCardStatsIcon: {
-    color: infoColor
+    color: infoColor,
   },
   roseCardStatsIcon: {
-    color: roseColor
+    color: roseColor,
   },
   grayCardStatsIcon: {
-    color: grayColor
+    color: grayColor,
   },
   cardStatsLink: {
     color: primaryColor,
     textDecoration: 'none',
-    ...defaultFont
-  }
+    ...defaultFont,
+  },
 };
 
 // ##############################
@@ -773,7 +773,7 @@ const chartCardStyle = {
     ...cardHeader,
     padding: '0',
     minHeight: '160px',
-    ...defaultFont
+    ...defaultFont,
   },
   orangeCardHeader,
   greenCardHeader,
@@ -781,63 +781,63 @@ const chartCardStyle = {
   blueCardHeader,
   purpleCardHeader,
   cardContent: {
-    padding: '15px 20px'
+    padding: '15px 20px',
   },
   cardTitle: {
     marginTop: '0',
     marginBottom: '5px',
     ...defaultFont,
-    fontSize: '1.175em'
+    fontSize: '1.175em',
   },
   cardCategory: {
     marginBottom: '0',
     color: grayColor,
     ...defaultFont,
-    fontSize: '0.9em'
+    fontSize: '0.9em',
   },
   cardActions: {
     ...cardActions,
-    padding: '0!important'
+    padding: '0!important',
   },
   cardStats: {
     lineHeight: '22px',
     color: grayColor,
     fontSize: '12px',
     display: 'inline-block',
-    margin: '0!important'
+    margin: '0!important',
   },
   cardStatsIcon: {
     position: 'relative',
     top: '4px',
     width: '16px',
-    height: '16px'
+    height: '16px',
   },
   warningCardStatsIcon: {
-    color: warningColor
+    color: warningColor,
   },
   primaryCardStatsIcon: {
-    color: primaryColor
+    color: primaryColor,
   },
   dangerCardStatsIcon: {
-    color: dangerColor
+    color: dangerColor,
   },
   successCardStatsIcon: {
-    color: successColor
+    color: successColor,
   },
   infoCardStatsIcon: {
-    color: infoColor
+    color: infoColor,
   },
   roseCardStatsIcon: {
-    color: roseColor
+    color: roseColor,
   },
   grayCardStatsIcon: {
-    color: grayColor
+    color: grayColor,
   },
   cardStatsLink: {
     color: primaryColor,
     textDecoration: 'none',
-    ...defaultFont
-  }
+    ...defaultFont,
+  },
 };
 
 // ##############################
@@ -851,7 +851,7 @@ const tasksCardStyle = theme => ({
     ...cardHeader,
     ...defaultFont,
     background: 'linear-gradient(60deg, #ab47bc, #8e24aa)',
-    ...primaryBoxShadow
+    ...primaryBoxShadow,
   },
   cardTitle: {
     ...defaultFont,
@@ -859,7 +859,7 @@ const tasksCardStyle = theme => ({
     padding: '10px 10px 10px 0',
     lineHeight: '24px',
     fontSize: '14px',
-    color: '#FFFFFF'
+    color: '#FFFFFF',
   },
   tabWrapper: {
     width: 'auto',
@@ -868,51 +868,51 @@ const tasksCardStyle = theme => ({
     flexDirection: 'row',
     justifyContent: 'center',
     [theme.breakpoints.down('sm')]: {
-      display: 'flex'
-    }
+      display: 'flex',
+    },
   },
   tabIcon: {
     float: 'left',
     [theme.breakpoints.down('sm')]: {
-      marginTop: '-2px'
-    }
+      marginTop: '-2px',
+    },
   },
   displayNone: {
-    display: 'none'
+    display: 'none',
   },
   labelIcon: {
     height: '44px',
     width: '110px',
     minWidth: '72px',
     paddingLeft: '14px',
-    borderRadius: '3px'
+    borderRadius: '3px',
   },
   tabsContainer: {
     marginTop: '4px',
     color: '#FFFFFF',
     [theme.breakpoints.down('sm')]: {
-      display: 'grid'
-    }
+      display: 'grid',
+    },
   },
   tabs: {
     width: '110px',
     minWidth: '70px',
-    paddingLeft: '12px'
+    paddingLeft: '12px',
   },
   cardHeaderContent: {
-    flex: 'none'
+    flex: 'none',
   },
   label: {
     lineHeight: '19px',
     textTransform: 'uppercase',
     fontSize: '12px',
     fontWeight: '400',
-    marginLeft: '-10px'
+    marginLeft: '-10px',
   },
   rootInheritSelected: {
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    transition: 'background-color .1s .2s'
-  }
+    transition: 'background-color .1s .2s',
+  },
 });
 
 // ##############################
@@ -923,15 +923,15 @@ const regularCardStyle = {
   card,
   cardPlain: {
     background: 'transparent',
-    boxShadow: 'none'
+    boxShadow: 'none',
   },
   cardHeader: {
     ...cardHeader,
-    ...defaultFont
+    ...defaultFont,
   },
   cardPlainHeader: {
     marginLeft: 0,
-    marginRight: 0
+    marginRight: 0,
   },
   orangeCardHeader,
   greenCardHeader,
@@ -943,19 +943,19 @@ const regularCardStyle = {
     marginTop: '0',
     marginBottom: '5px',
     ...defaultFont,
-    fontSize: '1.125em'
+    fontSize: '1.125em',
   },
   cardSubtitle: {
     ...defaultFont,
     marginBottom: '0',
     color: 'rgba(255, 255, 255, 0.62)',
-    margin: '0 0 10px'
+    margin: '0 0 10px',
   },
   cardActions: {
     padding: '14px',
     display: 'block',
-    height: 'auto'
-  }
+    height: 'auto',
+  },
 };
 
 // ##############################
@@ -966,12 +966,12 @@ const profileCardStyle = {
   card: {
     marginTop: '30px',
     textAlign: 'center',
-    ...card
+    ...card,
   },
   cardHeader: {
     display: 'inline-block',
     width: '100%',
-    padding: '0px'
+    padding: '0px',
   },
   cardAvatar: {
     maxWidth: '130px',
@@ -979,16 +979,16 @@ const profileCardStyle = {
     margin: '-50px auto 0',
     borderRadius: '50%',
     overflow: 'hidden',
-    ...boxShadow
+    ...boxShadow,
   },
   img: {
     width: '100%',
     height: 'auto',
     verticalAlign: 'middle',
-    border: '0'
+    border: '0',
   },
   textAlign: {
-    textAlign: 'center'
+    textAlign: 'center',
   },
   cardSubtitle: {
     color: grayColor,
@@ -996,23 +996,23 @@ const profileCardStyle = {
     fontSize: '1em',
     textTransform: 'uppercase',
     marginTop: '10px',
-    marginBottom: '10px'
+    marginBottom: '10px',
   },
   cardTitle: {
     ...defaultFont,
     fontSize: '1.3em',
     marginTop: '10px',
-    marginBottom: '10px'
+    marginBottom: '10px',
   },
   cardDescription: {
     ...defaultFont,
     padding: '15px 20px',
-    margin: '0 0 10px'
+    margin: '0 0 10px',
   },
   cardActions: {
     height: 'auto',
-    display: 'inline'
-  }
+    display: 'inline',
+  },
 };
 
 // ##############################
@@ -1047,11 +1047,11 @@ const buttonStyle = {
     '&:hover': {
       backgroundColor: grayColor,
       boxShadow:
-        '0 14px 26px -12px rgba(153, 153, 153, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(153, 153, 153, 0.2)'
-    }
+        '0 14px 26px -12px rgba(153, 153, 153, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(153, 153, 153, 0.2)',
+    },
   },
   fullWidth: {
-    width: '100%'
+    width: '100%',
   },
   primary: {
     backgroundColor: primaryColor,
@@ -1060,8 +1060,8 @@ const buttonStyle = {
     '&:hover': {
       backgroundColor: primaryColor,
       boxShadow:
-        '0 14px 26px -12px rgba(156, 39, 176, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(156, 39, 176, 0.2)'
-    }
+        '0 14px 26px -12px rgba(156, 39, 176, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(156, 39, 176, 0.2)',
+    },
   },
   info: {
     backgroundColor: infoColor,
@@ -1070,8 +1070,8 @@ const buttonStyle = {
     '&:hover': {
       backgroundColor: infoColor,
       boxShadow:
-        '0 14px 26px -12px rgba(0, 188, 212, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 188, 212, 0.2)'
-    }
+        '0 14px 26px -12px rgba(0, 188, 212, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 188, 212, 0.2)',
+    },
   },
   success: {
     backgroundColor: successColor,
@@ -1080,8 +1080,8 @@ const buttonStyle = {
     '&:hover': {
       backgroundColor: successColor,
       boxShadow:
-        '0 14px 26px -12px rgba(76, 175, 80, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(76, 175, 80, 0.2)'
-    }
+        '0 14px 26px -12px rgba(76, 175, 80, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(76, 175, 80, 0.2)',
+    },
   },
   warning: {
     backgroundColor: warningColor,
@@ -1090,8 +1090,8 @@ const buttonStyle = {
     '&:hover': {
       backgroundColor: warningColor,
       boxShadow:
-        '0 14px 26px -12px rgba(255, 152, 0, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(255, 152, 0, 0.2)'
-    }
+        '0 14px 26px -12px rgba(255, 152, 0, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(255, 152, 0, 0.2)',
+    },
   },
   danger: {
     backgroundColor: dangerColor,
@@ -1100,8 +1100,8 @@ const buttonStyle = {
     '&:hover': {
       backgroundColor: dangerColor,
       boxShadow:
-        '0 14px 26px -12px rgba(244, 67, 54, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(244, 67, 54, 0.2)'
-    }
+        '0 14px 26px -12px rgba(244, 67, 54, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(244, 67, 54, 0.2)',
+    },
   },
   rose: {
     backgroundColor: roseColor,
@@ -1110,36 +1110,36 @@ const buttonStyle = {
     '&:hover': {
       backgroundColor: roseColor,
       boxShadow:
-        '0 14px 26px -12px rgba(233, 30, 99, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(233, 30, 99, 0.2)'
-    }
+        '0 14px 26px -12px rgba(233, 30, 99, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(233, 30, 99, 0.2)',
+    },
   },
   white: {
     '&,&:focus,&:hover': {
       backgroundColor: '#FFFFFF',
-      color: grayColor
-    }
+      color: grayColor,
+    },
   },
   simple: {
     '&,&:focus,&:hover': {
       color: '#FFFFFF',
       background: 'transparent',
-      boxShadow: 'none'
-    }
+      boxShadow: 'none',
+    },
   },
   transparent: {
     '&,&:focus,&:hover': {
       color: 'inherit',
       background: 'transparent',
-      boxShadow: 'none'
-    }
+      boxShadow: 'none',
+    },
   },
   round: {
-    borderRadius: '30px'
+    borderRadius: '30px',
   },
   disabled: {
     opacity: '0.65',
-    pointerEvents: 'none'
-  }
+    pointerEvents: 'none',
+  },
 };
 
 // ##############################
@@ -1179,8 +1179,8 @@ const iconButtonStyle = {
     '&:hover': {
       backgroundColor: grayColor,
       boxShadow:
-        '0 14px 26px -12px rgba(153, 153, 153, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(153, 153, 153, 0.2)'
-    }
+        '0 14px 26px -12px rgba(153, 153, 153, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(153, 153, 153, 0.2)',
+    },
   },
   primary: {
     backgroundColor: primaryColor,
@@ -1189,8 +1189,8 @@ const iconButtonStyle = {
     '&:hover': {
       backgroundColor: primaryColor,
       boxShadow:
-        '0 14px 26px -12px rgba(156, 39, 176, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(156, 39, 176, 0.2)'
-    }
+        '0 14px 26px -12px rgba(156, 39, 176, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(156, 39, 176, 0.2)',
+    },
   },
   info: {
     backgroundColor: infoColor,
@@ -1199,8 +1199,8 @@ const iconButtonStyle = {
     '&:hover': {
       backgroundColor: infoColor,
       boxShadow:
-        '0 14px 26px -12px rgba(0, 188, 212, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 188, 212, 0.2)'
-    }
+        '0 14px 26px -12px rgba(0, 188, 212, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 188, 212, 0.2)',
+    },
   },
   success: {
     backgroundColor: successColor,
@@ -1209,8 +1209,8 @@ const iconButtonStyle = {
     '&:hover': {
       backgroundColor: successColor,
       boxShadow:
-        '0 14px 26px -12px rgba(76, 175, 80, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(76, 175, 80, 0.2)'
-    }
+        '0 14px 26px -12px rgba(76, 175, 80, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(76, 175, 80, 0.2)',
+    },
   },
   warning: {
     backgroundColor: warningColor,
@@ -1219,8 +1219,8 @@ const iconButtonStyle = {
     '&:hover': {
       backgroundColor: warningColor,
       boxShadow:
-        '0 14px 26px -12px rgba(255, 152, 0, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(255, 152, 0, 0.2)'
-    }
+        '0 14px 26px -12px rgba(255, 152, 0, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(255, 152, 0, 0.2)',
+    },
   },
   danger: {
     backgroundColor: dangerColor,
@@ -1229,8 +1229,8 @@ const iconButtonStyle = {
     '&:hover': {
       backgroundColor: dangerColor,
       boxShadow:
-        '0 14px 26px -12px rgba(244, 67, 54, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(244, 67, 54, 0.2)'
-    }
+        '0 14px 26px -12px rgba(244, 67, 54, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(244, 67, 54, 0.2)',
+    },
   },
   rose: {
     backgroundColor: roseColor,
@@ -1239,20 +1239,20 @@ const iconButtonStyle = {
     '&:hover': {
       backgroundColor: roseColor,
       boxShadow:
-        '0 14px 26px -12px rgba(233, 30, 99, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(233, 30, 99, 0.2)'
-    }
+        '0 14px 26px -12px rgba(233, 30, 99, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(233, 30, 99, 0.2)',
+    },
   },
   white: {
     '&,&:focus,&:hover': {
       backgroundColor: '#FFFFFF',
-      color: grayColor
-    }
+      color: grayColor,
+    },
   },
   simple: {
     color: '#FFFFFF',
     background: 'transparent',
-    boxShadow: 'none'
-  }
+    boxShadow: 'none',
+  },
 };
 
 // ##############################
@@ -1261,25 +1261,25 @@ const iconButtonStyle = {
 
 const tableStyle = theme => ({
   warningTableHeader: {
-    color: warningColor
+    color: warningColor,
   },
   primaryTableHeader: {
-    color: primaryColor
+    color: primaryColor,
   },
   dangerTableHeader: {
-    color: dangerColor
+    color: dangerColor,
   },
   successTableHeader: {
-    color: successColor
+    color: successColor,
   },
   infoTableHeader: {
-    color: infoColor
+    color: infoColor,
   },
   roseTableHeader: {
-    color: roseColor
+    color: roseColor,
   },
   grayTableHeader: {
-    color: grayColor
+    color: grayColor,
   },
   table: {
     marginBottom: '0',
@@ -1287,24 +1287,24 @@ const tableStyle = theme => ({
     maxWidth: '100%',
     backgroundColor: 'transparent',
     borderSpacing: '0',
-    borderCollapse: 'collapse'
+    borderCollapse: 'collapse',
   },
   tableHeadCell: {
     color: 'inherit',
     ...defaultFont,
-    fontSize: '1em'
+    fontSize: '1em',
   },
   tableCell: {
     ...defaultFont,
     lineHeight: '1.42857143',
     padding: '12px 8px',
-    verticalAlign: 'middle'
+    verticalAlign: 'middle',
   },
   tableResponsive: {
     width: '100%',
     marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto'
-  }
+    overflowX: 'auto',
+  },
 });
 
 // ##############################
@@ -1314,42 +1314,42 @@ const tableStyle = theme => ({
 const customInputStyle = {
   disabled: {
     '&:before': {
-      backgroundColor: 'transparent !important'
-    }
+      backgroundColor: 'transparent !important',
+    },
   },
   underline: {
     '&:before': {
       backgroundColor: '#D2D2D2',
-      height: '1px !important'
-    }
+      height: '1px !important',
+    },
   },
   inkbar: {
     '&:after': {
-      backgroundColor: primaryColor
-    }
+      backgroundColor: primaryColor,
+    },
   },
   inkbarError: {
     '&:after': {
-      backgroundColor: dangerColor
-    }
+      backgroundColor: dangerColor,
+    },
   },
   inkbarSuccess: {
     '&:after': {
-      backgroundColor: successColor
-    }
+      backgroundColor: successColor,
+    },
   },
   labelRoot: {
     ...defaultFont,
     color: '#AAAAAA',
     fontWeight: '400',
     fontSize: '14px',
-    lineHeight: '1.42857'
+    lineHeight: '1.42857',
   },
   labelRootError: {
-    color: dangerColor
+    color: dangerColor,
   },
   labelRootSuccess: {
-    color: successColor
+    color: successColor,
   },
   feedback: {
     position: 'absolute',
@@ -1360,16 +1360,16 @@ const customInputStyle = {
     width: '24px',
     height: '24px',
     textAlign: 'center',
-    pointerEvents: 'none'
+    pointerEvents: 'none',
   },
   marginTop: {
-    marginTop: '16px'
+    marginTop: '16px',
   },
   formControl: {
     paddingBottom: '10px',
     margin: '27px 0 0 0',
-    position: 'relative'
-  }
+    position: 'relative',
+  },
 };
 
 // ##############################
@@ -1378,17 +1378,17 @@ const customInputStyle = {
 
 const tasksStyle = {
   table: {
-    marginBottom: '0'
+    marginBottom: '0',
   },
   tableRow: {
     position: 'relative',
-    borderBottom: '1px solid #dddddd'
+    borderBottom: '1px solid #dddddd',
   },
   tableActions: {
     display: 'flex',
     border: 'none',
     padding: '12px 8px !important',
-    verticalAlign: 'middle'
+    verticalAlign: 'middle',
   },
   tableCell: {
     ...defaultFont,
@@ -1396,41 +1396,41 @@ const tasksStyle = {
     verticalAlign: 'middle',
     border: 'none',
     lineHeight: '1.42857143',
-    fontSize: '14px'
+    fontSize: '14px',
   },
   tableActionButton: {
     width: '27px',
-    height: '27px'
+    height: '27px',
   },
   tableActionButtonIcon: {
     width: '17px',
-    height: '17px'
+    height: '17px',
   },
   edit: {
     backgroundColor: 'transparent',
     color: primaryColor,
-    boxShadow: 'none'
+    boxShadow: 'none',
   },
   close: {
     backgroundColor: 'transparent',
     color: dangerColor,
-    boxShadow: 'none'
+    boxShadow: 'none',
   },
   checked: {
-    color: primaryColor
+    color: primaryColor,
   },
   checkedIcon: {
     width: '20px',
     height: '20px',
     border: '1px solid rgba(0, 0, 0, .54)',
-    borderRadius: '3px'
+    borderRadius: '3px',
   },
   uncheckedIcon: {
     width: '0px',
     height: '0px',
     padding: '10px',
     border: '1px solid rgba(0, 0, 0, .54)',
-    borderRadius: '3px'
+    borderRadius: '3px',
   },
   tooltip: {
     padding: '10px 15px',
@@ -1455,8 +1455,8 @@ const tasksStyle = {
     wordSpacing: 'normal',
     wordWrap: 'normal',
     whiteSpace: 'normal',
-    lineBreak: 'auto'
-  }
+    lineBreak: 'auto',
+  },
 };
 
 // ##############################
@@ -1466,62 +1466,62 @@ const tasksStyle = {
 const typographyStyle = {
   defaultFontStyle: {
     ...defaultFont,
-    fontSize: '14px'
+    fontSize: '14px',
   },
   defaultHeaderMargins: {
     marginTop: '20px',
-    marginBottom: '10px'
+    marginBottom: '10px',
   },
   pStyle: {
-    margin: '0 0 10px'
+    margin: '0 0 10px',
   },
   quote: {
     padding: '10px 20px',
     margin: '0 0 20px',
     fontSize: '17.5px',
-    borderLeft: '5px solid #eee'
+    borderLeft: '5px solid #eee',
   },
   quoteText: {
     margin: '0 0 10px',
-    fontStyle: 'italic'
+    fontStyle: 'italic',
   },
   quoteAuthor: {
     display: 'block',
     fontSize: '80%',
     lineHeight: '1.42857143',
-    color: '#777'
+    color: '#777',
   },
   mutedText: {
-    color: '#777'
+    color: '#777',
   },
   primaryText: {
-    color: primaryColor
+    color: primaryColor,
   },
   infoText: {
-    color: infoColor
+    color: infoColor,
   },
   successText: {
-    color: successColor
+    color: successColor,
   },
   warningText: {
-    color: warningColor
+    color: warningColor,
   },
   dangerText: {
-    color: dangerColor
+    color: dangerColor,
   },
   smallText: {
     fontSize: '65%',
     fontWeight: '400',
     lineHeight: '1',
-    color: '#777'
+    color: '#777',
   },
   aStyle: {
     textDecoration: 'none',
     backgroundColor: 'transparent',
     '&,&:hover': {
-      color: '#FFFFFF'
-    }
-  }
+      color: '#FFFFFF',
+    },
+  },
 };
 
 // ##############################
@@ -1540,45 +1540,45 @@ const snackbarContentStyle = {
     color: '#555555',
     borderRadius: '3px',
     boxShadow:
-      '0 12px 20px -10px rgba(255, 255, 255, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(255, 255, 255, 0.2)'
+      '0 12px 20px -10px rgba(255, 255, 255, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(255, 255, 255, 0.2)',
   },
   info: {
     backgroundColor: '#00d3ee',
     color: '#ffffff',
-    ...infoBoxShadow
+    ...infoBoxShadow,
   },
   success: {
     backgroundColor: '#5cb860',
     color: '#ffffff',
-    ...successBoxShadow
+    ...successBoxShadow,
   },
   warning: {
     backgroundColor: '#ffa21a',
     color: '#ffffff',
-    ...warningBoxShadow
+    ...warningBoxShadow,
   },
   danger: {
     backgroundColor: '#f55a4e',
     color: '#ffffff',
-    ...dangerBoxShadow
+    ...dangerBoxShadow,
   },
   primary: {
     backgroundColor: '#af2cc5',
     color: '#ffffff',
-    ...primaryBoxShadow
+    ...primaryBoxShadow,
   },
   message: {
     padding: '0',
     display: 'block',
-    maxWidth: '89%'
+    maxWidth: '89%',
   },
   close: {
     width: '14px',
-    height: '14px'
+    height: '14px',
   },
   iconButton: {
     width: '24px',
-    height: '24px'
+    height: '24px',
   },
   icon: {
     display: 'block',
@@ -1587,12 +1587,12 @@ const snackbarContentStyle = {
     top: '50%',
     marginTop: '-15px',
     width: '30px',
-    height: '30px'
+    height: '30px',
   },
   iconMessage: {
     paddingLeft: '65px',
-    display: 'block'
-  }
+    display: 'block',
+  },
 };
 
 module.exports = {
@@ -1614,5 +1614,5 @@ module.exports = {
   headerStyle,
   sidebarStyle,
   appStyle,
-  headerLinksStyle
+  headerLinksStyle,
 };

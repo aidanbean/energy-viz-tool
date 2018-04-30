@@ -18,11 +18,11 @@ var delays2 = 80,
 const dailySalesChart = {
   data: {
     labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-    series: [[12, 17, 7, 17, 23, 18, 38]]
+    series: [[12, 17, 7, 17, 23, 18, 38]],
   },
   options: {
     lineSmooth: Chartist.Interpolation.cardinal({
-      tension: 0
+      tension: 0,
     }),
     low: 0,
     high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
@@ -30,8 +30,8 @@ const dailySalesChart = {
       top: 0,
       right: 0,
       bottom: 0,
-      left: 0
-    }
+      left: 0,
+    },
   },
   // for animation
   animation: {
@@ -47,8 +47,8 @@ const dailySalesChart = {
               .translate(0, data.chartRect.height())
               .stringify(),
             to: data.path.clone().stringify(),
-            easing: Chartist.Svg.Easing.easeOutQuint
-          }
+            easing: Chartist.Svg.Easing.easeOutQuint,
+          },
         });
       } else if (data.type === 'point') {
         data.element.animate({
@@ -57,12 +57,12 @@ const dailySalesChart = {
             dur: durations,
             from: 0,
             to: 1,
-            easing: 'ease'
-          }
+            easing: 'ease',
+          },
         });
       }
-    }
-  }
+    },
+  },
 };
 
 // ##############################
@@ -83,13 +83,13 @@ const emailsSubscriptionChart = {
       'Sep',
       'Oct',
       'Nov',
-      'Dec'
+      'Dec',
     ],
-    series: [[542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]]
+    series: [[542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]],
   },
   options: {
     axisX: {
-      showGrid: false
+      showGrid: false,
     },
     low: 0,
     high: 1000,
@@ -97,8 +97,8 @@ const emailsSubscriptionChart = {
       top: 0,
       right: 5,
       bottom: 0,
-      left: 0
-    }
+      left: 0,
+    },
   },
   responsiveOptions: [
     [
@@ -108,10 +108,10 @@ const emailsSubscriptionChart = {
         axisX: {
           labelInterpolationFnc: function(value) {
             return value[0];
-          }
-        }
-      }
-    ]
+          },
+        },
+      },
+    ],
   ],
   animation: {
     draw: function(data) {
@@ -122,12 +122,12 @@ const emailsSubscriptionChart = {
             dur: durations2,
             from: 0,
             to: 1,
-            easing: 'ease'
-          }
+            easing: 'ease',
+          },
         });
       }
-    }
-  }
+    },
+  },
 };
 
 // ##############################
@@ -137,11 +137,11 @@ const emailsSubscriptionChart = {
 const completedTasksChart = {
   data: {
     labels: ['12am', '3pm', '6pm', '9pm', '12pm', '3am', '6am', '9am'],
-    series: [[230, 750, 450, 300, 280, 240, 200, 190]]
+    series: [[230, 750, 450, 300, 280, 240, 200, 190]],
   },
   options: {
     lineSmooth: Chartist.Interpolation.cardinal({
-      tension: 0
+      tension: 0,
     }),
     low: 0,
     high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
@@ -149,8 +149,8 @@ const completedTasksChart = {
       top: 0,
       right: 0,
       bottom: 0,
-      left: 0
-    }
+      left: 0,
+    },
   },
   animation: {
     draw: function(data) {
@@ -165,8 +165,8 @@ const completedTasksChart = {
               .translate(0, data.chartRect.height())
               .stringify(),
             to: data.path.clone().stringify(),
-            easing: Chartist.Svg.Easing.easeOutQuint
-          }
+            easing: Chartist.Svg.Easing.easeOutQuint,
+          },
         });
       } else if (data.type === 'point') {
         data.element.animate({
@@ -175,16 +175,16 @@ const completedTasksChart = {
             dur: durations,
             from: 0,
             to: 1,
-            easing: 'ease'
-          }
+            easing: 'ease',
+          },
         });
       }
-    }
-  }
+    },
+  },
 };
 
 module.exports = {
   dailySalesChart,
   emailsSubscriptionChart,
-  completedTasksChart
+  completedTasksChart,
 };

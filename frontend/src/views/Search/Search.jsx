@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import moment from "moment-timezone";
-import { Row, Col, Jumbotron } from "react-bootstrap";
-import { BarLoader } from "react-spinners";
-import Highcharts from "react-highcharts";
-import { graphql } from "react-apollo";
-import gql from "graphql-tag";
-import HeaderLinks from "../../components/Header/HeaderLinks.jsx";
-import { Card } from "../../components/Card/Card.jsx";
-import TableList from "../TableList/TableList";
+import React, { Component } from 'react';
+import moment from 'moment-timezone';
+import { Row, Col, Jumbotron } from 'react-bootstrap';
+import { BarLoader } from 'react-spinners';
+import Highcharts from 'react-highcharts';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+import HeaderLinks from '../../components/Header/HeaderLinks.jsx';
+import { Card } from '../../components/Card/Card.jsx';
+import TableList from '../TableList/TableList';
 
-require("highcharts/modules/exporting")(Highcharts.Highcharts);
-require("highcharts/modules/export-data")(Highcharts.Highcharts);
+require('highcharts/modules/exporting')(Highcharts.Highcharts);
+require('highcharts/modules/export-data')(Highcharts.Highcharts);
 
 class Dashboard extends Component {
   constructor(props) {
@@ -21,30 +21,30 @@ class Dashboard extends Component {
       progress: 0,
       config: {
         legend: {
-          enabled: false
+          enabled: false,
         },
         chart: {
           height: 400,
-          type: "line",
-          zoomType: "xy"
+          type: 'line',
+          zoomType: 'xy',
         },
         xAxis: {
-          categories: []
+          categories: [],
         },
         data: {
-          table: "datable"
+          table: 'datable',
         },
         series: [
           {
             data: [],
-            color: "#9acd32"
-          }
+            color: '#9acd32',
+          },
         ],
         title: {
-          text: null
-        }
+          text: null,
+        },
       },
-      time: new Date()
+      time: new Date(),
     };
   }
 
@@ -52,7 +52,7 @@ class Dashboard extends Component {
     we refetch the graphQL query and convert the timezone. */
   componentWillReceiveProps(nextProps) {
     this.props.data.refetch();
-    if (typeof nextProps.data.dataStream === "undefined") {
+    if (typeof nextProps.data.dataStream === 'undefined') {
       return;
     }
     var config = {};
@@ -67,16 +67,16 @@ class Dashboard extends Component {
       nextProps.data.dataStream[i].summary.forEach(function(element) {
         const value = element.Value.Value.toFixed(2);
         switch (element.Type) {
-          case "Average":
+          case 'Average':
             avg = value;
             break;
-          case "Minimum":
+          case 'Minimum':
             min = value;
             break;
-          case "Maximum":
+          case 'Maximum':
             max = value;
             break;
-          case "StdDev":
+          case 'StdDev':
             stddev = value;
             break;
         }
@@ -90,64 +90,64 @@ class Dashboard extends Component {
         nextProps.data.dataStream[i].stream.forEach(function(element) {
           x.push(
             moment
-              .tz(element.Timestamp, "US/Pacific")
-              .format("YYYY-MM-DDTHH:mm")
+              .tz(element.Timestamp, 'US/Pacific')
+              .format('YYYY-MM-DDTHH:mm')
           );
         });
         config = {
           legend: {
-            enabled: true
+            enabled: true,
           },
           chart: {
             height: 400,
-            type: "line",
-            zoomType: "xy"
+            type: 'line',
+            zoomType: 'xy',
           },
           xAxis: {
-            categories: x
+            categories: x,
           },
           title: {
             text: `${variables.building}`,
             style: {
-              fontSize: "2em",
-              fontWeight: "bold"
-            }
+              fontSize: '2em',
+              fontWeight: 'bold',
+            },
           },
           subtitle: {
-            text: `${variables.equipmentType}`
+            text: `${variables.equipmentType}`,
           },
           exporting: {
-            filename: fileName
+            filename: fileName,
           },
           tooltip: {
             valueSuffix: `${unit}`,
             useHTML: true,
-            headerFormat: "<small>{point.key}</small><table>",
+            headerFormat: '<small>{point.key}</small><table>',
             pointFormat:
               '<tr><td style="color: {series.color}">{series.name}: </td>' +
               '<td style="text-align: right"><b>{point.y} {unit}</b></td></tr>' +
               '<tr><td style="color: {series.color}"> Average</td>' +
               '<td style="text-align: right"><b>' +
               avg +
-              "</b></td></tr>" +
+              '</b></td></tr>' +
               '<tr><td style="color: {series.color}"> Minimum </td>' +
               '<td style="text-align: right"><b>' +
               min +
-              "</b></td></tr>" +
+              '</b></td></tr>' +
               '<tr><td style="color: {series.color}"> Maximum</td>' +
               '<td style="text-align: right"><b>' +
               max +
-              "</b></td></tr>" +
+              '</b></td></tr>' +
               '<tr><td style="color: {series.color}"> Standard Deviation</td>' +
               '<td style="text-align: right"><b>' +
               stddev +
-              "</b></td></tr>",
-            footerFormat: "</table>"
-          }
+              '</b></td></tr>',
+            footerFormat: '</table>',
+          },
         };
       }
       // generate a random color.
-      var color = "#" + Math.floor(Math.random() * 16777215).toString(16);
+      var color = '#' + Math.floor(Math.random() * 16777215).toString(16);
       var dataStream = nextProps.data.dataStream[i];
       var name = `${dataStream.building}.${dataStream.equipmentNumber}.${
         dataStream.sensorType
@@ -155,14 +155,14 @@ class Dashboard extends Component {
       var serie = {
         data: y,
         color: color,
-        name: name
+        name: name,
       };
       series.push(serie);
     }
-    config["series"] = series;
+    config['series'] = series;
     this.setState(
       {
-        config: config
+        config: config,
       },
       () => {
         // console.log(this.state.config);
@@ -190,11 +190,11 @@ class Dashboard extends Component {
     if (this.props.data && this.props.data.loading) {
       return (
         <div>
-          <Row style={{ marginRight: "0px", marginLeft: "0px" }}>
+          <Row style={{ marginRight: '0px', marginLeft: '0px' }}>
             <HeaderLinks callback={this.headerCallback} isLoading={false} />
           </Row>
           <Row
-            style={{ height: "200px", marginRight: "0px", marginLeft: "0px" }}
+            style={{ height: '200px', marginRight: '0px', marginLeft: '0px' }}
           >
             <Col md={12}>
               <Card
@@ -214,7 +214,7 @@ class Dashboard extends Component {
                       </center>
                     </p>
                     <BarLoader
-                      color={"#3C4858"}
+                      color={'#3C4858'}
                       loading={this.props.data.loading}
                     />
                   </center>
@@ -230,7 +230,7 @@ class Dashboard extends Component {
       clearTimeout();
       return (
         <div>
-          <Row style={{ marginRight: "0px", marginLeft: "0px" }}>
+          <Row style={{ marginRight: '0px', marginLeft: '0px' }}>
             <HeaderLinks callback={this.headerCallback} isLoading={false} />
           </Row>
           <Jumbotron>
@@ -249,10 +249,10 @@ class Dashboard extends Component {
     }
     return (
       <div>
-        <Row style={{ marginRight: "0px", marginLeft: "0px" }}>
+        <Row style={{ marginRight: '0px', marginLeft: '0px' }}>
           <HeaderLinks callback={this.headerCallback} isLoading={false} />
         </Row>
-        <Row style={{ marginRight: "0px", marginLeft: "0px" }}>
+        <Row style={{ marginRight: '0px', marginLeft: '0px' }}>
           <Col md={12}>
             <Card
               content={<Highcharts config={this.state.config} ref="ct-chart" />}
@@ -311,7 +311,7 @@ export default graphql(DATA_QUERY, {
       sensorType: props.headerData.sensorType,
       startTime: props.headerData.startTime,
       endTime: props.headerData.endTime,
-      interval: props.headerData.interval
-    }
-  })
+      interval: props.headerData.interval,
+    },
+  }),
 })(Dashboard);

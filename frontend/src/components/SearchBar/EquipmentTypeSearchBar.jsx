@@ -7,111 +7,121 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 var SelectStyle = {
-    marginTop: 10,
-    position: 'relative',
-    borderRadius: 3,
+  marginTop: 10,
+  position: 'relative',
+  borderRadius: 3,
 };
 
 var EquipmentField = createClass({
-    displayName: 'Euipment Type',
-    propTypes: {
-        label: PropTypes.string,
-        searchable: PropTypes.bool,
-    },
-    getDefaultProps () {
-        return {
-            label: 'Euipment Type',
-            searchable: true,
-        };
-    },
-    getInitialState () {
-        return {
-            searchable: this.props.searchable,
-            clearable: true,
-            removeSelected: true,
-            disabled: false,
-            stayOpen: false,
-            isLoading: true,
-            value: null,
-            rtl: false,
-        };
-    },
-    clearValue (e) {
-        this.select.setInputValue(null);
-    },
-    handleSelectChange (value) {
-        this.setState({
-            value
-        }, () => {
-            if(this.state.value === "") {
-                this.setState({
-                    value: null
-                }, () => {
-                    this.props.callback(this.state.value);
-                });
-            } else {
-                this.props.callback(this.state.value);
+  displayName: 'Euipment Type',
+  propTypes: {
+    label: PropTypes.string,
+    searchable: PropTypes.bool,
+  },
+  getDefaultProps() {
+    return {
+      label: 'Euipment Type',
+      searchable: true,
+    };
+  },
+  getInitialState() {
+    return {
+      searchable: this.props.searchable,
+      clearable: true,
+      removeSelected: true,
+      disabled: false,
+      stayOpen: false,
+      isLoading: true,
+      value: null,
+      rtl: false,
+    };
+  },
+  clearValue(e) {
+    this.select.setInputValue(null);
+  },
+  handleSelectChange(value) {
+    this.setState(
+      {
+        value,
+      },
+      () => {
+        if (this.state.value === '') {
+          this.setState(
+            {
+              value: null,
+            },
+            () => {
+              this.props.callback(this.state.value);
             }
-        });
-    },
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
-        if(nextProps.data && !nextProps.data.loading) {
-            var options = [];
-            (nextProps.data.searchFilter.equipmentTypes).forEach(function(element) {
-                        const optionsObj = {label: element, value: element, className: "equipmentType"};
-                        options.push(optionsObj);
-            });
-            this.setState({
-                options: options,
-                isLoading: false
-            });
+          );
+        } else {
+          this.props.callback(this.state.value);
         }
-    },
-    render () {
-        return (
-            <div>
-                <Select
-                    style={SelectStyle}
-                    closeOnSelect={!this.state.stayOpen}
-                    disabled={this.state.disabled}
-                    multi
-                    onChange={this.handleSelectChange}
-                    options={this.state.options}
-                    placeholder="Equipment Type"
-                    removeSelected={this.state.removeSelected}
-                    rtl={this.state.rtl}
-                    simpleValue
-                    value={this.state.value}
-                    isLoading={this.state.isLoading}
-                />
-            </div>
-        );
+      }
+    );
+  },
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    if (nextProps.data && !nextProps.data.loading) {
+      var options = [];
+      nextProps.data.searchFilter.equipmentTypes.forEach(function(element) {
+        const optionsObj = {
+          label: element,
+          value: element,
+          className: 'equipmentType',
+        };
+        options.push(optionsObj);
+      });
+      this.setState({
+        options: options,
+        isLoading: false,
+      });
     }
+  },
+  render() {
+    return (
+      <div>
+        <Select
+          style={SelectStyle}
+          closeOnSelect={!this.state.stayOpen}
+          disabled={this.state.disabled}
+          multi
+          onChange={this.handleSelectChange}
+          options={this.state.options}
+          placeholder="Equipment Type"
+          removeSelected={this.state.removeSelected}
+          rtl={this.state.rtl}
+          simpleValue
+          value={this.state.value}
+          isLoading={this.state.isLoading}
+        />
+      </div>
+    );
+  },
 });
 
 const TYPE_QUERY = gql`
-    query TypesQuery(
-        $building       : String,
-        $equipmentNumber: String,
-        $sensorType     : String
+  query TypesQuery(
+    $building: String
+    $equipmentNumber: String
+    $sensorType: String
+  ) {
+    searchFilter(
+      building: $building
+      equipmentNumber: $equipmentNumber
+      sensorType: $sensorType
     ) {
-        searchFilter(
-            building       : $building,
-            equipmentNumber: $equipmentNumber,
-            sensorType     : $sensorType
-        ) {
-            equipmentTypes
-        }
+      equipmentTypes
     }
+  }
 `;
 
 export default graphql(TYPE_QUERY, {
-    options: (props) => ({
-        variables: {
-            building       : props.selection.building,
-            equipmentNumber: props.selection.equipmentNumber,
-            sensorType     : props.selection.sensorType
-        }
-    }),
+  options: props => ({
+    variables: {
+      building: props.selection.building,
+      equipmentNumber: props.selection.equipmentNumber,
+      sensorType: props.selection.sensorType,
+    },
+  }),
 })(EquipmentField);
