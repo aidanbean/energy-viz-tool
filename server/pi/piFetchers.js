@@ -216,23 +216,15 @@ const fetchStream_summary_AllType = WebId => {
     .then(json => json.Items);
 };
 
-const fetchStream_summary_AllType_WithTimes = (
-  WebId,
-  startTime,
-  endTime
-) => {
+const fetchStream_summary_AllType_WithTimes = (WebId, startTime, endTime) => {
   return fetch(
     `${piBaseUrl}streams/${WebId}/summary?startTime=${startTime}&endTime=${endTime}&summaryType=All`
-  ).then(res => res.json())
-      .then(json => json.Items);
+  )
+    .then(res => res.json())
+    .then(json => json.Items);
 };
 
-const fetchStream_summary_byType = (
-  WebId,
-  startTime,
-  endTime,
-  type
-) => {
+const fetchStream_summary_byType = (WebId, startTime, endTime, type) => {
   return fetch(
     `${piBaseUrl}streams/${WebId}/summary?startTime=${startTime}&endTime=${endTime}&summaryType=${type}`
   )
@@ -248,7 +240,7 @@ module.exports = {
   fetchStream_byMonths,
   fetchStream_byMinutes,
   fetchStream_summary_AllType,
-    fetchStream_summary_AllType_WithTimes,
+  fetchStream_summary_AllType_WithTimes,
   fetchStream_recorded,
   fetchStream_plot,
   fetchStream_summary_byType

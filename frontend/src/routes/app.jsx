@@ -1,23 +1,33 @@
-import Search from '../views/Search/Search';
-import TableList from '../views/TableList/TableList';
-import Typography from '../views/Typography/Typography';
-import SelectBuilding from '../views/SelectBuilding/SelectBuilding';
+import Search from "../views/Search/Search";
+import TableList from "../views/TableList/TableList";
+import Typography from "../views/Typography/Typography";
+import SelectBuilding from "../views/SelectBuilding/SelectBuilding";
 
 const appRoutes = [
   {
-    path: '/typography',
-    name: 'All Buildings',
-    icon: 'pe-7s-home',
+    path: "/typography",
+    name: "All Buildings",
+    icon: "pe-7s-home",
     component: Typography
   },
   {
-    path: '/select',
-    name: 'Select Building',
-    icon: 'pe-7s-pin',
+    path: "/select",
+    name: "Select Building",
+    icon: "pe-7s-pin",
     component: SelectBuilding
   },
-  { path: '/search', name: 'Search', icon: 'pe-7s-search', component: Search },
-  { redirect: true, path: '/', to: '/table', name: 'Table' }
+  {
+    path: "/search",
+    name: "Search",
+    icon: "pe-7s-search",
+    component: Search
+  },
+  {
+    redirect: true,
+    path: "/",
+    to: "/table",
+    name: "Table"
+  }
 ];
 
 export default appRoutes;

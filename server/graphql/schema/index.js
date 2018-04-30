@@ -3,13 +3,13 @@ import mongoose from "mongoose";
 import DataModel from "../../config/models/data_model";
 import fetchAPI from "../../pi/piFetchers";
 import {
-    DataPoint,
-    BuildingData,
-    SensorData,
-    StreamType,
-    FilterType,
-    SummaryData,
-    PointSummary,
+  DataPoint,
+  BuildingData,
+  SensorData,
+  StreamType,
+  FilterType,
+  SummaryData,
+  PointSummary
 } from "./classes";
 
 const db = mongoose.connection;
@@ -249,11 +249,11 @@ var root = {
 
     var streamList = [];
     for (var i = 0; i < dbResult.length; i++) {
-        var summaryResult = await fetchAPI.fetchStream_summary_AllType_WithTimes(
-            dbResult[i].webId,
-            startTime,
-            endTime
-        );
+      var summaryResult = await fetchAPI.fetchStream_summary_AllType_WithTimes(
+        dbResult[i].webId,
+        startTime,
+        endTime
+      );
 
       var piResult = await fetchAPI.fetchStream_byMinutes(
         dbResult[i].webId,
@@ -265,7 +265,7 @@ var root = {
       var stream = [];
       piResult.Items.forEach(function(element) {
         if (element.Good === false) {
-            return;
+          return;
         }
         const point = new DataPoint(
           element.Timestamp,
@@ -278,20 +278,20 @@ var root = {
         stream.push(point);
       });
       var summary = [];
-      summaryResult.forEach(function (element) {
-         const dataPointValues = element.Value;
-         if (dataPointValues.Good) {
-             const dataPoint = new DataPoint(
-                 dataPointValues.Timestamp,
-                 dataPointValues.Value,
-                 dataPointValues.UnitsAbbreviation,
-                 dataPointValues.Good,
-                 dataPointValues.Questionable,
-                 dataPointValues.Substituted
-             );
-             const singleSummary = new SummaryData(element.Type, dataPoint);
-             summary.push(singleSummary);
-         }
+      summaryResult.forEach(function(element) {
+        const dataPointValues = element.Value;
+        if (dataPointValues.Good) {
+          const dataPoint = new DataPoint(
+            dataPointValues.Timestamp,
+            dataPointValues.Value,
+            dataPointValues.UnitsAbbreviation,
+            dataPointValues.Good,
+            dataPointValues.Questionable,
+            dataPointValues.Substituted
+          );
+          const singleSummary = new SummaryData(element.Type, dataPoint);
+          summary.push(singleSummary);
+        }
       });
       var streamObject = new StreamType(
         dbResult[i].building,
@@ -299,7 +299,7 @@ var root = {
         dbResult[i].equipmentType,
         dbResult[i].sensorType,
         stream,
-          summary
+        summary
       );
       streamList.push(streamObject);
     }
@@ -389,88 +389,88 @@ var root = {
   },
 
   dataSummary: async function({
-                                    building,
-                                    equipmentType,
-                                    equipmentNumber,
-                                    sensorType,
-                                    startTime=null,
-                                    endTime=null
+    building,
+    equipmentType,
+    equipmentNumber,
+    sensorType,
+    startTime = null,
+    endTime = null
   }) {
-      var query = [];
-      var buildingList = [];
-      var equipTypeList = [];
-      var equipNumList = [];
-      var sensorTypeList = [];
-      if (typeof building !== "undefined" && building != null) {
-          building.split(",").forEach(function(element) {
-              const listEntry = { building: element };
-              buildingList.push(listEntry);
-          });
-          query.push({ $or: buildingList });
-      }
-      if (typeof equipmentType !== "undefined" && equipmentType != null) {
-          equipmentType.split(",").forEach(function(element) {
-              const listEntry = { equipmentType: element };
-              equipTypeList.push(listEntry);
-              // if(element == "CCW" || element == "HHW") {
-              //     equipNumList.push({"equipmentNumber": ""});
-              // }
-          });
-          query.push({ $or: equipTypeList });
-      }
-      if (typeof equipmentNumber !== "undefined" && equipmentNumber != null) {
-          equipmentNumber.split(",").forEach(function(element) {
-              const listEntry = { equipmentNumber: element };
-              equipNumList.push(listEntry);
-          });
-          query.push({ $or: equipNumList });
-      }
-      if (typeof sensorType !== "undefined" && sensorType != null) {
-          sensorType.split(",").forEach(function(element) {
-              const listEntry = { sensorType: element };
-              sensorTypeList.push(listEntry);
-          });
-          query.push({ $or: sensorTypeList });
-      }
-      var finalQuery = {};
-      if (query.length != 0) {
-          finalQuery = { $and: query };
-      }
-      const dbResult = await DataModel.find(finalQuery);
+    var query = [];
+    var buildingList = [];
+    var equipTypeList = [];
+    var equipNumList = [];
+    var sensorTypeList = [];
+    if (typeof building !== "undefined" && building != null) {
+      building.split(",").forEach(function(element) {
+        const listEntry = { building: element };
+        buildingList.push(listEntry);
+      });
+      query.push({ $or: buildingList });
+    }
+    if (typeof equipmentType !== "undefined" && equipmentType != null) {
+      equipmentType.split(",").forEach(function(element) {
+        const listEntry = { equipmentType: element };
+        equipTypeList.push(listEntry);
+        // if(element == "CCW" || element == "HHW") {
+        //     equipNumList.push({"equipmentNumber": ""});
+        // }
+      });
+      query.push({ $or: equipTypeList });
+    }
+    if (typeof equipmentNumber !== "undefined" && equipmentNumber != null) {
+      equipmentNumber.split(",").forEach(function(element) {
+        const listEntry = { equipmentNumber: element };
+        equipNumList.push(listEntry);
+      });
+      query.push({ $or: equipNumList });
+    }
+    if (typeof sensorType !== "undefined" && sensorType != null) {
+      sensorType.split(",").forEach(function(element) {
+        const listEntry = { sensorType: element };
+        sensorTypeList.push(listEntry);
+      });
+      query.push({ $or: sensorTypeList });
+    }
+    var finalQuery = {};
+    if (query.length != 0) {
+      finalQuery = { $and: query };
+    }
+    const dbResult = await DataModel.find(finalQuery);
 
     var summaryDataList = [];
-    for (var i = 0; i < dbResult.length; i++ ) {
-        var piResult = await fetchAPI.fetchStream_summary_AllType_WithTimes(
-          dbResult[i].webId,
-          startTime,
-          endTime
-        );
+    for (var i = 0; i < dbResult.length; i++) {
+      var piResult = await fetchAPI.fetchStream_summary_AllType_WithTimes(
+        dbResult[i].webId,
+        startTime,
+        endTime
+      );
 
-        var singleSummaryData = [];
-        piResult.forEach(function (element) {
-            const dataPointValues = element.Value;
-            if (dataPointValues.Good) {
-                const dataPoint = new DataPoint(
-                    dataPointValues.Timestamp,
-                    dataPointValues.Value,
-                    dataPointValues.UnitsAbbreviation,
-                    dataPointValues.Good,
-                    dataPointValues.Questionable,
-                    dataPointValues.Substituted
-                );
-                const point =  new SummaryData(element.Type, dataPoint);
-                singleSummaryData.push(point);
-            }
-        });
-        var eachPointSummary = new PointSummary(
-            dbResult[i].building,
-            dbResult[i].equipmentNumber,
-            dbResult[i].equipmentType,
-            dbResult[i].sensorType,
-            singleSummaryData
-        );
-        summaryDataList.push(eachPointSummary);
-        console.log(summaryDataList);
+      var singleSummaryData = [];
+      piResult.forEach(function(element) {
+        const dataPointValues = element.Value;
+        if (dataPointValues.Good) {
+          const dataPoint = new DataPoint(
+            dataPointValues.Timestamp,
+            dataPointValues.Value,
+            dataPointValues.UnitsAbbreviation,
+            dataPointValues.Good,
+            dataPointValues.Questionable,
+            dataPointValues.Substituted
+          );
+          const point = new SummaryData(element.Type, dataPoint);
+          singleSummaryData.push(point);
+        }
+      });
+      var eachPointSummary = new PointSummary(
+        dbResult[i].building,
+        dbResult[i].equipmentNumber,
+        dbResult[i].equipmentType,
+        dbResult[i].sensorType,
+        singleSummaryData
+      );
+      summaryDataList.push(eachPointSummary);
+      console.log(summaryDataList);
     }
     return summaryDataList;
   },

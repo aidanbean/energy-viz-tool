@@ -23,10 +23,6 @@ const fakeData = () => {
         equipmentNumber: Math.floor(Math.random() * 30),
         IndoorTemperature: Math.floor(Math.random() * 100),
         OutdoorTemperature: Math.floor(Math.random() * 100),
-        // status:
-        //     statusChance > 0.66
-        //         ? "relationship"
-        //         : statusChance > 0.33 ? "complicated" : "single"
     };
 };
 

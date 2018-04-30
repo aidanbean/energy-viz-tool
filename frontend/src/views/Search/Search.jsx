@@ -31,6 +31,9 @@ class Dashboard extends Component {
         xAxis: {
           categories: []
         },
+        data: {
+          table: "datable"
+        },
         series: [
           {
             data: [],
@@ -45,21 +48,6 @@ class Dashboard extends Component {
     };
   }
 
-  // static createLegend(json){
-  //     var legend = [];
-  //     for(var i = 0; i < json["names"].length; i++){
-  //         var type = "fa fa-circle text-"+json["types"][i];
-  //         legend.push(
-  //             <i className={type} key={i}></i>
-  //         );
-  //         legend.push(" ");
-  //         legend.push(
-  //             json["names"][i]
-  //         );
-  //     }
-  //     return legend;
-  // }
-
   /* when new query parameters are received in the props,
     we refetch the graphQL query and convert the timezone. */
   componentWillReceiveProps(nextProps) {
@@ -69,13 +57,33 @@ class Dashboard extends Component {
     }
     var config = {};
     var series = [];
+    var unit, avg, min, max, stddev;
     const variables = nextProps.data.variables;
-    const fileName = `${variables.building}_${variables.equipmentType}_${variables.equipmentNumber}_${variables.sensorType}`;
-    console.log(nextProps.data.dataStream);
+    const fileName = `${variables.building}_${variables.equipmentType}_${
+      variables.equipmentNumber
+    }_${variables.sensorType}`;
     for (var i = 0; i < nextProps.data.dataStream.length; i++) {
       const y = [];
+      nextProps.data.dataStream[i].summary.forEach(function(element) {
+        const value = element.Value.Value.toFixed(2);
+        switch (element.Type) {
+          case "Average":
+            avg = value;
+            break;
+          case "Minimum":
+            min = value;
+            break;
+          case "Maximum":
+            max = value;
+            break;
+          case "StdDev":
+            stddev = value;
+            break;
+        }
+      });
       nextProps.data.dataStream[i].stream.forEach(function(element) {
         y.push(element.Value);
+        unit = element.UnitsAbbreviation;
       });
       if (i === 0) {
         const x = [];
@@ -110,6 +118,31 @@ class Dashboard extends Component {
           },
           exporting: {
             filename: fileName
+          },
+          tooltip: {
+            valueSuffix: `${unit}`,
+            useHTML: true,
+            headerFormat: "<small>{point.key}</small><table>",
+            pointFormat:
+              '<tr><td style="color: {series.color}">{series.name}: </td>' +
+              '<td style="text-align: right"><b>{point.y} {unit}</b></td></tr>' +
+              '<tr><td style="color: {series.color}"> Average</td>' +
+              '<td style="text-align: right"><b>' +
+              avg +
+              "</b></td></tr>" +
+              '<tr><td style="color: {series.color}"> Minimum </td>' +
+              '<td style="text-align: right"><b>' +
+              min +
+              "</b></td></tr>" +
+              '<tr><td style="color: {series.color}"> Maximum</td>' +
+              '<td style="text-align: right"><b>' +
+              max +
+              "</b></td></tr>" +
+              '<tr><td style="color: {series.color}"> Standard Deviation</td>' +
+              '<td style="text-align: right"><b>' +
+              stddev +
+              "</b></td></tr>",
+            footerFormat: "</table>"
           }
         };
       }
@@ -165,10 +198,6 @@ class Dashboard extends Component {
           >
             <Col md={12}>
               <Card
-                // statsIcon="fa fa-refresh"
-                // id="chartHours"
-                // title={this.props.headerData.building}
-                // category={this.props.headerData.equipmentType}
                 content={
                   <center>
                     <h3>
@@ -218,7 +247,6 @@ class Dashboard extends Component {
         </div>
       );
     }
-
     return (
       <div>
         <Row style={{ marginRight: "0px", marginLeft: "0px" }}>
@@ -230,9 +258,6 @@ class Dashboard extends Component {
               content={<Highcharts config={this.state.config} ref="ct-chart" />}
             />
           </Col>
-          <Col md={12}>
-            <Card content={<TableList />} />
-          </Col>
         </Row>
       </div>
     );
@@ -240,7 +265,7 @@ class Dashboard extends Component {
 }
 
 const DATA_QUERY = gql`
-  query DataQuery (
+  query DataQuery(
     $building: String
     $equipmentType: String
     $equipmentNumber: String
@@ -249,7 +274,7 @@ const DATA_QUERY = gql`
     $endTime: String
     $interval: String
   ) {
-    dataStream (
+    dataStream(
       building: $building
       equipmentType: $equipmentType
       equipmentNumber: $equipmentNumber
@@ -265,10 +290,13 @@ const DATA_QUERY = gql`
       stream {
         Timestamp
         Value
+        UnitsAbbreviation
       }
       summary {
         Type
-        Value
+        Value {
+          Value
+        }
       }
     }
   }
