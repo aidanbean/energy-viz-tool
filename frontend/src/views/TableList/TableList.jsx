@@ -106,6 +106,66 @@ class TableList extends Component {
       </div>
     );
   }
+        return (
+            <div className="content">
+                <Grid fluid>
+                    <Row>
+                        <Col md={15}>
+                            <CSVLink data={data}>Download me</CSVLink>
+                            <Card
+                                title="Building Statistics"
+                                category="AHU"
+                                ctTableFullWidth ctTableResponsive
+                                content={
+                                    <DraggableTable
+                                        filterable
+                                        defaultFilterMethod={(filter, row) =>
+                                            String(row[filter.id]).toLocaleLowerCase() === filter.value.toLocaleLowerCase()}
+                                        rows={data}
+                                        columns={[
+                                            {
+                                                Header: "Building",
+                                                // TODO: Change below to get all data
+                                                accessor: "building",
+                                                filterMethod: (filter, row) =>
+                                                    String(row[filter.id]).toLocaleLowerCase().includes(filter.value.toLocaleLowerCase())
+                                            },
+                                            {
+                                                // Header: "Equipment Type",
+                                                Header: "Maximum",
+                                                // TODO: change this below to get all data
+                                                id: "equipmentType",
+                                                accessor: d => d.equipmentType,
+                                                filterMethod: (filter, rows) =>
+                                                    matchSorter(rows, filter.value, {keys: ["equipmentType"]}),
+                                                filterAll: true
+                                            },
+                                            {
+                                                // Header: "Equipment Number",
+                                                Header: "Minimum"
+                                                // accessor: "equipmentNumber",
+                                            },
+                                            {
+                                                // Header: "Sensor Type",
+                                                Header: "Average"
+                                                // id: ""
+                                            },
+                                            {
+                                                Header: "Standard Deviation"
+                                                // id: ""
+                                            }
+                                        ]}
+                                        defaultPageSize={10}
+                                        className="-striped -highlight"
+                                    />
+                                }
+                            />
+                        </Col>
+                    </Row>
+                </Grid>
+            </div>
+        );
+    }
 }
 
 export default TableList;
