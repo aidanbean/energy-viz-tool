@@ -120,25 +120,27 @@ class EconGraph extends Component {
     for (var i = 0; i < nextProps.data.selectBuilding.length; i += 2) {
       var points = [];
       for (var j = 0; j < nextProps.data.selectBuilding[i].stream.length; j++) {
-        var point = [];
-        point.push(nextProps.data.selectBuilding[i + 1].stream[j].Value);
-        point.push(nextProps.data.selectBuilding[i].stream[j].Value);
-        point.push(nextProps.data.selectBuilding[i + 1].stream[j].Timestamp);
+        var point = {};
+        point["x"] = (nextProps.data.selectBuilding[i + 1].stream[j].Value);
+        point["y"] = (nextProps.data.selectBuilding[i].stream[j].Value);
+        point["Timestamp"] = (nextProps.data.selectBuilding[i + 1].stream[j].Timestamp);
         points.push(point);
       }
       // generate a random color.
       var color = "#" + Math.floor(Math.random() * 16777215).toString(16);
       var data = nextProps.data.selectBuilding[i];
       var name = `${data.building}.${data.equipmentNumber}`;
-      debugger;
+      // debugger;
       var serie = {
         data: points,
         color: color,
         name: name,
+        turboThreshold: 0,
         tooltip: {
-          headerFormat: "<small>{point.data.z}</small><table>",
+          headerFormat: '<small></small><table>',
           pointFormat:
             '<tr><td style="color: {series.color}">{series.name} </td></tr>' +
+            '<small>{point.Timestamp}</small><table>' +
             '<tr><td style="color: {series.color}">Mixed Air Temp :</td>' +
             '<td style="text-align: right"><b> {point.y} </b></td></tr>' +
             '<tr><td style="color: {series.color}">Outside Air Temp :</td>' +
@@ -254,8 +256,8 @@ export default graphql(DATA_QUERY, {
     variables: {
       building: props.building,
       sensorType: "Mixed Air Temp,Outside Air Temp",
-      startTime: "01-01-2017-6am",
-      endTime: "02-01-2017-6am",
+      startTime: moment().subtract(2, 'months').format("MM-DD-YYYY-ha"),
+      endTime: moment().format("MM-DD-YYYY-ha"),
       interval: "1h"
     }
   })

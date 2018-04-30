@@ -28,7 +28,7 @@ class HeaderLinks extends Component {
       sensorType: null,
       startTime: moment().subtract(2, 'months').format("MM-DD-YYYY-Ha"),
       endTime: moment().subtract(1, 'months').format("MM-DD-YYYY-Ha"),
-      interval: '1hr',
+      interval: '1h',
     };
 
     /* The following are different callbacks that are triggered

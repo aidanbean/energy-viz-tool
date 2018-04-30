@@ -118,11 +118,11 @@ class EconGraph extends Component {
     for (var i = 0; i < nextProps.data.selectBuilding.length; i += 2) {
       var points = [];
       for (var j = 0; j < nextProps.data.selectBuilding[i].stream.length; j++) {
-        var point = [];
-        point.push(nextProps.data.selectBuilding[i + 1].stream[j].Value);
-        point.push(nextProps.data.selectBuilding[i].stream[j].Value);
-        point.push(nextProps.data.selectBuilding[i].stream[j].Timestamp);
-        points.push(point);
+          var point = {};
+          point["x"] = (nextProps.data.selectBuilding[i + 1].stream[j].Value);
+          point["y"] = (nextProps.data.selectBuilding[i].stream[j].Value);
+          point["Timestamp"] = (nextProps.data.selectBuilding[i + 1].stream[j].Timestamp);
+          points.push(point);
       }
       // generate a random color.
       var color = "#" + Math.floor(Math.random() * 16777215).toString(16);
@@ -132,10 +132,12 @@ class EconGraph extends Component {
         data: points,
         color: color,
         name: name,
+        turboThreshold: 0,
         tooltip: {
-          headerFormat: "<small>{point.data.z}</small><table>",
+          headerFormat: "<small></small><table>",
           pointFormat:
             '<tr><td style="color: {series.color}">{series.name} </td></tr>' +
+            '<small>{point.Timestamp}</small><table>' +
             '<tr><td style="color: {series.color}">Supply Air Temp :</td>' +
             '<td style="text-align: right"><b> {point.y} </b></td></tr>' +
             '<tr><td style="color: {series.color}">Supply Air Temp SP :</td>' +
@@ -256,8 +258,8 @@ export default graphql(DATA_QUERY, {
     variables: {
       building: props.building,
       sensorType: "Supply Air Temp,Supply Air Temp Sp",
-      startTime: "01-01-2017-6am",
-      endTime: "02-01-2017-6am",
+      startTime: moment().subtract(2, 'months').format("MM-DD-YYYY-Ha"),
+      endTime: moment().format("MM-DD-YYYY-Ha"),
       interval: "1h"
     }
   })
