@@ -9,13 +9,8 @@ import Interval from '../SearchBar/IntervalForm';
 class SelectHeader extends Component {
   constructor(props) {
     super(props);
-    // bind the different callbacks and set initial state.
-    // this.buttonHandler = this.buttonHandler.bind(this);
+    this.buttonHandler = this.buttonHandler.bind(this);
     this.buildingHandler = this.buildingHandler.bind(this);
-    // this.sensorTypeHandler = this.sensorTypeHandler.bind(this);
-    // this.startHandler = this.startHandler.bind(this);
-    // this.endHandler = this.endHandler.bind(this);
-    // this.intervalHandler = this.intervalHandler.bind(this);
     this.state = {
       building: null,
       equipmentType: null,
@@ -33,61 +28,38 @@ class SelectHeader extends Component {
     this.setState(
       {
         building: selection,
-      },
-      () => {
-        this.props.callback(this.state);
       }
     );
   }
-  // sensorTypeHandler(selection) {
-  //     this.setState({
-  //         sensorType: selection,
-  //     }, () => {
-  //         console.log(this.state);
-  //     });
-  // }
-  // startHandler(selection) {
-  //     this.setState({
-  //         startTime: selection,
-  //     }, () => {
-  //         console.log(this.state);
-  //     });
-  // }
-  // endHandler(selection) {
-  //     this.setState({
-  //         endTime: selection,
-  //     }, () => {
-  //         console.log(this.state);
-  //     });
-  // }
-  // intervalHandler(selection) {
-  //     this.setState({
-  //         interval: selection,
-  //     }, () => {
-  //         console.log(this.state);
-  //     });
-  // }
-  // buttonHandler() {
-  //     this.props.callback(this.state);
-  // }
+  buttonHandler() {
+      this.props.callback(this.state.building);
+  }
 
   render() {
     return (
       <div>
-        <Row>
+        <Row style={{ marginTop: '18px', marginRight: '0px', marginLeft: '0px' }}>
           <Col md={4} />
           <Col md={2}>
-            <h5>
-              <center> Select Building </center>
-            </h5>
             <Building
               label={'Building'}
               callback={this.buildingHandler}
-              selection={this.state}
+              selection={this.props.selection}
               searchable
             />
           </Col>
-          <Col md={6} />
+            <Col md={2}>
+              <Button
+                bsStyle="success"
+                style={{ marginTop: '8px' }}
+                block
+                onClick={this.buttonHandler}
+                disabled={this.props.isLoading}
+              >
+                Submit
+              </Button>
+            </Col>
+          <Col md={4} />
         </Row>
         <br />
       </div>

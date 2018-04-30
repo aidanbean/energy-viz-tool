@@ -102,8 +102,6 @@ var BuildingField = createClass({
   },
 });
 
-// export default BuildingField;
-
 const BLDG_QUERY = gql`
   query BuildingsQuery(
     $equipmentType: String

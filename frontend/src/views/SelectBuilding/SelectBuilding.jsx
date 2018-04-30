@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { BarLoader } from 'react-spinners';
 import Building from '../../components/SearchBar/BuildingSearchBar';
-// import Header from '../../components/Header/SelectBuildingHeader.jsx';
+import Header from '../../components/Header/SelectBuildingHeader.jsx';
 import PreBake1 from '../../components/Graphs/Economizer.jsx';
 import PreBake2 from '../../components/Graphs/AirTemp-AirTempSP.jsx';
 
@@ -32,21 +32,7 @@ class SelectBuilding extends React.Component {
     return (
       <div>
         <Grid fluid>
-          <Row>
-            <Col md={5} />
-            <Col md={2}>
-              <h5>
-                <center> Select Building </center>
-              </h5>
-              <Building
-                label={'Building'}
-                callback={this.buildingHandler}
-                selection={this.state}
-                searchable
-              />
-            </Col>
-            <Col md={5} />
-          </Row>
+         <Header selection={this.state} callback={this.buildingHandler} />
           <br />
           <Row>
             <Col md={12}>
