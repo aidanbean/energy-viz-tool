@@ -260,7 +260,11 @@ class Dashboard extends Component {
           </Col>
           <Col md={12}>
 
-                  <TableList data={this.props.data.dataStream.summary} />
+                  <TableList
+                      data = {this.props.data}
+                      //data={this.props.data.dataStream.summary}
+                      /*https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17*/
+                  />
 
           </Col>
         </Row>
