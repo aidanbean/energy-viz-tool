@@ -7,7 +7,9 @@ import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import HeaderLinks from "../../components/Header/HeaderLinks.jsx";
 import { Card } from "../../components/Card/Card.jsx";
-import TableList from "../TableList/TableList";
+import DraggableTable from "../TableList/DraggableTable";
+import { CSVLink } from 'react-csv';
+import matchSorter from 'match-sorter';
 
 require("highcharts/modules/exporting")(Highcharts.Highcharts);
 require("highcharts/modules/export-data")(Highcharts.Highcharts);
@@ -18,7 +20,7 @@ class Dashboard extends Component {
     this.headerCallback = this.headerCallback.bind(this);
     this.state = {
       didMount: false,
-      progress: 0,
+      tableData: [],
       config: {
           legend: {
               enabled: false
@@ -60,26 +62,31 @@ class Dashboard extends Component {
     if (typeof nextProps.data.dataStream === "undefined") {
       return;
     }
-    let config = {}, xLines = [], x = [];
+    let config = {}, xLines = [], x = [], tableData = [];
     const variables = nextProps.data.variables,
         maxIndex = this.findMaxXaxisIndex(nextProps),
         fileName = `${variables.building}_${variables.equipmentType}_${variables.equipmentNumber}_${variables.sensorType}`;
     for (let i = 0; i < nextProps.data.dataStream.length; i++) {
       let unit, avg, min, max, stddev;
+      let tableRow = {};
       nextProps.data.dataStream[i].summary.forEach(function(element) {
         const value = element.Value.Value.toFixed(2);
         switch (element.Type) {
           case "Average":
             avg = value;
+            tableRow["Average"] = value;
             break;
           case "Minimum":
             min = value;
+            tableRow["Minimum"] = value;
             break;
           case "Maximum":
             max = value;
+            tableRow["Maximum"] = value;
             break;
           case "StdDev":
             stddev = value;
+            tableRow["StdDev"] = value;
             break;
         }
       });
@@ -101,6 +108,7 @@ class Dashboard extends Component {
       let color = "#" + Math.floor(Math.random() * 16777215).toString(16);
       let dataStream = nextProps.data.dataStream[i];
       let name = `${dataStream.building}.${dataStream.equipmentNumber}.${dataStream.sensorType}`;
+      tableRow["Building"] = name;
       let serie = {
           data: y,
           color: color,
@@ -130,6 +138,7 @@ class Dashboard extends Component {
           }
       };
       xLines.push(serie);
+      tableData.push(tableRow);
     }
     config = {
           legend: {
@@ -164,13 +173,12 @@ class Dashboard extends Component {
     config["series"] = xLines;
     this.setState(
       {
-        config: config
-      }
+        config: config,
+        tableData: tableData
+    }, function () {
+        console.log(this.state.tableData);
+    }
     );
-  }
-
-  refresh() {
-    this.props.data.refetch();
   }
 
   componentDidMount() {
@@ -183,7 +191,7 @@ class Dashboard extends Component {
 
   render() {
     if (this.state.didMount) {
-      this.refresh();
+      this.props.data.refetch();
     }
 
     if (this.props.data && this.props.data.loading) {
@@ -259,11 +267,71 @@ class Dashboard extends Component {
             />
           </Col>
           <Col md={12}>
+                  {/*<TableList
+                      data = {/*this.props.data*/}
+                      data={/*this.props.data.dataStream.summary*/}
+                      https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17
+                  />
+                  */}
 
-                  <TableList
-                      data = {this.props.data}
-                      //data={this.props.data.dataStream.summary}
-                      /*https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17*/
+                  <CSVLink data={this.state.tableData}>Download me</CSVLink>
+                  <Card
+                      title="Building Statistics"
+                      category="AHU"
+                      ctTableFullWidth
+                      ctTableResponsive
+                      content={
+                          <DraggableTable
+                              filterable
+                              defaultFilterMethod={(filter, row) =>
+                                  String(row[filter.id]).toLocaleLowerCase() ===
+                                  filter.value.toLocaleLowerCase()
+                              }
+                              rows={this.state.tableData}
+                              columns={[
+                                  {
+                                      Header: 'Building',
+                                      accessor: 'Building',
+                                      // TODO: Change below to get all data
+                                      filterMethod: (filter, row) =>
+                                          String(row[filter.id])
+                                              .toLocaleLowerCase()
+                                              .includes(filter.value.toLocaleLowerCase()),
+                                  },
+                                  {
+                                      // Header: "Equipment Type",
+                                      Header: 'Maximum',
+                                      accessor: 'Maximum',
+                                      // TODO: change this below to get all data
+                                      // accessor: d => d.Maximum,
+                                      // filterMethod: (filter, rows) =>
+                                      //     matchSorter(rows, filter.value, {
+                                      //         keys: ['equipmentType'],
+                                      //     }),
+                                      // filterAll: true,
+                                  },
+                                  {
+                                      // Header: "Equipment Number",
+                                      Header: 'Minimum',
+                                      accessor: 'Minimum'
+                                      // accessor: "equipmentNumber",
+                                  },
+                                  {
+                                      // Header: "Sensor Type",
+                                      Header: 'Average',
+                                      accessor: 'Average'
+                                      // id: ""
+                                  },
+                                  {
+                                      Header: 'Standard Deviation',
+                                      accessor: 'StdDev'
+                                      // id: ""
+                                  },
+                              ]}
+                              defaultPageSize={10}
+                              className="-striped -highlight"
+                          />
+                      }
                   />
 
           </Col>
