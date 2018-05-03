@@ -2,16 +2,16 @@ import Button from '../CustomButtons/Button.jsx'
 import React, {Component} from 'react';
 
 class MonthPicker extends Component {
-    constructor(props){
-        super(props);
-        this.observer = props.observer;
-    }
+    // constructor(props){
+        // super(props);
+        // this.observer = props.observer;
+    // }
 
     render() {
         function MonthList(props) {
             const months = props.months;
             const listItems = months.map((month) =>
-                <Button observer={this.observer} name = {'m_' + month.toString()} text={month}/>
+                <Button name = {'m_' + month.toString()} text={month}/>
             );
             return (
                 <div>{listItems}</div>

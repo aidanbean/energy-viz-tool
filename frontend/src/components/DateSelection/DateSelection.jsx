@@ -22,10 +22,10 @@ class DateSelection extends Component {
 
         return (
             <div>
-                {/*<div>*/}
-                    {/*<span>Month</span>*/}
-                    {/*<MonthPicker observer={this.observer}/>*/}
-                {/*</div>*/}
+                <div>
+                    <span>Month</span>
+                    <MonthPicker/>
+                </div>
                 <div>
                     <span>Day of Month</span>
                     <MonthDayPicker />

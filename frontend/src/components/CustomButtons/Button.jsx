@@ -38,7 +38,8 @@ class Button extends Component {
         if (clicked) {
             buttonStyle.backgroundColor = "rgb(188, 228, 236)";
             buttonStyle.fontWeight = 'bold';
-            this.observer.publish("hello",'this is data');
+            // this.observer.publish("hello",'this is data');
+            alert(this.props.name);
         } else {
             buttonStyle.backgroundColor = "white";
         }
