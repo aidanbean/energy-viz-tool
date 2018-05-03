@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import { FormGroup } from 'react-bootstrap';
+import moment from 'moment';
 
 class EndForm extends Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class EndForm extends Component {
     this.handleEvent = this.handleEvent.bind(this);
 
     this.state = {
-      value: null,
+      value: moment().subtract(1, 'months'),
     };
   }
 
@@ -34,6 +35,7 @@ class EndForm extends Component {
     return (
       <FormGroup>
         <Datetime
+          defaultValue={moment().subtract(1, 'months')}
           inputProps={{ placeholder: 'End Date' }}
           onChange={this.handleEvent}
           isValidDate={valid}
