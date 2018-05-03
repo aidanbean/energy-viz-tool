@@ -30,14 +30,14 @@ class DateSelection extends Component {
                     <span>Day of Month</span>
                     <MonthDayPicker />
                 </div>
-                {/*<div>*/}
-                    {/*<span>Day of Week</span>*/}
-                    {/*<WeekdayPicker/>*/}
-                {/*</div>*/}
-                {/*<div>*/}
-                    {/*<span>Hour of day</span>*/}
-                    {/*<HourPicker/>*/}
-                {/*</div>*/}
+                <div>
+                    <span>Day of Week</span>
+                    <WeekdayPicker/>
+                </div>
+                <div>
+                    <span>Hour of day</span>
+                    <HourPicker/>
+                </div>
             </div>
 
         );

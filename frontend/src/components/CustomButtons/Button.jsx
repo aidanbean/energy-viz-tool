@@ -8,7 +8,7 @@ class Button extends Component {
             clicked: false,
 
         };
-        this.observer = props.observer;
+        // this.observer = props.observer;
     }
 
     clickHandler() {
