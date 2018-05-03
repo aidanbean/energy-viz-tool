@@ -259,9 +259,9 @@ class Dashboard extends Component {
             />
           </Col>
           <Col md={12}>
-              <Card
-                  content={<TableList/>}
-              />
+
+                  <TableList data={this.props.data.dataStream.summary} />
+
           </Col>
         </Row>
       </div>
