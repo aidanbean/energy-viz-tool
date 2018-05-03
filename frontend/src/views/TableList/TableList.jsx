@@ -11,10 +11,10 @@ import { CSVLink } from 'react-csv';
 import DraggableTable from './DraggableTable';
 
 class TableList extends Component {
-    constructor(prop) {
-        super(prop);
+    constructor(props) {
+        super(props);
         this.state = {
-            data: dataFetcher(),
+            data: dataFetcher()
         };
         this.renderEditable = this.renderEditable.bind(this);
     }

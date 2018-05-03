@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 // implement data fetcher, depends on what client want to display in the table
 
-console.log("test statement");
 // console.log("props: " + this.props);
 
 
