@@ -169,9 +169,11 @@ class Dashboard extends Component {
     );
   }
 
+
   refresh() {
     this.props.data.refetch();
   }
+
 
   componentDidMount() {
     this.setState({ didMount: true });
@@ -264,6 +266,7 @@ class Dashboard extends Component {
   }
 }
 
+
 const DATA_QUERY = gql`
   query DataQuery(
     $building: String
@@ -314,4 +317,5 @@ export default graphql(DATA_QUERY, {
       interval: props.headerData.interval
     }
   })
+
 })(Dashboard);

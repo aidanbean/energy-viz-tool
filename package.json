@@ -59,6 +59,7 @@
     "prettier-miscellaneous": "^1.5.3",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
+    "react-event-observer": "^0.5.11",
     "routes": "^2.1.0",
     "serve-favicon": "^2.4.3"
   },
