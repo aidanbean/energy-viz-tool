@@ -1,6 +1,19 @@
 //TODO: edit dataFetcher to get stats data from PI client
-
+import React, { Component } from 'react';
 // implement data fetcher, depends on what client want to display in the table
+
+console.log("test statement");
+// console.log("props: " + this.props);
+
+
+class fetchData extends Component {
+    constructor(prop) {
+        super(prop);
+        console.log("prop value: " + prop);
+    }
+}
+
+// export default fetchData;
 
 const buildingArray = [
   'Kemper',

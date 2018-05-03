@@ -258,11 +258,11 @@ class Dashboard extends Component {
               content={<Highcharts config={this.state.config} ref="ct-chart" />}
             />
           </Col>
-          {/*<Col md={12}>*/} // commenting out in case we want the table itself
-              {/*<Card*/}
-                  {/*content={<TableList/>}*/}
-              {/*/>*/}
-          {/*</Col>*/}
+          <Col md={12}>
+              <Card
+                  content={<TableList/>}
+              />
+          </Col>
         </Row>
       </div>
     );
