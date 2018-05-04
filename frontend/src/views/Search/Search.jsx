@@ -68,20 +68,30 @@ class Dashboard extends Component {
       let unit, avg, min, max, stddev;
       nextProps.data.dataStream[i].summary.forEach(function(element) {
         const value = element.Value.Value.toFixed(2);
-        switch (element.Type) {
+
+        // console.log("value is: " + value + "\nElement type: " + element.Type);
+        let tableDataArray = [];
+
+        switch (element.Type) { // NOTE: this may not be the place to add to array
           case "Average":
             avg = value;
+            tableDataArray.push(avg);
             break;
           case "Minimum":
             min = value;
+            tableDataArray.push(min);
             break;
           case "Maximum":
             max = value;
+            tableDataArray.push(max);
             break;
           case "StdDev":
             stddev = value;
+            tableDataArray.push(stddev);
             break;
         }
+
+
       });
       if (i === maxIndex) {
           nextProps.data.dataStream[i].stream.forEach(function(element) {
@@ -93,6 +103,7 @@ class Dashboard extends Component {
           });
       }
       const y = [];
+
       nextProps.data.dataStream[i].stream.forEach(function(element) {
             y.push(element.Value);
             unit = element.UnitsAbbreviation;
@@ -100,7 +111,15 @@ class Dashboard extends Component {
       // generate a random color.
       let color = "#" + Math.floor(Math.random() * 16777215).toString(16);
       let dataStream = nextProps.data.dataStream[i];
+
+      // console.log("dataStream value: " + JSON.stringify(dataStream));
+
+      let dataArray = []; // holds data to pass to TableList as a prop
       let name = `${dataStream.building}.${dataStream.equipmentNumber}.${dataStream.sensorType}`;
+      dataArray.push(name);
+      console.log("dataArray[0]: " + dataArray[0]);
+      console.log("dataArray[1]: " + dataArray[1]);
+      // console.log("BUILDING NAME: " + name);
       let serie = {
           data: y,
           color: color,
