@@ -40,7 +40,7 @@ class Button extends Component {
             buttonStyle.fontWeight = 'bold';
             // this.observer.publish("hello",'this is data');
             console.log(this.props.name);
-            window.refetchData = 1;
+
             switch (this.props.name.substr(0,1)){
                 case 'm':
                     window.monthOfYear.push(this.props.text);
