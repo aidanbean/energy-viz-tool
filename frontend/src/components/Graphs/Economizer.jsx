@@ -118,77 +118,23 @@ class EconGraph extends Component {
       }
     };
 
-    let filteredPiArray = nextProps.data.selectBuilding.filter(obj => {
-          let datetime = DateTime.fromISO(obj.Timestamp);
-          return (datetime.hour >= 7 && datetime.hour <= 8);   //returns ‘true’ if between 7 AM and 11 PM
-    });
-
-
-    // let dateTime = DateTime.fromISO(nextProps.data.selectBuilding[1].stream[0].Timestamp);
-    // console.log(dateTime);
-    // console.log("origin" + nextProps.data.selectBuilding[1].stream[0].Timestamp);
-
-    // alert(nextProps.data.selectBuilding[3].stream[1].Timestamp.hour);
-    //   console.log(nextProps.data.selectBuilding);
 
     for (var i = 0; i < nextProps.data.selectBuilding.length; i += 2) {
       var points = [];
       for (var j = 0; j < nextProps.data.selectBuilding[i].stream.length; j++) {
         var point = {};
 
-        // let dateTime = DateTime.fromISO(nextProps.data.selectBuilding[i + 1].stream[j].Timestamp, { zone: 'utc' });
-        // let month = window.monthOfYear;
-        // let day = window.dayOfMonth;
-        // let weekday = window.dayOfWeek;
-        // let hour = window.hourOfDay;
-
-        // let passFilter = dateTime.filter(obj => {// filter by month
-        //   if(month.length == 0)
-        //     return true;
-        //   for(var m = 0; i < month.length; i++) {
-        //     if(obj.month == month[i])
-        //       return true;
-        //   }
-        //   return false;
-        // }).filter(obj => {
-        //   if(day.length == 0)
-        //     return true;
-        //   for(var m = 0; m < day.length; m++) {// by day
-        //     if(obj.day == day[m])
-        //       return true;
-        //   }
-        //   return false;
-        // }).filter(obj => {
-        //   if(weekday.length == 0)
-        //     return true;
-        //   for(var m = 0; m < weekday.length; m++) { // by weekday
-        //     if(obj.weekData == weekday[m])
-        //       return true;
-        //   }
-        //   return false;
-        // }).filter(obj => {
-        //   if(hour.length == 0)
-        //     return true;
-        //   for(var m = 0; m < hour.length; m++) {// by hour
-        //     if(obj.hour == hour[m])
-        //       return true;
-        //   }
-        //   return false;
-        // });
-        //
-        //
-        // if((month.length == 0 && day.length == 0 && weekday.length == 0 && hour.length == 0) || passFilter){
-        //
-        // }
-        // if(!(dateTime.hour >= 7 && dateTime.hour <= 8))
-        //   continue;
         point["x"] = (nextProps.data.selectBuilding[i + 1].stream[j].Value);
         point["y"] = (nextProps.data.selectBuilding[i].stream[j].Value);
         point["Timestamp"] = (nextProps.data.selectBuilding[i + 1].stream[j].Timestamp);
         points.push(point);
       }
 
-        // let dateTime = DateTime.fromISO(nextProps.data.selectBuilding[i + 1].stream[j].Timestamp, { zone: 'utc' });
+        // let tmp = DateTime.fromISO(nextProps.data.selectBuilding[0].stream[0].Timestamp, { zone: 'utc' });
+
+      //   console.log(tmp);
+      //
+
         let month = window.monthOfYear;
         let day = window.dayOfMonth;
         let weekday = window.dayOfWeek;
@@ -220,7 +166,7 @@ class EconGraph extends Component {
                 return true;
             let dateTime = DateTime.fromISO(obj.Timestamp, { zone: 'utc' });
             for(var m = 0; m < weekday.length; m++) { // by weekday
-                if(dateTime.weekData == weekday[m])
+                if(dateTime.weekday == weekday[m])
                     return true;
             }
             return false;
@@ -235,7 +181,7 @@ class EconGraph extends Component {
             return false;
         });
         }
-        // console.log('after');
+      //   // console.log('after');
         // console.log(points[0]);
 
       // generate a random color.

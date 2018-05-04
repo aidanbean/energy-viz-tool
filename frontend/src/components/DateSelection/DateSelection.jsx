@@ -3,10 +3,8 @@ import WeekdayPicker from './WeekdayPicker';
 import HourPicker from './HourPicker';
 import MonthDayPicker from './MonthDayPicker';
 import MonthPicker from './MonthPicker';
-import CustomButton from '../../elements/CustomButton/CustomButton.jsx'
+
 import ReactObserver from 'react-event-observer';
-
-
 
 class DateSelection extends Component {
     constructor(props){
@@ -14,7 +12,8 @@ class DateSelection extends Component {
         window.monthOfYear = [];
         window.dayOfMonth = [];
         window.dayOfWeek = [];
-        window.hourOfDay = [];
+        window.hourOfDay = ['1'];
+        window.refetchData = 0;
         this.monthHandler = this.monthHandler.bind(this);
     //     this.observer = ReactObserver();
         this.state = {

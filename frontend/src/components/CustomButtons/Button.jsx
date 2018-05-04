@@ -40,6 +40,7 @@ class Button extends Component {
             buttonStyle.fontWeight = 'bold';
             // this.observer.publish("hello",'this is data');
             console.log(this.props.name);
+            window.refetchData = 1;
             switch (this.props.name.substr(0,1)){
                 case 'm':
                     window.monthOfYear.push(this.props.text);
@@ -58,22 +59,22 @@ class Button extends Component {
             }
         } else {
             buttonStyle.backgroundColor = "white";
-            // switch (this.props.name.substr(0,1)){
-            //     case 'm':
-            //         window.monthOfYear.splice(window.monthOfYear.indexOf(this.props.name), 1);
-            //         break;
-            //     case 'd':
-            //         window.dayOfMonth.splice(window.dayOfMonth.indexOf(this.props.name), 1);
-            //         break;
-            //     case 'w':
-            //         window.dayOfWeek.splice(window.dayOfWeek.indexOf(this.props.name), 1);
-            //         break;
-            //     case 'h':
-            //         window.hourOfDay.splice(window.hourOfDay.indexOf(this.props.name), 1);
-            //         break;
-            //     default:
-            //         break;
-            // }
+            switch (this.props.name.substr(0,1)){
+                case 'm':
+                    window.monthOfYear.splice(window.monthOfYear.indexOf(this.props.name), 1);
+                    break;
+                case 'd':
+                    window.dayOfMonth.splice(window.dayOfMonth.indexOf(this.props.name), 1);
+                    break;
+                case 'w':
+                    window.dayOfWeek.splice(window.dayOfWeek.indexOf(this.props.name), 1);
+                    break;
+                case 'h':
+                    window.hourOfDay.splice(window.hourOfDay.indexOf(this.props.name), 1);
+                    break;
+                default:
+                    break;
+            }
         }
 
         return (

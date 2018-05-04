@@ -18,7 +18,8 @@ class MonthPicker extends Component {
             );
         }
 
-        const Month = ['Jan', 'Feb', 'Mar',	'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        // const Month = ['Jan', 'Feb', 'Mar',	'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const Month = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
 
         return (
             <MonthList months={Month}/>
