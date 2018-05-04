@@ -20,6 +20,7 @@ class Dashboard extends Component {
     super(props);
     this.headerCallback = this.headerCallback.bind(this);
     this.removeChart = this.removeChart.bind(this);
+    this.clearAll = this.clearAll.bind(this);
     this.state = {
       renderCount: 0,
       didMount: false,
@@ -216,6 +217,13 @@ class Dashboard extends Component {
       });
   }
 
+  clearAll () {
+      this.setState({
+         config: [],
+         tableData: []
+      });
+  }
+
   render() {
     if (this.state.didMount) {
       this.props.data.refetch();
@@ -284,7 +292,7 @@ class Dashboard extends Component {
     return (
       <div>
         <Row style={{ marginRight: "0px", marginLeft: "0px" }}>
-          <HeaderLinks callback={this.headerCallback} isLoading={false} />
+          <HeaderLinks callback={this.headerCallback} clearCallback={this.clearAll} isLoading={false} />
         </Row>
         <Row style={{ marginRight: "0px", marginLeft: "0px" }}>
               {
@@ -367,6 +375,7 @@ class Dashboard extends Component {
   }
 }
 
+
 const DATA_QUERY = gql`
   query DataQuery(
     $building: String
@@ -417,4 +426,5 @@ export default graphql(DATA_QUERY, {
       interval: props.headerData.interval
     }
   })
+
 })(Dashboard);
