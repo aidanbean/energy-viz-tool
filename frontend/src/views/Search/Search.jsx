@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import moment from "moment-timezone";
-import { Row, Col, Jumbotron } from "react-bootstrap";
+import { Row, Col, Jumbotron, Glyphicon } from "react-bootstrap";
 import { BarLoader } from "react-spinners";
+import Button from '../../elements/CustomButton/CustomButton.jsx';
 import Highcharts from "react-highcharts";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
@@ -18,28 +19,31 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.headerCallback = this.headerCallback.bind(this);
+    this.removeChart = this.removeChart.bind(this);
     this.state = {
+      renderCount: 0,
       didMount: false,
       tableData: [],
-      config: {
-          legend: {
-              enabled: false
-          },
-          chart: {
-              height: 400,
-              type: "line",
-              zoomType: "xy"
-          },
-          xAxis: {
-              categories: []
-          },
-          series: [
-              {
-                  data: [],
-                  color: "#9acd32"
-              }
-          ],
-      }
+      config: []
+      // config: {
+      //     legend: {
+      //         enabled: false
+      //     },
+      //     chart: {
+      //         height: 400,
+      //         type: "line",
+      //         zoomType: "xy"
+      //     },
+      //     xAxis: {
+      //         categories: []
+      //     },
+      //     series: [
+      //         {
+      //             data: [],
+      //             color: "#9acd32"
+      //         }
+      //     ],
+      // }
     };
   }
 
@@ -59,10 +63,11 @@ class Dashboard extends Component {
     we refetch the graphQL query and convert the timezone. */
   componentWillReceiveProps(nextProps) {
     this.props.data.refetch();
-    if (typeof nextProps.data.dataStream === "undefined") {
+    if (typeof nextProps.data.dataStream === "undefined" || nextProps.data.loading) {
       return;
     }
-    let config = {}, xLines = [], x = [], tableData = [];
+    let config = {}, xLines = [], x = [];
+    let tableData = this.state.tableData;
     const variables = nextProps.data.variables,
         maxIndex = this.findMaxXaxisIndex(nextProps),
         fileName = `${variables.building}_${variables.equipmentType}_${variables.equipmentNumber}_${variables.sensorType}`;
@@ -139,13 +144,18 @@ class Dashboard extends Component {
       };
       xLines.push(serie);
       tableData.push(tableRow);
+      this.setState(
+          {
+            renderCount: this.state.renderCount + 1
+          }
+      );
     }
     config = {
           legend: {
               enabled: true,
           },
           chart: {
-              height: 400,
+              height: 500,
               type: "line",
               zoomType: "xy",
 
@@ -171,12 +181,13 @@ class Dashboard extends Component {
           }
       };
     config["series"] = xLines;
+
     this.setState(
       {
-        config: config,
+        config: [...this.state.config, config],
         tableData: tableData
     }, function () {
-        console.log(this.state.tableData);
+        console.log(this.state);
     }
     );
   }
@@ -187,6 +198,17 @@ class Dashboard extends Component {
 
   headerCallback(dataFromHeader) {
     this.props.callback(dataFromHeader);
+  }
+
+  removeChart(index) {
+      var config = this.state.config;
+      var tableData = this.state.tableData;
+      config.splice(index, 1);
+      tableData.splice(index, 1);
+      this.setState({
+         config: config,
+         tableData: tableData
+      });
   }
 
   render() {
@@ -261,19 +283,20 @@ class Dashboard extends Component {
           <HeaderLinks callback={this.headerCallback} isLoading={false} />
         </Row>
         <Row style={{ marginRight: "0px", marginLeft: "0px" }}>
+              {
+                  this.state.config.map((item) => (
+                      <Col md={12} key={this.state.config.indexOf(item)}>
+                      <Card
+                        category={<Button simple icon onClick={() => this.removeChart(this.state.config.indexOf(item))}>
+                                  <Glyphicon glyph="remove-circle" />
+                                  </Button>}
+                        content={<Highcharts config={item} ref="ct-chart" />}
+                      />
+                      </Col>
+                  ))
+              }
           <Col md={12}>
-            <Card
-              content={<Highcharts config={this.state.config} ref="ct-chart" />}
-            />
-          </Col>
-          <Col md={12}>
-                  {/*<TableList
-                      data = {/*this.props.data*/}
-                      data={/*this.props.data.dataStream.summary*/}
-                      https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17
-                  />
-                  */}
-
+                      {/*https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17*/}
                   <CSVLink data={this.state.tableData}>Download me</CSVLink>
                   <Card
                       title="Building Statistics"
@@ -304,10 +327,10 @@ class Dashboard extends Component {
                                       accessor: 'Maximum',
                                       // TODO: change this below to get all data
                                       // accessor: d => d.Maximum,
-                                      // filterMethod: (filter, rows) =>
-                                      //     matchSorter(rows, filter.value, {
-                                      //         keys: ['equipmentType'],
-                                      //     }),
+                                      filterMethod: (filter, rows) =>
+                                          matchSorter(rows, filter.value, {
+                                              keys: ['Maximum'],
+                                          }),
                                       // filterAll: true,
                                   },
                                   {

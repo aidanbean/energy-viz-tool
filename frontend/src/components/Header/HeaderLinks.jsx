@@ -171,7 +171,7 @@ class HeaderLinks extends Component {
               onClick={this.buttonHandler}
               disabled={this.props.isLoading}
             >
-              Submit
+              Add
             </Button>
           </Col>
           <Col md={2}> </Col>
