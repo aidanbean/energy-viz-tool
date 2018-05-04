@@ -1,138 +1,41 @@
-import React, { Component } from 'react';
-import {
-  Grid,
-  Row,
-  Col,
-  FormGroup,
-  ControlLabel,
-  FormControl,
-} from 'react-bootstrap';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import { Card } from '../../components/Card/Card.jsx';
-import { FormInputs } from '../../components/FormInputs/FormInputs.jsx';
-import Button from '../../elements/CustomButton/CustomButton.jsx';
+import {ThemeContext, themes} from './theme-context';
+import ThemeTogglerButton from './theme-toggler-button';
 
-class UserProfile extends Component {
+// An intermediate component that uses the ThemedButton
+class UserProfile extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.toggleTheme = () => {
+            console.log('hi!');
+            this.setState(state => ({
+                theme:
+                    state.theme === themes.dark
+                        ? themes.light
+                        : themes.dark,
+            }));
+        };
+
+        // State also contains the updater function so it will
+        // be passed down into the context provider
+        this.state = {
+            theme: themes.light,
+            toggleTheme: this.toggleTheme,
+        };
+    }
+
     render() {
+        // The entire state is passed to the provider
         return (
-            <div className="content">
-                <Grid fluid>
-                    <Row>
-                        <Col md={8}>
-                            <Card
-                                title="Edit Profile"
-                                content={
-                                    <form>
-                                        <FormInputs
-                                            ncols = {["col-md-5" , "col-md-3" , "col-md-4"]}
-                                            proprieties = {[
-                                                {
-                                                 label : "Company (disabled)",
-                                                 type : "text",
-                                                 bsClass : "form-control",
-                                                 placeholder : "Company",
-                                                 defaultValue : "Creative Code Inc.",
-                                                 disabled : true
-                                                },
-                                                {
-                                                 label : "Username",
-                                                 type : "text",
-                                                 bsClass : "form-control",
-                                                 placeholder : "Username",
-                                                 defaultValue : "michael23"
-                                                },
-                                                {
-                                                 label : "Email address",
-                                                 type : "email",
-                                                 bsClass : "form-control",
-                                                 placeholder : "Email"
-                                                }
-                                            ]}
-                                        />
-                                        <FormInputs
-                                            ncols = {["col-md-6" , "col-md-6"]}
-                                            proprieties = {[
-                                                {
-                                                 label : "First name",
-                                                 type : "text",
-                                                 bsClass : "form-control",
-                                                 placeholder : "First name",
-                                                 defaultValue : "Mike"
-                                                },
-                                                {
-                                                 label : "Last name",
-                                                 type : "text",
-                                                 bsClass : "form-control",
-                                                 placeholder : "Last name",
-                                                 defaultValue : "Andrew"
-                                                }
-                                            ]}
-                                        />
-                                        <FormInputs
-                                            ncols = {["col-md-12"]}
-                                            proprieties = {[
-                                                {
-                                                    label : "Adress",
-                                                    type : "text",
-                                                    bsClass : "form-control",
-                                                    placeholder : "Home Adress",
-                                                    defaultValue : "Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                                                }
-                                            ]}
-                                        />
-                                        <FormInputs
-                                            ncols = {["col-md-4","col-md-4","col-md-4"]}
-                                            proprieties = {[
-                                                {
-                                                    label : "City",
-                                                    type : "text",
-                                                    bsClass : "form-control",
-                                                    placeholder : "City",
-                                                    defaultValue : "Mike"
-                                                },
-                                                {
-                                                    label : "Country",
-                                                    type : "text",
-                                                    bsClass : "form-control",
-                                                    placeholder : "Country",
-                                                    defaultValue : "Andrew"
-                                                },
-                                                {
-                                                    label : "Postal Code",
-                                                    type : "number",
-                                                    bsClass : "form-control",
-                                                    placeholder : "ZIP Code"
-                                                }
-                                            ]}
-                                        />
-
-                                        <Row>
-                                            <Col md={12}>
-                                                <FormGroup controlId="formControlsTextarea">
-                                                    <ControlLabel>About Me</ControlLabel>
-                                                    <FormControl rows="5" componentClass="textarea" bsClass="form-control" placeholder="Here can be your description" defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."/>
-                                                </FormGroup>
-                                            </Col>
-                                        </Row>
-                                        <Button
-                                            bsStyle="info"
-                                            pullRight
-                                            fill
-                                            type="submit"
-                                        >
-                                            Update Profile
-                                        </Button>
-                                        <div className="clearfix"></div>
-                                    </form>
-                                }
-                            />
-                        </Col>
-
-                    </Row>
-                </Grid>>
-            </div>
+            <ThemeContext.Provider value={this.state}>
+                <ThemeTogglerButton />
+            </ThemeContext.Provider>
         );
     }
 }
+
 
 export default UserProfile;

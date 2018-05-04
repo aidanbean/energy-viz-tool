@@ -1,24 +1,38 @@
 
 import React, {Component} from 'react';
+import ButtonContext from '../DateSelection/utils'
 
 class Button extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            clicked: false,
-
-        };
-        // this.observer = props.observer;
-    }
 
     clickHandler() {
         this.setState(
             {
                 clicked: !this.state.clicked,
             }
-        )
+        );
+
+
+        // var clicked = this.state.clicked;
+        // if(clicked){
+        //     console.log(this.state.clicked);
+        //     this.props.callback;
+        // }
+
+
     }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            clicked: false,
+            // clickHandler: this.clickHandler,
+        };
+        // this.observer = props.observer;
+        this.clickHandler = this.clickHandler.bind(this);
+
+    }
+
+
 
     render() {
         var buttonStyle = {
@@ -39,7 +53,8 @@ class Button extends Component {
             buttonStyle.backgroundColor = "rgb(188, 228, 236)";
             buttonStyle.fontWeight = 'bold';
             // this.observer.publish("hello",'this is data');
-            console.log(this.props.name);
+            // console.log('callBack');
+            // this.props.callback;
 
             switch (this.props.name.substr(0,1)){
                 case 'm':
@@ -78,8 +93,13 @@ class Button extends Component {
         }
 
         return (
-            <button style={buttonStyle} onClick={() => this.clickHandler()} //TODO: button style CSS depend on mock up Demo
-                    className="button">{this.props.text}</button>
+            <ButtonContext.Consumer>
+                {({buttonHandler}) => (
+                <button style={buttonStyle} onClick={this.clickHandler}
+                        callback = {buttonHandler(this.props.name, this.state.clicked)}
+                        className="button">{this.props.text}</button>
+                )}
+            </ButtonContext.Consumer>
         )
     }
 }

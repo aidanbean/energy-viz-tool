@@ -32,7 +32,7 @@ class SelectHeader extends Component {
     );
   }
   buttonHandler() {
-      this.props.callback(this.state.building);
+      this.props.callback(this.state.building); //
   }
 
   render() {

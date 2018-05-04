@@ -28,4 +28,3 @@ class MonthPicker extends Component {
 }
 
 export default MonthPicker;
-
