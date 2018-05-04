@@ -203,8 +203,10 @@ class Dashboard extends Component {
   removeChart(index) {
       var config = this.state.config;
       var tableData = this.state.tableData;
+      config[index].series.map(function(e) { return e.name; }).forEach( function(element) {
+          tableData.splice(tableData.map(function(t) {return t.building}).indexOf(element), 1);
+      });
       config.splice(index, 1);
-      tableData.splice(index, 1);
       this.setState({
          config: config,
          tableData: tableData
