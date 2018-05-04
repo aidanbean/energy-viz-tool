@@ -9,7 +9,7 @@ import Highcharts from "react-highcharts";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import { Card } from "../../components/Card/Card.jsx";
-
+import { DateTime } from 'luxon';
 require("highcharts/modules/exporting")(Highcharts.Highcharts);
 require("highcharts/modules/export-data")(Highcharts.Highcharts);
 
@@ -117,10 +117,30 @@ class EconGraph extends Component {
         useHTML: true
       }
     };
+
+    let filteredPiArray = nextProps.data.selectBuilding.filter(obj => {
+          let datetime = DateTime.fromISO(obj.Timestamp);
+          return (datetime.hour >= 7 && datetime.hour <= 8);   //returns ‘true’ if between 7 AM and 11 PM
+    });
+
+
+    let dateTime = DateTime.fromISO(nextProps.data.selectBuilding[1].stream[0].Timestamp);
+    console.log(dateTime);
+    console.log("origin" + nextProps.data.selectBuilding[1].stream[0].Timestamp);
+
+    // alert(nextProps.data.selectBuilding[3].stream[1].Timestamp.hour);
+      console.log(nextProps.data.selectBuilding);
+
     for (var i = 0; i < nextProps.data.selectBuilding.length; i += 2) {
       var points = [];
       for (var j = 0; j < nextProps.data.selectBuilding[i].stream.length; j++) {
         var point = {};
+
+        let dateTime = DateTime.fromISO(nextProps.data.selectBuilding[i + 1].stream[j].Timestamp, { zone: 'utc' });
+
+        // console.log(dateTime);
+        if(!(dateTime.hour >= 7 && dateTime.hour <= 8))
+          continue;
         point["x"] = (nextProps.data.selectBuilding[i + 1].stream[j].Value);
         point["y"] = (nextProps.data.selectBuilding[i].stream[j].Value);
         point["Timestamp"] = (nextProps.data.selectBuilding[i + 1].stream[j].Timestamp);

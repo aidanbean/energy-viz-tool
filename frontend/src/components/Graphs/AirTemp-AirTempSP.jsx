@@ -116,6 +116,7 @@ class EconGraph extends Component {
         useHTML: true
       }
     };
+
     for (var i = 0; i < nextProps.data.selectBuilding.length; i += 2) {
       var points = [];
       for (var j = 0; j < nextProps.data.selectBuilding[i].stream.length; j++) {
