@@ -124,28 +124,120 @@ class EconGraph extends Component {
     });
 
 
-    let dateTime = DateTime.fromISO(nextProps.data.selectBuilding[1].stream[0].Timestamp);
-    console.log(dateTime);
-    console.log("origin" + nextProps.data.selectBuilding[1].stream[0].Timestamp);
+    // let dateTime = DateTime.fromISO(nextProps.data.selectBuilding[1].stream[0].Timestamp);
+    // console.log(dateTime);
+    // console.log("origin" + nextProps.data.selectBuilding[1].stream[0].Timestamp);
 
     // alert(nextProps.data.selectBuilding[3].stream[1].Timestamp.hour);
-      console.log(nextProps.data.selectBuilding);
+    //   console.log(nextProps.data.selectBuilding);
 
     for (var i = 0; i < nextProps.data.selectBuilding.length; i += 2) {
       var points = [];
       for (var j = 0; j < nextProps.data.selectBuilding[i].stream.length; j++) {
         var point = {};
 
-        let dateTime = DateTime.fromISO(nextProps.data.selectBuilding[i + 1].stream[j].Timestamp, { zone: 'utc' });
+        // let dateTime = DateTime.fromISO(nextProps.data.selectBuilding[i + 1].stream[j].Timestamp, { zone: 'utc' });
+        // let month = window.monthOfYear;
+        // let day = window.dayOfMonth;
+        // let weekday = window.dayOfWeek;
+        // let hour = window.hourOfDay;
 
-        // console.log(dateTime);
-        if(!(dateTime.hour >= 7 && dateTime.hour <= 8))
-          continue;
+        // let passFilter = dateTime.filter(obj => {// filter by month
+        //   if(month.length == 0)
+        //     return true;
+        //   for(var m = 0; i < month.length; i++) {
+        //     if(obj.month == month[i])
+        //       return true;
+        //   }
+        //   return false;
+        // }).filter(obj => {
+        //   if(day.length == 0)
+        //     return true;
+        //   for(var m = 0; m < day.length; m++) {// by day
+        //     if(obj.day == day[m])
+        //       return true;
+        //   }
+        //   return false;
+        // }).filter(obj => {
+        //   if(weekday.length == 0)
+        //     return true;
+        //   for(var m = 0; m < weekday.length; m++) { // by weekday
+        //     if(obj.weekData == weekday[m])
+        //       return true;
+        //   }
+        //   return false;
+        // }).filter(obj => {
+        //   if(hour.length == 0)
+        //     return true;
+        //   for(var m = 0; m < hour.length; m++) {// by hour
+        //     if(obj.hour == hour[m])
+        //       return true;
+        //   }
+        //   return false;
+        // });
+        //
+        //
+        // if((month.length == 0 && day.length == 0 && weekday.length == 0 && hour.length == 0) || passFilter){
+        //
+        // }
+        // if(!(dateTime.hour >= 7 && dateTime.hour <= 8))
+        //   continue;
         point["x"] = (nextProps.data.selectBuilding[i + 1].stream[j].Value);
         point["y"] = (nextProps.data.selectBuilding[i].stream[j].Value);
         point["Timestamp"] = (nextProps.data.selectBuilding[i + 1].stream[j].Timestamp);
         points.push(point);
       }
+
+        // let dateTime = DateTime.fromISO(nextProps.data.selectBuilding[i + 1].stream[j].Timestamp, { zone: 'utc' });
+        let month = window.monthOfYear;
+        let day = window.dayOfMonth;
+        let weekday = window.dayOfWeek;
+        let hour = window.hourOfDay;
+
+        console.log(points.length);
+
+        if(month.length != 0 || day.length != 0 || weekday.length != 0 || hour.length != 0){
+      points = points.filter(obj => {// filter by month
+            if(month.length == 0)
+                return true;
+            let dateTime = DateTime.fromISO(obj.Timestamp, { zone: 'utc' });
+            for(var m = 0; i < month.length; i++) {
+                if(dateTime.month == month[i])
+                    return true;
+            }
+            return false;
+        }).filter(obj => {
+            if(day.length == 0)
+                return true;
+            let dateTime = DateTime.fromISO(obj.Timestamp, { zone: 'utc' });
+            for(var m = 0; m < day.length; m++) {// by day
+                if(dateTime.day == day[m])
+                    return true;
+            }
+            return false;
+        }).filter(obj => {
+            if(weekday.length == 0)
+                return true;
+            let dateTime = DateTime.fromISO(obj.Timestamp, { zone: 'utc' });
+            for(var m = 0; m < weekday.length; m++) { // by weekday
+                if(dateTime.weekData == weekday[m])
+                    return true;
+            }
+            return false;
+        }).filter(obj => {
+            if(hour.length == 0)
+                return true;
+            let dateTime = DateTime.fromISO(obj.Timestamp, { zone: 'utc' });
+            for(var m = 0; m < hour.length; m++) {// by hour
+                if(dateTime.hour == hour[m])
+                    return true;
+            }
+            return false;
+        });
+        }
+        // console.log('after');
+        // console.log(points[0]);
+
       // generate a random color.
       var color = "#" + Math.floor(Math.random() * 16777215).toString(16);
       var data = nextProps.data.selectBuilding[i];
@@ -170,6 +262,7 @@ class EconGraph extends Component {
       };
       series.push(serie);
     }
+
     config["series"] = series;
     this.setState({
       config: config

@@ -5,6 +5,7 @@ import Building from '../../components/SearchBar/BuildingSearchBar';
 import Header from '../../components/Header/SelectBuildingHeader.jsx';
 import PreBake1 from '../../components/Graphs/Economizer.jsx';
 import PreBake2 from '../../components/Graphs/AirTemp-AirTempSP.jsx';
+import DateSelection from '../../components/DateSelection/DateSelection.jsx'
 
 class SelectBuilding extends React.Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class SelectBuilding extends React.Component {
       endTime: '',
       interval: '1h',
     };
+
   }
   buildingHandler(selection) {
     this.setState(
@@ -34,6 +36,7 @@ class SelectBuilding extends React.Component {
         <Grid fluid>
          <Header selection={this.state} callback={this.buildingHandler} />
           <br />
+            <DateSelection />
           <Row>
             <Col md={12}>
               <PreBake1 building={this.state.building} />

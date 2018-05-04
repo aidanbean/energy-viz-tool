@@ -9,10 +9,29 @@ import ReactObserver from 'react-event-observer';
 
 
 class DateSelection extends Component {
-    // constructor(props){
-    //     super(props);
+    constructor(props){
+        super(props);
+        window.monthOfYear = [];
+        window.dayOfMonth = [];
+        window.dayOfWeek = [];
+        window.hourOfDay = [];
+        this.monthHandler = this.monthHandler.bind(this);
     //     this.observer = ReactObserver();
-    // }
+        this.state = {
+            monthOfYear: [],
+            dayOfMonth: [],
+            dayOfWeek: [],
+            hourOfDay: []
+        };
+    }
+
+    monthHandler(month){
+        this.setState(
+            {
+                monthOfYear: month,
+            }
+        );
+    }
 
 
     render() {
@@ -24,7 +43,7 @@ class DateSelection extends Component {
             <div>
                 <div>
                     <span>Month</span>
-                    <MonthPicker/>
+                    <MonthPicker />
                 </div>
                 <div>
                     <span>Day of Month</span>
