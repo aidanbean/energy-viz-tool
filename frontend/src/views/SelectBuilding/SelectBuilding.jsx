@@ -6,6 +6,9 @@ import Header from '../../components/Header/SelectBuildingHeader.jsx';
 import PreBake1 from '../../components/Graphs/Economizer.jsx';
 import PreBake2 from '../../components/Graphs/AirTemp-AirTempSP.jsx';
 import DateSelection from '../../components/DateSelection/DateSelection.jsx'
+import PropTypes from 'prop-types';
+
+
 
 class SelectBuilding extends React.Component {
   constructor(props) {
@@ -30,6 +33,18 @@ class SelectBuilding extends React.Component {
     );
   }
 
+
+  getChildContext() {
+        return {
+            monthOfYear: [],
+            dayOfMonth: [],
+            dayOfWeek: [],
+            hourOfDay: []
+        };
+  }
+
+
+
   render() {
     return (
       <div>
@@ -52,5 +67,12 @@ class SelectBuilding extends React.Component {
     );
   }
 }
+
+// SelectBuilding.childContextTypes(
+//     monthOfYear = prototype.array,
+//     dayOfMonth = prototype.array
+//     // dayOfWeek: [],
+//     // hourOfDay: []
+// }
 
 export default SelectBuilding;
