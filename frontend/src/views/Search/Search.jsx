@@ -113,6 +113,9 @@ class Dashboard extends Component {
       let color = "#" + Math.floor(Math.random() * 16777215).toString(16);
       let dataStream = nextProps.data.dataStream[i];
       let name = `${dataStream.building}.${dataStream.equipmentNumber}.${dataStream.sensorType}`;
+      if(dataStream.equipmentType == "CHW" || dataStream.equipmentType == "HHW") {
+          name = `${dataStream.building}.${dataStream.equipmentType}.${dataStream.sensorType}`;
+      }
       tableRow["Building"] = name;
       let serie = {
           data: y,
@@ -204,7 +207,7 @@ class Dashboard extends Component {
       var config = this.state.config;
       var tableData = this.state.tableData;
       config[index].series.map(function(e) { return e.name; }).forEach( function(element) {
-          tableData.splice(tableData.map(function(t) {return t.building}).indexOf(element), 1);
+            tableData = tableData.filter(row => row.Building != element);
       });
       config.splice(index, 1);
       this.setState({
@@ -258,7 +261,6 @@ class Dashboard extends Component {
     }
 
     if (this.props.data && this.props.data.error) {
-      clearTimeout();
       return (
         <div>
           <Row style={{ marginRight: "0px", marginLeft: "0px" }}>
@@ -301,8 +303,7 @@ class Dashboard extends Component {
                       {/*https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17*/}
                   <CSVLink data={this.state.tableData}>Download me</CSVLink>
                   <Card
-                      title="Building Statistics"
-                      category="AHU"
+                      title="Sensor Statistics"
                       ctTableFullWidth
                       ctTableResponsive
                       content={
@@ -315,7 +316,7 @@ class Dashboard extends Component {
                               rows={this.state.tableData}
                               columns={[
                                   {
-                                      Header: 'Building',
+                                      Header: 'Sensor Name',
                                       accessor: 'Building',
                                       // TODO: Change below to get all data
                                       filterMethod: (filter, row) =>
