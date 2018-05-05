@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
 import Building from '../SearchBar/BuildingSearchBar';
-import Sensor from '../SearchBar/SensorTypeSearchBar';
-import Start from '../SearchBar/StartForm';
-import End from '../SearchBar/EndForm';
-import Interval from '../SearchBar/IntervalForm';
+// import Sensor from '../SearchBar/SensorTypeSearchBar';
+// import Start from '../SearchBar/StartForm';
+// import End from '../SearchBar/EndForm';
+// import Interval from '../SearchBar/IntervalForm';
 
 class SelectHeader extends Component {
   constructor(props) {

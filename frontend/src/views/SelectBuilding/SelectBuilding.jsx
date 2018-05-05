@@ -1,7 +1,5 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
-import { BarLoader } from 'react-spinners';
-import Building from '../../components/SearchBar/BuildingSearchBar';
 import Header from '../../components/Header/SelectBuildingHeader.jsx';
 import PreBake1 from '../../components/Graphs/Economizer.jsx';
 import PreBake2 from '../../components/Graphs/AirTemp-AirTempSP.jsx';

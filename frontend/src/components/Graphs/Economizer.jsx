@@ -77,7 +77,7 @@ class EconGraph extends Component {
     console.log(nextProps);
     this.props.data.refetch();
     var fileName = `$(nextProps.data.variables.building)_Economizer_data`;
-    if (this.props.data.selectBuilding == "undefined") {
+    if (this.props.data.selectBuilding === "undefined") {
       console.log("loading");
       return;
     }

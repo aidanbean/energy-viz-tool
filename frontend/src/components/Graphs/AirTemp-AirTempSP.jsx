@@ -76,7 +76,7 @@ class EconGraph extends Component {
   componentWillReceiveProps(nextProps) {
     this.props.data.refetch();
     var fileName = `$(nextProps.data.variables.building)_SupplyTemp_data`;
-    if (this.props.data.selectBuilding == "undefined") {
+    if (this.props.data.selectBuilding === "undefined") {
       console.log("loading");
       return;
     }
