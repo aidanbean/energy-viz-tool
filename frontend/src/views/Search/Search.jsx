@@ -117,8 +117,7 @@ class Dashboard extends Component {
       let dataArray = []; // holds data to pass to TableList as a prop
       let name = `${dataStream.building}.${dataStream.equipmentNumber}.${dataStream.sensorType}`;
       dataArray.push(name);
-      console.log("dataArray[0]: " + dataArray[0]);
-      console.log("dataArray[1]: " + dataArray[1]);
+
       // console.log("BUILDING NAME: " + name);
       let serie = {
           data: y,
