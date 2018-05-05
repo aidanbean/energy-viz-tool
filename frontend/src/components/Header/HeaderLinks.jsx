@@ -21,7 +21,6 @@ class HeaderLinks extends Component {
     this.startHandler = this.startHandler.bind(this);
     this.endHandler = this.endHandler.bind(this);
     this.intervalHandler = this.intervalHandler.bind(this);
-    this.clearHandler = this.clearHandler.bind(this);
     this.state = {
       building: null,
       equipmentType: null,
@@ -108,9 +107,6 @@ class HeaderLinks extends Component {
   buttonHandler() {
     this.props.callback(this.state);
   }
-  clearHandler() {
-      this.props.clearCallback();
-  }
 
   render() {
     return (
@@ -168,24 +164,14 @@ class HeaderLinks extends Component {
           <Col md={2}>
             <Interval label="Interval" callback={this.intervalHandler} />
           </Col>
-          <Col md={1}>
+          <Col md={2}>
             <Button
               bsStyle="success"
               block
               onClick={this.buttonHandler}
               disabled={this.props.isLoading}
             >
-              Add
-            </Button>
-          </Col>
-          <Col md={1}>
-            <Button
-              bsStyle="danger"
-              block
-              onClick={this.clearHandler}
-              disabled={this.props.isLoading}
-            >
-              Clear
+              Submit
             </Button>
           </Col>
           <Col md={2}> </Col>
