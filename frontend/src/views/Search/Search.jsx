@@ -12,6 +12,9 @@ import TableList from "../TableList/TableList";
 require("highcharts/modules/exporting")(Highcharts.Highcharts);
 require("highcharts/modules/export-data")(Highcharts.Highcharts);
 
+// global data array (?)
+let dataArray = [];
+
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -114,7 +117,7 @@ class Dashboard extends Component {
 
       // console.log("dataStream value: " + JSON.stringify(dataStream));
 
-      let dataArray = []; // holds data to pass to TableList as a prop
+      // let dataArray = []; // holds data to pass to TableList as a prop, needs to be pulled out
       let name = `${dataStream.building}.${dataStream.equipmentNumber}.${dataStream.sensorType}`;
       dataArray.push(name);
 
@@ -280,8 +283,8 @@ class Dashboard extends Component {
           </Col>
           <Col md={12}>
 
-                  <TableList
-                      data = {this.props.data}
+                  <TableList dataValues={dataArray}
+                      // data = {this.props.data}
                       //data={this.props.data.dataStream.summary}
                       /*https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17*/
                   />
