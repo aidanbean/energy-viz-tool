@@ -62,7 +62,7 @@ var EquipNumField = createClass({
     );
   },
   componentWillReceiveProps(nextProps) {
-    // console.log(nextProps);
+    console.log(nextProps);
     if (nextProps.data && !nextProps.data.loading) {
       var options = [];
       nextProps.data.searchFilter.equipmentNumbers.forEach(function(element) {

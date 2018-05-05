@@ -1,16 +1,13 @@
 import React, { Component } from "react";
 import moment from "moment-timezone";
-import { Row, Col, Jumbotron, Glyphicon } from "react-bootstrap";
+import { Row, Col, Jumbotron } from "react-bootstrap";
 import { BarLoader } from "react-spinners";
-import Button from '../../elements/CustomButton/CustomButton.jsx';
 import Highcharts from "react-highcharts";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import HeaderLinks from "../../components/Header/HeaderLinks.jsx";
 import { Card } from "../../components/Card/Card.jsx";
-import DraggableTable from "../TableList/DraggableTable";
-import { CSVLink } from 'react-csv';
-import matchSorter from 'match-sorter';
+import TableList from "../TableList/TableList";
 
 require("highcharts/modules/exporting")(Highcharts.Highcharts);
 require("highcharts/modules/export-data")(Highcharts.Highcharts);
@@ -19,32 +16,28 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.headerCallback = this.headerCallback.bind(this);
-    this.removeChart = this.removeChart.bind(this);
-    this.clearAll = this.clearAll.bind(this);
     this.state = {
-      renderCount: 0,
       didMount: false,
-      tableData: [],
-      config: []
-      // config: {
-      //     legend: {
-      //         enabled: false
-      //     },
-      //     chart: {
-      //         height: 400,
-      //         type: "line",
-      //         zoomType: "xy"
-      //     },
-      //     xAxis: {
-      //         categories: []
-      //     },
-      //     series: [
-      //         {
-      //             data: [],
-      //             color: "#9acd32"
-      //         }
-      //     ],
-      // }
+      progress: 0,
+      config: {
+          legend: {
+              enabled: false
+          },
+          chart: {
+              height: 400,
+              type: "line",
+              zoomType: "xy"
+          },
+          xAxis: {
+              categories: []
+          },
+          series: [
+              {
+                  data: [],
+                  color: "#9acd32"
+              }
+          ],
+      }
     };
   }
 
@@ -64,37 +57,41 @@ class Dashboard extends Component {
     we refetch the graphQL query and convert the timezone. */
   componentWillReceiveProps(nextProps) {
     this.props.data.refetch();
-    if (typeof nextProps.data.dataStream === "undefined" || nextProps.data.loading) {
+    if (typeof nextProps.data.dataStream === "undefined") {
       return;
     }
     let config = {}, xLines = [], x = [];
-    let tableData = this.state.tableData;
     const variables = nextProps.data.variables,
         maxIndex = this.findMaxXaxisIndex(nextProps),
         fileName = `${variables.building}_${variables.equipmentType}_${variables.equipmentNumber}_${variables.sensorType}`;
     for (let i = 0; i < nextProps.data.dataStream.length; i++) {
       let unit, avg, min, max, stddev;
-      let tableRow = {};
       nextProps.data.dataStream[i].summary.forEach(function(element) {
         const value = element.Value.Value.toFixed(2);
-        switch (element.Type) {
+
+        // console.log("value is: " + value + "\nElement type: " + element.Type);
+        let tableDataArray = [];
+
+        switch (element.Type) { // NOTE: this may not be the place to add to array
           case "Average":
             avg = value;
-            tableRow["Average"] = value;
+            tableDataArray.push(avg);
             break;
           case "Minimum":
             min = value;
-            tableRow["Minimum"] = value;
+            tableDataArray.push(min);
             break;
           case "Maximum":
             max = value;
-            tableRow["Maximum"] = value;
+            tableDataArray.push(max);
             break;
           case "StdDev":
             stddev = value;
-            tableRow["StdDev"] = value;
+            tableDataArray.push(stddev);
             break;
         }
+
+
       });
       if (i === maxIndex) {
           nextProps.data.dataStream[i].stream.forEach(function(element) {
@@ -106,6 +103,7 @@ class Dashboard extends Component {
           });
       }
       const y = [];
+
       nextProps.data.dataStream[i].stream.forEach(function(element) {
             y.push(element.Value);
             unit = element.UnitsAbbreviation;
@@ -113,12 +111,15 @@ class Dashboard extends Component {
       // generate a random color.
       let color = "#" + Math.floor(Math.random() * 16777215).toString(16);
       let dataStream = nextProps.data.dataStream[i];
+
+      // console.log("dataStream value: " + JSON.stringify(dataStream));
+
+      let dataArray = []; // holds data to pass to TableList as a prop
       let name = `${dataStream.building}.${dataStream.equipmentNumber}.${dataStream.sensorType}`;
-      if(dataStream.equipmentType == "CHW" || dataStream.equipmentType == "HHW") {
-          name = `${dataStream.building}.${dataStream.equipmentType}.${dataStream.sensorType}`;
-      }
-      tableRow["Building"] = name;
-      // TODO: if Building is already in table, do not add row -> remove redundant rows
+      dataArray.push(name);
+      console.log("dataArray[0]: " + dataArray[0]);
+      console.log("dataArray[1]: " + dataArray[1]);
+      // console.log("BUILDING NAME: " + name);
       let serie = {
           data: y,
           color: color,
@@ -148,19 +149,13 @@ class Dashboard extends Component {
           }
       };
       xLines.push(serie);
-      tableData.push(tableRow);
-      this.setState(
-          {
-            renderCount: this.state.renderCount + 1
-          }
-      );
     }
     config = {
           legend: {
               enabled: true,
           },
           chart: {
-              height: 500,
+              height: 400,
               type: "line",
               zoomType: "xy",
 
@@ -186,16 +181,18 @@ class Dashboard extends Component {
           }
       };
     config["series"] = xLines;
-
     this.setState(
       {
-        config: [...this.state.config, config],
-        tableData: tableData
-    }, function () {
-        console.log(this.state);
-    }
+        config: config
+      }
     );
   }
+
+
+  refresh() {
+    this.props.data.refetch();
+  }
+
 
   componentDidMount() {
     this.setState({ didMount: true });
@@ -205,29 +202,9 @@ class Dashboard extends Component {
     this.props.callback(dataFromHeader);
   }
 
-  removeChart(index) {
-      var config = this.state.config;
-      var tableData = this.state.tableData;
-      config[index].series.map(function(e) { return e.name; }).forEach( function(element) {
-            tableData = tableData.filter(row => row.Building != element);
-      });
-      config.splice(index, 1);
-      this.setState({
-         config: config,
-         tableData: tableData
-      });
-  }
-
-  clearAll () {
-      this.setState({
-         config: [],
-         tableData: []
-      });
-  }
-
   render() {
     if (this.state.didMount) {
-      this.props.data.refetch();
+      this.refresh();
     }
 
     if (this.props.data && this.props.data.loading) {
@@ -270,6 +247,7 @@ class Dashboard extends Component {
     }
 
     if (this.props.data && this.props.data.error) {
+      clearTimeout();
       return (
         <div>
           <Row style={{ marginRight: "0px", marginLeft: "0px" }}>
@@ -293,82 +271,13 @@ class Dashboard extends Component {
     return (
       <div>
         <Row style={{ marginRight: "0px", marginLeft: "0px" }}>
-          <HeaderLinks callback={this.headerCallback} clearCallback={this.clearAll} isLoading={false} />
+          <HeaderLinks callback={this.headerCallback} isLoading={false} />
         </Row>
         <Row style={{ marginRight: "0px", marginLeft: "0px" }}>
-              {
-                  this.state.config.map((item) => (
-                      <Col md={12} key={this.state.config.indexOf(item)}>
-                      <Card
-                        category={<Button simple icon onClick={() => this.removeChart(this.state.config.indexOf(item))}>
-                                  <Glyphicon glyph="remove-circle" />
-                                  </Button>}
-                        content={<Highcharts config={item} ref="ct-chart" />}
-                      />
-                      </Col>
-                  ))
-              }
           <Col md={12}>
-                      {/*https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17*/}
-                  <CSVLink data={this.state.tableData}>Download me</CSVLink>
-                  <Card
-                      title="Sensor Statistics"
-                      ctTableFullWidth
-                      ctTableResponsive
-                      content={
-                          <DraggableTable
-                              filterable
-                              defaultFilterMethod={(filter, row) =>
-                                  String(row[filter.id]).toLocaleLowerCase() ===
-                                  filter.value.toLocaleLowerCase()
-                              }
-                              rows={this.state.tableData}
-                              columns={[
-                                  {
-                                      Header: 'Sensor Name',
-                                      accessor: 'Building',
-                                      // TODO: Change below to get all data
-                                      filterMethod: (filter, row) =>
-                                          String(row[filter.id])
-                                              .toLocaleLowerCase()
-                                              .includes(filter.value.toLocaleLowerCase()),
-                                  },
-                                  {
-                                      // Header: "Equipment Type",
-                                      Header: 'Maximum',
-                                      accessor: 'Maximum',
-                                      // TODO: change this below to get all data
-                                      // accessor: d => d.Maximum,
-                                      filterMethod: (filter, rows) =>
-                                          matchSorter(rows, filter.value, {
-                                              keys: ['Maximum'],
-                                          }),
-                                      // filterAll: true,
-                                  },
-                                  {
-                                      // Header: "Equipment Number",
-                                      Header: 'Minimum',
-                                      accessor: 'Minimum'
-                                      // accessor: "equipmentNumber",
-                                  },
-                                  {
-                                      // Header: "Sensor Type",
-                                      Header: 'Average',
-                                      accessor: 'Average'
-                                      // id: ""
-                                  },
-                                  {
-                                      Header: 'Standard Deviation',
-                                      accessor: 'StdDev'
-                                      // id: ""
-                                  },
-                              ]}
-                              defaultPageSize={10}
-                              className="-striped -highlight"
-                          />
-                      }
-                  />
-
+            <Card
+              content={<Highcharts config={this.state.config} ref="ct-chart" />}
+            />
           </Col>
         </Row>
       </div>
