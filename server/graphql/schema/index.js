@@ -263,36 +263,40 @@ var root = {
       );
 
       var stream = [];
-      piResult.Items.forEach(function(element) {
-        if (!element.Good) {
-          element.Value = null;
-        }
-        const point = new DataPoint(
-          element.Timestamp,
-          element.Value,
-          element.UnitsAbbreviation,
-          element.Good,
-          element.Questionable,
-          element.Substituted
-        );
-        stream.push(point);
-      });
+      if(typeof piResult.Items !== "undefined") {
+          piResult.Items.forEach(function(element) {
+            if (!element.Good) {
+              element.Value = null;
+            }
+            const point = new DataPoint(
+              element.Timestamp,
+              element.Value,
+              element.UnitsAbbreviation,
+              element.Good,
+              element.Questionable,
+              element.Substituted
+            );
+            stream.push(point);
+          });
+      }
       var summary = [];
-      summaryResult.forEach(function(element) {
-        const dataPointValues = element.Value;
-        if (dataPointValues.Good) {
-          const dataPoint = new DataPoint(
-            dataPointValues.Timestamp,
-            dataPointValues.Value,
-            dataPointValues.UnitsAbbreviation,
-            dataPointValues.Good,
-            dataPointValues.Questionable,
-            dataPointValues.Substituted
-          );
-          const singleSummary = new SummaryData(element.Type, dataPoint);
-          summary.push(singleSummary);
-        }
-      });
+      if(typeof summaryResult !== "undefined") {
+          summaryResult.forEach(function(element) {
+            const dataPointValues = element.Value;
+            if (dataPointValues.Good) {
+              const dataPoint = new DataPoint(
+                dataPointValues.Timestamp,
+                dataPointValues.Value,
+                dataPointValues.UnitsAbbreviation,
+                dataPointValues.Good,
+                dataPointValues.Questionable,
+                dataPointValues.Substituted
+              );
+              const singleSummary = new SummaryData(element.Type, dataPoint);
+              summary.push(singleSummary);
+            }
+          });
+      }
       var streamObject = new StreamType(
         dbResult[i].building,
         dbResult[i].equipmentNumber,

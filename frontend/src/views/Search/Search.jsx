@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import moment from "moment-timezone";
-import { Row, Col, Jumbotron } from "react-bootstrap";
+import { Row, Col, Jumbotron, Glyphicon } from "react-bootstrap";
 import { BarLoader } from "react-spinners";
+import Button from '../../elements/CustomButton/CustomButton.jsx';
 import Highcharts from "react-highcharts";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import HeaderLinks from "../../components/Header/HeaderLinks.jsx";
 import { Card } from "../../components/Card/Card.jsx";
-import TableList from "../TableList/TableList";
+import DraggableTable from "../TableList/DraggableTable";
+import { CSVLink } from 'react-csv';
+import matchSorter from 'match-sorter';
 
 require("highcharts/modules/exporting")(Highcharts.Highcharts);
 require("highcharts/modules/export-data")(Highcharts.Highcharts);
@@ -19,28 +22,32 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.headerCallback = this.headerCallback.bind(this);
+    this.removeChart = this.removeChart.bind(this);
+    this.clearAll = this.clearAll.bind(this);
     this.state = {
+      renderCount: 0,
       didMount: false,
-      progress: 0,
-      config: {
-          legend: {
-              enabled: false
-          },
-          chart: {
-              height: 400,
-              type: "line",
-              zoomType: "xy"
-          },
-          xAxis: {
-              categories: []
-          },
-          series: [
-              {
-                  data: [],
-                  color: "#9acd32"
-              }
-          ],
-      }
+      tableData: [],
+      config: []
+      // config: {
+      //     legend: {
+      //         enabled: false
+      //     },
+      //     chart: {
+      //         height: 400,
+      //         type: "line",
+      //         zoomType: "xy"
+      //     },
+      //     xAxis: {
+      //         categories: []
+      //     },
+      //     series: [
+      //         {
+      //             data: [],
+      //             color: "#9acd32"
+      //         }
+      //     ],
+      // }
     };
   }
 
@@ -60,15 +67,17 @@ class Dashboard extends Component {
     we refetch the graphQL query and convert the timezone. */
   componentWillReceiveProps(nextProps) {
     this.props.data.refetch();
-    if (typeof nextProps.data.dataStream === "undefined") {
+    if (typeof nextProps.data.dataStream === "undefined" || nextProps.data.loading) {
       return;
     }
     let config = {}, xLines = [], x = [];
+    let tableData = this.state.tableData;
     const variables = nextProps.data.variables,
         maxIndex = this.findMaxXaxisIndex(nextProps),
         fileName = `${variables.building}_${variables.equipmentType}_${variables.equipmentNumber}_${variables.sensorType}`;
     for (let i = 0; i < nextProps.data.dataStream.length; i++) {
       let unit, avg, min, max, stddev;
+      let tableRow = {};
       nextProps.data.dataStream[i].summary.forEach(function(element) {
         const value = element.Value.Value.toFixed(2);
 
@@ -91,6 +100,19 @@ class Dashboard extends Component {
           case "StdDev":
             stddev = value;
             tableDataArray.push(stddev);
+            tableRow["Average"] = value;
+            break;
+          case "Minimum":
+            min = value;
+            tableRow["Minimum"] = value;
+            break;
+          case "Maximum":
+            max = value;
+            tableRow["Maximum"] = value;
+            break;
+          case "StdDev":
+            stddev = value;
+            tableRow["StdDev"] = value;
             break;
         }
 
@@ -122,6 +144,10 @@ class Dashboard extends Component {
       dataArray.push(name);
 
       // console.log("BUILDING NAME: " + name);
+      if(dataStream.equipmentType == "CHW" || dataStream.equipmentType == "HHW") {
+          name = `${dataStream.building}.${dataStream.equipmentType}.${dataStream.sensorType}`;
+      }
+      tableRow["Building"] = name;
       let serie = {
           data: y,
           color: color,
@@ -151,13 +177,19 @@ class Dashboard extends Component {
           }
       };
       xLines.push(serie);
+      tableData.push(tableRow);
+      this.setState(
+          {
+            renderCount: this.state.renderCount + 1
+          }
+      );
     }
     config = {
           legend: {
               enabled: true,
           },
           chart: {
-              height: 400,
+              height: 500,
               type: "line",
               zoomType: "xy",
 
@@ -183,18 +215,16 @@ class Dashboard extends Component {
           }
       };
     config["series"] = xLines;
+
     this.setState(
       {
-        config: config
-      }
+        config: [...this.state.config, config],
+        tableData: tableData
+    }, function () {
+        console.log(this.state);
+    }
     );
   }
-
-
-  refresh() {
-    this.props.data.refetch();
-  }
-
 
   componentDidMount() {
     this.setState({ didMount: true });
@@ -204,9 +234,29 @@ class Dashboard extends Component {
     this.props.callback(dataFromHeader);
   }
 
+  removeChart(index) {
+      var config = this.state.config;
+      var tableData = this.state.tableData;
+      config[index].series.map(function(e) { return e.name; }).forEach( function(element) {
+            tableData = tableData.filter(row => row.Building != element);
+      });
+      config.splice(index, 1);
+      this.setState({
+         config: config,
+         tableData: tableData
+      });
+  }
+
+  clearAll () {
+      this.setState({
+         config: [],
+         tableData: []
+      });
+  }
+
   render() {
     if (this.state.didMount) {
-      this.refresh();
+      this.props.data.refetch();
     }
 
     if (this.props.data && this.props.data.loading) {
@@ -249,7 +299,6 @@ class Dashboard extends Component {
     }
 
     if (this.props.data && this.props.data.error) {
-      clearTimeout();
       return (
         <div>
           <Row style={{ marginRight: "0px", marginLeft: "0px" }}>
@@ -273,9 +322,21 @@ class Dashboard extends Component {
     return (
       <div>
         <Row style={{ marginRight: "0px", marginLeft: "0px" }}>
-          <HeaderLinks callback={this.headerCallback} isLoading={false} />
+          <HeaderLinks callback={this.headerCallback} clearCallback={this.clearAll} isLoading={false} />
         </Row>
         <Row style={{ marginRight: "0px", marginLeft: "0px" }}>
+              {
+                  this.state.config.map((item) => (
+                      <Col md={12} key={this.state.config.indexOf(item)}>
+                      <Card
+                        category={<Button simple icon onClick={() => this.removeChart(this.state.config.indexOf(item))}>
+                                  <Glyphicon glyph="remove-circle" />
+                                  </Button>}
+                        content={<Highcharts config={item} ref="ct-chart" />}
+                      />
+                      </Col>
+                  ))
+              }
           <Col md={12}>
             <Card
               content={<Highcharts config={this.state.config} ref="ct-chart" />}
@@ -287,6 +348,65 @@ class Dashboard extends Component {
                       // data = {this.props.data}
                       //data={this.props.data.dataStream.summary}
                       /*https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17*/
+
+                      {/*https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17*/}
+                  <CSVLink data={this.state.tableData}>Download me</CSVLink>
+                  <Card
+                      title="Sensor Statistics"
+                      ctTableFullWidth
+                      ctTableResponsive
+                      content={
+                          <DraggableTable
+                              filterable
+                              defaultFilterMethod={(filter, row) =>
+                                  String(row[filter.id]).toLocaleLowerCase() ===
+                                  filter.value.toLocaleLowerCase()
+                              }
+                              rows={this.state.tableData}
+                              columns={[
+                                  {
+                                      Header: 'Sensor Name',
+                                      accessor: 'Building',
+                                      // TODO: Change below to get all data
+                                      filterMethod: (filter, row) =>
+                                          String(row[filter.id])
+                                              .toLocaleLowerCase()
+                                              .includes(filter.value.toLocaleLowerCase()),
+                                  },
+                                  {
+                                      // Header: "Equipment Type",
+                                      Header: 'Maximum',
+                                      accessor: 'Maximum',
+                                      // TODO: change this below to get all data
+                                      // accessor: d => d.Maximum,
+                                      filterMethod: (filter, rows) =>
+                                          matchSorter(rows, filter.value, {
+                                              keys: ['Maximum'],
+                                          }),
+                                      // filterAll: true,
+                                  },
+                                  {
+                                      // Header: "Equipment Number",
+                                      Header: 'Minimum',
+                                      accessor: 'Minimum'
+                                      // accessor: "equipmentNumber",
+                                  },
+                                  {
+                                      // Header: "Sensor Type",
+                                      Header: 'Average',
+                                      accessor: 'Average'
+                                      // id: ""
+                                  },
+                                  {
+                                      Header: 'Standard Deviation',
+                                      accessor: 'StdDev'
+                                      // id: ""
+                                  },
+                              ]}
+                              defaultPageSize={10}
+                              className="-striped -highlight"
+                          />
+                      }
                   />
 
           </Col>
