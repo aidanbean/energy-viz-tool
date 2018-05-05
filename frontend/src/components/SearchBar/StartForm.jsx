@@ -14,7 +14,7 @@ class StartForm extends Component {
   }
 
   handleEvent(value) {
-    if(typeof value == "string") {
+    if(typeof value === "string") {
         value = moment(value);
     }
     this.setState(
