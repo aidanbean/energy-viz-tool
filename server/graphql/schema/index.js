@@ -17,7 +17,7 @@ const db = mongoose.connection;
 import { buildSchema } from "graphql";
 
 let schema = buildSchema(`
-
+    
     type DataPoint {
         Timestamp        : String,
         Value            : Float,
@@ -83,6 +83,7 @@ let schema = buildSchema(`
     }
 
     type Query {
+
         dataByMonths
         (
             building       : String,

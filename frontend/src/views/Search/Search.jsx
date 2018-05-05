@@ -11,18 +11,16 @@ import { Card } from "../../components/Card/Card.jsx";
 import DraggableTable from "../TableList/DraggableTable";
 import { CSVLink } from 'react-csv';
 import matchSorter from 'match-sorter';
-import TableList from '../TableList/TableList';
+
 require("highcharts/modules/exporting")(Highcharts.Highcharts);
 require("highcharts/modules/export-data")(Highcharts.Highcharts);
-
-// global data array (?)
-let dataArray = [];
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.headerCallback = this.headerCallback.bind(this);
     this.removeChart = this.removeChart.bind(this);
+    this.clearAll = this.clearAll.bind(this);
     this.state = {
       renderCount: 0,
       didMount: false,
@@ -79,26 +77,9 @@ class Dashboard extends Component {
       let tableRow = {};
       nextProps.data.dataStream[i].summary.forEach(function(element) {
         const value = element.Value.Value.toFixed(2);
-
-        // console.log("value is: " + value + "\nElement type: " + element.Type);
-        let tableDataArray = [];
-
-        switch (element.Type) { // NOTE: this may not be the place to add to array
+        switch (element.Type) {
           case "Average":
             avg = value;
-            tableDataArray.push(avg);
-            break;
-          case "Minimum":
-            min = value;
-            tableDataArray.push(min);
-            break;
-          case "Maximum":
-            max = value;
-            tableDataArray.push(max);
-            break;
-          case "StdDev":
-            stddev = value;
-            tableDataArray.push(stddev);
             tableRow["Average"] = value;
             break;
           case "Minimum":
@@ -114,8 +95,6 @@ class Dashboard extends Component {
             tableRow["StdDev"] = value;
             break;
         }
-
-
       });
       if (i === maxIndex) {
           nextProps.data.dataStream[i].stream.forEach(function(element) {
@@ -127,7 +106,6 @@ class Dashboard extends Component {
           });
       }
       const y = [];
-
       nextProps.data.dataStream[i].stream.forEach(function(element) {
             y.push(element.Value);
             unit = element.UnitsAbbreviation;
@@ -135,14 +113,7 @@ class Dashboard extends Component {
       // generate a random color.
       let color = "#" + Math.floor(Math.random() * 16777215).toString(16);
       let dataStream = nextProps.data.dataStream[i];
-
-      // console.log("dataStream value: " + JSON.stringify(dataStream));
-
-      // let dataArray = []; // holds data to pass to TableList as a prop, needs to be pulled out
       let name = `${dataStream.building}.${dataStream.equipmentNumber}.${dataStream.sensorType}`;
-      dataArray.push(name);
-
-      // console.log("BUILDING NAME: " + name);
       if(dataStream.equipmentType == "CHW" || dataStream.equipmentType == "HHW") {
           name = `${dataStream.building}.${dataStream.equipmentType}.${dataStream.sensorType}`;
       }
@@ -246,6 +217,13 @@ class Dashboard extends Component {
       });
   }
 
+  clearAll () {
+      this.setState({
+         config: [],
+         tableData: []
+      });
+  }
+
   render() {
     if (this.state.didMount) {
       this.props.data.refetch();
@@ -314,7 +292,7 @@ class Dashboard extends Component {
     return (
       <div>
         <Row style={{ marginRight: "0px", marginLeft: "0px" }}>
-          <HeaderLinks callback={this.headerCallback} isLoading={false} />
+          <HeaderLinks callback={this.headerCallback} clearCallback={this.clearAll} isLoading={false} />
         </Row>
         <Row style={{ marginRight: "0px", marginLeft: "0px" }}>
               {
@@ -330,18 +308,7 @@ class Dashboard extends Component {
                   ))
               }
           <Col md={12}>
-            <Card
-              content={<Highcharts config={this.state.config} ref="ct-chart" />}
-            />
-          </Col>
-          <Col md={12}>
-
-                  <TableList dataValues={dataArray} />
-                      // data = {this.props.data}
-                      //data={this.props.data.dataStream.summary}
-                      /*https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17*/
-
-                      /*https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17*/
+                      {/*https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17*/}
                   <CSVLink data={this.state.tableData}>Download me</CSVLink>
                   <Card
                       title="Sensor Statistics"
@@ -408,6 +375,7 @@ class Dashboard extends Component {
   }
 }
 
+
 const DATA_QUERY = gql`
   query DataQuery(
     $building: String
@@ -458,4 +426,5 @@ export default graphql(DATA_QUERY, {
       interval: props.headerData.interval
     }
   })
+
 })(Dashboard);
