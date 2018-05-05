@@ -11,7 +11,7 @@ import { Card } from "../../components/Card/Card.jsx";
 import DraggableTable from "../TableList/DraggableTable";
 import { CSVLink } from 'react-csv';
 import matchSorter from 'match-sorter';
-
+import TableList from '../TableList/TableList';
 require("highcharts/modules/exporting")(Highcharts.Highcharts);
 require("highcharts/modules/export-data")(Highcharts.Highcharts);
 
@@ -344,12 +344,12 @@ class Dashboard extends Component {
           </Col>
           <Col md={12}>
 
-                  <TableList dataValues={dataArray}
+                  <TableList dataValues={dataArray} />
                       // data = {this.props.data}
                       //data={this.props.data.dataStream.summary}
                       /*https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17*/
 
-                      {/*https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17*/}
+                      /*https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17*/
                   <CSVLink data={this.state.tableData}>Download me</CSVLink>
                   <Card
                       title="Sensor Statistics"
