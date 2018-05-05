@@ -1,5 +1,5 @@
 import React from 'react';
-import {Grid, Row, Col} from 'react-bootstrap';
+import {Grid, Row, Col, Button} from 'react-bootstrap';
 import {BarLoader} from 'react-spinners';
 import Building from '../../components/SearchBar/BuildingSearchBar';
 import Header from '../../components/Header/SelectBuildingHeader.jsx';
@@ -11,6 +11,7 @@ import DateSelection from '../../components/DateSelection/DateSelection.jsx'
 // import {ThemeContext, themes} from './theme-context';
 // import ThemeTogglerButton from './theme-toggler-button.js';
 import ButtonContext from '../../components/DateSelection/utils';
+
 
 
 // const ButtonContext = React.createContext({
@@ -46,10 +47,10 @@ import ButtonContext from '../../components/DateSelection/utils';
 class SelectBuilding extends React.Component {
     constructor(props) {
         super(props);
-        this.buildingHandler = this.buildingHandler.bind(this);
+        // this.buildingHandler = this.buildingHandler.bind(this);
 
         this.buttonHandler = (name, click) => {
-            console.log('SelectBuilding handler');
+            console.log('buttonPressed handler');
             console.log(name);
             console.log(click);
             let tag = name.substr(0, 1);
@@ -71,34 +72,33 @@ class SelectBuilding extends React.Component {
                         break;
                     default:
                         break;
-                }
+                }}
                 // console.log(monthOfYear);
-            } else {
-                switch (tag) {
-                    case 'm':
-                        monthOfYearTmp.splice(monthOfYearTmp.indexOf(button), 1);
-                        break;
-                    case 'd':
-                        dayOfMonthTmp.splice(dayOfMonthTmp.indexOf(button), 1);
-                        break;
-                    case 'w':
-                        dayOfWeekTmp.splice(dayOfWeekTmp.indexOf(button), 1);
-                        break;
-                    case 'h':
-                        hourOfDayTmp.splice(hourOfDayTmp.indexOf(button), 1);
-                        break;
-                    default:
-                        break;
-                }
-                // console.log(monthOfYear);
-            }
+            // } else {
+            //     switch (tag) {
+            //         case 'm':
+            //             monthOfYearTmp.splice(monthOfYearTmp.indexOf(button), 1);
+            //             break;
+            //         case 'd':
+            //             dayOfMonthTmp.splice(dayOfMonthTmp.indexOf(button), 1);
+            //             break;
+            //         case 'w':
+            //             dayOfWeekTmp.splice(dayOfWeekTmp.indexOf(button), 1);
+            //             break;
+            //         case 'h':
+            //             hourOfDayTmp.splice(hourOfDayTmp.indexOf(button), 1);
+            //             break;
+            //         default:
+            //             break;
+            //     }
+            //     // console.log(monthOfYear);
+            // }
         };
 
         let monthOfYearTmp = [];
         let dayOfMonthTmp = [];
         let dayOfWeekTmp = [];
         let hourOfDayTmp = [];
-
 
         this.state = {
             building: 'ACAD',
@@ -115,19 +115,54 @@ class SelectBuilding extends React.Component {
             buttonHandler: this.buttonHandler,
         };
 
-
-    }
-
-
-    buildingHandler(selection) {
-        this.setState(
-            {
+        this.buildingHandler = (selection) => {
+            console.log('buildingHandler');
+            console.log(hourOfDayTmp);
+            this.setState({
+                // hourOfDay: hourOfDayTmp,
                 building: selection,
-            }
-        );
+                // dayOfMonth: monthOfYearTmp,
+                // dayOfWeek: dayOfMonthTmp,
+                // monthOfYear: dayOfWeekTmp,
+            });
+
+            // console.log('buildingHandler');
+            // console.log(this.state.hourOfDay);
+        };
+
+        this.saveDateSelection = () => {
+            this.setState({
+                hourOfDay: hourOfDayTmp,
+                dayOfMonth: dayOfMonthTmp,
+                dayOfWeek: dayOfWeekTmp,
+                monthOfYear: monthOfYearTmp,
+            });
+            console.log('save date');
+        }
     }
+
+
+    // buildingHandler(selection) {
+    //     this.setState(
+    //         {
+    //             building: selection,
+    //             // dayOfMonth: this.monthOfYearTmp,
+    //             // dayOfWeek: ,
+    //             // monthOfYear: ,
+    //             // hourOfDay: ,
+    //         }
+    //     );
+    // }
 
     render() {
+        console.log('month');
+        console.log(this.state.monthOfYear);
+        console.log('day');
+        console.log(this.state.dayOfMonth);
+        console.log('week');
+        console.log(this.state.dayOfWeek);
+        console.log('hour');
+        console.log(this.state.hourOfDay);
         return (
             <ButtonContext.Provider value={this.state}>
                 <div>
@@ -135,10 +170,19 @@ class SelectBuilding extends React.Component {
                         <Header selection={this.state} callback={this.buildingHandler}/>
                         <br/>
                         <DateSelection/>
+                        <br />
+                        <Button
+                            bsStyle="success"
+                            style={{ marginTop: '8px' }}
+                            block
+                            onClick={this.saveDateSelection}
+                        >
+                            Save
+                        </Button>
 
                         <Row>
                             <Col md={12}>
-                                {/*<PreBake1 building={this.state.building} />*/}
+                                <PreBake1 building={this.state.building} value={this.state} />
                             </Col>
                         </Row>
                         <Row>

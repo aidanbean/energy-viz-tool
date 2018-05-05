@@ -74,6 +74,7 @@ class EconGraph extends Component {
   /* when new query parameters are recieved in the props,
     we refetch the graphQL query and convert the timezone. */
   componentWillReceiveProps(nextProps) {
+    console.log('nextProps');
     console.log(nextProps);
     this.props.data.refetch();
     var fileName = `$(nextProps.data.variables.building)_Economizer_data`;
@@ -119,6 +120,28 @@ class EconGraph extends Component {
     };
 
 
+      let month = this.props.value.monthOfYear;
+      // let month = window.monthOfYear;
+      let day = this.props.value.dayOfMonth;
+      let weekday = this.props.value.dayOfWeek;
+      let hour = this.props.value.hourOfDay;
+
+      // console.log('props hour');
+      // console.log(this.props.value.hourOfDay);
+      // console.log('props day');
+      // console.log(this.props.value.dayOfMonth);
+
+
+      console.log('prop month');
+      console.log(this.props.value.monthOfYear);
+      console.log('prop day');
+      console.log(this.props.value.dayOfMonth);
+      console.log('prop week');
+      console.log(this.props.value.dayOfWeek);
+      console.log('prop hour');
+      console.log(this.props.value.hourOfDay);
+
+
     for (var i = 0; i < nextProps.data.selectBuilding.length; i += 2) {
       var points = [];
       for (var j = 0; j < nextProps.data.selectBuilding[i].stream.length; j++) {
@@ -135,10 +158,7 @@ class EconGraph extends Component {
       //   console.log(tmp);
       //
 
-        let month = window.monthOfYear;
-        let day = window.dayOfMonth;
-        let weekday = window.dayOfWeek;
-        let hour = window.hourOfDay;
+
 
         console.log(points.length);
 

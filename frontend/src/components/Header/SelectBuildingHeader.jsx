@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
 import Building from '../SearchBar/BuildingSearchBar';
-import Sensor from '../SearchBar/SensorTypeSearchBar';
-import Start from '../SearchBar/StartForm';
-import End from '../SearchBar/EndForm';
-import Interval from '../SearchBar/IntervalForm';
 
 class SelectHeader extends Component {
   constructor(props) {
@@ -31,8 +27,10 @@ class SelectHeader extends Component {
       }
     );
   }
+
   buttonHandler() {
-      this.props.callback(this.state.building); //
+      this.props.callback(this.state.building); //TODO: move the state outof this function
+      // console.log(this.props.selection.hourOfDay);
   }
 
   render() {
