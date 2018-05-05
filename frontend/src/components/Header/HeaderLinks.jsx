@@ -7,6 +7,7 @@ import Sensor from '../SearchBar/SensorTypeSearchBar';
 import Start from '../SearchBar/StartForm';
 import End from '../SearchBar/EndForm';
 import Interval from '../SearchBar/IntervalForm';
+import moment from 'moment';
 
 class HeaderLinks extends Component {
   constructor() {
@@ -25,9 +26,9 @@ class HeaderLinks extends Component {
       equipmentType: null,
       equipmentNumber: null,
       sensorType: null,
-      startTime: '',
-      endTime: '',
-      interval: '',
+      startTime: moment().subtract(2, 'months').format("MM-DD-YYYY-Ha"),
+      endTime: moment().subtract(1, 'months').format("MM-DD-YYYY-Ha"),
+      interval: '1h',
     };
 
     /* The following are different callbacks that are triggered

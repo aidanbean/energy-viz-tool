@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import moment from 'moment-timezone';
-import { Row, Col, Jumbotron } from 'react-bootstrap';
-import { BarLoader } from 'react-spinners';
-import Highcharts from 'react-highcharts';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
-import HeaderLinks from '../../components/Header/HeaderLinks.jsx';
-import { Card } from '../../components/Card/Card.jsx';
-import TableList from '../TableList/TableList';
+import React, { Component } from "react";
+import moment from "moment-timezone";
+import { Row, Col, Jumbotron } from "react-bootstrap";
+import { BarLoader } from "react-spinners";
+import Highcharts from "react-highcharts";
+import { graphql } from "react-apollo";
+import gql from "graphql-tag";
+import HeaderLinks from "../../components/Header/HeaderLinks.jsx";
+import { Card } from "../../components/Card/Card.jsx";
+import TableList from "../TableList/TableList";
 
-require('highcharts/modules/exporting')(Highcharts.Highcharts);
-require('highcharts/modules/export-data')(Highcharts.Highcharts);
+require("highcharts/modules/exporting")(Highcharts.Highcharts);
+require("highcharts/modules/export-data")(Highcharts.Highcharts);
 
 class Dashboard extends Component {
   constructor(props) {
@@ -20,159 +20,179 @@ class Dashboard extends Component {
       didMount: false,
       progress: 0,
       config: {
-        legend: {
-          enabled: false,
-        },
-        chart: {
-          height: 400,
-          type: 'line',
-          zoomType: 'xy',
-        },
-        xAxis: {
-          categories: [],
-        },
-        data: {
-          table: 'datable',
-        },
-        series: [
-          {
-            data: [],
-            color: '#9acd32',
+          legend: {
+              enabled: false
           },
-        ],
-        title: {
-          text: null,
-        },
-      },
-      time: new Date(),
+          chart: {
+              height: 400,
+              type: "line",
+              zoomType: "xy"
+          },
+          xAxis: {
+              categories: []
+          },
+          series: [
+              {
+                  data: [],
+                  color: "#9acd32"
+              }
+          ],
+      }
     };
   }
 
+  findMaxXaxisIndex (nextProps) {
+    let index = 0, maxSize = 0, maxIndex = 0;
+      nextProps.data.dataStream.forEach(function (element) {
+        if (maxSize < element.stream.length) {
+            maxSize =  element.stream.length;
+            maxIndex = index;
+        }
+        index += 1;
+      });
+
+      return maxIndex;
+  }
   /* when new query parameters are received in the props,
     we refetch the graphQL query and convert the timezone. */
   componentWillReceiveProps(nextProps) {
     this.props.data.refetch();
-    if (typeof nextProps.data.dataStream === 'undefined') {
+    if (typeof nextProps.data.dataStream === "undefined") {
       return;
     }
-    var config = {};
-    var series = [];
-    var unit, avg, min, max, stddev;
-    const variables = nextProps.data.variables;
-    const fileName = `${variables.building}_${variables.equipmentType}_${
-      variables.equipmentNumber
-    }_${variables.sensorType}`;
-    for (var i = 0; i < nextProps.data.dataStream.length; i++) {
-      const y = [];
+    let config = {}, xLines = [], x = [];
+    const variables = nextProps.data.variables,
+        maxIndex = this.findMaxXaxisIndex(nextProps),
+        fileName = `${variables.building}_${variables.equipmentType}_${variables.equipmentNumber}_${variables.sensorType}`;
+    for (let i = 0; i < nextProps.data.dataStream.length; i++) {
+      let unit, avg, min, max, stddev;
       nextProps.data.dataStream[i].summary.forEach(function(element) {
         const value = element.Value.Value.toFixed(2);
-        switch (element.Type) {
-          case 'Average':
+
+        // console.log("value is: " + value + "\nElement type: " + element.Type);
+        let tableDataArray = [];
+
+        switch (element.Type) { // NOTE: this may not be the place to add to array
+          case "Average":
             avg = value;
+            tableDataArray.push(avg);
             break;
-          case 'Minimum':
+          case "Minimum":
             min = value;
+            tableDataArray.push(min);
             break;
-          case 'Maximum':
+          case "Maximum":
             max = value;
+            tableDataArray.push(max);
             break;
-          case 'StdDev':
+          case "StdDev":
             stddev = value;
+            tableDataArray.push(stddev);
             break;
         }
+
+
       });
+      if (i === maxIndex) {
+          nextProps.data.dataStream[i].stream.forEach(function(element) {
+              x.push(
+                  moment
+                      .tz(element.Timestamp, "US/Pacific")
+                      .format("YYYY-MM-DDTHH:mm")
+              );
+          });
+      }
+      const y = [];
+
       nextProps.data.dataStream[i].stream.forEach(function(element) {
-        y.push(element.Value);
-        unit = element.UnitsAbbreviation;
-      });
-      if (i === 0) {
-        const x = [];
-        nextProps.data.dataStream[i].stream.forEach(function(element) {
-          x.push(
-            moment
-              .tz(element.Timestamp, 'US/Pacific')
-              .format('YYYY-MM-DDTHH:mm')
-          );
+            y.push(element.Value);
+            unit = element.UnitsAbbreviation;
         });
-        config = {
+      // generate a random color.
+      let color = "#" + Math.floor(Math.random() * 16777215).toString(16);
+      let dataStream = nextProps.data.dataStream[i];
+
+      // console.log("dataStream value: " + JSON.stringify(dataStream));
+
+      let dataArray = []; // holds data to pass to TableList as a prop
+      let name = `${dataStream.building}.${dataStream.equipmentNumber}.${dataStream.sensorType}`;
+      dataArray.push(name);
+      console.log("dataArray[0]: " + dataArray[0]);
+      console.log("dataArray[1]: " + dataArray[1]);
+      // console.log("BUILDING NAME: " + name);
+      let serie = {
+          data: y,
+          color: color,
+          name: name,
+          tooltip: {
+            headerFormat: "<small>{point.key}</small><table>",
+            pointFormat:
+            '<tr><td style="color: {series.color}">{series.name}: </td>' +
+            '<td style="text-align: right"><b>{point.y} {unit}</b></td></tr>' +
+            '<tr><td style="color: {series.color}"> Average</td>' +
+            '<td style="text-align: right"><b>' +
+            avg +
+            '</b></td></tr>' +
+            '<tr><td style="color: {series.color}"> Minimum </td>' +
+            '<td style="text-align: right"><b>' +
+            min +
+            '</b></td></tr>' +
+            '<tr><td style="color: {series.color}"> Maximum</td>' +
+            '<td style="text-align: right"><b>' +
+            max +
+            '</b></td></tr>' +
+            '<tr><td style="color: {series.color}"> Standard Deviation</td>' +
+            '<td style="text-align: right"><b>' +
+            stddev +
+            '</b></td></tr>',
+            footerFormat: '</table>',
+          }
+      };
+      xLines.push(serie);
+    }
+    config = {
           legend: {
-            enabled: true,
+              enabled: true,
           },
           chart: {
-            height: 400,
-            type: 'line',
-            zoomType: 'xy',
+              height: 400,
+              type: "line",
+              zoomType: "xy",
+
           },
           xAxis: {
-            categories: x,
+              categories: x
           },
           title: {
-            text: `${variables.building}`,
-            style: {
-              fontSize: '2em',
-              fontWeight: 'bold',
-            },
+              text: `${variables.building}`,
+              style: {
+                  fontSize: "2em",
+                  fontWeight: "bold"
+              }
           },
           subtitle: {
-            text: `${variables.equipmentType}`,
+              text: `${variables.equipmentType}`
           },
           exporting: {
-            filename: fileName,
+              filename: fileName
           },
           tooltip: {
-            valueSuffix: `${unit}`,
-            useHTML: true,
-            headerFormat: '<small>{point.key}</small><table>',
-            pointFormat:
-              '<tr><td style="color: {series.color}">{series.name}: </td>' +
-              '<td style="text-align: right"><b>{point.y} {unit}</b></td></tr>' +
-              '<tr><td style="color: {series.color}"> Average</td>' +
-              '<td style="text-align: right"><b>' +
-              avg +
-              '</b></td></tr>' +
-              '<tr><td style="color: {series.color}"> Minimum </td>' +
-              '<td style="text-align: right"><b>' +
-              min +
-              '</b></td></tr>' +
-              '<tr><td style="color: {series.color}"> Maximum</td>' +
-              '<td style="text-align: right"><b>' +
-              max +
-              '</b></td></tr>' +
-              '<tr><td style="color: {series.color}"> Standard Deviation</td>' +
-              '<td style="text-align: right"><b>' +
-              stddev +
-              '</b></td></tr>',
-            footerFormat: '</table>',
-          },
-        };
-      }
-      // generate a random color.
-      var color = '#' + Math.floor(Math.random() * 16777215).toString(16);
-      var dataStream = nextProps.data.dataStream[i];
-      var name = `${dataStream.building}.${dataStream.equipmentNumber}.${
-        dataStream.sensorType
-      }`;
-      var serie = {
-        data: y,
-        color: color,
-        name: name,
+              useHTML: true,
+          }
       };
-      series.push(serie);
-    }
-    config['series'] = series;
+    config["series"] = xLines;
     this.setState(
       {
-        config: config,
-      },
-      () => {
-        // console.log(this.state.config);
+        config: config
       }
     );
   }
 
+
   refresh() {
     this.props.data.refetch();
   }
+
 
   componentDidMount() {
     this.setState({ didMount: true });
@@ -190,11 +210,11 @@ class Dashboard extends Component {
     if (this.props.data && this.props.data.loading) {
       return (
         <div>
-          <Row style={{ marginRight: '0px', marginLeft: '0px' }}>
+          <Row style={{ marginRight: "0px", marginLeft: "0px" }}>
             <HeaderLinks callback={this.headerCallback} isLoading={false} />
           </Row>
           <Row
-            style={{ height: '200px', marginRight: '0px', marginLeft: '0px' }}
+            style={{ height: "200px", marginRight: "0px", marginLeft: "0px" }}
           >
             <Col md={12}>
               <Card
@@ -214,7 +234,7 @@ class Dashboard extends Component {
                       </center>
                     </p>
                     <BarLoader
-                      color={'#3C4858'}
+                      color={"#3C4858"}
                       loading={this.props.data.loading}
                     />
                   </center>
@@ -230,7 +250,7 @@ class Dashboard extends Component {
       clearTimeout();
       return (
         <div>
-          <Row style={{ marginRight: '0px', marginLeft: '0px' }}>
+          <Row style={{ marginRight: "0px", marginLeft: "0px" }}>
             <HeaderLinks callback={this.headerCallback} isLoading={false} />
           </Row>
           <Jumbotron>
@@ -247,12 +267,13 @@ class Dashboard extends Component {
         </div>
       );
     }
+
     return (
       <div>
-        <Row style={{ marginRight: '0px', marginLeft: '0px' }}>
+        <Row style={{ marginRight: "0px", marginLeft: "0px" }}>
           <HeaderLinks callback={this.headerCallback} isLoading={false} />
         </Row>
-        <Row style={{ marginRight: '0px', marginLeft: '0px' }}>
+        <Row style={{ marginRight: "0px", marginLeft: "0px" }}>
           <Col md={12}>
             <Card
               content={<Highcharts config={this.state.config} ref="ct-chart" />}
@@ -272,6 +293,7 @@ class Dashboard extends Component {
     );
   }
 }
+
 
 const DATA_QUERY = gql`
   query DataQuery(
@@ -320,7 +342,8 @@ export default graphql(DATA_QUERY, {
       sensorType: props.headerData.sensorType,
       startTime: props.headerData.startTime,
       endTime: props.headerData.endTime,
-      interval: props.headerData.interval,
-    },
-  }),
+      interval: props.headerData.interval
+    }
+  })
+
 })(Dashboard);
