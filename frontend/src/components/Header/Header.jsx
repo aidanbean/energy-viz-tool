@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
-import {Navbar, NavDropdown, Nav, MenuItem} from 'react-bootstrap';
+import React, { Component } from 'react';
+import { Navbar, NavDropdown, Nav, MenuItem } from 'react-bootstrap';
 
 import appRoutes from '../../routes/app.jsx';
 
 class Header extends Component {
-    constructor(props) {
+  constructor(props) {
     super(props);
     this.mobileSidebarToggle = this.mobileSidebarToggle.bind(this);
     this.headerCallback = this.headerCallback.bind(this);
