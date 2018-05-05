@@ -118,6 +118,7 @@ class Dashboard extends Component {
           name = `${dataStream.building}.${dataStream.equipmentType}.${dataStream.sensorType}`;
       }
       tableRow["Building"] = name;
+      // TODO: if Building is already in table, do not add row -> remove redundant rows
       let serie = {
           data: y,
           color: color,
