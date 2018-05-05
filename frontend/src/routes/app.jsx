@@ -2,14 +2,13 @@ import Search from '../views/Search/Search';
 import TableList from '../views/TableList/TableList';
 import Typography from '../views/Typography/Typography';
 import SelectBuilding from '../views/SelectBuilding/SelectBuilding';
-import AllBuildings from "../views/AllBuildings/SelectBuilding";
 
 const appRoutes = [
   {
-    path: '/all-building',
+    path: '/typography',
     name: 'All Buildings',
     icon: 'pe-7s-home',
-    component: AllBuildings,
+    component: Typography,
   },
   {
     path: '/select',
@@ -28,7 +27,7 @@ const appRoutes = [
     path: '/',
     to: '/search',
     name: 'Search',
-  }
+  },
 ];
 
 export default appRoutes;

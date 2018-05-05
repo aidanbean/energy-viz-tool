@@ -1,54 +1,53 @@
+import React from 'react';
+import { withStyles, Button } from 'material-ui';
+import PropTypes from 'prop-types';
 
-import React, {Component} from 'react';
+import { buttonStyle } from '../../variables/styles';
 
-class Button extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            clicked: false,
-
-        };
-        // this.observer = props.observer;
-    }
-
-    clickHandler() {
-        this.setState(
-            {
-                clicked: !this.state.clicked,
-            }
-        )
-    }
-
-    render() {
-        var buttonStyle = {
-            width: 32,
-            height: 32,
-            border: 0,
-            paddingLeft: 0,
-            paddingRight: 0,
-            backgroundColor: "rgb(188, 228, 236)",
-            marginBottom: 5,
-            marginTop: 5,
-            marginLeft: 5,
-            marginRight: 5,
-            fontWeight: 'normal'
-        };
-        var clicked = this.state.clicked;
-        if (clicked) {
-            buttonStyle.backgroundColor = "rgb(188, 228, 236)";
-            buttonStyle.fontWeight = 'bold';
-            // this.observer.publish("hello",'this is data');
-            alert(this.props.name);
-        } else {
-            buttonStyle.backgroundColor = "white";
+class RegularButton extends React.Component {
+  render() {
+    const {
+      classes,
+      color,
+      round,
+      children,
+      fullWidth,
+      disabled,
+      ...rest
+    } = this.props;
+    return (
+      <Button
+        {...rest}
+        className={
+          classes.button +
+          (color ? ' ' + classes[color] : '') +
+          (round ? ' ' + classes.round : '') +
+          (fullWidth ? ' ' + classes.fullWidth : '') +
+          (disabled ? ' ' + classes.disabled : '')
         }
-
-        return (
-            <button style={buttonStyle} onClick={() => this.clickHandler()} //TODO: button style CSS depend on mock up Demo
-                    className="button">{this.props.text}</button>
-        )
-    }
+      >
+        {children}
+      </Button>
+    );
+  }
 }
 
-export default Button;
+RegularButton.propTypes = {
+  classes: PropTypes.object.isRequired,
+  color: PropTypes.oneOf([
+    'primary',
+    'info',
+    'success',
+    'warning',
+    'danger',
+    'rose',
+    'white',
+    'simple',
+    'transparent',
+  ]),
+  round: PropTypes.bool,
+  fullWidth: PropTypes.bool,
+  disabled: PropTypes.bool,
+};
+
+export default withStyles(buttonStyle)(RegularButton);

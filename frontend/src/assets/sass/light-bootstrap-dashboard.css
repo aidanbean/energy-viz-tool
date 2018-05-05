@@ -676,12 +676,11 @@ body > .navbar-collapse[data-color='purple']:after {
 }
 
 .main-panel {
-    /*background: rgba(203, 203, 210, 0.15); */
-  background: #EEEDEE;
+  /*background: rgba(203, 203, 210, 0.15); */
+  background: #eeedee;
   position: relative;
   float: right;
   width: calc(100% - 260px);
-  height: 100%;
 }
 
 .main-panel > .content {

@@ -9,7 +9,6 @@ import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import { Card } from "../../components/Card/Card.jsx";
 
-
 require("highcharts/modules/exporting")(Highcharts.Highcharts);
 require("highcharts/modules/export-data")(Highcharts.Highcharts);
 
