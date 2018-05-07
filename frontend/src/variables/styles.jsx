@@ -142,7 +142,7 @@ const appStyle = theme => ({
   wrapper: {
     position: 'relative',
     top: '0',
-    height: '100vh',
+    height: '100%', //MARK
   },
   mainPanel: {
     [theme.breakpoints.up('md')]: {
@@ -154,6 +154,7 @@ const appStyle = theme => ({
     ...transition,
     maxHeight: '100%',
     width: '100%',
+    minHeight: '100%',//MARK
   },
   content: {
     marginTop: '70px',
