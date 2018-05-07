@@ -2,10 +2,6 @@ import Button from '../CustomButtons/Button.jsx'
 import React, {Component} from 'react';
 
 class MonthPicker extends Component {
-    // constructor(props){
-        // super(props);
-        // this.observer = props.observer;
-    // }
 
     render() {
         function MonthList(props) {
@@ -18,7 +14,8 @@ class MonthPicker extends Component {
             );
         }
 
-        const Month = ['Jan', 'Feb', 'Mar',	'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        // const Month = ['Jan', 'Feb', 'Mar',	'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const Month = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
 
         return (
             <MonthList months={Month}/>
@@ -27,4 +24,3 @@ class MonthPicker extends Component {
 }
 
 export default MonthPicker;
-
