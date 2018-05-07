@@ -310,7 +310,6 @@ class Dashboard extends Component {
                                   {
                                       Header: 'Sensor Name',
                                       accessor: 'Building',
-                                      // TODO: Change below to get all data
                                       filterMethod: (filter, row) =>
                                           String(row[filter.id])
                                               .toLocaleLowerCase()
@@ -320,7 +319,6 @@ class Dashboard extends Component {
                                       // Header: "Equipment Type",
                                       Header: 'Maximum',
                                       accessor: 'Maximum',
-                                      // TODO: change this below to get all data
                                       // accessor: d => d.Maximum,
                                       filterMethod: (filter, rows) =>
                                           matchSorter(rows, filter.value, {
@@ -329,21 +327,16 @@ class Dashboard extends Component {
                                       // filterAll: true,
                                   },
                                   {
-                                      // Header: "Equipment Number",
                                       Header: 'Minimum',
                                       accessor: 'Minimum'
-                                      // accessor: "equipmentNumber",
                                   },
                                   {
-                                      // Header: "Sensor Type",
                                       Header: 'Average',
                                       accessor: 'Average'
-                                      // id: ""
                                   },
                                   {
                                       Header: 'Standard Deviation',
                                       accessor: 'StdDev'
-                                      // id: ""
                                   },
                               ]}
                               defaultPageSize={10}
