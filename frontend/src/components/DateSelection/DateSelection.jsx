@@ -3,27 +3,21 @@ import WeekdayPicker from './WeekdayPicker';
 import HourPicker from './HourPicker';
 import MonthDayPicker from './MonthDayPicker';
 import MonthPicker from './MonthPicker';
-import {Grid, Row, Col, Button} from 'react-bootstrap';
+import {Col, Button} from 'react-bootstrap';
 
 class DateSelection extends Component {
     constructor(props) {
         super(props);
-        window.monthOfYear = [];
-        window.dayOfMonth = [];
-        window.dayOfWeek = [];
-        window.hourOfDay = ['1'];
-        window.refetchData = 0;
     }
 
-    shouldComponentUpdate = (nextProps, nextState) => { // preventing re-render when parents state change
+    shouldComponentUpdate = () => { // preventing re-render when parents state change
         return false;
     };
 
-
     render() {
         return (
-            <div>
-                <Col md={3}>
+            <div style={{backgroundColor: "#FFFFFF"}}>
+                <Col md={4}>
                     <span>Month of Year</span>
                     <MonthPicker/>
                 </Col>
@@ -31,7 +25,7 @@ class DateSelection extends Component {
                     <span>Day of Month</span>
                     <MonthDayPicker/>
                 </Col>
-                <Col md={8}>
+                <Col md={4}>
                     <span>Day of Week</span>
                     <WeekdayPicker/>
                 </Col>
@@ -39,15 +33,18 @@ class DateSelection extends Component {
                     <span>Hour of day</span>
                     <HourPicker/>
                 </Col>
-                <Col md={8}>
-                    <Button
-                        bsStyle="success"
-                        style={{marginTop: '8px'}}
+                <Col md={1}>
+                </Col>
+                <Col md={2}>
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        style={{marginBottom: "20px"}}
                         block
                         onClick={this.props.applySelection}
                     >
                         Apply
-                    </Button>
+                    </button>
                 </Col>
             </div>
         );

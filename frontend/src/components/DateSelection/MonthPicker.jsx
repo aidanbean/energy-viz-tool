@@ -2,10 +2,6 @@ import Button from '../CustomButtons/Button.jsx'
 import React, {Component} from 'react';
 
 class MonthPicker extends Component {
-    // constructor(props){
-        // super(props);
-        // this.observer = props.observer;
-    // }
 
     render() {
         function MonthList(props) {

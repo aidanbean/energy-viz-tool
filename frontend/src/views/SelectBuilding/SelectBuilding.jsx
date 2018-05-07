@@ -38,8 +38,6 @@ class SelectBuilding extends React.Component {
                 }
             } else {
                 let idx = 0;
-                console.log('button number');
-                console.log(button);
                 switch (tag) {
                     case 'm':
                         monthOfYearTmp = monthOfYearTmp.filter(element => element != button);
@@ -90,7 +88,6 @@ class SelectBuilding extends React.Component {
             buttonHandler: this.buttonHandler,
         };
     }
-
 
     render() {
         return (

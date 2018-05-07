@@ -30,7 +30,6 @@ class SelectHeader extends Component {
 
   buttonHandler() {
       this.props.callback(this.state.building);
-      // console.log(this.props.selection.hourOfDay);
   }
 
   render() {
