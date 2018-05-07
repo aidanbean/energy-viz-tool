@@ -120,11 +120,10 @@ class EconGraph extends Component {
     };
 
 
-      let month = this.props.value.monthOfYear;
-      // let month = window.monthOfYear;
-      let day = this.props.value.dayOfMonth;
-      let weekday = this.props.value.dayOfWeek;
-      let hour = this.props.value.hourOfDay;
+      let month = this.props.dateSelection.monthOfYear;
+      let day = this.props.dateSelection.dayOfMonth;
+      let weekday = this.props.dateSelection.dayOfWeek;
+      let hour = this.props.dateSelection.hourOfDay;
 
       // console.log('props hour');
       // console.log(this.props.value.hourOfDay);
@@ -133,13 +132,13 @@ class EconGraph extends Component {
 
 
       console.log('prop month');
-      console.log(this.props.value.monthOfYear);
+      console.log(this.props.dateSelection.monthOfYear);
       console.log('prop day');
-      console.log(this.props.value.dayOfMonth);
+      console.log(this.props.dateSelection.dayOfMonth);
       console.log('prop week');
-      console.log(this.props.value.dayOfWeek);
+      console.log(this.props.dateSelection.dayOfWeek);
       console.log('prop hour');
-      console.log(this.props.value.hourOfDay);
+      console.log(this.props.dateSelection.hourOfDay);
 
 
     for (var i = 0; i < nextProps.data.selectBuilding.length; i += 2) {
@@ -242,6 +241,18 @@ class EconGraph extends Component {
   componentDidMount() {
     this.setState({ didMount: true });
   }
+
+
+  // componentWillUpdate(nextProps, value) {
+  //   console.log('will update');
+  //   console.log(nextProps);
+  //   console.log(value);
+  //     return true;
+  // }
+  //
+  // shouldComponentUpdate(nextProps, nextState) {
+  //     if nextProps.dateSelection
+  // }
 
   render() {
     this.props.data.refetch();
