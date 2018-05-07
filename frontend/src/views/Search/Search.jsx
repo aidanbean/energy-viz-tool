@@ -84,7 +84,7 @@ class Dashboard extends Component {
               x.push(
                   moment
                       .tz(element.Timestamp, "US/Pacific")
-                      .format("YYYY-MM-DDTHH:mm")
+                      .format("YYYY-MM-DD HH:mm")
               );
           });
       }
