@@ -5,7 +5,6 @@ import MonthDayPicker from './MonthDayPicker';
 import MonthPicker from './MonthPicker';
 import {Grid, Row, Col, Button} from 'react-bootstrap';
 
-
 class DateSelection extends Component {
     constructor(props) {
         super(props);
@@ -14,41 +13,33 @@ class DateSelection extends Component {
         window.dayOfWeek = [];
         window.hourOfDay = ['1'];
         window.refetchData = 0;
-        //     this.observer = ReactObserver();
-
     }
 
-    state = {showing: true};
-
-
-    shouldComponentUpdate = (nextProps, nextState) => {
+    shouldComponentUpdate = (nextProps, nextState) => { // preventing re-render when parents state change
         return false;
     };
 
 
     render() {
-        const {showing} = this.state;
-        console.log('DateSelection Render');
         return (
             <div>
-
-                <div>
-                    <span>Month</span>
+                <Col md={3}>
+                    <span>Month of Year</span>
                     <MonthPicker/>
-                </div>
-                <div>
+                </Col>
+                <Col md={8}>
                     <span>Day of Month</span>
                     <MonthDayPicker/>
-                </div>
-                <div>
+                </Col>
+                <Col md={8}>
                     <span>Day of Week</span>
                     <WeekdayPicker/>
-                </div>
-                <div>
+                </Col>
+                <Col md={8}>
                     <span>Hour of day</span>
                     <HourPicker/>
-                </div>
-                <Col md={2}>
+                </Col>
+                <Col md={8}>
                     <Button
                         bsStyle="success"
                         style={{marginTop: '8px'}}

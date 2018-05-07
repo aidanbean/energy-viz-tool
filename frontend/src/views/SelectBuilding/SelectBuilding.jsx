@@ -1,6 +1,5 @@
 import React from 'react';
 import {Grid, Row, Col} from 'react-bootstrap';
-import Building from '../../components/SearchBar/BuildingSearchBar';
 import Header from '../../components/Header/SelectBuildingHeader.jsx';
 import PreBake1 from '../../components/Graphs/Economizer.jsx';
 import PreBake2 from '../../components/Graphs/AirTemp-AirTempSP.jsx';
@@ -109,12 +108,15 @@ class SelectBuilding extends React.Component {
                                         <PreBake1 building={this.state.building} dateSelection={value}/>
                                     }
                                 </ButtonContext.Consumer>
-
                             </Col>
                         </Row>
                         <Row>
                             <Col md={12}>
-
+                                <ButtonContext.Consumer>
+                                    {value =>
+                                        <PreBake2 building={this.state.building} dateSelection={value}/>
+                                    }
+                                </ButtonContext.Consumer>
                             </Col>
                         </Row>
                     </Grid>
