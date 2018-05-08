@@ -16,7 +16,7 @@ class WeekdayPicker extends Component {
         }
 
         // const WEEKDAYS_SHORT = ['U', 'M', 'T', 'W', 'R', 'F', 'S'];
-        const WEEKDAYS_SHORT = ['7', '1', '2', '3', '4', '5', '6'];
+        const WEEKDAYS_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
         return (
             <DayList week={WEEKDAYS_SHORT}/>
