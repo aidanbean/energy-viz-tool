@@ -70,11 +70,14 @@ class Header extends Component {
     return (
       <Navbar fluid>
         <Navbar.Header>
+        {/*
           <Navbar.Brand>
             <a href="#pablo">{this.getBrand()}</a>
           </Navbar.Brand>
           <Navbar.Toggle onClick={this.mobileSidebarToggle} />
+          */}
         </Navbar.Header>
+        {/*
         <Nav pullRight>
           <NavDropdown
             eventKey={2}
@@ -90,6 +93,7 @@ class Header extends Component {
             <MenuItem eventKey={2.5}>Separated link</MenuItem>
           </NavDropdown>
         </Nav>
+        */}
       </Navbar>
     );
   }
