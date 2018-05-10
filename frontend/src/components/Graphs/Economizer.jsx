@@ -27,18 +27,13 @@ class EconGraph extends Component {
     }
 
     componentDidMount() {
-        console.log('did mount');
-        console.log(this.props);
         this.props.data.refetch();
         this._loadGraphData(this.props);
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (this.state.config === null) {
-            console.log('did update');
             this.props.data.refetch();
-            console.log(this.props);
-            console.log(this.state);
             this._loadGraphData(this.props);
         }
     }
@@ -47,13 +42,9 @@ class EconGraph extends Component {
     static getDerivedStateFromProps(nextProps, prevState){
         // Store prevId in state so we can compare when props change.
         // Clear out previously-loaded data (so we don't render stale stuff).
-        console.log('Derived');
-        console.log(nextProps);
-        console.log(prevState);
 
         if (nextProps.building !== prevState.building || nextProps.dateSelection != prevState.dateSelection
             || (nextProps.data.selectBuilding != undefined && nextProps.data.selectBuilding != prevState.selectBuilding)) {
-            console.log('derive id missmatcb');
             return {
                 config: null,
                 building: nextProps.building,
@@ -62,7 +53,6 @@ class EconGraph extends Component {
             };
         }
         // No state update necessary
-        console.log('derive return null');
         return null;
     }
 
@@ -187,9 +177,6 @@ class EconGraph extends Component {
     }
 
 
-    // componentWillUpdate(nextProps, value) {
-    // }
-    //
     // shouldComponentUpdate(nextProps, nextState) {
     //
     //
@@ -198,12 +185,6 @@ class EconGraph extends Component {
     // }
 
     render() {
-        // this.props.data.refetch();
-        console.log("this.props Render!");
-        console.log(this.props);
-        console.log(this.state);
-
-
         if (this.state.config === null) {
             return (
                 <div>
