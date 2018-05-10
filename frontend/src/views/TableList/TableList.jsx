@@ -91,9 +91,12 @@ class TableList extends Component {
                         // id: ""
                       },
                       {
-                        Header: 'Standard Deviation',
-                        // id: ""
+                          Header: 'Median'
                       },
+                      // {
+                      //   Header: 'Standard Deviation',
+                      //   // id: ""
+                      // },
                     ]}
                     defaultPageSize={10}
                     className="-striped -highlight"
