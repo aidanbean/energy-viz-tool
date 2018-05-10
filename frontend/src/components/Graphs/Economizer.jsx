@@ -18,68 +18,54 @@ class EconGraph extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            didMount: false,
             progress: 0,
-            config: {
-                legend: {
-                    enabled: true
-                },
-                exporting: {
-                    showTable: false
-                },
-                chart: {
-                    height: 400,
-                    type: "scatter",
-                    zoomType: "xy"
-                },
-                xAxis: {
-                    title: {
-                        enabled: true,
-                        text: "Outside Air Temperature"
-                    },
-                    startOnTick: true,
-                    endOnTick: true,
-                    showLastLabel: true
-                },
-                yAxis: {
-                    title: {
-                        text: "Mixed Air Temperature"
-                    }
-                },
-                series: [
-                    {
-                        data: [],
-                        color: "#9acd32"
-                    }
-                ]
-            },
-            time: new Date()
+            config: null,
+            building: null,
+            dateSelection: null,
         };
     }
 
-    // static createLegend(json){
-    //     var legend = [];
-    //     for(var i = 0; i < json["names"].length; i++){
-    //         var type = "fa fa-circle text-"+json["types"][i];
-    //         legend.push(
-    //             <i className={type} key={i}></i>
-    //         );
-    //         legend.push(" ");
-    //         legend.push(
-    //             json["names"][i]
-    //         );
-    //     }
-    //     return legend;
-    // }
-
-    /* when new query parameters are recieved in the props,
-      we refetch the graphQL query and convert the timezone. */
-    componentWillReceiveProps(nextProps) {
-        console.log('nextProps');
-        console.log(nextProps);
+    componentDidMount() {
+        console.log('did mount');
+        console.log(this.props);
         this.props.data.refetch();
+        this._loadGraphData(this.props);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.config === null) {
+            console.log('did update');
+            console.log(this.props);
+            console.log(this.state);
+            this.props.data.refetch();
+            this._loadGraphData(this.props);
+        }
+    }
+
+
+    static getDerivedStateFromProps(nextProps, prevState){
+        // Store prevId in state so we can compare when props change.
+        // Clear out previously-loaded data (so we don't render stale stuff).
+        console.log('Derived');
+        console.log(nextProps);
+        console.log(prevState);
+        if (nextProps.building !== prevState.building || nextProps.dateSelection != prevState.dateSelection) {
+            console.log('derive id missmatcb');
+            return {
+                config: null,
+                building: nextProps.building,
+                dateSelection: nextProps.dateSelection,
+            };
+        }
+        // No state update necessary
+        console.log('derive return null');
+        return null;
+    }
+
+    _loadGraphData(props){
+        // this.props.data.refetch();
         var fileName = `$(nextProps.data.variables.building)_Economizer_data`;
-        if (this.props.data.selectBuilding == "undefined") {
+        if (props.data.selectBuilding == undefined) {
             console.log("loading");
             return;
         }
@@ -110,7 +96,7 @@ class EconGraph extends Component {
                 }
             },
             title: {
-                text: nextProps.data.variables.building
+                text: props.data.variables.building
             },
             subtitle: {
                 text: "Economizer Evaluation"
@@ -120,20 +106,19 @@ class EconGraph extends Component {
             }
         };
 
-
         let month = this.props.dateSelection.monthOfYear;
         let day = this.props.dateSelection.dayOfMonth;
         let weekday = this.props.dateSelection.dayOfWeek;
         let hour = this.props.dateSelection.hourOfDay;
 
-        for (var i = 0; i < nextProps.data.selectBuilding.length; i += 2) {
+        for (var i = 0; i < props.data.selectBuilding.length; i += 2) {
             var points = [];
-            for (var j = 0; j < nextProps.data.selectBuilding[i].stream.length; j++) {
+            for (var j = 0; j < props.data.selectBuilding[i].stream.length; j++) {
                 var point = {};
 
-                point["x"] = (nextProps.data.selectBuilding[i + 1].stream[j].Value);
-                point["y"] = (nextProps.data.selectBuilding[i].stream[j].Value);
-                point["Timestamp"] = (nextProps.data.selectBuilding[i + 1].stream[j].Timestamp);
+                point["x"] = (props.data.selectBuilding[i + 1].stream[j].Value);
+                point["y"] = (props.data.selectBuilding[i].stream[j].Value);
+                point["Timestamp"] = (props.data.selectBuilding[i + 1].stream[j].Timestamp);
                 points.push(point);
             }
 
@@ -167,7 +152,7 @@ class EconGraph extends Component {
 
             // generate a random color.
             var color = "#" + Math.floor(Math.random() * 16777215).toString(16);
-            var data = nextProps.data.selectBuilding[i];
+            var data = props.data.selectBuilding[i];
             var name = `${data.building}.${data.equipmentNumber}`;
             // debugger;
             var serie = {
@@ -191,35 +176,31 @@ class EconGraph extends Component {
         }
 
         config["series"] = series;
+
         this.setState({
-            config: config
+            config: config,
         });
-    }
-
-    refresh() {
-        this.props.data.refetch();
-    }
-
-    componentDidMount() {
-        this.setState({didMount: true});
     }
 
 
     // componentWillUpdate(nextProps, value) {
-    //   console.log('will update');
-    //   console.log(nextProps);
-    //   console.log(value);
-    //     return true;
     // }
     //
     // shouldComponentUpdate(nextProps, nextState) {
-    //     if nextProps.dateSelection
+    //
+    //
+    //
+    //     return nextProps != this.props;
     // }
 
     render() {
-        this.props.data.refetch();
+        // this.props.data.refetch();
+        console.log("this.props Render!");
+        console.log(this.props);
+        console.log(this.state);
 
-        if (this.props.data && this.props.data.loading) {
+
+        if (this.state.config === null) {
             return (
                 <div>
                     <Row
@@ -245,9 +226,7 @@ class EconGraph extends Component {
                     </Row>
                 </div>
             );
-        }
-
-        if (this.props.data && this.props.data.error) {
+        }else if (this.props.data && this.props.data.error) {
             return (
                 <div>
                     <Jumbotron>
