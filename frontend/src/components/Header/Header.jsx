@@ -76,6 +76,7 @@ class Header extends Component {
           </Navbar.Brand>
           <Navbar.Toggle onClick={this.mobileSidebarToggle} />
           */}
+            <Navbar.Toggle onClick={this.mobileSidebarToggle} />
         </Navbar.Header>
         {/*
         <Nav pullRight>

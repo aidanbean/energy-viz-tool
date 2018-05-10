@@ -107,15 +107,15 @@ class SelectBuilding extends React.Component {
                                 </ButtonContext.Consumer>
                             </Col>
                         </Row>
-                        {/*<Row>*/}
-                            {/*<Col md={12}>*/}
-                                {/*<ButtonContext.Consumer>*/}
-                                    {/*{value =>*/}
-                                        {/*<PreBake2 building={this.state.building} dateSelection={value}/>*/}
-                                    {/*}*/}
-                                {/*</ButtonContext.Consumer>*/}
-                            {/*</Col>*/}
-                        {/*</Row>*/}
+                        <Row>
+                            <Col md={12}>
+                                <ButtonContext.Consumer>
+                                    {value =>
+                                        <PreBake2 building={this.state.building} dateSelection={value}/>
+                                    }
+                                </ButtonContext.Consumer>
+                            </Col>
+                        </Row>
                     </Grid>
                 </div>
             </ButtonContext.Provider>

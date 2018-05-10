@@ -18,66 +18,49 @@ class EconGraph extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            didMount: false,
             progress: 0,
-            config: {
-                legend: {
-                    enabled: true
-                },
-                exporting: {
-                    showTable: false
-                },
-                chart: {
-                    height: 400,
-                    type: "scatter",
-                    zoomType: "xy"
-                },
-                xAxis: {
-                    title: {
-                        enabled: true,
-                        text: "Supply Air Temperature Set Point"
-                    },
-                    startOnTick: true,
-                    endOnTick: true,
-                    showLastLabel: true
-                },
-                yAxis: {
-                    title: {
-                        text: "Supply Air Temperature"
-                    }
-                },
-                series: [
-                    {
-                        data: [],
-                        color: "#9acd32"
-                    }
-                ]
-            },
-            time: new Date()
+            config: null,
+            building: null,
+            selectBuilding: null,
+            dateSelection: null,
         };
     }
 
-    // static createLegend(json){
-    //     var legend = [];
-    //     for(var i = 0; i < json["names"].length; i++){
-    //         var type = "fa fa-circle text-"+json["types"][i];
-    //         legend.push(
-    //             <i className={type} key={i}></i>
-    //         );
-    //         legend.push(" ");
-    //         legend.push(
-    //             json["names"][i]
-    //         );
-    //     }
-    //     return legend;
-    // }
+    componentDidMount() {
+        this._loadGraphData(this.props);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.config === null) {
+            this._loadGraphData(this.props);
+        }
+    }
+
+
+    static getDerivedStateFromProps(nextProps, prevState){
+        // Store prevId in state so we can compare when props change.
+        // Clear out previously-loaded data (so we don't render stale stuff).
+
+        if (nextProps.building !== prevState.building || nextProps.dateSelection != prevState.dateSelection
+            || (nextProps.data.selectBuilding != undefined && nextProps.data.selectBuilding != prevState.selectBuilding)) {
+            return {
+                config: null,
+                building: nextProps.building,
+                dateSelection: nextProps.dateSelection,
+                selectBuilding: nextProps.data.selectBuilding,
+            };
+        }
+        // No state update necessary
+        return null;
+    }
+
 
     /* when new query parameters are recieved in the props,
       we refetch the graphQL query and convert the timezone. */
-    componentWillReceiveProps(nextProps) {
+    _loadGraphData(props){
         this.props.data.refetch();
-        var fileName = `$(nextProps.data.variables.building)_SupplyTemp_data`;
-        if (this.props.data.selectBuilding == "undefined") {
+        var fileName = `$(props.data.variables.building)_SupplyTemp_data`;
+        if (props.data.selectBuilding == undefined) {
             console.log("loading");
             return;
         }
@@ -108,7 +91,7 @@ class EconGraph extends Component {
                 }
             },
             title: {
-                text: nextProps.data.variables.building
+                text: props.data.variables.building
             },
             subtitle: {
                 text: "Supply Air Temperature Evaluation"
@@ -123,13 +106,13 @@ class EconGraph extends Component {
         let weekday = this.props.dateSelection.dayOfWeek;
         let hour = this.props.dateSelection.hourOfDay;
 
-        for (var i = 0; i < nextProps.data.selectBuilding.length; i += 2) {
+        for (var i = 0; i < props.data.selectBuilding.length; i += 2) {
             var points = [];
-            for (var j = 0; j < nextProps.data.selectBuilding[i].stream.length; j++) {
+            for (var j = 0; j < props.data.selectBuilding[i].stream.length; j++) {
                 var point = {};
-                point["x"] = (nextProps.data.selectBuilding[i + 1].stream[j].Value);
-                point["y"] = (nextProps.data.selectBuilding[i].stream[j].Value);
-                point["Timestamp"] = (nextProps.data.selectBuilding[i + 1].stream[j].Timestamp);
+                point["x"] = (props.data.selectBuilding[i + 1].stream[j].Value);
+                point["y"] = (props.data.selectBuilding[i].stream[j].Value);
+                point["Timestamp"] = (props.data.selectBuilding[i + 1].stream[j].Timestamp);
                 points.push(point);
             }
 
@@ -163,7 +146,7 @@ class EconGraph extends Component {
 
             // generate a random color.
             var color = "#" + Math.floor(Math.random() * 16777215).toString(16);
-            var data = nextProps.data.selectBuilding[i];
+            var data = props.data.selectBuilding[i];
             var name = `${data.building}.${data.equipmentNumber}`;
             var serie = {
                 data: points,
@@ -185,28 +168,14 @@ class EconGraph extends Component {
             series.push(serie);
         }
         config["series"] = series;
-        this.setState(
-            {
-                config: config
-            },
-            () => {
-                console.log(this.state.config);
-            }
-        );
-    }
 
-    refresh() {
-        this.props.data.refetch();
-    }
-
-    componentDidMount() {
-        this.setState({didMount: true});
+        this.setState({
+            config: config
+        });
     }
 
     render() {
-        this.props.data.refetch();
-
-        if (this.props.data && this.props.data.loading) {
+        if (this.state.config === null || this.props.data.loading) {
             return (
                 <div>
                     <Row

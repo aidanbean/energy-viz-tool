@@ -27,13 +27,11 @@ class EconGraph extends Component {
     }
 
     componentDidMount() {
-        this.props.data.refetch();
         this._loadGraphData(this.props);
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (this.state.config === null) {
-            this.props.data.refetch();
             this._loadGraphData(this.props);
         }
     }
@@ -58,7 +56,7 @@ class EconGraph extends Component {
 
     _loadGraphData(props){
         this.props.data.refetch();
-        var fileName = `$(nextProps.data.variables.building)_Economizer_data`;
+        var fileName = `$(props.data.variables.building)_Economizer_data`;
         if (props.data.selectBuilding == undefined) {
             console.log("loading");
             return;
@@ -178,19 +176,14 @@ class EconGraph extends Component {
 
 
     // shouldComponentUpdate(nextProps, nextState) {
-    //
-    //
-    //
     //     return nextProps != this.props;
     // }
 
     render() {
-        if (this.state.config === null) {
+        if (this.state.config === null || this.props.data.loading) {
             return (
                 <div>
-                    <Row
-                        style={{height: "200px", marginRight: "0px", marginLeft: "0px"}}
-                    >
+                    <Row style={{height: "200px", marginRight: "0px", marginLeft: "0px"}}>
                         <Col md={12}>
                             <Card
                                 content={
