@@ -21,6 +21,7 @@ class EconGraph extends Component {
             progress: 0,
             config: null,
             building: null,
+            selectBuilding: null,
             dateSelection: null,
         };
     }
@@ -35,9 +36,9 @@ class EconGraph extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (this.state.config === null) {
             console.log('did update');
+            this.props.data.refetch();
             console.log(this.props);
             console.log(this.state);
-            this.props.data.refetch();
             this._loadGraphData(this.props);
         }
     }
@@ -49,12 +50,15 @@ class EconGraph extends Component {
         console.log('Derived');
         console.log(nextProps);
         console.log(prevState);
-        if (nextProps.building !== prevState.building || nextProps.dateSelection != prevState.dateSelection) {
+
+        if (nextProps.building !== prevState.building || nextProps.dateSelection != prevState.dateSelection
+            || (nextProps.data.selectBuilding != undefined && nextProps.data.selectBuilding != prevState.selectBuilding)) {
             console.log('derive id missmatcb');
             return {
                 config: null,
                 building: nextProps.building,
                 dateSelection: nextProps.dateSelection,
+                selectBuilding: nextProps.data.selectBuilding,
             };
         }
         // No state update necessary
@@ -63,7 +67,7 @@ class EconGraph extends Component {
     }
 
     _loadGraphData(props){
-        // this.props.data.refetch();
+        this.props.data.refetch();
         var fileName = `$(nextProps.data.variables.building)_Economizer_data`;
         if (props.data.selectBuilding == undefined) {
             console.log("loading");
