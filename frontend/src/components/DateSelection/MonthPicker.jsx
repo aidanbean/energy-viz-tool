@@ -1,5 +1,6 @@
 import Button from '../CustomButtons/Button.jsx'
 import React, {Component} from 'react';
+import {MONTHS} from './utils'
 
 class MonthPicker extends Component {
 
@@ -7,7 +8,7 @@ class MonthPicker extends Component {
         function MonthList(props) {
             const months = props.months;
             const listItems = months.map((month) =>
-                <Button name = {'m_' + month.toString()} text={month}/>
+                <Button name = {'m_' + month.NUM.toString()} text={month.SHORT}/>
             );
             return (
                 <div>{listItems}</div>
@@ -18,7 +19,7 @@ class MonthPicker extends Component {
         const Month = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
 
         return (
-            <MonthList months={Month}/>
+            <MonthList months={MONTHS}/>
         );
     }
 }

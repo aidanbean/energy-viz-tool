@@ -2,8 +2,8 @@ import Search from '../views/Search/Search';
 // import TableList from '../views/TableList/TableList';
 // import Typography from '../views/Typography/Typography';
 import SelectBuilding from '../views/SelectBuilding/SelectBuilding';
-import AllBuildings from "../views/AllBuildings/SelectBuilding";
-import UserProfile from "../views/UserProfile/UserProfile";
+import AllBuildings from "../views/AllBuildings/AllBuildings";
+// import UserProfile from "../views/UserProfile/UserProfile";
 
 const appRoutes = [
     {

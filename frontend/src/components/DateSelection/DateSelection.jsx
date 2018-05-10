@@ -3,7 +3,7 @@ import WeekdayPicker from './WeekdayPicker';
 import HourPicker from './HourPicker';
 import MonthDayPicker from './MonthDayPicker';
 import MonthPicker from './MonthPicker';
-import {Col, Button} from 'react-bootstrap';
+import {Col} from 'react-bootstrap';
 
 class DateSelection extends Component {
     constructor(props) {

@@ -12,7 +12,7 @@ import PreBake2 from '../../components/Graphs/AirTemp-AirTempSP.jsx';
 //         marginBottom: 16,
 //     }
 // }
-class SelectBuilding extends React.Component {
+class AllBuildings extends React.Component {
   constructor() {
     super();
     this.headerCallback = this.headerCallback.bind(this);
@@ -63,4 +63,4 @@ class SelectBuilding extends React.Component {
   }
 }
 
-export default SelectBuilding;
+export default AllBuildings;

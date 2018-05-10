@@ -4,16 +4,16 @@ import Header from '../../components/Header/SelectBuildingHeader.jsx';
 import PreBake1 from '../../components/Graphs/Economizer.jsx';
 import PreBake2 from '../../components/Graphs/AirTemp-AirTempSP.jsx';
 import DateSelection from '../../components/DateSelection/DateSelection.jsx'
-import ButtonContext from '../../components/DateSelection/utils';
+import ButtonContext from '../../components/DateSelection/buttonContext';
 
 class SelectBuilding extends React.Component {
     constructor(props) {
         super(props);
 
-        let monthOfYearTmp = [];
-        let dayOfMonthTmp = [];
-        let dayOfWeekTmp = [];
-        let hourOfDayTmp = [];
+        let monthOfYearTmp = new Set();
+        let dayOfMonthTmp = new Set();
+        let dayOfWeekTmp = new Set();
+        let hourOfDayTmp = new Set();
 
         this.buttonHandler = (name, click) => {
             let tag = name.substr(0, 1);
@@ -22,16 +22,16 @@ class SelectBuilding extends React.Component {
             if (click == true) {
                 switch (tag) {
                     case 'm':
-                        monthOfYearTmp.push(button);
+                        monthOfYearTmp.add(button);
                         break;
                     case 'd':
-                        dayOfMonthTmp.push(button);
+                        dayOfMonthTmp.add(button);
                         break;
                     case 'w':
-                        dayOfWeekTmp.push(button);
+                        dayOfWeekTmp.add(button);
                         break;
                     case 'h':
-                        hourOfDayTmp.push(button);
+                        hourOfDayTmp.add(button);
                         break;
                     default:
                         break;
@@ -40,16 +40,16 @@ class SelectBuilding extends React.Component {
                 let idx = 0;
                 switch (tag) {
                     case 'm':
-                        monthOfYearTmp = monthOfYearTmp.filter(element => element != button);
+                        monthOfYearTmp.delete(button);
                         break;
                     case 'd':
-                        dayOfMonthTmp = dayOfMonthTmp.filter(element => element != button);
+                        dayOfMonthTmp.delete(button);
                         break;
                     case 'w':
-                        dayOfWeekTmp = dayOfWeekTmp.filter(element => element != button);
+                        dayOfWeekTmp.delete(button);
                         break;
                     case 'h':
-                        hourOfDayTmp = hourOfDayTmp.filter(element => element != button);
+                        hourOfDayTmp.delete(button);
                         break;
                     default:
                         break;

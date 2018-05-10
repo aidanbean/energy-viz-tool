@@ -133,52 +133,31 @@ class EconGraph extends Component {
                 points.push(point);
             }
 
-
             if (month.length != 0 || day.length != 0 || weekday.length != 0 || hour.length != 0) {
                 points = points.filter(obj => {// filter by month
                     if (month.length == 0) {
                         return true;
                     }
                     let dateTime = DateTime.fromISO(obj.Timestamp, {zone: 'utc'});
-                    for (var m = 0; i < month.length; i++) {
-                        if (dateTime.month == month[i]) {
-                            return true;
-                        }
-                    }
-                    return false;
+                    return month.has(dateTime.month.toString());
                 }).filter(obj => {
                     if (day.length == 0) {
                         return true;
                     }
                     let dateTime = DateTime.fromISO(obj.Timestamp, {zone: 'utc'});
-                    for (var m = 0; m < day.length; m++) {// by day
-                        if (dateTime.day == day[m]) {
-                            return true;
-                        }
-                    }
-                    return false;
+                    return day.has(dateTime.day.toString());
                 }).filter(obj => {
                     if (weekday.length == 0) {
                         return true;
                     }
                     let dateTime = DateTime.fromISO(obj.Timestamp, {zone: 'utc'});
-                    for (var m = 0; m < weekday.length; m++) { // by weekday
-                        if (dateTime.weekday == weekday[m]) {
-                            return true;
-                        }
-                    }
-                    return false;
+                    return weekday.has(dateTime.weekday.toString());
                 }).filter(obj => {
                     if (hour.length == 0) {
                         return true;
                     }
                     let dateTime = DateTime.fromISO(obj.Timestamp, {zone: 'utc'});
-                    for (var m = 0; m < hour.length; m++) {// by hour
-                        if (dateTime.hour == hour[m]) {
-                            return true;
-                        }
-                    }
-                    return false;
+                    return hour.has(dateTime.hour.toString());
                 });
             }
 
