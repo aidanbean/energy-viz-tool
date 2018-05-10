@@ -89,6 +89,8 @@ class Dashboard extends Component {
           });
       }
       const y = [];
+
+      // TODO: calculate median here
       nextProps.data.dataStream[i].stream.forEach(function(element) {
             y.push(element.Value);
             unit = element.UnitsAbbreviation;
@@ -101,7 +103,6 @@ class Dashboard extends Component {
           name = `${dataStream.building}.${dataStream.equipmentType}.${dataStream.sensorType}`;
       }
       tableRow["Building"] = name;
-      // TODO: if Building is already in table, do not add row -> remove redundant rows
       let serie = {
           data: y,
           color: color,
