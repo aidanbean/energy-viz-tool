@@ -62,7 +62,6 @@ class TableList extends Component {
                       {
                         Header: 'Building',
                         accessor: 'building',
-                        // TODO: Change below to get all data
                         filterMethod: (filter, row) =>
                           String(row[filter.id])
                             .toLocaleLowerCase()
@@ -72,7 +71,6 @@ class TableList extends Component {
                         // Header: "Equipment Type",
                         Header: 'Maximum',
                         id: 'equipmentType',
-                        // TODO: change this below to get all data
                         accessor: d => d.equipmentType,
                         filterMethod: (filter, rows) =>
                           matchSorter(rows, filter.value, {
@@ -90,6 +88,9 @@ class TableList extends Component {
                         Header: 'Average',
                         // id: ""
                       },
+                      // {
+                      //     Header: 'Median'
+                      // },
                       {
                         Header: 'Standard Deviation',
                         // id: ""

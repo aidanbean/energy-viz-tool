@@ -12,8 +12,10 @@ import DraggableTable from "../TableList/DraggableTable";
 import { CSVLink } from 'react-csv';
 import matchSorter from 'match-sorter';
 
+
 require("highcharts/modules/exporting")(Highcharts.Highcharts);
 require("highcharts/modules/export-data")(Highcharts.Highcharts);
+var Stats = require("fast-stats").Stats;
 
 class Dashboard extends Component {
   constructor(props) {
@@ -90,11 +92,13 @@ class Dashboard extends Component {
       }
       const y = [];
 
-      // TODO: calculate median here
       nextProps.data.dataStream[i].stream.forEach(function(element) {
             y.push(element.Value);
             unit = element.UnitsAbbreviation;
         });
+      const median = new Stats().push(y).median();
+      tableRow["Median"] = median;
+
       // generate a random color.
       let color = "#" + Math.floor(Math.random() * 16777215).toString(16);
       let dataStream = nextProps.data.dataStream[i];
@@ -123,6 +127,10 @@ class Dashboard extends Component {
             '<tr><td style="color: {series.color}"> Maximum</td>' +
             '<td style="text-align: right"><b>' +
             max +
+            '</b></td></tr>' +
+            '<tr><td style="color: {series.color}"> Median</td>' +
+            '<td style="text-align: right"><b>' +
+            median +
             '</b></td></tr>' +
             '<tr><td style="color: {series.color}"> Standard Deviation</td>' +
             '<td style="text-align: right"><b>' +
@@ -330,6 +338,10 @@ class Dashboard extends Component {
                                   {
                                       Header: 'Minimum',
                                       accessor: 'Minimum'
+                                  },
+                                  {
+                                      Header: 'Median',
+                                      accessor: 'Median'
                                   },
                                   {
                                       Header: 'Average',
