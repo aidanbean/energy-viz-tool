@@ -8,6 +8,7 @@
 		"classnames": "^2.2.5",
 		"components": "^0.1.0",
 		"create-react-class": "^15.6.3",
+		"fast-stats": "^0.0.3",
 		"graphql": "^0.13.0",
 		"graphql-tag": "^2.8.0",
 		"highcharts": "^6.0.4",
@@ -25,6 +26,7 @@
 		"react-datetime": "^2.14.0",
 		"react-dom": "^16.3.2",
 		"react-highcharts": "^16.0.2",
+		"react-iframe": "^1.1.0",
 		"react-notification-system": "^0.2.16",
 		"react-router-dom": "^4.2.2",
 		"react-scripts": "1.1.2",
@@ -32,9 +34,9 @@
 		"react-sortable-hoc": "^0.6.8",
 		"react-spinners": "^0.2.6",
 		"react-table": "^6.8.0",
+		"reactstrap": "^6.0.1",
 		"routes": "^2.1.0",
-		"variables": "^1.0.1",
-		"fast-stats": "^0.0.3"
+		"variables": "^1.0.1"
 	},
 	"lint-staged": {
 		"src/**/*.{js,jsx,json,css}": [

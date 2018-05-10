@@ -12,7 +12,6 @@ import DraggableTable from "../TableList/DraggableTable";
 import { CSVLink } from 'react-csv';
 import matchSorter from 'match-sorter';
 
-
 require("highcharts/modules/exporting")(Highcharts.Highcharts);
 require("highcharts/modules/export-data")(Highcharts.Highcharts);
 var Stats = require("fast-stats").Stats;
@@ -301,12 +300,11 @@ class Dashboard extends Component {
                   ))
               }
           <Col md={12}>
-                      {/*https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17*/}
-                  <CSVLink data={this.state.tableData}>Download me</CSVLink>
                   <Card
                       title="Sensor Statistics"
                       ctTableFullWidth
                       ctTableResponsive
+                      downloadLink={<CSVLink data={this.state.tableData}>Download me</CSVLink>}
                       content={
                           <DraggableTable
                               filterable

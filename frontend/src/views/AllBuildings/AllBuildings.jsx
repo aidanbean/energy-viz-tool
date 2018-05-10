@@ -1,66 +1,23 @@
-import React from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
-import { BarLoader } from 'react-spinners';
-import Header from '../../components/Header/AllBuildingsHeader.jsx';
-import PreBake1 from '../../components/Graphs/Economizer.jsx';
-import PreBake2 from '../../components/Graphs/AirTemp-AirTempSP.jsx';
-// const styles = {
-//     block: {
-//         maxWidth: 250,
-//     },
-//     checkbox: {
-//         marginBottom: 16,
-//     }
-// }
-class AllBuildings extends React.Component {
-  constructor() {
-    super();
-    this.headerCallback = this.headerCallback.bind(this);
-    this.state = {
-      building: 'ACAD',
-      equipmentType: null,
-      equipmentNumber: null,
-      sensorType: null,
-      startTime: '',
-      endTime: '',
-      interval: '1h',
-    };
-  }
-  headerCallback(selection) {
-    this.setState(
-      {
-        building: selection,
-      },
-      () => {
-        console.log(this.state);
-      }
-    );
-  }
+import React, {Component} from 'react';
+import Iframe from 'react-iframe';
 
-  render() {
-    return (
-      <div>
-        <Row>
-          <Header
-            callback={this.headerCallback}
-            selection={this.state}
-            isLoading={false}
-          />
-        </Row>
-        <br />
-        <Row>
-          <Col md={12}>
-            <PreBake1 headerData={this.state} />
-          </Col>
-        </Row>
-        <Row>
-          <Col md={12}>
-            <PreBake2 headerData={this.state} />
-          </Col>
-        </Row>
-      </div>
-    );
-  }
+
+class AllBuildings extends Component {
+    render() {
+        return (
+            <div className="content">
+                <Iframe
+                    url="https://app.powerbi.com/view?r=eyJrIjoiMzNjM2QwYjItOTg4YS00OTM0LWFlNTEtNzFlYjg0NzgwZGNjIiwidCI6ImE4MDQ2ZjY0LTY2YzAtNGYwMC05MDQ2LWM4ZGFmOTJmZjYyYiIsImMiOjZ9&pageName=ReportSection"
+                    width="100%"
+                    height="800px"
+                    id="myId"
+                    className="myClassname"
+                    display="initial"
+                    position="relative"
+                    allowFullScreen/>
+            </div>
+        )
+    }
 }
 
 export default AllBuildings;

@@ -8,6 +8,7 @@ import Start from '../SearchBar/StartForm';
 import End from '../SearchBar/EndForm';
 import Interval from '../SearchBar/IntervalForm';
 import moment from 'moment';
+import CustomButton from "../../elements/CustomButton/CustomButton";
 
 class HeaderLinks extends Component {
   constructor() {
@@ -115,10 +116,9 @@ class HeaderLinks extends Component {
   render() {
     return (
       <div className="content">
-        <br />
-        <Row style={{ marginRight: '0px', marginLeft: '0px' }}>
-          <Col md={2}> </Col>
-          <Col md={2}>
+          <br />
+        <Row style={{width:'85%', margin: 'auto'}}>
+          <Col md={3}>
             <Building
               label="Building"
               callback={this.buildingHandler}
@@ -126,7 +126,7 @@ class HeaderLinks extends Component {
               searchable
             />
           </Col>
-          <Col md={2}>
+          <Col md={3}>
             <EquipType
               label="Equipment Type"
               callback={this.equipTypeHandler}
@@ -134,7 +134,7 @@ class HeaderLinks extends Component {
               searchable
             />
           </Col>
-          <Col md={2}>
+          <Col md={3}>
             <EquipNum
               label="Equipment Number"
               callback={this.equipNumHandler}
@@ -142,7 +142,7 @@ class HeaderLinks extends Component {
               searchable
             />
           </Col>
-          <Col md={2}>
+          <Col md={3}>
             <Sensor
               label="Sensor Type"
               callback={this.sensorTypeHandler}
@@ -150,25 +150,25 @@ class HeaderLinks extends Component {
               searchable
             />
           </Col>
-          <Col md={2}> </Col>
         </Row>
         <br />
-        <Row style={{ marginRight: '0px', marginLeft: '0px' }}>
-          <Col md={2}> </Col>
-          <Col md={2}>
+
+          <Row style={{width:'85%', margin: 'auto'}}>
+          <Col md={3}>
             <Start label="Start" callback={this.startHandler} />
           </Col>
-          <Col md={2}>
+          <Col md={3}>
             <End
               label="End"
               startTime={this.state.startTime}
               callback={this.endHandler}
             />
           </Col>
-          <Col md={2}>
+          <Col md={3}>
             <Interval label="Interval" callback={this.intervalHandler} />
           </Col>
-          <Col md={1}>
+          <Col md={3}>
+            <Col xs={6} style={{paddingRight: '5px', paddingLeft: 0}}>
             <Button
               bsStyle="success"
               block
@@ -177,8 +177,8 @@ class HeaderLinks extends Component {
             >
               Add
             </Button>
-          </Col>
-          <Col md={1}>
+            </Col>
+              <Col xs={6} style={{paddingRight: 0, paddingLeft: '5px'}}>
             <Button
               bsStyle="danger"
               block
@@ -187,8 +187,8 @@ class HeaderLinks extends Component {
             >
               Clear
             </Button>
+            </Col>
           </Col>
-          <Col md={2}> </Col>
         </Row>
         <br />
       </div>

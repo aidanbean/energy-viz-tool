@@ -36,7 +36,6 @@ class EconGraph extends Component {
         }
     }
 
-
     static getDerivedStateFromProps(nextProps, prevState){
         // Store prevId in state so we can compare when props change.
         // Clear out previously-loaded data (so we don't render stale stuff).
