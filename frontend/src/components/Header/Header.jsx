@@ -20,13 +20,13 @@ class Header extends Component {
     }
     e.preventDefault();
     document.documentElement.classList.toggle('nav-open');
-    var node = document.createElement('div');
-    node.id = 'bodyClick';
-    node.onclick = function() {
-      this.parentElement.removeChild(this);
-      document.documentElement.classList.toggle('nav-open');
-    };
-    document.body.appendChild(node);
+    // var node = document.createElement('div');
+    // node.id = 'bodyClick';
+    // node.onclick = function() {
+    //   this.parentElement.removeChild(this);
+    //   document.documentElement.classList.toggle('nav-open');
+    // };
+    // document.body.appendChild(node);
   }
   getBrand() {
     var name;
