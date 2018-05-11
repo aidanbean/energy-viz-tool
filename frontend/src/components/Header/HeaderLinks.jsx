@@ -117,8 +117,8 @@ class HeaderLinks extends Component {
     return (
       <div className="content">
           <br />
-        <Row style={{width:'85%', margin: 'auto'}}>
-          <Col md={3}>
+        <Row style={{width:'85%', marginLeft: 'auto', marginRight: 'auto'}}>
+          <Col md={3} xs={6}>
             <Building
               label="Building"
               callback={this.buildingHandler}
@@ -126,7 +126,7 @@ class HeaderLinks extends Component {
               searchable
             />
           </Col>
-          <Col md={3}>
+          <Col md={3} xs={6}>
             <EquipType
               label="Equipment Type"
               callback={this.equipTypeHandler}
@@ -134,7 +134,7 @@ class HeaderLinks extends Component {
               searchable
             />
           </Col>
-          <Col md={3}>
+          <Col md={3} xs={6}>
             <EquipNum
               label="Equipment Number"
               callback={this.equipNumHandler}
@@ -142,7 +142,7 @@ class HeaderLinks extends Component {
               searchable
             />
           </Col>
-          <Col md={3}>
+          <Col md={3} xs={6}>
             <Sensor
               label="Sensor Type"
               callback={this.sensorTypeHandler}
@@ -153,22 +153,22 @@ class HeaderLinks extends Component {
         </Row>
         <br />
 
-          <Row style={{width:'85%', margin: 'auto'}}>
-          <Col md={3}>
+          <Row style={{width:'85%', marginLeft: 'auto', marginRight: 'auto'}}>
+          <Col md={3} xs={6}>
             <Start label="Start" callback={this.startHandler} />
           </Col>
-          <Col md={3}>
+          <Col md={3} xs={6}>
             <End
               label="End"
               startTime={this.state.startTime}
               callback={this.endHandler}
             />
           </Col>
-          <Col md={3}>
+          <Col md={3} xs={6}>
             <Interval label="Interval" callback={this.intervalHandler} />
           </Col>
-          <Col md={3}>
-            <Col xs={6} style={{paddingRight: '5px', paddingLeft: 0}}>
+          <Col md={3} xs={6}>
+            <Col md={6} xs={6} style={{paddingRight: '5px', paddingLeft: 0}}>
             <Button
               bsStyle="success"
               block
@@ -178,7 +178,7 @@ class HeaderLinks extends Component {
               Add
             </Button>
             </Col>
-              <Col xs={6} style={{paddingRight: 0, paddingLeft: '5px'}}>
+              <Col md={6} xs={6} style={{paddingRight: 0, paddingLeft: '5px'}}>
             <Button
               bsStyle="danger"
               block

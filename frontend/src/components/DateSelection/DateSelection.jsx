@@ -3,7 +3,7 @@ import WeekdayPicker from './WeekdayPicker';
 import HourPicker from './HourPicker';
 import MonthDayPicker from './MonthDayPicker';
 import MonthPicker from './MonthPicker';
-import {Col} from 'react-bootstrap';
+import {Col,Row} from 'react-bootstrap';
 
 class DateSelection extends Component {
     constructor(props) {
@@ -16,36 +16,45 @@ class DateSelection extends Component {
 
     render() {
         return (
-            <div style={{backgroundColor: "#FFFFFF"}}>
-                <Col md={4}>
+            <div>
+                <Row>
+                    <Col md={1} />
+                <Col md={3}>
                     <span>Month of Year</span>
                     <MonthPicker/>
                 </Col>
-                <Col md={8}>
+                <Col md={7}>
                     <span>Day of Month</span>
                     <MonthDayPicker/>
                 </Col>
-                <Col md={4}>
+                    <Col md={1} />
+                </Row>
+                <Row>
+                <Col md={1} />
+                <Col md={3}>
                     <span>Day of Week</span>
                     <WeekdayPicker/>
                 </Col>
-                <Col md={8}>
+                <Col md={7}>
                     <span>Hour of day</span>
                     <HourPicker/>
                 </Col>
-                <Col md={1}>
-                </Col>
-                <Col md={2}>
+                <Col md={1} />
+                </Row>
+                <Row>
+                <Col md={2} mdOffset={4} xs={4} xsOffset={4}>
                     <button
                         type="button"
-                        class="btn btn-primary"
-                        style={{marginBottom: "20px"}}
+                        bsSize="large"
+                        class="btn btn-primary btn-block"
+                        style={{marginBottom: "20px", marginTop: "20px"}}
                         block
                         onClick={this.props.applySelection}
                     >
                         Apply
                     </button>
                 </Col>
+                </Row>
             </div>
         );
     }

@@ -39,9 +39,9 @@ class SelectHeader extends Component {
   render() {
     return (
       <div>
-        <Row style={{ marginTop: '18px', marginRight: '0px', marginLeft: '0px' }}>
-          <Col md={4} />
-          <Col md={2}>
+        <Row>
+          <Col md={2} />
+          <Col md={6} xs={8}>
             <Building
               label={'Building'}
               callback={this.buildingHandler}
@@ -49,7 +49,7 @@ class SelectHeader extends Component {
               searchable
             />
           </Col>
-            <Col md={2}>
+            <Col md={2} xs={4}>
               <Button
                 bsStyle="success"
                 style={{ marginTop: '8px' }}
@@ -60,9 +60,8 @@ class SelectHeader extends Component {
                 Submit
               </Button>
             </Col>
-          <Col md={4} />
+            <Col md={2} />
         </Row>
-        <br />
       </div>
     );
   }
