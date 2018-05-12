@@ -11,6 +11,7 @@ const Buildings = require('./Buildings');
 var SelectStyle = {
   position: 'relative',
   borderRadius: 3,
+  marginBottom: '15px',
 };
 
 var BuildingField = createClass({

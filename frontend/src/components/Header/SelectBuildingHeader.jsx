@@ -40,7 +40,7 @@ class SelectHeader extends Component {
     return (
       <div>
         <Row>
-          <Col md={9} xs={8}>
+          <Col md={9} xs={8} style={{marginTop:"2px"}}>
             <Building
               label={'Building'}
               callback={this.buildingHandler}
