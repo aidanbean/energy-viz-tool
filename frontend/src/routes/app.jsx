@@ -9,19 +9,19 @@ const appRoutes = [
     {
         path: '/all-building',
         name: 'All Buildings',
-        icon: 'pe-7s-home',
+        icon: 'graph-icon',
         component: AllBuildings,
     },
     {
         path: '/select',
         name: 'Select Building',
-        icon: 'pe-7s-pin',
+        icon: 'select-icon',
         component: SelectBuilding,
     },
     {
         path: '/search',
         name: 'Search',
-        icon: 'pe-7s-search',
+        icon: 'search-icon',
         component: Search,
     },
     {

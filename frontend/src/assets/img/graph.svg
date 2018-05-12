@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="25px" height="23px" viewBox="0 0 25 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>graph</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="after-Design-Sprint" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="2-select-Building" transform="translate(-20.000000, -148.000000)" fill="#696D74" fill-rule="nonzero">
+            <g id="graph" transform="translate(20.000000, 148.000000)">
+                <path d="M25,21.4666667 L25,23 L0,23 L0,0 L1.5625,0 L1.5625,21.4666667 L25,21.4666667 Z M21.2053571,19.9333333 L18.0803571,19.9333333 L18.0803571,12.2666667 L21.2053571,12.2666667 L21.2053571,19.9333333 Z M8.70535714,19.9333333 L5.58035714,19.9333333 L5.58035714,4.6 L8.70535714,4.6 L8.70535714,19.9333333 Z M14.9553571,19.9333333 L11.8303571,19.9333333 L11.8303571,9.2 L14.9553571,9.2 L14.9553571,19.9333333 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

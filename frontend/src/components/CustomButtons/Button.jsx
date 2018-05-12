@@ -21,26 +21,29 @@ class Button extends Component {
 
     render() {
         var buttonStyle = {
-            width: 32,
-            height: 32,
-            border: 0,
+            width: 36,
+            height: 36,
             paddingLeft: 0,
             paddingRight: 0,
-            backgroundColor: "rgb(188, 228, 236)",
+            backgroundColor: "#bce4ed",
             marginBottom: 5,
             marginTop: 5,
             marginLeft: 5,
             marginRight: 5,
-            fontWeight: 'normal'
+            fontWeight: 'normal',
+            fontFamily: 'Metropolis',
+            fontsize: '13px',
+            border: 'solid 1px #2d323c',
+            borderRadius: '3px',
         };
 
         var clicked = this.state.clicked;
         if (clicked) {
-            buttonStyle.backgroundColor = "rgb(188, 228, 236)";
-            buttonStyle.fontWeight = 'bold';
+            buttonStyle.backgroundColor = "#bce4ed";
         } else {
-            buttonStyle.backgroundColor = "white";
-            buttonStyle.fontWeight = 'normal';
+            buttonStyle.backgroundColor = "#00000000";
+            buttonStyle.border = 0;
+
         }
 
         return (
