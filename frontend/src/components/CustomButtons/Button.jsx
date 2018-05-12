@@ -21,18 +21,18 @@ class Button extends Component {
 
     render() {
         var buttonStyle = {
-            width: 36,
-            height: 36,
+            width: 32,
+            height: 32,
             paddingLeft: 0,
             paddingRight: 0,
             backgroundColor: "#bce4ed",
             marginBottom: 5,
             marginTop: 5,
-            marginLeft: 5,
-            marginRight: 5,
+            marginLeft: 0,
+            marginRight: 10,
             fontWeight: 'normal',
             fontFamily: 'Metropolis',
-            fontsize: '13px',
+            fontsize: '11px',
             border: 'solid 1px #2d323c',
             borderRadius: '3px',
         };

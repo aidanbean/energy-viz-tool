@@ -94,8 +94,9 @@ class SelectBuilding extends React.Component {
             <ButtonContext.Provider value={this.state}>
                 <div>
                     <Grid fluid>
-                        <Header selection={this.state} callback={this.buildingHandler}/>
-                        <br/>
+                        <Row style={{marginTop: '10px', marginBottom: '20px'}}>
+                            <Header selection={this.state} callback={this.buildingHandler}/>
+                        </Row>
                         <DateSelection applySelection={this.saveDateSelection}/>
                         <br/>
                         <Row>
