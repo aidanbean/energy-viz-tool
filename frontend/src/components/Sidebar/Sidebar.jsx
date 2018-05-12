@@ -21,6 +21,11 @@ class Sidebar extends Component{
         window.addEventListener("resize", this.updateDimensions.bind(this));
     }
     render(){
+
+        var node = document.getElementById("bodyClick"); // clear the body click when nav changes
+        if(node !== null)
+            node.parentElement.removeChild(node);
+
         return (
             <div id="sidebar" className="sidebar" data-color="black">
                     <div className="logo">

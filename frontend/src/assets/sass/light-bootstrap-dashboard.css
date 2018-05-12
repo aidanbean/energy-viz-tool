@@ -3947,7 +3947,7 @@ fieldset[disabled] .form-control {
   .navbar-toggle .icon-bar {
     display: block;
     position: relative;
-    background: #fff;
+    background: #000000;
     width: 24px;
     height: 2px;
     border-radius: 1px;

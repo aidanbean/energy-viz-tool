@@ -99,25 +99,32 @@ class SelectBuilding extends React.Component {
             lineHeight: 'normal',
             letterSpacing: 'normal',
             color: '#2d323c',
-            textAlign: 'center',
+            textAlign: 'left',
             marginTop: '10px'
         };
         return (
             <ButtonContext.Provider value={this.state}>
                 <div>
                     <Grid fluid>
-                        <Row style={{marginTop: '20px', marginBottom: '20px'}}>
-                            <Col md={3} style={{maxWidth: '20%'}}>
-                                <p style={tagStyle}>Select a building</p>
+                        <Row>
+                            <Col md={12} xsHidden={12} style={{minHeight: '50px'}}/>
+                            <Col md={3} xs={12}>
+                                <Col md={3} xsHidden={12}/>
+                                <Col md={9} xs={12} style={{paddingLeft: 0}}>
+                                    <p style={tagStyle}>Select a building</p>
+                                </Col>
                             </Col>
                             <Col md={8}>
                                 <Header selection={this.state} callback={this.buildingHandler}/>
                             </Col>
-
+                            <Col md={12} xsHidden={12} style={{minHeight: '20px'}}/>
                         </Row>
                         <Row>
-                        <Col md={3} style={{maxWidth: '20%'}}>
-                            <p style={tagStyle}>Refine filters</p>
+                        <Col md={3}>
+                            <Col md={3} />
+                            <Col md={9} xs={12} style={{paddingLeft: 0}}>
+                                <p style={tagStyle}>Refine filters</p>
+                            </Col>
                         </Col>
                         <Col md={8}>
                             <DateSelection applySelection={this.saveDateSelection}/>
