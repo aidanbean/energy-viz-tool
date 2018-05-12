@@ -91,7 +91,6 @@ class SelectBuilding extends React.Component {
 
     render() {
         const tagStyle = {
-            height: '17px',
             fontFamily: 'ProximaNova',
             fontSize: '14px',
             fontWeight: '600',
@@ -100,27 +99,30 @@ class SelectBuilding extends React.Component {
             lineHeight: 'normal',
             letterSpacing: 'normal',
             color: '#2d323c',
-            textAlign: 'center'
+            textAlign: 'center',
+            marginTop: '10px'
         };
         return (
             <ButtonContext.Provider value={this.state}>
                 <div>
                     <Grid fluid>
-                        <Row style={{marginTop: '10px', marginBottom: '20px'}}>
-                            <Col md={3}>
+                        <Row style={{marginTop: '20px', marginBottom: '20px'}}>
+                            <Col md={3} style={{maxWidth: '20%'}}>
                                 <p style={tagStyle}>Select a building</p>
                             </Col>
-                            <Col md={7}>
+                            <Col md={8}>
                                 <Header selection={this.state} callback={this.buildingHandler}/>
                             </Col>
 
                         </Row>
-                        <Col md={3}>
+                        <Row>
+                        <Col md={3} style={{maxWidth: '20%'}}>
                             <p style={tagStyle}>Refine filters</p>
                         </Col>
-                        <Col md={9}>
+                        <Col md={8}>
                             <DateSelection applySelection={this.saveDateSelection}/>
                         </Col>
+                        </Row>
                         <Row>
                             <Col md={12}>
                                 <ButtonContext.Consumer>

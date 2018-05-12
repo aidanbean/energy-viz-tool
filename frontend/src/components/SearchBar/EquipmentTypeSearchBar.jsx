@@ -7,7 +7,6 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 var SelectStyle = {
-  marginTop: 10,
   position: 'relative',
   borderRadius: 3,
 };

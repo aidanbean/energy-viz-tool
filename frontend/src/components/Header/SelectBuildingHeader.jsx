@@ -40,7 +40,7 @@ class SelectHeader extends Component {
     return (
       <div>
         <Row>
-          <Col md={8} xs={8}>
+          <Col md={9} xs={8}>
             <Building
               label={'Building'}
               callback={this.buildingHandler}
@@ -48,10 +48,9 @@ class SelectHeader extends Component {
               searchable
             />
           </Col>
-            <Col md={4} xs={4}>
+            <Col md={3} xs={4}>
               <Button
-                bsStyle="success"
-                style={{ marginTop: '8px' }}
+                bsStyle="default btn-fill"
                 block
                 onClick={this.buttonHandler}
                 disabled={this.props.isLoading}

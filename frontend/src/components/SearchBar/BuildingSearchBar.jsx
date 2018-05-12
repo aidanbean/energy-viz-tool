@@ -9,7 +9,6 @@ import gql from 'graphql-tag';
 const Buildings = require('./Buildings');
 
 var SelectStyle = {
-  marginTop: 10,
   position: 'relative',
   borderRadius: 3,
 };

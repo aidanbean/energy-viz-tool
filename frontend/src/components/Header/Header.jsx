@@ -54,8 +54,8 @@ class Header extends Component {
     return name;
   }
   headerCallback(dataFromHeader) {
-    console.log('In Header.jsx');
-    console.log(dataFromHeader);
+    // console.log('In Header.jsx');
+    // console.log(dataFromHeader);
     this.props.callback(dataFromHeader);
   }
   render() {
@@ -68,34 +68,9 @@ class Header extends Component {
     //     </div>
     // );
     return (
-      <Navbar fluid>
         <Navbar.Header>
-        {/*
-          <Navbar.Brand>
-            <a href="#pablo">{this.getBrand()}</a>
-          </Navbar.Brand>
-          <Navbar.Toggle onClick={this.mobileSidebarToggle} />
-          */}
             <Navbar.Toggle onClick={this.mobileSidebarToggle} />
         </Navbar.Header>
-        {/*
-        <Nav pullRight>
-          <NavDropdown
-            eventKey={2}
-            title="Account"
-            id="basic-nav-dropdown-right"
-          >
-            <MenuItem eventKey={2.1}>Account</MenuItem>
-            <MenuItem eventKey={2.2}>Log out</MenuItem>
-            <MenuItem eventKey={2.3}>Something</MenuItem>
-            <MenuItem eventKey={2.4}>Another action</MenuItem>
-            <MenuItem eventKey={2.5}>Something</MenuItem>
-            <MenuItem divider />
-            <MenuItem eventKey={2.5}>Separated link</MenuItem>
-          </NavDropdown>
-        </Nav>
-        */}
-      </Navbar>
     );
   }
 }
