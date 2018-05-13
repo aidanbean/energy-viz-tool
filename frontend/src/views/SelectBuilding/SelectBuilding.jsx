@@ -90,14 +90,46 @@ class SelectBuilding extends React.Component {
     }
 
     render() {
+        const tagStyle = {
+            fontFamily: 'ProximaNova',
+            fontSize: '14px',
+            fontWeight: '600',
+            fontStyle: 'normal',
+            fontStretch: 'normal',
+            lineHeight: 'normal',
+            letterSpacing: 'normal',
+            color: '#2d323c',
+            textAlign: 'left',
+            marginTop: '10px'
+        };
         return (
             <ButtonContext.Provider value={this.state}>
                 <div>
                     <Grid fluid>
-                        <Header selection={this.state} callback={this.buildingHandler}/>
-                        <br/>
-                        <DateSelection applySelection={this.saveDateSelection}/>
-                        <br/>
+                        <Row>
+                            <Col md={12} xsHidden={12} style={{minHeight: '50px'}}/>
+                            <Col md={3} xs={12}>
+                                <Col md={3} xsHidden={12}/>
+                                <Col md={9} xs={12} style={{paddingLeft: 0}}>
+                                    <p style={tagStyle}>Select a building</p>
+                                </Col>
+                            </Col>
+                            <Col md={8}>
+                                <Header selection={this.state} callback={this.buildingHandler}/>
+                            </Col>
+                            <Col md={12} xsHidden={12} style={{minHeight: '20px'}}/>
+                        </Row>
+                        <Row>
+                        <Col md={3}>
+                            <Col md={3} />
+                            <Col md={9} xs={12} style={{paddingLeft: 0}}>
+                                <p style={tagStyle}>Refine filters</p>
+                            </Col>
+                        </Col>
+                        <Col md={8}>
+                            <DateSelection applySelection={this.saveDateSelection}/>
+                        </Col>
+                        </Row>
                         <Row>
                             <Col md={12}>
                                 <ButtonContext.Consumer>

@@ -3,7 +3,7 @@ import WeekdayPicker from './WeekdayPicker';
 import HourPicker from './HourPicker';
 import MonthDayPicker from './MonthDayPicker';
 import MonthPicker from './MonthPicker';
-import {Col,Row} from 'react-bootstrap';
+import {Col, Row, Button} from 'react-bootstrap';
 
 class DateSelection extends Component {
     constructor(props) {
@@ -14,45 +14,51 @@ class DateSelection extends Component {
         return false;
     };
 
+
+
+
     render() {
+        const textStyle = {
+            height: '17px',
+            fontFamily: 'ProximaNova',
+            fontSize: '14px',
+            fontWeight: '300',
+            color: '#2d323c'
+        };
+
+        const componentStyle = {
+          marginBottom: '10px'
+        };
+
         return (
             <div>
                 <Row>
-                    <Col md={1} />
-                <Col md={3}>
-                    <span>Month of Year</span>
-                    <MonthPicker/>
-                </Col>
-                <Col md={7}>
-                    <span>Day of Month</span>
-                    <MonthDayPicker/>
-                </Col>
-                    <Col md={1} />
+                    <Col md={6}>
+                        <span style={textStyle}>Hour of day</span>
+                        <HourPicker/>
+                        <div style={componentStyle}/>
+                        <span style={textStyle}>Month of Year</span>
+                        <MonthPicker/>
+                    </Col>
+                    <Col md={6}>
+                        <span style={textStyle}>Day of Week</span>
+                        <WeekdayPicker/>
+                        <div style={componentStyle}/>
+                        <span style={textStyle}>Day of Month</span>
+                        <MonthDayPicker/>
+                    </Col>
                 </Row>
                 <Row>
-                <Col md={1} />
-                <Col md={3}>
-                    <span>Day of Week</span>
-                    <WeekdayPicker/>
-                </Col>
-                <Col md={7}>
-                    <span>Hour of day</span>
-                    <HourPicker/>
-                </Col>
-                <Col md={1} />
-                </Row>
-                <Row>
-                <Col md={2} mdOffset={4} xs={4} xsOffset={4}>
-                    <button
-                        type="button"
-                        bsSize="large"
-                        class="btn btn-primary btn-block"
-                        style={{marginBottom: "20px", marginTop: "20px"}}
+                    <Col md={12} xs={12} style={{marginTop: "20px"}} />
+                <Col md={3} mdOffset={9} xs={4} xsOffset={8}>
+                    <Button
+                        bsStyle="default btn-fill"
+                        style={{marginBottom: "30px"}}
                         block
                         onClick={this.props.applySelection}
                     >
                         Apply
-                    </button>
+                    </Button>
                 </Col>
                 </Row>
             </div>

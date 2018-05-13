@@ -18,7 +18,6 @@
 
 @font-face {
   font-family: 'ProximaNova-Bold';
-  /*src: url('proxima-nova-bold.eot');*/
   src: url('../fonts/proxima-nova-bold/proxima-nova-bold.eot');
   src: url('../fonts/proxima-nova-bold/proxima-nova-bold.eot?#iefix')
       format('embedded-opentype'),
@@ -352,8 +351,8 @@ input:focus {
 }
 
 .sidebar .logo {
-  padding: 10px 30px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px 0px;
+  /*border-bottom: 1px solid rgba(255, 255, 255, 0.2);*/
   position: relative;
   z-index: 4;
 }
@@ -376,9 +375,9 @@ input:focus {
 
 .sidebar .logo a.logo-mini img {
   width: 40px;
-  margin-left: -3px;
+  /*margin-left: -3px;*/
   display: block;
-  margin-top: 2px;
+  /*margin-top: 2px;*/
 }
 
 .sidebar .logo a.logo-normal {
@@ -389,9 +388,9 @@ input:focus {
   width: 34px;
   display: block;
   height: 34px;
-  margin-left: 2px;
-  margin-top: 2px;
-  margin-right: 10px;
+  /*margin-left: 2px;*/
+  /*margin-top: 2px;*/
+  /*margin-right: 10px;*/
   border-radius: 30px;
   text-align: center;
 }
@@ -418,6 +417,7 @@ input:focus {
 .sidebar .nav li > a {
   color: #ffffff;
 
+
   /*remove the margin*/
   margin: 5px 0px;
 
@@ -437,24 +437,38 @@ input:focus {
 }
 
 .sidebar .nav li.active > a {
-  color: #ffffff;
+  color: #b2d7e1;
   opacity: 1;
-  background: rgba(255, 255, 255, 0.23);
+  background: #2d323c;
+
 }
 
-/*bold the text when active*/
+/*remove bold the text when active*/
 .sidebar .nav li.active p {
   margin: 0;
-  line-height: 30px;
+  line-height: 35px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 2px;
   text-transform: uppercase;
 }
 
+.ENERGY-VIZ {
+  /*width: 101px;*/
+  /*height: 18px;*/
+  opacity: 0.6;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.29;
+  letter-spacing: 2px;
+  color: #eeedee;
+}
+
 .sidebar .nav p {
   margin: 0;
-  line-height: 30px;
+  line-height: 35px;
   font-size: 14px;
   font-weight: 400;
   letter-spacing: 2px;
@@ -478,17 +492,21 @@ input:focus {
 
 .sidebar .logo,
 body > .navbar-collapse .logo {
-  padding: 10px 30px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 30px 0px;
+  padding-bottom: 0px;
+  /*border-bottom: 1px solid rgba(255, 255, 255, 0.2);*/
 }
 
 .sidebar .logo p,
 body > .navbar-collapse .logo p {
   float: left;
-  font-size: 20px;
+  font-size: 15px;
+  line-height: 1.29;
+  letter-spacing: 2px;
+  color: #eeedee;
   margin: 10px 10px;
-  color: #ffffff;
-  line-height: 20px;
+  /*color: #ffffff;*/
+  /*line-height: 20px;*/
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
@@ -759,9 +777,12 @@ fieldset[disabled] .btn.active {
 
 .btn.btn-fill {
   color: #ffffff;
-  background-color: #888888;
+  background-color: #2d323c;
   opacity: 1;
+  border: solid 2px #bce4ed;
   filter: alpha(opacity=100);
+  font-weight: bold;
+  letter-spacing: 2px;
 }
 
 .btn.btn-fill:hover,
@@ -769,8 +790,9 @@ fieldset[disabled] .btn.active {
 .btn.btn-fill:active,
 .btn.btn-fill.active,
 .open > .btn.btn-fill.dropdown-toggle {
-  background-color: #777777;
-  color: #ffffff;
+  background-color: #bce4ed;
+  color: #000000;
+  border: solid 2px #000000;
 }
 
 .btn.btn-fill .caret {
@@ -1069,8 +1091,13 @@ fieldset[disabled] .btn-warning.active {
 }
 
 .btn-danger {
-  border-color: #ff4a55;
-  color: #ff4a55;
+  color: #000000;
+  background-color: #ffffff;
+  opacity: 1;
+  border: solid 2px #ff4a55;
+  filter: alpha(opacity=100);
+  font-weight: bold;
+  letter-spacing: 2px;
 }
 
 .btn-danger:hover,
@@ -1078,7 +1105,7 @@ fieldset[disabled] .btn-warning.active {
 .btn-danger:active,
 .btn-danger.active,
 .open > .btn-danger.dropdown-toggle {
-  background-color: transparent;
+  background-color: #ffffff;
   color: #ee2d20;
   border-color: #ee2d20;
 }
@@ -1107,7 +1134,7 @@ fieldset[disabled] .btn-danger:focus,
 fieldset[disabled] .btn-danger.focus,
 fieldset[disabled] .btn-danger:active,
 fieldset[disabled] .btn-danger.active {
-  background-color: transparent;
+  background-color: #ffffff;
   border-color: #ff4a55;
 }
 
@@ -3487,6 +3514,54 @@ fieldset[disabled] .form-control {
   width: 100%;
 }
 
+.graph-icon {
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: url(../../assets/img/graph.svg);
+  background-size: 30px 30px;
+}
+
+.active .graph-icon {
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: url(../../assets/img/graphActive.svg);
+  background-size: 30px 30px;
+}
+
+.search-icon {
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: url(../../assets/img/search.svg);
+  background-size: 30px 30px;
+}
+
+.active .search-icon {
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: url(../../assets/img/searchActive.svg);
+  background-size: 30px 30px;
+}
+
+.select-icon {
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: url(../../assets/img/select.svg);
+  background-size: 30px 30px;
+}
+
+.active .select-icon {
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: url(../../assets/img/selectActive.svg);
+  background-size: 30px 30px;
+}
+
 .ct-major-seventh:before {
   display: block;
   float: left;
@@ -3903,7 +3978,7 @@ fieldset[disabled] .form-control {
   .navbar-toggle .icon-bar {
     display: block;
     position: relative;
-    background: #fff;
+    background: #000000;
     width: 24px;
     height: 2px;
     border-radius: 1px;

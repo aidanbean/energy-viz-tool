@@ -21,22 +21,26 @@ class Sidebar extends Component{
         window.addEventListener("resize", this.updateDimensions.bind(this));
     }
     render(){
+
+        var node = document.getElementById("bodyClick"); // clear the body click when nav changes
+        if(node !== null)
+            node.parentElement.removeChild(node);
+
         return (
             <div id="sidebar" className="sidebar" data-color="black">
                     <div className="logo">
                         <div style={{display: 'flex', justifyContent: 'center'}}>
-                            <a href="google.com" className="simple-text logo-mini">
+                            <a href="#" className="simple-text logo-mini">
                                 <div className="logo-img">
                                     <img src={logo} alt="logo_image"/>
                                 </div>
                             </a>
                         </div>
                         <div style={{display: 'flex', justifyContent: 'center'}}>
-                            <a href="google.com" className="simple-text logo-normal">
-                                Energy Viz
+                            <a href="#" className="simple-text logo-normal">
+                                <p>Energy Viz</p>
                             </a>
                         </div>
-
                     </div>
 
 
