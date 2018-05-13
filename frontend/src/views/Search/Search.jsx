@@ -24,11 +24,37 @@ class Dashboard extends Component {
     this.clearAll = this.clearAll.bind(this);
     this.state = {
       renderCount: 0,
-      didMount: false,
       tableData: [],
-      config: []
+      config: [],
+      flag: null,
     };
   }
+    componentDidMount() {
+        this._loadGraphData(this.props);
+    }
+    //
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.flag === null) {
+            this._loadGraphData(this.props);
+        }
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState){
+        // Store prevId in state so we can compare when props change.
+        // Clear out previously-loaded data (so we don't render stale stuff).
+
+        if (nextProps.headerData != prevState.headerData) {
+            return {
+                flag: null,
+                headerData: nextProps.headerData,
+            };
+        }
+        // No state update necessary
+        return null;
+    }
+
+
+
 
   findMaxXaxisIndex (nextProps) {
     let index = 0, maxSize = 0, maxIndex = 0;
@@ -44,7 +70,7 @@ class Dashboard extends Component {
   }
   /* when new query parameters are received in the props,
     we refetch the graphQL query and convert the timezone. */
-  componentWillReceiveProps(nextProps) {
+    _loadGraphData(nextProps) {
     this.props.data.refetch();
     if (typeof nextProps.data.dataStream === "undefined" || nextProps.data.loading) {
       return;
@@ -181,15 +207,12 @@ class Dashboard extends Component {
     this.setState(
       {
         config: [...this.state.config, config],
-        tableData: tableData
+        tableData: tableData,
+        flag: 1,
     }, function () {
         console.log(this.state);
     }
     );
-  }
-
-  componentDidMount() {
-    this.setState({ didMount: true });
   }
 
   headerCallback(dataFromHeader) {
