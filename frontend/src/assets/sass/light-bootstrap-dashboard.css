@@ -3522,20 +3522,44 @@ fieldset[disabled] .form-control {
   background-size: 30px 30px;
 }
 
+.active .graph-icon {
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: url(../../assets/img/graphActive.svg);
+  background-size: 30px 30px;
+}
+
 .search-icon {
   display: block;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   background: url(../../assets/img/search.svg);
-  background-size: 20px 20px;
+  background-size: 30px 30px;
+}
+
+.active .search-icon {
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: url(../../assets/img/searchActive.svg);
+  background-size: 30px 30px;
 }
 
 .select-icon {
   display: block;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   background: url(../../assets/img/select.svg);
-  background-size: 20px 20px;
+  background-size: 30px 30px;
+}
+
+.active .select-icon {
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: url(../../assets/img/selectActive.svg);
+  background-size: 30px 30px;
 }
 
 .ct-major-seventh:before {

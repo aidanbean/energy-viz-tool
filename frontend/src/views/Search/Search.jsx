@@ -284,7 +284,7 @@ class Dashboard extends Component {
     return (
       <div>
         <Row style={{ marginRight: "0px", marginLeft: "0px"}}>
-            <Col md={12} xs={12} style={{marginTop: "20px"}} />
+            <Col md={12} xs={12} style={{minHeight: "50px"}} />
             <Col md={12}>
                 <HeaderLinks callback={this.headerCallback} clearCallback={this.clearAll} isLoading={false} />
             </Col>

@@ -13,7 +13,7 @@
    version="1.1"
    id="svg3437"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="graph.svg">
+   sodipodi:docname="graphActive.svg">
   <metadata
      id="metadata3451">
     <rdf:RDF>
@@ -72,4 +72,24 @@
       </g>
     </g>
   </g>
+  <path
+     style="opacity:1;fill:#b2d7e1;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-opacity:1"
+     d="m 0.04109826,11.488115 0,-11.47029179 0.74851302,0 0.74851302,0 0.013499,10.73501679 0.013499,10.735017 11.6975589,0.01349 11.697559,0.01349 0,0.721787 0,0.721786 -12.459572,0 -12.45957074,0 0,-11.470292 z"
+     id="path5815"
+     inkscape:connector-curvature="0" />
+  <path
+     style="opacity:1;fill:#b2d7e1;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-opacity:1"
+     d="m 5.6024519,12.263496 0,-7.6468611 1.5507621,0 1.5507621,0 0,7.6468611 0,7.646862 -1.5507621,0 -1.5507621,0 0,-7.646862 z"
+     id="path5817"
+     inkscape:connector-curvature="0" />
+  <path
+     style="opacity:1;fill:#b2d7e1;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-opacity:1"
+     d="m 11.858975,14.562902 0,-5.3474554 1.550762,0 1.550762,0 0,5.3474554 0,5.347456 -1.550762,0 -1.550762,0 0,-5.347456 z"
+     id="path5819"
+     inkscape:connector-curvature="0" />
+  <path
+     style="opacity:1;fill:#b2d7e1;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-opacity:1"
+     d="m 18.115498,16.113664 0,-3.796693 1.524025,0 1.524024,0 0,3.796693 0,3.796694 -1.524024,0 -1.524025,0 0,-3.796694 z"
+     id="path5821"
+     inkscape:connector-curvature="0" />
 </svg>
