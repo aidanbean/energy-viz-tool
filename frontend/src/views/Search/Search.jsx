@@ -114,12 +114,18 @@ class Dashboard extends Component {
                 });
             }
             const y = [];
+            const nonNullData = []; // separate array for nonNullData from data set
 
             props.data.dataStream[i].stream.forEach(function (element) {
+                console.log("value: " + element.Value);
+                if (element.Value !== null) {
+                    nonNullData.push(element.Value);
+                }
                 y.push(element.Value);
                 unit = element.UnitsAbbreviation;
             });
-            const median = new Stats().push(y).median();
+
+            const median = new Stats().push(nonNullData).median().toFixed(2); // calculating median from non null value data set
             tableRow["Median"] = median;
 
             // generate a random color.

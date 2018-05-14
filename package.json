@@ -61,6 +61,7 @@
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-event-observer": "^0.5.11",
+    "react-iframe": "^1.1.0",
     "routes": "^2.1.0",
     "serve-favicon": "^2.4.3"
   },
