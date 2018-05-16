@@ -319,7 +319,7 @@ class Dashboard extends Component {
                     }
                     <Col md={12}>
                         <Card
-                            title="Sensor Statistics"
+                            title="Statistics"
                             ctTableFullWidth
                             ctTableResponsive
                             downloadLink={<CSVLink data={this.state.tableData}>Download me</CSVLink>}
