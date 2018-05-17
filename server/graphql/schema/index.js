@@ -66,15 +66,6 @@ let schema = buildSchema(`
         active          : Boolean,
     }
 
-    type SensorData {
-        webId          : String,
-        tagName        : String,
-        building       : String,
-        equipmentType  : String,
-        equipmentNumber: String,
-        sensorType     : String,
-    }
-
     type FilterType {
         buildings       : [String],
         equipmentTypes  : [String],
@@ -83,17 +74,6 @@ let schema = buildSchema(`
     }
 
     type Query {
-        dataByMonths
-        (
-            building       : String,
-            equipmentType  : String,
-            equipmentNumber: String,
-            sensorType     : String,
-            startDate      : String,
-            endDate        : String,
-            interval       : String
-        ): [DataPoint],
-
         dataStream
         (
             building       : String,
@@ -140,43 +120,6 @@ let schema = buildSchema(`
 
 // The root provides the top-level API endpoints
 var root = {
-  dataByMonths: async function({
-    building,
-    equipmentType,
-    equipmentNumber,
-    sensorType,
-    startDate,
-    endDate,
-    interval
-  }) {
-    const dbEntry = {
-      building: building,
-      equipmentType: equipmentType,
-      equipmentNumber: equipmentNumber,
-      sensorType: sensorType
-    };
-    const dbResult = await DataModel.findOne(dbEntry);
-    var piResult = await fetchAPI.fetchStream_byMonths(
-      dbResult.webId,
-      startDate,
-      endDate,
-      interval
-    );
-    var listOfPoints = [];
-    piResult.Items.forEach(function(element) {
-      const point = new DataPoint(
-        element.Timestamp,
-        element.Value,
-        element.UnitsAbbreviation,
-        element.Good,
-        element.Questionable,
-        element.Substituted
-      );
-      listOfPoints.push(point);
-    });
-    return listOfPoints;
-  },
-
   dataStream: async function({
     building,
     equipmentType,
@@ -263,6 +206,9 @@ var root = {
       );
 
       var stream = [];
+      if (piResult == undefined || summaryResult == undefined) {
+          continue;
+      }
       piResult.Items.forEach(function(element) {
         if (!element.Good) {
           element.Value = null;
@@ -345,11 +291,12 @@ var root = {
         });
         dbQuery["$or"] = sensorList;
         const dbResult = await DataModel.find(dbQuery).sort({ sensorType: 1 });
-        if (dbResult.length != 2) {
+        if (dbResult.length != sensorList.length) {
           continue;
         } else {
-          streamQueries.push(dbResult[0]);
-          streamQueries.push(dbResult[1]);
+            dbResult.forEach( function(element) {
+                streamQueries.push(element);
+            });
         }
       }
     }
