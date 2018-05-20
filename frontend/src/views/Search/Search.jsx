@@ -252,7 +252,7 @@ class Dashboard extends Component {
                                     <center>
                                         <h3>
                                             <center>
-                                                <font color="#9acd32">Loading</font>
+                                                <font color="#1dc7ea">Loading</font>
                                             </center>
                                         </h3>
                                         <p>
