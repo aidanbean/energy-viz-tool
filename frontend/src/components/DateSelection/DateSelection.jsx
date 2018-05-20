@@ -13,10 +13,7 @@ class DateSelection extends Component {
     shouldComponentUpdate = () => { // preventing re-render when parents state change
         return false;
     };
-
-
-
-
+    
     render() {
         const textStyle = {
             height: '17px',
