@@ -1,11 +1,11 @@
 import React from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col, Collapse} from 'react-bootstrap';
 import Header from '../../components/Header/SelectBuildingHeader.jsx';
 import PreBake1 from '../../components/Graphs/Economizer.jsx';
 import PreBake2 from '../../components/Graphs/AirTemp-AirTempSP.jsx';
 import DateSelection from '../../components/DateSelection/DateSelection.jsx'
 import ButtonContext from '../../components/DateSelection/buttonContext';
-import {Collapse} from 'react-collapse';
+
 
 class SelectBuilding extends React.Component {
     constructor(props) {
@@ -74,6 +74,12 @@ class SelectBuilding extends React.Component {
             });
         };
 
+        this.toggleCollapse = () => {
+            this.setState({
+                isOpened: !this.state.isOpened,
+            })
+        };
+
         this.state = {
             building: 'ACAD',
             equipmentType: null,
@@ -87,7 +93,11 @@ class SelectBuilding extends React.Component {
             dayOfWeek: [],
             hourOfDay: [],
             buttonHandler: this.buttonHandler,
+            isOpened: true,
         };
+
+
+
     }
 
     render() {
@@ -120,37 +130,39 @@ class SelectBuilding extends React.Component {
                             </Col>
                             <Col md={12} xsHidden={12} style={{minHeight: '20px'}}/>
                         </Row>
-                        <Collapse isOpened={true}>
+
+
                         <Row>
                         <Col md={3}>
                             <Col md={3} />
                             <Col md={9} xs={12} style={{paddingLeft: 0}}>
-                                <p style={tagStyle}>Refine filters</p>
+                                <p style={tagStyle} onClick={this.toggleCollapse}>Refine filters</p>
                             </Col>
                         </Col>
-                        {/*<Col md={8}>*/}
-                            {/*<DateSelection applySelection={this.saveDateSelection}/>*/}
-                        {/*</Col>*/}
+                            <Collapse in={this.state.isOpened}>
+                        <Col md={8}>
+                            <DateSelection applySelection={this.saveDateSelection}/>
+                        </Col>
+                            </Collapse>
                         </Row>
-                        </Collapse>
-                        <Row>
-                            <Col md={12}>
-                                <ButtonContext.Consumer>
-                                    {value =>
-                                        <PreBake1 building={this.state.building} dateSelection={value}/>
-                                    }
-                                </ButtonContext.Consumer>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col md={12}>
-                                <ButtonContext.Consumer>
-                                    {value =>
-                                        <PreBake2 building={this.state.building} dateSelection={value}/>
-                                    }
-                                </ButtonContext.Consumer>
-                            </Col>
-                        </Row>
+                        {/*<Row>*/}
+                            {/*<Col md={12}>*/}
+                                {/*<ButtonContext.Consumer>*/}
+                                    {/*{value =>*/}
+                                        {/*<PreBake1 building={this.state.building} dateSelection={value}/>*/}
+                                    {/*}*/}
+                                {/*</ButtonContext.Consumer>*/}
+                            {/*</Col>*/}
+                        {/*</Row>*/}
+                        {/*<Row>*/}
+                            {/*<Col md={12}>*/}
+                                {/*<ButtonContext.Consumer>*/}
+                                    {/*{value =>*/}
+                                        {/*<PreBake2 building={this.state.building} dateSelection={value}/>*/}
+                                    {/*}*/}
+                                {/*</ButtonContext.Consumer>*/}
+                            {/*</Col>*/}
+                        {/*</Row>*/}
                     </Grid>
                 </div>
             </ButtonContext.Provider>
