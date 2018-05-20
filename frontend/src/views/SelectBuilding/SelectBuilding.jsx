@@ -5,6 +5,7 @@ import PreBake1 from '../../components/Graphs/Economizer.jsx';
 import PreBake2 from '../../components/Graphs/AirTemp-AirTempSP.jsx';
 import DateSelection from '../../components/DateSelection/DateSelection.jsx'
 import ButtonContext from '../../components/DateSelection/buttonContext';
+import {Collapse} from 'react-collapse';
 
 class SelectBuilding extends React.Component {
     constructor(props) {
@@ -119,6 +120,7 @@ class SelectBuilding extends React.Component {
                             </Col>
                             <Col md={12} xsHidden={12} style={{minHeight: '20px'}}/>
                         </Row>
+                        <Collapse isOpened={true}>
                         <Row>
                         <Col md={3}>
                             <Col md={3} />
@@ -126,10 +128,11 @@ class SelectBuilding extends React.Component {
                                 <p style={tagStyle}>Refine filters</p>
                             </Col>
                         </Col>
-                        <Col md={8}>
-                            <DateSelection applySelection={this.saveDateSelection}/>
-                        </Col>
+                        {/*<Col md={8}>*/}
+                            {/*<DateSelection applySelection={this.saveDateSelection}/>*/}
+                        {/*</Col>*/}
                         </Row>
+                        </Collapse>
                         <Row>
                             <Col md={12}>
                                 <ButtonContext.Consumer>

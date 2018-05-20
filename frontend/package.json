@@ -22,6 +22,7 @@
 		"react": "^16.3.2",
 		"react-apollo": "^2.0.4",
 		"react-bootstrap": "^0.32.1",
+		"react-collapse": "^4.0.3",
 		"react-csv": "^1.0.14",
 		"react-datetime": "^2.14.0",
 		"react-dom": "^16.3.2",
@@ -36,7 +37,8 @@
 		"react-table": "^6.8.0",
 		"reactstrap": "^6.0.1",
 		"routes": "^2.1.0",
-		"variables": "^1.0.1"
+		"variables": "^1.0.1",
+		"react-motion": "^0.5.2"
 	},
 	"lint-staged": {
 		"src/**/*.{js,jsx,json,css}": [
