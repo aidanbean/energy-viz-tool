@@ -26,6 +26,7 @@ class Dashboard extends Component {
             tableData: [],
             config: [],
             updateFlag: null,
+            firstRender: true
         };
     }
 
@@ -202,12 +203,20 @@ class Dashboard extends Component {
             }
         };
         config["series"] = xLines;
-
-        this.setState({
-            config: [...this.state.config, config],
-            tableData: tableData,
-            updateFlag: true,
-        });
+        if(this.state.firstRender && config.series.length > 0) {
+            this.setState({
+                config: [],
+                tableData: [],
+                updateFlag: true,
+                firstRender: false
+            });
+        } else {
+            this.setState({
+                config: [config, ...this.state.config],
+                tableData: tableData,
+                updateFlag: true,
+            });
+        }
     }
 
     headerCallback(dataFromHeader) {
