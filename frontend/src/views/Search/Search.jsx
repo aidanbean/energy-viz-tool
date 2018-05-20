@@ -11,6 +11,7 @@ import {Card} from "../../components/Card/Card.jsx";
 import DraggableTable from "../TableList/DraggableTable";
 import {CSVLink} from 'react-csv';
 import matchSorter from 'match-sorter';
+import {colors} from '../../variables/colors';
 
 require("highcharts/modules/exporting")(Highcharts.Highcharts);
 require("highcharts/modules/export-data")(Highcharts.Highcharts);
@@ -129,8 +130,8 @@ class Dashboard extends Component {
             const median = new Stats().push(nonNullData).median().toFixed(2); // calculating median from non null value data set
             tableRow["Median"] = median;
 
-            // generate a random color.
-            let color = "#" + Math.floor(Math.random() * 16777215).toString(16);
+            // set the color
+            let color = colors[i % 10];
             let dataStream = props.data.dataStream[i];
             let name = `${dataStream.building}.${dataStream.equipmentNumber}.${dataStream.sensorType}`;
             if (dataStream.equipmentType === "CHW" || dataStream.equipmentType === "HHW") {
