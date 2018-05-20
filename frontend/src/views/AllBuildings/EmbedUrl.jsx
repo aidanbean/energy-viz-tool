@@ -21,7 +21,7 @@ class EmbedUrl extends Component {
             this.props.callback(this.state.url.toString());
         };
     }
-    
+
     render() {
         return (
             <div className="content">

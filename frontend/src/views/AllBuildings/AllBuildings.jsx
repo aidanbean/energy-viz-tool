@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import Iframe from 'react-iframe';
-import {FormInputs} from '../../components/FormInputs/FormInputs.jsx';
-import {Col, Row, Button} from 'react-bootstrap';
 import EmbedUrl from './EmbedUrl'
 
 class AllBuildings extends Component {
@@ -18,16 +16,12 @@ class AllBuildings extends Component {
         };
     }
 
-
     render() {
-        // if(this.state.url === null)
-        //     return;
-
-
-
         return (
             <div className="content">
+                <div style={{marginBottom: '30px'}}>
                 <EmbedUrl callback={this.embedURL} />
+                </div>
                 <Iframe
                     url={this.state.url}
                     width="100%"
