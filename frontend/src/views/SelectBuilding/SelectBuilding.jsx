@@ -93,7 +93,7 @@ class SelectBuilding extends React.Component {
             dayOfWeek: [],
             hourOfDay: [],
             buttonHandler: this.buttonHandler,
-            isOpened: true,
+            isOpened: false,
         };
 
 
@@ -111,8 +111,11 @@ class SelectBuilding extends React.Component {
             letterSpacing: 'normal',
             color: '#2d323c',
             textAlign: 'left',
-            marginTop: '10px'
+            marginTop: '10px',
+            display: 'inline',
         };
+
+
         return (
             <ButtonContext.Provider value={this.state}>
                 <div>
@@ -122,6 +125,7 @@ class SelectBuilding extends React.Component {
                             <Col md={3} xs={12}>
                                 <Col md={3} xsHidden={12}/>
                                 <Col md={9} xs={12} style={{paddingLeft: 0}}>
+
                                     <p style={tagStyle}>Select a building</p>
                                 </Col>
                             </Col>
@@ -136,7 +140,11 @@ class SelectBuilding extends React.Component {
                         <Col md={3}>
                             <Col md={3} />
                             <Col md={9} xs={12} style={{paddingLeft: 0}}>
-                                <p style={tagStyle} onClick={this.toggleCollapse}>Refine filters</p>
+                                <span style={tagStyle} onClick={this.toggleCollapse}>
+                                    Refine filters
+                                    <i className="pe-7s-angle-down" style={{fontWeight: 'bold', fontSize: '15px'}} />
+                                </span>
+
                             </Col>
                         </Col>
                             <Collapse in={this.state.isOpened}>
@@ -145,24 +153,24 @@ class SelectBuilding extends React.Component {
                         </Col>
                             </Collapse>
                         </Row>
-                        {/*<Row>*/}
-                            {/*<Col md={12}>*/}
-                                {/*<ButtonContext.Consumer>*/}
-                                    {/*{value =>*/}
-                                        {/*<PreBake1 building={this.state.building} dateSelection={value}/>*/}
-                                    {/*}*/}
-                                {/*</ButtonContext.Consumer>*/}
-                            {/*</Col>*/}
-                        {/*</Row>*/}
-                        {/*<Row>*/}
-                            {/*<Col md={12}>*/}
-                                {/*<ButtonContext.Consumer>*/}
-                                    {/*{value =>*/}
-                                        {/*<PreBake2 building={this.state.building} dateSelection={value}/>*/}
-                                    {/*}*/}
-                                {/*</ButtonContext.Consumer>*/}
-                            {/*</Col>*/}
-                        {/*</Row>*/}
+                        <Row>
+                            <Col md={12}>
+                                <ButtonContext.Consumer>
+                                    {value =>
+                                        <PreBake1 building={this.state.building} dateSelection={value}/>
+                                    }
+                                </ButtonContext.Consumer>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={12}>
+                                <ButtonContext.Consumer>
+                                    {value =>
+                                        <PreBake2 building={this.state.building} dateSelection={value}/>
+                                    }
+                                </ButtonContext.Consumer>
+                            </Col>
+                        </Row>
                     </Grid>
                 </div>
             </ButtonContext.Provider>
