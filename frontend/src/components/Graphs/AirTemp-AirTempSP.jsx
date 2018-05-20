@@ -186,7 +186,7 @@ class EconGraph extends Component {
                                     <center>
                                         <h3>
                                             <center>
-                                                <font color="#9acd32">Loading</font>
+                                                <font color="#1dc7ea">Loading</font>
                                             </center>
                                         </h3>
                                         <BarLoader
@@ -212,7 +212,21 @@ class EconGraph extends Component {
                             </center>
                         </h3>
                         <center>There was an error.</center>
-                    </Jumbotron>;
+                    </Jumbotron>
+                </div>
+            );
+        }
+
+        if (this.state.config.series.length == 0) {
+            return (
+                <div>
+                    <Jumbotron>
+                        <h3>
+                            <center>
+                                <font>No Air Temp Data</font>
+                            </center>
+                        </h3>
+                    </Jumbotron>
                 </div>
             );
         }

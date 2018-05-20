@@ -1,6 +1,6 @@
-// Pre-Baked Graph #1:
-// Average Hourly Mixed Air Temperature  vs. Corresponding Average Hourly OAT (economizer function)
-// Let's you visualize whether the economizers are working properly.
+// Pre-Baked Graph #3:
+// Outside Air Ratio:
+// Outside Air Temp - Return Air Temp vs. Mixed Air Temp - Return Air Temp
 import React, {Component} from "react";
 import moment from "moment-timezone";
 import {Row, Col, Jumbotron} from "react-bootstrap";
@@ -9,12 +9,13 @@ import Highcharts from "react-highcharts";
 import {graphql} from "react-apollo";
 import gql from "graphql-tag";
 import {Card} from "../../components/Card/Card.jsx";
-import {DateTime} from 'luxon';
+import {DateTime} from "luxon";
+
 
 require("highcharts/modules/exporting")(Highcharts.Highcharts);
 require("highcharts/modules/export-data")(Highcharts.Highcharts);
 
-class EconGraph extends Component {
+class OARGraph extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -53,9 +54,12 @@ class EconGraph extends Component {
         return null;
     }
 
+
+    /* when new query parameters are recieved in the props,
+      we refetch the graphQL query and convert the timezone. */
     _loadGraphData(props){
         this.props.data.refetch();
-        var fileName = `$(props.data.variables.building)_Economizer_data`;
+        var fileName = `$(props.data.variables.building)_SupplyTemp_data`;
         if (props.data.selectBuilding == undefined) {
             console.log("loading");
             return;
@@ -71,26 +75,25 @@ class EconGraph extends Component {
             },
             chart: {
                 height: 400,
-                type: "scatter",
                 zoomType: "xy"
             },
             xAxis: {
                 title: {
                     enabled: true,
-                    text: "Outside Air Temperature"
+                    text: "Outside Air Temp - Return Air Temp °F"
                 }
             },
             yAxis: {
                 title: {
                     enabled: true,
-                    text: "Mixed Air Temperature"
+                    text: "Mixed Air Temp - Return Air Temp °F"
                 }
             },
             title: {
                 text: props.data.variables.building
             },
             subtitle: {
-                text: "Economizer Evaluation"
+                text: "Outside Air Ratio"
             },
             tooltip: {
                 useHTML: true
@@ -102,14 +105,21 @@ class EconGraph extends Component {
         let weekday = this.props.dateSelection.dayOfWeek;
         let hour = this.props.dateSelection.hourOfDay;
 
-        for (var i = 0; i < props.data.selectBuilding.length; i += 2) {
+        for (var i = 0; i < props.data.selectBuilding.length; i += 3) {
             var points = [];
             for (var j = 0; j < props.data.selectBuilding[i].stream.length; j++) {
+                // we can access sensor names alphabetically.
+                var MAT = props.data.selectBuilding[i].stream[j].Value;
+                var OAT = props.data.selectBuilding[i + 1].stream[j].Value;
+                var RAT = props.data.selectBuilding[i + 2].stream[j].Value;
+                var Time = props.data.selectBuilding[i].stream[j].Timestamp;
+                if (RAT == null || MAT == null || OAT == null) {
+                    continue;
+                }
                 var point = {};
-
-                point["x"] = (props.data.selectBuilding[i + 1].stream[j].Value);
-                point["y"] = (props.data.selectBuilding[i].stream[j].Value);
-                point["Timestamp"] = (props.data.selectBuilding[i + 1].stream[j].Timestamp);
+                point["x"] = OAT - RAT;
+                point["y"] = MAT - RAT;
+                point["Timestamp"] = Time;
                 points.push(point);
             }
 
@@ -145,31 +155,95 @@ class EconGraph extends Component {
             var color = "#" + Math.floor(Math.random() * 16777215).toString(16);
             var data = props.data.selectBuilding[i];
             var name = `${data.building}.${data.equipmentNumber}`;
-            // debugger;
             var serie = {
                 data: points,
                 color: color,
                 name: name,
+                type: "scatter",
                 turboThreshold: 0,
                 tooltip: {
-                    headerFormat: '<small></small><table>',
+                    headerFormat: "<small></small><table>",
                     pointFormat:
                     '<tr><td style="color: {series.color}">{series.name} </td></tr>' +
                     '<small>{point.Timestamp}</small><table>' +
-                    '<tr><td style="color: {series.color}">Mixed Air Temp :</td>' +
+                    '<tr><td style="color: {series.color}">Supply Air Temp :</td>' +
                     '<td style="text-align: right"><b> {point.y} </b></td></tr>' +
-                    '<tr><td style="color: {series.color}">Outside Air Temp :</td>' +
+                    '<tr><td style="color: {series.color}">Supply Air Temp SP :</td>' +
                     '<td style="text-align: right"><b>{point.x} </b></td></tr>',
                     footerFormat: "</table>"
                 }
             };
             series.push(serie);
         }
-
+        // Define the different slope reference lines.
+        var tenPercent = {
+            type: 'line',
+            name: '10% Line',
+            color: '#A9A9A9',
+            data: [[-30, -3], [30, 3]],
+            marker: {
+                enabled: false
+            },
+            states: {
+                hover: {
+                    lineWidth: 0
+                }
+            },
+            enableMouseTracking: false
+        }
+        var twentyPercent = {
+            type: 'line',
+            name: '20% Line',
+            color: '#A9A9A9',
+            data: [[-30, -6], [30, 6]],
+            marker: {
+                enabled: false
+            },
+            states: {
+                hover: {
+                    lineWidth: 0
+                }
+            },
+            enableMouseTracking: false
+        }
+        var thirtyPercent = {
+            type: 'line',
+            name: '30% Line',
+            color: '#A9A9A9',
+            data: [[-30, -9], [30, 9]],
+            marker: {
+                enabled: false
+            },
+            states: {
+                hover: {
+                    lineWidth: 0
+                }
+            },
+            enableMouseTracking: false
+        }
+        var hundredPercent = {
+            type: 'line',
+            name: '100% Line',
+            color: '#A9A9A9',
+            data: [[-30, -30], [30, 30]],
+            marker: {
+                enabled: false
+            },
+            states: {
+                hover: {
+                    lineWidth: 0
+                }
+            },
+            enableMouseTracking: false
+        }
+        series.push(tenPercent);
+        series.push(twentyPercent);
+        series.push(thirtyPercent);
+        series.push(hundredPercent);
         config["series"] = series;
 
         this.setState({
-            config: config,
+            config: config
         });
     }
 
@@ -177,7 +251,9 @@ class EconGraph extends Component {
         if (this.state.config === null || this.props.data.loading) {
             return (
                 <div>
-                    <Row style={{height: "200px", marginRight: "0px", marginLeft: "0px"}}>
+                    <Row
+                        style={{height: "200px", marginRight: "0px", marginLeft: "0px"}}
+                    >
                         <Col md={12}>
                             <Card
                                 content={
@@ -198,7 +274,9 @@ class EconGraph extends Component {
                     </Row>
                 </div>
             );
-        }else if (this.props.data && this.props.data.error) {
+        }
+
+        if (this.props.data && this.props.data.error) {
             return (
                 <div>
                     <Jumbotron>
@@ -213,13 +291,13 @@ class EconGraph extends Component {
             );
         }
 
-        if (this.state.config.series.length == 0) {
+        if (this.state.config.series.length == 4) {
             return (
                 <div>
                     <Jumbotron>
                         <h3>
                             <center>
-                                <font>No Economizer Data</font>
+                                <font>No Air Ratio Data</font>
                             </center>
                         </h3>
                     </Jumbotron>
@@ -272,10 +350,10 @@ export default graphql(DATA_QUERY, {
     options: props => ({
         variables: {
             building: props.building,
-            sensorType: "Mixed Air Temp,Outside Air Temp",
-            startTime: moment().subtract(2, 'months').format("MM-DD-YYYY-ha"),
-            endTime: moment().format("MM-DD-YYYY-ha"),
+            sensorType: "Outside Air Temp,Mixed Air Temp,Return Air Temp",
+            startTime: moment().subtract(2, 'months').format("MM-DD-YYYY-Ha"),
+            endTime: moment().format("MM-DD-YYYY-Ha"),
             interval: "1h"
         }
     })
-})(EconGraph);
+})(OARGraph);

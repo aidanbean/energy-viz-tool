@@ -3,6 +3,7 @@ import { Grid, Row, Col, Collapse} from 'react-bootstrap';
 import Header from '../../components/Header/SelectBuildingHeader.jsx';
 import PreBake1 from '../../components/Graphs/Economizer.jsx';
 import PreBake2 from '../../components/Graphs/AirTemp-AirTempSP.jsx';
+import PreBake3 from '../../components/Graphs/OutsideAirRatio.jsx';
 import DateSelection from '../../components/DateSelection/DateSelection.jsx'
 import ButtonContext from '../../components/DateSelection/buttonContext';
 
@@ -171,6 +172,15 @@ class SelectBuilding extends React.Component {
                                 </ButtonContext.Consumer>
                             </Col>
                         </Row>
+                        <Row>
+                            <Col md={12}>
+                                <ButtonContext.Consumer>
+                                    {value =>
+                                        <PreBake3 building={this.state.building} dateSelection={value}/>
+                                    }
+                                </ButtonContext.Consumer>
+                            </Col>
+                        </Row>
                     </Grid>
                 </div>
             </ButtonContext.Provider>
@@ -179,4 +189,3 @@ class SelectBuilding extends React.Component {
 }
 
 export default SelectBuilding;
-

@@ -11,6 +11,7 @@ import {Card} from "../../components/Card/Card.jsx";
 import DraggableTable from "../TableList/DraggableTable";
 import {CSVLink} from 'react-csv';
 import matchSorter from 'match-sorter';
+import {colors} from '../../variables/colors';
 
 require("highcharts/modules/exporting")(Highcharts.Highcharts);
 require("highcharts/modules/export-data")(Highcharts.Highcharts);
@@ -26,6 +27,7 @@ class Dashboard extends Component {
             tableData: [],
             config: [],
             updateFlag: null,
+            firstRender: true
         };
     }
 
@@ -114,16 +116,22 @@ class Dashboard extends Component {
                 });
             }
             const y = [];
+            const nonNullData = []; // separate array for nonNullData from data set
 
             props.data.dataStream[i].stream.forEach(function (element) {
+                console.log("value: " + element.Value);
+                if (element.Value !== null) {
+                    nonNullData.push(element.Value);
+                }
                 y.push(element.Value);
                 unit = element.UnitsAbbreviation;
             });
-            const median = new Stats().push(y).median();
+
+            const median = new Stats().push(nonNullData).median().toFixed(2); // calculating median from non null value data set
             tableRow["Median"] = median;
 
-            // generate a random color.
-            let color = "#" + Math.floor(Math.random() * 16777215).toString(16);
+            // set the color
+            let color = colors[i % 10];
             let dataStream = props.data.dataStream[i];
             let name = `${dataStream.building}.${dataStream.equipmentNumber}.${dataStream.sensorType}`;
             if (dataStream.equipmentType === "CHW" || dataStream.equipmentType === "HHW") {
@@ -196,12 +204,20 @@ class Dashboard extends Component {
             }
         };
         config["series"] = xLines;
-
-        this.setState({
-            config: [...this.state.config, config],
-            tableData: tableData,
-            updateFlag: true,
-        });
+        if(this.state.firstRender && config.series.length > 0) {
+            this.setState({
+                config: [],
+                tableData: [],
+                updateFlag: true,
+                firstRender: false
+            });
+        } else {
+            this.setState({
+                config: [config, ...this.state.config],
+                tableData: tableData,
+                updateFlag: true,
+            });
+        }
     }
 
     headerCallback(dataFromHeader) {
@@ -246,7 +262,7 @@ class Dashboard extends Component {
                                     <center>
                                         <h3>
                                             <center>
-                                                <font color="#9acd32">Loading</font>
+                                                <font color="#1dc7ea">Loading</font>
                                             </center>
                                         </h3>
                                         <p>
