@@ -28,6 +28,7 @@
 		"react-dom": "^16.3.2",
 		"react-highcharts": "^16.0.2",
 		"react-iframe": "^1.1.0",
+		"react-motion": "^0.5.2",
 		"react-notification-system": "^0.2.16",
 		"react-router-dom": "^4.2.2",
 		"react-scripts": "1.1.2",
@@ -37,8 +38,8 @@
 		"react-table": "^6.8.0",
 		"reactstrap": "^6.0.1",
 		"routes": "^2.1.0",
-		"variables": "^1.0.1",
-		"react-motion": "^0.5.2"
+		"timeago-react": "^2.0.0",
+		"variables": "^1.0.1"
 	},
 	"lint-staged": {
 		"src/**/*.{js,jsx,json,css}": [
