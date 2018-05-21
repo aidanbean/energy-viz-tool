@@ -63,7 +63,8 @@
     "react-event-observer": "^0.5.11",
     "react-iframe": "^1.1.0",
     "routes": "^2.1.0",
-    "serve-favicon": "^2.4.3"
+    "serve-favicon": "^2.4.3",
+    "timeago-react": "^2.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

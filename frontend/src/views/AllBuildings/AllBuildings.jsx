@@ -26,8 +26,7 @@ class AllBuildings extends Component {
                     url={this.state.url}
                     width="100%"
                     height="800px"
-                    id="myId"
-                    className="myClassname"
+                    className="embeded-page"
                     display="initial"
                     position="relative"
                     allowFullScreen/>
