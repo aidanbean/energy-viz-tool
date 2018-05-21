@@ -4,7 +4,7 @@ import {WEEKDAYS} from './utils'
 
 class WeekdayPicker extends Component {
 
-
+        
     render() {
         function DayList(props) {
             const week = props.week;
@@ -19,8 +19,6 @@ class WeekdayPicker extends Component {
         return (
             <DayList week={WEEKDAYS}/>
         );
-
-
     }
 }
 
