@@ -252,7 +252,7 @@ class Dashboard extends Component {
     }
 
     render() {
-        if (this.state.updateFlag === null || this.props.data.loading) {
+        if ((this.state.updateFlag === null || this.props.data.loading) && (!this.state.firstRender)) {
             return (
                 <div>
                     <Row style={{marginRight: "0px", marginLeft: "0px"}}>
