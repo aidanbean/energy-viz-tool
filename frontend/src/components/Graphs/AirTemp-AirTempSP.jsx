@@ -77,6 +77,9 @@ class EconGraph extends Component {
                 type: "scatter",
                 zoomType: "xy"
             },
+            credits: {
+                enabled: false
+            },
             xAxis: {
                 title: {
                     enabled: true,

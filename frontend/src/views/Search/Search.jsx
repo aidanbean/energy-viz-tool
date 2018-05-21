@@ -183,6 +183,9 @@ class Dashboard extends Component {
                 zoomType: "xy",
 
             },
+            credits: {
+                enabled: false
+            },
             xAxis: {
                 categories: x
             },

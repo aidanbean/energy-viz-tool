@@ -77,6 +77,9 @@ class OARGraph extends Component {
                 height: 400,
                 zoomType: "xy"
             },
+            credits: {
+                enabled: false
+            },
             xAxis: {
                 title: {
                     enabled: true,
