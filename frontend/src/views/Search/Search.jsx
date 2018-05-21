@@ -13,6 +13,8 @@ import {CSVLink} from 'react-csv';
 import matchSorter from 'match-sorter';
 import {colors} from '../../variables/colors';
 
+import TimeAgo from 'timeago-react';
+
 require("highcharts/modules/exporting")(Highcharts.Highcharts);
 require("highcharts/modules/export-data")(Highcharts.Highcharts);
 var Stats = require("fast-stats").Stats;
@@ -326,7 +328,9 @@ class Dashboard extends Component {
                                         <Glyphicon glyph="remove-circle"/>
                                     </Button>}
                                     content={<Highcharts config={item} ref="ct-chart"/>}
+                                    stats={<TimeAgo datetime = {new Date()}/>}
                                 />
+
                             </Col>
                         ))
                     }

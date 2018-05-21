@@ -11,6 +11,7 @@ import gql from "graphql-tag";
 import {Card} from "../../components/Card/Card.jsx";
 import {DateTime} from 'luxon';
 import {colors} from '../../variables/colors';
+import TimeAgo from 'timeago-react';
 
 require("highcharts/modules/exporting")(Highcharts.Highcharts);
 require("highcharts/modules/export-data")(Highcharts.Highcharts);
@@ -237,6 +238,7 @@ class EconGraph extends Component {
                     <Col md={12}>
                         <Card
                             content={<Highcharts config={this.state.config} ref="ct-chart"/>}
+                            stats={<TimeAgo datetime = {new Date()}/>}
                         />
                     </Col>
                 </Row>
