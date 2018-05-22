@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Row, Col, Collapse} from 'react-bootstrap';
+import { Grid, Row, Col} from 'react-bootstrap';
 import Header from '../../components/Header/SelectBuildingHeader.jsx';
 import PreBake1 from '../../components/Graphs/Economizer.jsx';
 import PreBake2 from '../../components/Graphs/AirTemp-AirTempSP.jsx';
@@ -94,7 +94,6 @@ class SelectBuilding extends React.Component {
             dayOfWeek: [],
             hourOfDay: [],
             buttonHandler: this.buttonHandler,
-            isOpened: false,
         };
 
 
@@ -136,24 +135,9 @@ class SelectBuilding extends React.Component {
                             <Col md={12} xsHidden={12} style={{minHeight: '20px'}}/>
                         </Row>
 
+                        <DateSelection applySelection={this.saveDateSelection}/>
 
-                        <Row>
-                        <Col md={3}>
-                            <Col md={3} />
-                            <Col md={9} xs={12} style={{paddingLeft: 0}}>
-                                <span style={tagStyle} onClick={this.toggleCollapse}>
-                                    Refine filters
-                                    <i className="pe-7s-angle-down" style={{fontWeight: 'bold', fontSize: '15px'}} />
-                                </span>
 
-                            </Col>
-                        </Col>
-                            <Collapse in={this.state.isOpened}>
-                        <Col md={8}>
-                            <DateSelection applySelection={this.saveDateSelection}/>
-                        </Col>
-                            </Collapse>
-                        </Row>
                         <Row>
                             <Col md={12}>
                                 <ButtonContext.Consumer>
