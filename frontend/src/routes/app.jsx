@@ -27,8 +27,8 @@ const appRoutes = [
     {
         redirect: true,
         path: '/',
-        to: '/search',
-        name: 'Search',
+        to: '/all-building',
+        name: 'All Buildings',
     }
 ];
 
