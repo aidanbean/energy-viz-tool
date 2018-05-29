@@ -18,6 +18,11 @@ class MonthDayPicker extends Component {
     }
 
     render() {
+        const tooltip = (
+            <Tooltip id="tooltip">
+                Select/UnSelect all Days
+            </Tooltip>
+        );
         function MonthList(props) {
             const day = props.day;
             const listItems = day.map((day) =>
@@ -35,7 +40,9 @@ class MonthDayPicker extends Component {
 
         return (
             <div>
+                <OverlayTrigger placement="bottom" overlay={tooltip}>
                 <span style={textStyle} onClick={this.toggleButton}>Day of Month</span>
+                </OverlayTrigger>
             <MonthList day={hours} enable={this.state.enable}/>
             </div>
         );

@@ -20,6 +20,11 @@ class MonthPicker extends Component {
     }
 
     render() {
+        const tooltip = (
+            <Tooltip id="tooltip">
+                Select/UnSelect all Months
+            </Tooltip>
+        );
         function MonthList(props) {
             const months = props.months;
             const listItems = months.map((month) =>
@@ -35,7 +40,9 @@ class MonthPicker extends Component {
 
         return (
             <div>
+                <OverlayTrigger placement="bottom" overlay={tooltip}>
                 <span style={textStyle} onClick={this.toggleButton}>Month of Year</span>
+                </OverlayTrigger>
             <MonthList months={MONTHS} enable={this.state.enable}/>
             </div>
         );

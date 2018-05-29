@@ -3,7 +3,7 @@ import WeekdayPicker from './WeekdayPicker';
 import HourPicker from './HourPicker';
 import MonthDayPicker from './MonthDayPicker';
 import MonthPicker from './MonthPicker';
-import {Col, Row, Button, Collapse} from 'react-bootstrap';
+import {Col, Row, Button, Collapse, Tooltip, OverlayTrigger} from 'react-bootstrap';
 import {tagStyle} from '../../variables/styles'
 
 class DateSelection extends Component {
@@ -29,15 +29,22 @@ class DateSelection extends Component {
     };
 
     render() {
+        const tooltip = (
+            <Tooltip id="tooltip">
+                Expend/Collapse
+            </Tooltip>
+        );
         return (
             <Row style={{marginBottom:'30px'}}>
                 <Col md={3}>
                     <Col md={3} />
                     <Col md={9} xs={12} style={{paddingLeft: 0}}>
+                        <OverlayTrigger placement="right" overlay={tooltip}>
                                 <div style={tagStyle} onClick={this.toggleCollapse}>
                                     Refine filters
                                     <i className="pe-7s-angle-down" style={{fontWeight: 'bold', fontSize: '15px'}} />
                                 </div>
+                        </OverlayTrigger>
                     </Col>
                 </Col>
 

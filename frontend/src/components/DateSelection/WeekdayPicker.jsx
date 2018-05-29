@@ -1,6 +1,7 @@
 import Button from '../CustomButtons/Button.jsx'
 import React, {Component} from 'react';
-import {WEEKDAYS} from './utils'
+import {WEEKDAYS} from './utils';
+import {textStyle} from '../../variables/styles';
 
 class WeekdayPicker extends Component {
     constructor(props) {
@@ -18,14 +19,12 @@ class WeekdayPicker extends Component {
     }
         
     render() {
-        const textStyle = {
-            height: '17px',
-            fontFamily: 'ProximaNova',
-            fontSize: '14px',
-            fontWeight: '300',
-            color: '#2d323c',
-            cursor: 'pointer',
-        };
+        const tooltip = (
+            <Tooltip id="tooltip">
+                Select/UnSelect all WeekDays
+            </Tooltip>
+        );
+
         function DayList(props) {
             const week = props.week;
             const listItems = week.map((day) =>
@@ -38,7 +37,9 @@ class WeekdayPicker extends Component {
 
         return (
             <div style={{marginBottom:'10px'}}>
+                <OverlayTrigger placement="bottom" overlay={tooltip}>
                 <span style={textStyle} onClick={this.toggleButton}>Day of Week</span>
+                </OverlayTrigger>
             <DayList week={WEEKDAYS} enable={this.state.enable}/>
             </div>
         );
