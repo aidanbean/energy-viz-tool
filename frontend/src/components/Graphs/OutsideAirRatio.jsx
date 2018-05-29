@@ -75,7 +75,7 @@ class OARGraph extends Component {
                 fileName: fileName
             },
             chart: {
-                height: 400,
+                height: 800,
                 zoomType: "xy"
             },
             credits: {
