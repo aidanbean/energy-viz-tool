@@ -16,6 +16,7 @@ class EmbedUrl extends Component {
         this.handleApply = () => {
             if(this.state.url === null){
                 alert("Please input a url");
+                return;
             }
 
             this.props.callback(this.state.url.toString());
