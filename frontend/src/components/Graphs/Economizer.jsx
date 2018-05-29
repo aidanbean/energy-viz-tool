@@ -114,7 +114,7 @@ class EconGraph extends Component {
 
                 point["x"] = (props.data.selectBuilding[i + 1].stream[j].Value);
                 point["y"] = (props.data.selectBuilding[i].stream[j].Value);
-                point["Timestamp"] = (props.data.selectBuilding[i + 1].stream[j].Timestamp);
+                point["Timestamp"] = moment((props.data.selectBuilding[i + 1].stream[j].Timestamp), "YYYY-MM-DD HH:mm");
                 points.push(point);
             }
 

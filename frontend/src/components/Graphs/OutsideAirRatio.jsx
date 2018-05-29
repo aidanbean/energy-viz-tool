@@ -123,7 +123,7 @@ class OARGraph extends Component {
                 var point = {};
                 point["x"] = Number((OAT - RAT).toFixed(2));
                 point["y"] = Number((MAT - RAT).toFixed(2));
-                point["Timestamp"] = Time;
+                point["Timestamp"] = moment(Time, "YYYY-MM-DD HH:mm");
                 points.push(point);
             }
 
