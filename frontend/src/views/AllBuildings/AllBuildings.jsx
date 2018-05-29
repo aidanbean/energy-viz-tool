@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import Iframe from 'react-iframe';
 import EmbedUrl from './EmbedUrl'
+import {AllBuildingUrl} from '../../config'
 
 class AllBuildings extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            url: "https://app.powerbi.com/view?r=eyJrIjoiMzNjM2QwYjItOTg4YS00OTM0LWFlNTEtNzFlYjg0NzgwZGNjIiwidCI6ImE4MDQ2ZjY0LTY2YzAtNGYwMC05MDQ2LWM4ZGFmOTJmZjYyYiIsImMiOjZ9&pageName=ReportSection",
+            url: AllBuildingUrl,
         };
 
         this.embedURL = (url) => {
