@@ -41,7 +41,7 @@ class MonthDayPicker extends Component {
 
         return (
             <div>
-                <OverlayTrigger placement="bottom" overlay={tooltip}>
+                <OverlayTrigger placement="top" overlay={tooltip}>
                 <span style={textStyle} onClick={this.toggleButton}>Day of Month</span>
                 </OverlayTrigger>
             <MonthList day={hours} enable={this.state.enable}/>

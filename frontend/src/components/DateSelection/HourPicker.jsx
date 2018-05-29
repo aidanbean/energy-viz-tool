@@ -43,7 +43,7 @@ class HourPicker extends Component {
 
         return (
             <div style={{marginBottom: '10px'}}>
-                <OverlayTrigger placement="bottom" overlay={tooltip}>
+                <OverlayTrigger placement="top" overlay={tooltip}>
                 <span style={textStyle} onClick={this.toggleButton}>Hour of day</span>
                 </OverlayTrigger>
                 <HourList hour={hours} enable={this.state.enable}/>
