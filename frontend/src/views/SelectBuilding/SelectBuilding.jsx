@@ -1,6 +1,9 @@
 import React from 'react';
-import { Grid, Row, Col} from 'react-bootstrap';
+import moment from 'moment';
+import {Grid, Row, Col, Button} from 'react-bootstrap';
 import Header from '../../components/Header/SelectBuildingHeader.jsx';
+import StartForm from '../../components/SearchBar/StartForm.jsx';
+import EndForm from '../../components/SearchBar/EndForm.jsx';
 import PreBake1 from '../../components/Graphs/Economizer.jsx';
 import PreBake2 from '../../components/Graphs/AirTemp-AirTempSP.jsx';
 import PreBake3 from '../../components/Graphs/OutsideAirRatio.jsx';
@@ -68,10 +71,11 @@ class SelectBuilding extends React.Component {
             });
         };
 
-
-        this.buildingHandler = (selection) => {
+        this.selectionHandler = (selection) => {
             this.setState({
-                building: selection,
+                building: selection.building,
+                startTime: selection.startTime,
+                endTime: selection.endTime
             });
         };
 
@@ -86,8 +90,8 @@ class SelectBuilding extends React.Component {
             equipmentType: null,
             equipmentNumber: null,
             sensorType: null,
-            startTime: '',
-            endTime: '',
+            startTime: moment().subtract(2, 'months').format("MM-DD-YYYY-Ha"),
+            endTime: moment().format("MM-DD-YYYY-Ha"),
             interval: '1h',
             monthOfYear: [],
             dayOfMonth: [],
@@ -101,39 +105,11 @@ class SelectBuilding extends React.Component {
     }
 
     render() {
-        const tagStyle = {
-            fontFamily: 'ProximaNova',
-            fontSize: '14px',
-            fontWeight: '600',
-            fontStyle: 'normal',
-            fontStretch: 'normal',
-            lineHeight: 'normal',
-            letterSpacing: 'normal',
-            color: '#2d323c',
-            textAlign: 'left',
-            marginTop: '10px',
-            display: 'inline',
-        };
-
-
         return (
             <ButtonContext.Provider value={this.state}>
                 <div>
                     <Grid fluid>
-                        <Row>
-                            <Col md={12} xsHidden style={{minHeight: '50px'}}/>
-                            <Col md={3} xs={12}>
-                                <Col md={3} xsHidden/>
-                                <Col md={9} xs={12} style={{paddingLeft: 0}}>
-                                    <p style={tagStyle}>Select a building</p>
-                                </Col>
-                            </Col>
-                            <Col md={8}>
-                                <Header selection={this.state} callback={this.buildingHandler}/>
-                            </Col>
-                            <Col md={12} xsHidden style={{minHeight: '20px'}}/>
-                        </Row>
-
+                        <Header  callback={this.selectionHandler}/>
                         <DateSelection applySelection={this.saveDateSelection}/>
 
 
@@ -141,7 +117,8 @@ class SelectBuilding extends React.Component {
                             <Col md={12}>
                                 <ButtonContext.Consumer>
                                     {value =>
-                                        <PreBake1 building={this.state.building} dateSelection={value}/>
+                                        <PreBake1
+                                        selection={this.state} dateSelection={value}/>
                                     }
                                 </ButtonContext.Consumer>
                             </Col>
@@ -150,7 +127,8 @@ class SelectBuilding extends React.Component {
                             <Col md={12}>
                                 <ButtonContext.Consumer>
                                     {value =>
-                                        <PreBake2 building={this.state.building} dateSelection={value}/>
+                                        <PreBake2
+                                        selection={this.state} dateSelection={value}/>
                                     }
                                 </ButtonContext.Consumer>
                             </Col>
@@ -159,7 +137,8 @@ class SelectBuilding extends React.Component {
                             <Col md={12}>
                                 <ButtonContext.Consumer>
                                     {value =>
-                                        <PreBake3 building={this.state.building} dateSelection={value}/>
+                                        <PreBake3
+                                        selection={this.state} dateSelection={value}/>
                                     }
                                 </ButtonContext.Consumer>
                             </Col>
