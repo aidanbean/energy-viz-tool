@@ -21,7 +21,7 @@ class HourPicker extends Component {
     render() {
         const tooltip = (
             <Tooltip id="tooltip">
-                Select/UnSelect all Hours
+                Select/Unselect all Hours
             </Tooltip>
         );
 

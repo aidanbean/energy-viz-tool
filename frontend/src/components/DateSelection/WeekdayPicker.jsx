@@ -22,7 +22,7 @@ class WeekdayPicker extends Component {
     render() {
         const tooltip = (
             <Tooltip id="tooltip">
-                Select/UnSelect all WeekDays
+                Select/Unselect all WeekDays
             </Tooltip>
         );
 

@@ -21,7 +21,7 @@ class MonthDayPicker extends Component {
     render() {
         const tooltip = (
             <Tooltip id="tooltip">
-                Select/UnSelect all Days
+                Select/Unselect all Days
             </Tooltip>
         );
         function MonthList(props) {

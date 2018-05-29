@@ -23,7 +23,7 @@ class MonthPicker extends Component {
     render() {
         const tooltip = (
             <Tooltip id="tooltip">
-                Select/UnSelect all Months
+                Select/Unselect all Months
             </Tooltip>
         );
         function MonthList(props) {
@@ -35,9 +35,6 @@ class MonthPicker extends Component {
                 <div>{listItems}</div>
             );
         }
-
-        // const Month = ['Jan', 'Feb', 'Mar',	'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        const Month = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
 
         return (
             <div>
