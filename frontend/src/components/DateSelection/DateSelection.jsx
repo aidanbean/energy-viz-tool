@@ -31,7 +31,7 @@ class DateSelection extends Component {
     render() {
         const tooltip = (
             <Tooltip id="tooltip">
-                Expend/Collapse
+                Expand/Collapse
             </Tooltip>
         );
         return (
