@@ -121,8 +121,8 @@ class OARGraph extends Component {
                     continue;
                 }
                 var point = {};
-                point["x"] = OAT - RAT;
-                point["y"] = MAT - RAT;
+                point["x"] = Number((OAT - RAT).toFixed(2));
+                point["y"] = Number((MAT - RAT).toFixed(2));
                 point["Timestamp"] = Time;
                 points.push(point);
             }
