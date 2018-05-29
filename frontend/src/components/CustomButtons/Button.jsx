@@ -14,7 +14,7 @@ class Button extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            clicked: true,
+            clicked: props.enable,
         };
         this.clickHandler = this.clickHandler.bind(this);
     }

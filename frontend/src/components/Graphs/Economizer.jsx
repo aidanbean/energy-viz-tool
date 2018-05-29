@@ -157,7 +157,7 @@ class EconGraph extends Component {
                 name: name,
                 turboThreshold: 0,
                 tooltip: {
-                    headerFormat: '<small></small><table>',
+                    headerFormat: '<small /><table>',
                     pointFormat:
                     '<tr><td style="color: {series.color}">{series.name} </td></tr>' +
                     '<small>{point.Timestamp}</small><table>' +

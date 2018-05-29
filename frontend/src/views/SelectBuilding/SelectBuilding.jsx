@@ -125,7 +125,6 @@ class SelectBuilding extends React.Component {
                             <Col md={3} xs={12}>
                                 <Col md={3} xsHidden={12}/>
                                 <Col md={9} xs={12} style={{paddingLeft: 0}}>
-
                                     <p style={tagStyle}>Select a building</p>
                                 </Col>
                             </Col>

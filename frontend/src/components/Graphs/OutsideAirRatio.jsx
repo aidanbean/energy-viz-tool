@@ -75,7 +75,7 @@ class OARGraph extends Component {
                 fileName: fileName
             },
             chart: {
-                height: 800,
+                height: 600,
                 zoomType: "xy"
             },
             credits: {
@@ -194,7 +194,7 @@ class OARGraph extends Component {
                 }
             },
             enableMouseTracking: false
-        }
+        };
         var twentyPercent = {
             type: 'line',
             name: '20% Line',
@@ -209,7 +209,7 @@ class OARGraph extends Component {
                 }
             },
             enableMouseTracking: false
-        }
+        };
         var thirtyPercent = {
             type: 'line',
             name: '30% Line',
@@ -224,7 +224,7 @@ class OARGraph extends Component {
                 }
             },
             enableMouseTracking: false
-        }
+        };
         var hundredPercent = {
             type: 'line',
             name: '100% Line',
@@ -239,7 +239,7 @@ class OARGraph extends Component {
                 }
             },
             enableMouseTracking: false
-        }
+        };
         series.push(tenPercent);
         series.push(twentyPercent);
         series.push(thirtyPercent);
