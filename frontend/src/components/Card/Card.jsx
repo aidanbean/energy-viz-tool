@@ -6,7 +6,7 @@ export class Card extends Component {
       <div className={'card' + (this.props.plain ? ' card-plain' : '')}>
         <div className={'header' + (this.props.hCenter ? ' text-center' : '')}>
                 <h4 style={{width: '60%'}} className="title">{this.props.title}</h4>
-            <span class="pull-right" className="downloadLink">{this.props.downloadLink}</span>
+            <span className="pull-right" className="downloadLink">{this.props.downloadLink}</span>
                 <p className="category">{this.props.category}</p>
         </div>
         <div

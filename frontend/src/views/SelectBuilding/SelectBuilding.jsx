@@ -121,9 +121,9 @@ class SelectBuilding extends React.Component {
                 <div>
                     <Grid fluid>
                         <Row>
-                            <Col md={12} xsHidden={12} style={{minHeight: '50px'}}/>
+                            <Col md={12} xsHidden style={{minHeight: '50px'}}/>
                             <Col md={3} xs={12}>
-                                <Col md={3} xsHidden={12}/>
+                                <Col md={3} xsHidden/>
                                 <Col md={9} xs={12} style={{paddingLeft: 0}}>
                                     <p style={tagStyle}>Select a building</p>
                                 </Col>
@@ -131,7 +131,7 @@ class SelectBuilding extends React.Component {
                             <Col md={8}>
                                 <Header selection={this.state} callback={this.buildingHandler}/>
                             </Col>
-                            <Col md={12} xsHidden={12} style={{minHeight: '20px'}}/>
+                            <Col md={12} xsHidden style={{minHeight: '20px'}}/>
                         </Row>
 
                         <DateSelection applySelection={this.saveDateSelection}/>

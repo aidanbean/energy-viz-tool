@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
 import Building from '../SearchBar/BuildingSearchBar';
-// import Sensor from '../SearchBar/SensorTypeSearchBar';
-// import Start from '../SearchBar/StartForm';
-// import End from '../SearchBar/EndForm';
-// import Interval from '../SearchBar/IntervalForm';
+
 
 class SelectHeader extends Component {
   constructor(props) {
@@ -37,6 +34,9 @@ class SelectHeader extends Component {
   }
 
   render() {
+    const buttonStyle = {
+
+    };
     return (
       <div>
         <Row>
@@ -50,7 +50,8 @@ class SelectHeader extends Component {
           </Col>
             <Col md={3} xs={4}>
               <Button
-                bsStyle="default btn-fill"
+                bsStyle="default"
+                className="btn-fill"
                 block
                 onClick={this.buttonHandler}
                 disabled={this.props.isLoading}

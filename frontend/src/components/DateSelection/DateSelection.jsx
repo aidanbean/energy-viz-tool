@@ -65,7 +65,8 @@ class DateSelection extends Component {
                                 <Col md={12} xs={12} style={{marginTop: "20px"}} />
                                 <Col md={3} mdOffset={9} xs={4} xsOffset={8}>
                                     <Button
-                                        bsStyle="default btn-fill"
+                                        bsStyle="default"
+                                        className="btn-fill"
                                         block
                                         onClick={this.props.applySelection}
                                     >

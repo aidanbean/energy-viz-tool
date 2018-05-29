@@ -127,7 +127,7 @@ class HeaderLinks extends Component {
             <div className="content">
                 <br/>
                 <Row>
-                    <Col md={1} xsHidden={12}/>
+                    <Col md={1} xsHidden/>
                     <Col md={10} xs={12}>
                         <Col md={3} xs={6}>
                             <Building
@@ -162,12 +162,12 @@ class HeaderLinks extends Component {
                             />
                         </Col>
                     </Col>
-                    <Col md={1} xsHidden={12}/>
+                    <Col md={1} xsHidden/>
                 </Row>
                 <br/>
 
                 <Row>
-                    <Col md={1} xsHidden={12}/>
+                    <Col md={1} xsHidden/>
                     <Col md={10} xs={12}>
                         <Col md={3} xs={6}>
                             <Start label="Start" callback={this.startHandler}/>
@@ -205,7 +205,7 @@ class HeaderLinks extends Component {
                             </Col>
                         </Col>
                     </Col>
-                    <Col md={1} xsHidden={12}/>
+                    <Col md={1} xsHidden/>
                 </Row>
                 <br/>
             </div>
