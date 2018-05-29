@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import ButtonContext from '../DateSelection/buttonContext'
+import ButtonContext from '../DateSelection/buttonContext';
+
 
 class Button extends Component {
 

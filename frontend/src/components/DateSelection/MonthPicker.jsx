@@ -2,6 +2,7 @@ import Button from '../CustomButtons/Button.jsx'
 import React, {Component} from 'react';
 import {MONTHS} from './utils';
 import {textStyle} from '../../variables/styles';
+import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 
 class MonthPicker extends Component {
 
