@@ -61,7 +61,7 @@ var EquipmentField = createClass({
     );
   },
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+    // console.log(nextProps);
     if (nextProps.data && !nextProps.data.loading) {
       var options = [];
       nextProps.data.searchFilter.equipmentTypes.forEach(function(element) {

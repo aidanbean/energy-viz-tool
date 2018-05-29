@@ -1596,6 +1596,31 @@ const snackbarContentStyle = {
   },
 };
 
+const tagStyle = {
+    fontFamily: 'ProximaNova',
+    fontSize: '14px',
+    fontWeight: '600',
+    fontStyle: 'normal',
+    fontStretch: 'normal',
+    lineHeight: 'normal',
+    letterSpacing: 'normal',
+    color: '#2d323c',
+    textAlign: 'left',
+    marginTop: '10px',
+    marginBottom: '10px',
+    display: 'inline',
+    cursor: 'pointer'
+};
+
+const textStyle = {
+    height: '17px',
+    fontFamily: 'ProximaNova',
+    fontSize: '14px',
+    fontWeight: '300',
+    color: '#2d323c',
+    cursor: 'pointer',
+};
+
 module.exports = {
   dashboardStyle,
   iconsStyle,
@@ -1616,4 +1641,6 @@ module.exports = {
   sidebarStyle,
   appStyle,
   headerLinksStyle,
+  tagStyle,
+  textStyle,
 };

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import ButtonContext from '../DateSelection/buttonContext'
+import ButtonContext from '../DateSelection/buttonContext';
+
 
 class Button extends Component {
 
@@ -14,7 +15,7 @@ class Button extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            clicked: true,
+            clicked: props.enable,
         };
         this.clickHandler = this.clickHandler.bind(this);
     }

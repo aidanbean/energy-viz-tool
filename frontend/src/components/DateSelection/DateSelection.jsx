@@ -3,7 +3,8 @@ import WeekdayPicker from './WeekdayPicker';
 import HourPicker from './HourPicker';
 import MonthDayPicker from './MonthDayPicker';
 import MonthPicker from './MonthPicker';
-import {Col, Row, Button, Collapse} from 'react-bootstrap';
+import {Col, Row, Button, Collapse, Tooltip, OverlayTrigger} from 'react-bootstrap';
+import {tagStyle} from '../../variables/styles'
 
 class DateSelection extends Component {
     constructor(props) {
@@ -28,42 +29,22 @@ class DateSelection extends Component {
     };
 
     render() {
-        const textStyle = {
-            height: '17px',
-            fontFamily: 'ProximaNova',
-            fontSize: '14px',
-            fontWeight: '300',
-            color: '#2d323c'
-        };
-
-        const tagStyle = {
-            fontFamily: 'ProximaNova',
-            fontSize: '14px',
-            fontWeight: '600',
-            fontStyle: 'normal',
-            fontStretch: 'normal',
-            lineHeight: 'normal',
-            letterSpacing: 'normal',
-            color: '#2d323c',
-            textAlign: 'left',
-            marginTop: '10px',
-            marginBottom: '10px',
-            display: 'inline',
-        };
-
-        const componentStyle = {
-          marginBottom: '10px'
-        };
-
+        const tooltip = (
+            <Tooltip id="tooltip">
+                Expend/Collapse
+            </Tooltip>
+        );
         return (
-            <Row>
+            <Row style={{marginBottom:'30px'}}>
                 <Col md={3}>
                     <Col md={3} />
                     <Col md={9} xs={12} style={{paddingLeft: 0}}>
-                                <span style={tagStyle} onClick={this.toggleCollapse}>
+                        <OverlayTrigger placement="right" overlay={tooltip}>
+                                <div style={tagStyle} onClick={this.toggleCollapse}>
                                     Refine filters
                                     <i className="pe-7s-angle-down" style={{fontWeight: 'bold', fontSize: '15px'}} />
-                                </span>
+                                </div>
+                        </OverlayTrigger>
                     </Col>
                 </Col>
 
@@ -72,17 +53,11 @@ class DateSelection extends Component {
                         <div>
                             <Row>
                                 <Col md={6}>
-                                    <span style={textStyle}>Hour of day</span>
                                     <HourPicker/>
-                                    <div style={componentStyle}/>
-                                    <span style={textStyle}>Month of Year</span>
                                     <MonthPicker/>
                                 </Col>
                                 <Col md={6}>
-                                    <span style={textStyle}>Day of Week</span>
                                     <WeekdayPicker/>
-                                    <div style={componentStyle}/>
-                                    <span style={textStyle}>Day of Month</span>
                                     <MonthDayPicker/>
                                 </Col>
                             </Row>
@@ -91,7 +66,6 @@ class DateSelection extends Component {
                                 <Col md={3} mdOffset={9} xs={4} xsOffset={8}>
                                     <Button
                                         bsStyle="default btn-fill"
-                                        style={{marginBottom: "30px"}}
                                         block
                                         onClick={this.props.applySelection}
                                     >

@@ -14,7 +14,7 @@ class App extends Component {
     super(props);
     // this.componentDidMount = this.componentDidMount.bind(this);
     // this.handleNotificationClick = this.handleNotificationClick.bind(this);
-    console.log(moment().subtract(1, 'months').format("MM-DD-YYYY-Ha"));
+    // console.log(moment().subtract(1, 'months').format("MM-DD-YYYY-Ha"));
     this.dataByMinutes = this.dataByMinutes.bind(this);
     this.state = {
       _notificationSystem: null,

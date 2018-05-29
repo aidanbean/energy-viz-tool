@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {GraphqlUrl} from './config'
 
 // import registerServiceWorker from './registerServiceWorker'
 
@@ -21,7 +22,7 @@ const host = process.env.HOST;
 const port = process.env.PORT;
 
 const httpLink = new HttpLink({ uri: `http://localhost:4000/api/graphql` });
-// const httpLink = new HttpLink({ uri: `https://ecs193energytool.herokuapp.com/api/graphql` });
+// const httpLink = new HttpLink({ uri: GraphqlUrl });
 
 const client = new ApolloClient({
   link: httpLink,
