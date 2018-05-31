@@ -123,37 +123,38 @@ class OARGraph extends Component {
                 var point = {};
                 point["x"] = Number((OAT - RAT).toFixed(2));
                 point["y"] = Number((MAT - RAT).toFixed(2));
-                point["Timestamp"] = moment(Time, "YYYY-MM-DD HH:mm");
+                point["Timestamp"] = DateTime.fromISO(Time);
                 points.push(point);
             }
 
-            if (month.length != 0 || day.length != 0 || weekday.length != 0 || hour.length != 0) {
+            if (month.size !== undefined || day.size !== undefined || weekday.size !== undefined || hour.size !== undefined) {
                 points = points.filter(obj => {// filter by month
-                    if (month.length == 0) {
+                    if (month.size === undefined) {
                         return true;
                     }
-                    let dateTime = DateTime.fromISO(obj.Timestamp, {zone: 'utc'});
-                    return month.has(dateTime.month.toString());
+                    return month.has(obj.Timestamp.month.toString());
                 }).filter(obj => {
-                    if (day.length == 0) {
+                    if (day.size === undefined) {
                         return true;
                     }
-                    let dateTime = DateTime.fromISO(obj.Timestamp, {zone: 'utc'});
-                    return day.has(dateTime.day.toString());
+                    return day.has(obj.Timestamp.day.toString());
                 }).filter(obj => {
-                    if (weekday.length == 0) {
+                    if (weekday.size === undefined) {
                         return true;
                     }
-                    let dateTime = DateTime.fromISO(obj.Timestamp, {zone: 'utc'});
-                    return weekday.has(dateTime.weekday.toString());
+                    return weekday.has(obj.Timestamp.weekday.toString());
                 }).filter(obj => {
-                    if (hour.length == 0) {
+                    if (hour.size === undefined) {
                         return true;
                     }
-                    let dateTime = DateTime.fromISO(obj.Timestamp, {zone: 'utc'});
-                    return hour.has(dateTime.hour.toString());
+                    return hour.has(obj.Timestamp.hour.toString());
                 });
             }
+
+            points.forEach(point => {
+                point.Timestamp = point.Timestamp.toFormat("yyyy-LLL-dd HH:mm:ss")
+            });
+
 
             // choose a color
             var color = colors[(i / 3) % 10];
