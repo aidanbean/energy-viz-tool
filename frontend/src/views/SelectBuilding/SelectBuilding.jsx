@@ -2,8 +2,6 @@ import React from 'react';
 import moment from 'moment';
 import {Grid, Row, Col, Button} from 'react-bootstrap';
 import Header from '../../components/Header/SelectBuildingHeader.jsx';
-import StartForm from '../../components/SearchBar/StartForm.jsx';
-import EndForm from '../../components/SearchBar/EndForm.jsx';
 import PreBake1 from '../../components/Graphs/Economizer.jsx';
 import PreBake2 from '../../components/Graphs/AirTemp-AirTempSP.jsx';
 import PreBake3 from '../../components/Graphs/OutsideAirRatio.jsx';
@@ -63,6 +61,21 @@ class SelectBuilding extends React.Component {
         };
 
         this.saveDateSelection = () => {
+            if(monthOfYearTmp.size === 0) {
+                alert("Please select at least one month");
+                return
+            }else if(dayOfMonthTmp.size === 0) {
+                alert("Please select at least one day");
+                return
+            }else if(dayOfWeekTmp.size === 0) {
+                alert("Please select at least one weekday");
+                return
+            }else if(hourOfDayTmp.size === 0) {
+                alert("Please select at least one hour");
+                return
+            }
+
+
             this.setState({
                 hourOfDay: hourOfDayTmp,
                 dayOfMonth: dayOfMonthTmp,
@@ -99,9 +112,6 @@ class SelectBuilding extends React.Component {
             hourOfDay: [],
             buttonHandler: this.buttonHandler,
         };
-
-
-
     }
 
     render() {
