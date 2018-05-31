@@ -1,7 +1,6 @@
 // Pre-Baked Graph #2:
 // Average Hourly Supply Air Temp. vs. Average Hourly Supply Air Temp SP  (is it controlling well?)
 import React, {Component} from "react";
-import moment from "moment-timezone";
 import {Row, Col, Jumbotron} from "react-bootstrap";
 import {BarLoader} from "react-spinners";
 import Highcharts from "react-highcharts";

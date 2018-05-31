@@ -2,7 +2,6 @@
 // Outside Air Ratio:
 // Outside Air Temp - Return Air Temp vs. Mixed Air Temp - Return Air Temp
 import React, {Component} from "react";
-import moment from "moment-timezone";
 import {Row, Col, Jumbotron} from "react-bootstrap";
 import {BarLoader} from "react-spinners";
 import Highcharts from "react-highcharts";

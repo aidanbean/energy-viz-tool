@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import {Grid, Row, Col, Button} from 'react-bootstrap';
+import {Grid, Row, Col} from 'react-bootstrap';
 import Header from '../../components/Header/SelectBuildingHeader.jsx';
 import PreBake1 from '../../components/Graphs/Economizer.jsx';
 import PreBake2 from '../../components/Graphs/AirTemp-AirTempSP.jsx';
@@ -74,7 +74,6 @@ class SelectBuilding extends React.Component {
                 alert("Please select at least one hour");
                 return
             }
-
 
             this.setState({
                 hourOfDay: hourOfDayTmp,

@@ -111,9 +111,7 @@ class Dashboard extends Component {
             if (i === maxIndex) {
                 props.data.dataStream[i].stream.forEach(function (element) {
                     x.push(
-                        moment
-                            .tz(element.Timestamp, "US/Pacific")
-                            .format("YYYY-MM-DD HH:mm")
+                        moment(element.Timestamp).format("YYYY-MM-DD HH:mm")
                     );
                 });
             }
@@ -314,9 +312,7 @@ class Dashboard extends Component {
             <div>
                 <Row style={{marginRight: "0px", marginLeft: "0px"}}>
                     <Col md={12} xsHidden style={{minHeight: "50px"}}/>
-                    <Col md={12}>
-                        <HeaderLinks callback={this.headerCallback} clearCallback={this.clearAll} isLoading={false}/>
-                    </Col>
+                    <HeaderLinks callback={this.headerCallback} clearCallback={this.clearAll} isLoading={false}/>
                 </Row>
                 <Row style={{marginRight: "0px", marginLeft: "0px"}}>
                     {

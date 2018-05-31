@@ -2,7 +2,6 @@
 // Average Hourly Mixed Air Temperature  vs. Corresponding Average Hourly OAT (economizer function)
 // Let's you visualize whether the economizers are working properly.
 import React, {Component} from "react";
-import moment from "moment-timezone";
 import {Row, Col, Jumbotron} from "react-bootstrap";
 import {BarLoader} from "react-spinners";
 import Highcharts from "react-highcharts";
