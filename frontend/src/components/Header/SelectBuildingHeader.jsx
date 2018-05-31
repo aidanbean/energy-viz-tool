@@ -63,7 +63,6 @@ class SelectHeader extends Component {
           marginTop: '10px',
           display: 'inline',
       };
-
     return (
       <div>
           <Row>
