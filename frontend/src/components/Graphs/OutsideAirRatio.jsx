@@ -75,7 +75,7 @@ class OARGraph extends Component {
                 fileName: fileName
             },
             chart: {
-                height: 600,
+                height: 800,
                 zoomType: "xy"
             },
             credits: {
@@ -355,10 +355,10 @@ const DATA_QUERY = gql`
 export default graphql(DATA_QUERY, {
     options: props => ({
         variables: {
-            building: props.building,
+            building: props.selection.building,
             sensorType: "Outside Air Temp,Mixed Air Temp,Return Air Temp",
-            startTime: moment().subtract(2, 'months').format("MM-DD-YYYY-Ha"),
-            endTime: moment().format("MM-DD-YYYY-Ha"),
+            startTime: props.selection.startTime,
+            endTime: props.selection.endTime,
             interval: "1h"
         }
     })

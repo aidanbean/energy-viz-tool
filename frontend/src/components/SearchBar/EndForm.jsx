@@ -11,20 +11,21 @@ class EndForm extends Component {
     this.handleEvent = this.handleEvent.bind(this);
 
     this.state = {
-      value: moment().subtract(1, 'months'),
+      value: moment(),
     };
   }
 
   handleEvent(value) {
-    if(typeof value === "string") {
-      value = moment(value);
+    var myValue = value;
+    if(typeof myValue === "string") {
+      myValue = moment(myValue);
     }
     this.setState(
       {
-        value: value,
+        value: myValue,
       },
       () => {
-        var time = value.format('MM-DD-YYYY-ha');
+        var time = myValue.format('MM-DD-YYYY-ha');
         this.props.callback(time);
       }
     );
@@ -38,7 +39,7 @@ class EndForm extends Component {
     return (
       <FormGroup>
         <Datetime
-          defaultValue={moment().subtract(1, 'months')}
+          defaultValue={moment()}
           inputProps={{ placeholder: 'End Date' }}
           onChange={this.handleEvent}
           isValidDate={valid}

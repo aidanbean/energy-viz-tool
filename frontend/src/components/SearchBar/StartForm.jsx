@@ -14,19 +14,20 @@ class StartForm extends Component {
   }
 
   handleEvent(value) {
-    if(typeof value === "string") {
-        value = moment(value);
-    }
-    this.setState(
-      {
-        value: value,
-      },
-      () => {
-        var time = value.format('MM-DD-YYYY-ha');
-        this.props.callback(time);
+      var myValue = value;
+      if(typeof myValue === "string") {
+        myValue = moment(myValue);
       }
-    );
-  }
+      this.setState(
+        {
+          value: myValue,
+        },
+        () => {
+          var time = myValue.format('MM-DD-YYYY-ha');
+          this.props.callback(time);
+        }
+      );
+     }
 
   render() {
     var yesterday = Datetime.moment();

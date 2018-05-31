@@ -280,10 +280,10 @@ const DATA_QUERY = gql`
 export default graphql(DATA_QUERY, {
     options: props => ({
         variables: {
-            building: props.building,
+            building: props.selection.building,
             sensorType: "Supply Air Temp,Supply Air Temp Sp",
-            startTime: moment().subtract(2, 'months').format("MM-DD-YYYY-Ha"),
-            endTime: moment().format("MM-DD-YYYY-Ha"),
+            startTime: props.selection.startTime,
+            endTime: props.selection.endTime,
             interval: "1h"
         }
     })
