@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import moment from "moment-timezone";
+import moment from "moment";
 import {Row, Col, Jumbotron, Glyphicon} from "react-bootstrap";
 import {BarLoader} from "react-spinners";
 import Button from '../../elements/CustomButton/CustomButton.jsx';
@@ -111,9 +111,7 @@ class Dashboard extends Component {
             if (i === maxIndex) {
                 props.data.dataStream[i].stream.forEach(function (element) {
                     x.push(
-                        moment
-                            .tz(element.Timestamp, "US/Pacific")
-                            .format("YYYY-MM-DD HH:mm")
+                        moment(element.Timestamp).local().format("YYYY-MM-DD HH:mm")
                     );
                 });
             }
@@ -256,7 +254,12 @@ class Dashboard extends Component {
             return (
                 <div>
                     <Row style={{marginRight: "0px", marginLeft: "0px"}}>
-                        <HeaderLinks callback={this.headerCallback} isLoading={false}/>
+                        <HeaderLinks
+                            callback={this.headerCallback}
+                            selection={this.props.headerData}
+                            clearCallback={this.clearAll}
+                            isLoading={false}
+                        />
                     </Row>
                     <Row
                         style={{height: "200px", marginRight: "0px", marginLeft: "0px"}}
@@ -293,7 +296,12 @@ class Dashboard extends Component {
             return (
                 <div>
                     <Row style={{marginRight: "0px", marginLeft: "0px"}}>
-                        <HeaderLinks callback={this.headerCallback} isLoading={false}/>
+                        <HeaderLinks
+                            callback={this.headerCallback}
+                            selection={this.props.headerData}
+                            clearCallback={this.clearAll}
+                            isLoading={false}
+                        />
                     </Row>
                     <Jumbotron>
                         <h3>
@@ -315,7 +323,12 @@ class Dashboard extends Component {
                 <Row style={{marginRight: "0px", marginLeft: "0px"}}>
                     <Col md={12} xsHidden style={{minHeight: "50px"}}/>
                     <Col md={12}>
-                        <HeaderLinks callback={this.headerCallback} clearCallback={this.clearAll} isLoading={false}/>
+                        <HeaderLinks
+                            callback={this.headerCallback}
+                            selection={this.props.headerData}
+                            clearCallback={this.clearAll}
+                            isLoading={false}
+                        />
                     </Col>
                 </Row>
                 <Row style={{marginRight: "0px", marginLeft: "0px"}}>
@@ -444,8 +457,8 @@ export default graphql(DATA_QUERY, {
             equipmentType: props.headerData.equipmentType,
             equipmentNumber: props.headerData.equipmentNumber,
             sensorType: props.headerData.sensorType,
-            startTime: props.headerData.startTime,
-            endTime: props.headerData.endTime,
+            startTime: props.headerData.startTime.format("MM-DD-YYYY-Ha"),
+            endTime: props.headerData.endTime.format("MM-DD-YYYY-Ha"),
             interval: props.headerData.interval
         }
     })

@@ -23,9 +23,9 @@ class App extends Component {
         equipmentType: 'AHU',
         equipmentNumber: 'AHU01_PENT',
         sensorType: 'Supply Air Temp',
-        startTime: moment().subtract(2, 'months').format("MM-DD-YYYY-Ha"),
-        endTime: moment().subtract(1, 'months').format("MM-DD-YYYY-Ha"),
-        interval: '30m',
+        startTime: moment().subtract(2, 'months'),
+        endTime: moment(),
+        interval: '1h',
       },
     };
   }

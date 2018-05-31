@@ -31,7 +31,7 @@ var SensorField = createClass({
       disabled: false,
       stayOpen: false,
       isLoading: true,
-      value: null,
+      value: this.props.selection.sensorType,
       rtl: false,
     };
   },

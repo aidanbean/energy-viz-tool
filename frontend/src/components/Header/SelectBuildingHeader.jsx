@@ -14,13 +14,13 @@ class SelectHeader extends Component {
     this.endHandler = this.endHandler.bind(this);
     this.buildingHandler = this.buildingHandler.bind(this);
     this.state = {
-      building: 'ACAD',
+      building: this.props.selection.building,
       equipmentType: null,
       equipmentNumber: null,
       sensorType: null,
-      startTime: moment().subtract(2, 'months').format("MM-DD-YYYY-Ha"),
-      endTime: moment().format("MM-DD-YYYY-Ha"),
-      interval: '1h',
+      startTime: this.props.selection.startTime,
+      endTime: this.props.selection.endTime,
+      interval: this.props.selection.interval,
     };
 
     /* The following are different callbacks that are triggered
@@ -86,10 +86,10 @@ class SelectHeader extends Component {
                   </Col>
               </Col>
               <Col md={3}>
-                  <StartForm selection={this.state} callback={this.buildingHandler}/>
+                  <StartForm startTime={this.state.startTime} callback={this.startHandler}/>
               </Col>
               <Col md={3}>
-                  <EndForm selection={this.state} callback={this.buildingHandler}/>
+                  <EndForm endTime={this.state.endTime} callback={this.endHandler}/>
               </Col>
               <Col md={2} xs={4}>
                 <Button

@@ -103,8 +103,8 @@ class SelectBuilding extends React.Component {
             equipmentType: null,
             equipmentNumber: null,
             sensorType: null,
-            startTime: moment().subtract(2, 'months').format("MM-DD-YYYY-Ha"),
-            endTime: moment().format("MM-DD-YYYY-Ha"),
+            startTime: moment().subtract(2, 'months'),
+            endTime: moment(),
             interval: '1h',
             monthOfYear: [],
             dayOfMonth: [],
@@ -119,9 +119,8 @@ class SelectBuilding extends React.Component {
             <ButtonContext.Provider value={this.state}>
                 <div>
                     <Grid fluid>
-                        <Header  callback={this.selectionHandler}/>
+                        <Header callback={this.selectionHandler} selection={this.state}/>
                         <DateSelection applySelection={this.saveDateSelection}/>
-
 
                         <Row>
                             <Col md={12}>

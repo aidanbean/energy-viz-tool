@@ -31,7 +31,7 @@ var IntervalForm = createClass({
         { value: '1w', label: '1 week' },
         { value: '1mo', label: '1 month' },
       ],
-      value: '1h',
+      value: this.props.selection.interval,
       multi: false,
     };
   },

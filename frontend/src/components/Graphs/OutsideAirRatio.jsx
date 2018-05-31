@@ -357,8 +357,8 @@ export default graphql(DATA_QUERY, {
         variables: {
             building: props.selection.building,
             sensorType: "Outside Air Temp,Mixed Air Temp,Return Air Temp",
-            startTime: props.selection.startTime,
-            endTime: props.selection.endTime,
+            startTime: props.selection.startTime.format("MM-DD-YYYY-Ha"),
+            endTime: props.selection.endTime.format("MM-DD-YYYY-Ha"),
             interval: "1h"
         }
     })

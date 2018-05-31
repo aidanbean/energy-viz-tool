@@ -11,8 +11,8 @@ import moment from 'moment';
 import CustomButton from "../../elements/CustomButton/CustomButton";
 
 class HeaderLinks extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         // bind the different callbacks and set initial state.
         this.buttonHandler = this.buttonHandler.bind(this);
         this.buildingHandler = this.buildingHandler.bind(this);
@@ -24,13 +24,13 @@ class HeaderLinks extends Component {
         this.intervalHandler = this.intervalHandler.bind(this);
         this.clearHandler = this.clearHandler.bind(this);
         this.state = {
-            building: null,
-            equipmentType: null,
-            equipmentNumber: null,
-            sensorType: null,
-            startTime: moment().subtract(2, 'months').format("MM-DD-YYYY-Ha"),
-            endTime: moment().subtract(1, 'months').format("MM-DD-YYYY-Ha"),
-            interval: '1h',
+            building: this.props.selection.building,
+            equipmentType: this.props.selection.equipmentType,
+            equipmentNumber: this.props.selection.equipmentNumber,
+            sensorType: this.props.selection.sensorType,
+            startTime: this.props.selection.startTime,
+            endTime: this.props.selection.endTime,
+            interval: this.props.selection.interval,
         };
 
         /* The following are different callbacks that are triggered
@@ -170,17 +170,25 @@ class HeaderLinks extends Component {
                     <Col md={1} xsHidden/>
                     <Col md={10} xs={12}>
                         <Col md={3} xs={6}>
-                            <Start label="Start" callback={this.startHandler}/>
+                            <Start
+                                label="Start"
+                                startTime={this.state.startTime}
+                                callback={this.startHandler}
+                            />
                         </Col>
                         <Col md={3} xs={6}>
                             <End
                                 label="End"
-                                startTime={this.state.startTime}
+                                endTime={this.state.endTime}
                                 callback={this.endHandler}
                             />
                         </Col>
                         <Col md={3} xs={6}>
-                            <Interval label="Interval" callback={this.intervalHandler}/>
+                            <Interval
+                                label="Interval"
+                                selection={this.state}
+                                callback={this.intervalHandler}
+                            />
                         </Col>
                         <Col md={3} xs={6}>
                             <Col md={6} xs={6} style={{paddingRight: '5px', paddingLeft: 0}}>
@@ -188,7 +196,7 @@ class HeaderLinks extends Component {
                                     bsStyle="default btn-fill"
                                     block
                                     onClick={this.buttonHandler}
-                                    disabled={this.props.isLoading}
+
                                 >
                                     Add
                                 </Button>

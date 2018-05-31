@@ -1,7 +1,7 @@
 // Pre-Baked Graph #2:
 // Average Hourly Supply Air Temp. vs. Average Hourly Supply Air Temp SP  (is it controlling well?)
 import React, {Component} from "react";
-import moment from "moment-timezone";
+import moment from "moment";
 import {Row, Col, Jumbotron} from "react-bootstrap";
 import {BarLoader} from "react-spinners";
 import Highcharts from "react-highcharts";
@@ -15,7 +15,7 @@ import TimeAgo from 'timeago-react';
 require("highcharts/modules/exporting")(Highcharts.Highcharts);
 require("highcharts/modules/export-data")(Highcharts.Highcharts);
 
-class EconGraph extends Component {
+class AirTempGraph extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -282,9 +282,9 @@ export default graphql(DATA_QUERY, {
         variables: {
             building: props.selection.building,
             sensorType: "Supply Air Temp,Supply Air Temp Sp",
-            startTime: props.selection.startTime,
-            endTime: props.selection.endTime,
+            startTime: props.selection.startTime.format("MM-DD-YYYY-Ha"),
+            endTime: props.selection.endTime.format("MM-DD-YYYY-Ha"),
             interval: "1h"
         }
     })
-})(EconGraph);
+})(AirTempGraph);

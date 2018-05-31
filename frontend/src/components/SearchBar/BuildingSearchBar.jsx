@@ -35,7 +35,7 @@ var BuildingField = createClass({
       disabled: false,
       stayOpen: false,
       isLoading: true,
-      value: null,
+      value: this.props.selection.building,
       rtl: false,
     };
   },

@@ -32,7 +32,7 @@ var EquipmentField = createClass({
       disabled: false,
       stayOpen: false,
       isLoading: true,
-      value: null,
+      value: this.props.selection.equipmentType,
       rtl: false,
     };
   },

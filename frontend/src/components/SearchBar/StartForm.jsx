@@ -9,7 +9,7 @@ class StartForm extends Component {
     super(props);
     this.handleEvent = this.handleEvent.bind(this);
     this.state = {
-      value: moment().subtract(2, 'months'),
+      value: this.props.startTime,
     };
   }
 
@@ -23,8 +23,7 @@ class StartForm extends Component {
           value: myValue,
         },
         () => {
-          var time = myValue.format('MM-DD-YYYY-ha');
-          this.props.callback(time);
+            this.props.callback(myValue);
         }
       );
      }
@@ -37,7 +36,7 @@ class StartForm extends Component {
     return (
       <FormGroup>
         <Datetime
-          defaultValue={moment().subtract(2, 'months')}
+          defaultValue={this.props.startTime}
           inputProps={{ placeholder: 'Start Date' }}
           onChange={this.handleEvent}
           isValidDate={valid}
