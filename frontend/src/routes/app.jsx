@@ -4,6 +4,7 @@ import Search from '../views/Search/Search';
 import SelectBuilding from '../views/SelectBuilding/SelectBuilding';
 import AllBuildings from "../views/AllBuildings/AllBuildings";
 // import UserProfile from "../views/UserProfile/UserProfile";
+import UserManual from "../views/UserManual/UserManual";
 
 const appRoutes = [
     {
@@ -23,6 +24,12 @@ const appRoutes = [
         name: 'Search',
         icon: 'search-icon',
         component: Search,
+    },
+    {
+        path: '/user-guide',
+        name: 'User Guide',
+        icon: 'search-icon',
+        component: UserManual,
     },
     {
         redirect: true,

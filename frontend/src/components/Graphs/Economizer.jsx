@@ -56,13 +56,13 @@ class EconGraph extends Component {
 
     _loadGraphData(props){
         this.props.data.refetch();
-        var fileName = `$(props.data.variables.building)_Economizer_data`;
-        if (props.data.selectBuilding == undefined) {
+        let fileName = `$(props.data.variables.building)_Economizer_data`;
+        if (props.data.selectBuilding === undefined) {
             console.log("loading");
             return;
         }
-        var series = [];
-        var config = {
+        let series = [];
+        let config = {
             legend: {
                 enabled: true
             },
