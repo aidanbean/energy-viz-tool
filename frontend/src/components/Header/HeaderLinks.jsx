@@ -8,7 +8,6 @@ import Start from '../SearchBar/StartForm';
 import End from '../SearchBar/EndForm';
 import Interval from '../SearchBar/IntervalForm';
 import moment from 'moment';
-import CustomButton from "../../elements/CustomButton/CustomButton";
 
 class HeaderLinks extends Component {
     constructor(props) {
@@ -124,11 +123,10 @@ class HeaderLinks extends Component {
 
     render() {
         return (
-            <div className="content">
-                <br/>
-                <Row>
+            <div>
+                <Row style={{marginLeft: '0px', marginRight: '0px', marginBottom: '15px'}}>
                     <Col md={1} xsHidden/>
-                    <Col md={10} xs={12}>
+                    <Col md={10} xs={12} style={{paddingLeft: '0px', paddingRight: '0px'}}>
                         <Col md={3} xs={6}>
                             <Building
                                 label="Building"
@@ -164,11 +162,9 @@ class HeaderLinks extends Component {
                     </Col>
                     <Col md={1} xsHidden/>
                 </Row>
-                <br/>
-
-                <Row>
+                <Row style={{marginLeft: '0px', marginRight: '0px'}}>
                     <Col md={1} xsHidden/>
-                    <Col md={10} xs={12}>
+                    <Col md={10} xs={12} style={{paddingLeft: '0px', paddingRight: '0px'}}>
                         <Col md={3} xs={6}>
                             <Start
                                 label="Start"
@@ -190,7 +186,7 @@ class HeaderLinks extends Component {
                                 callback={this.intervalHandler}
                             />
                         </Col>
-                        <Col md={3} xs={6}>
+                        <Col md={3} xs={6} style={{marginBottom: '30px'}}>
                             <Col md={6} xs={6} style={{paddingRight: '5px', paddingLeft: 0}}>
                                 <Button
                                     bsStyle="default btn-fill"
@@ -214,8 +210,8 @@ class HeaderLinks extends Component {
                         </Col>
                     </Col>
                     <Col md={1} xsHidden/>
+                    <Col md={12} xsHidden style={{minHeight: '30px'}}/>
                 </Row>
-                <br/>
             </div>
         );
     }

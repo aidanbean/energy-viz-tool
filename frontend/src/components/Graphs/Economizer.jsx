@@ -2,7 +2,6 @@
 // Average Hourly Mixed Air Temperature  vs. Corresponding Average Hourly OAT (economizer function)
 // Let's you visualize whether the economizers are working properly.
 import React, {Component} from "react";
-import moment from "moment-timezone";
 import {Row, Col, Jumbotron} from "react-bootstrap";
 import {BarLoader} from "react-spinners";
 import Highcharts from "react-highcharts";
@@ -57,13 +56,13 @@ class EconGraph extends Component {
 
     _loadGraphData(props){
         this.props.data.refetch();
-        var fileName = `$(props.data.variables.building)_Economizer_data`;
-        if (props.data.selectBuilding == undefined) {
+        let fileName = `$(props.data.variables.building)_Economizer_data`;
+        if (props.data.selectBuilding === undefined) {
             console.log("loading");
             return;
         }
-        var series = [];
-        var config = {
+        let series = [];
+        let config = {
             legend: {
                 enabled: true
             },
@@ -120,25 +119,8 @@ class EconGraph extends Component {
 
             if (month.size !== undefined || day.size !== undefined || weekday.size !== undefined || hour.size !== undefined) {
                 points = points.filter(obj => {// filter by month
-                    if (month.size === undefined) {
-                        return true;
-                    }
-                    return month.has(obj.Timestamp.month.toString());
-                }).filter(obj => {
-                    if (day.size === undefined) {
-                        return true;
-                    }
-                    return day.has(obj.Timestamp.day.toString());
-                }).filter(obj => {
-                    if (weekday.size === undefined) {
-                        return true;
-                    }
-                    return weekday.has(obj.Timestamp.weekday.toString());
-                }).filter(obj => {
-                    if (hour.size === undefined) {
-                        return true;
-                    }
-                    return hour.has(obj.Timestamp.hour.toString());
+                    return month.has(obj.Timestamp.month.toString()) && day.has(obj.Timestamp.day.toString())
+                        && weekday.has(obj.Timestamp.weekday.toString()) && hour.has(obj.Timestamp.hour.toString());
                 });
             }
 

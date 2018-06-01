@@ -10,6 +10,10 @@ class EndForm extends Component {
 
     this.handleEvent = this.handleEvent.bind(this);
 
+    this.formatting = () => { //prevent react-datetime going out of screen in mobile layout, still an open issue at https://github.com/YouCanBookMe/react-datetime/issues/356
+        document.getElementsByClassName("rdtPicker")[1].style.right = "0px";
+    };
+
     this.state = {
       value: this.props.endTime,
     };
@@ -20,6 +24,7 @@ class EndForm extends Component {
     if(typeof myValue === "string") {
       myValue = moment(myValue);
     }
+
     this.setState(
       {
         value: myValue,
@@ -36,7 +41,7 @@ class EndForm extends Component {
       return current.isBefore(yesterday);
     };
     return (
-      <FormGroup>
+      <FormGroup onClick={this.formatting}>
         <Datetime
           defaultValue={this.props.endTime}
           inputProps={{ placeholder: 'End Date' }}

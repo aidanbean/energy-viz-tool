@@ -63,7 +63,6 @@ class SelectHeader extends Component {
           marginTop: '10px',
           display: 'inline',
       };
-
     return (
       <div>
           <Row>
@@ -78,6 +77,7 @@ class SelectHeader extends Component {
                   <BuildingForm selection={this.state} callback={this.buildingHandler}/>
               </Col>
           </Row>
+
           <Row>
               <Col md={3} xs={12}>
                   <Col md={3} xsHidden/>
@@ -85,13 +85,13 @@ class SelectHeader extends Component {
                       <p style={tagStyle}>Select a Time Range</p>
                   </Col>
               </Col>
-              <Col md={3}>
-                  <StartForm startTime={this.state.startTime} callback={this.startHandler}/>
+              <Col md={3} xs={6}>
+                  <StartForm selection={this.state} callback={this.buildingHandler}/>
               </Col>
-              <Col md={3}>
-                  <EndForm endTime={this.state.endTime} callback={this.endHandler}/>
+              <Col md={3} xs={6}>
+                  <EndForm selection={this.state} callback={this.buildingHandler}/>
               </Col>
-              <Col md={2} xs={4}>
+              <Col md={2} xs={4} xsOffset={8} mdOffset={0}>
                 <Button
                   bsStyle="default"
                   className="btn-fill"

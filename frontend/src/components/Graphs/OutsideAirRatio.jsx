@@ -2,7 +2,6 @@
 // Outside Air Ratio:
 // Outside Air Temp - Return Air Temp vs. Mixed Air Temp - Return Air Temp
 import React, {Component} from "react";
-import moment from "moment-timezone";
 import {Row, Col, Jumbotron} from "react-bootstrap";
 import {BarLoader} from "react-spinners";
 import Highcharts from "react-highcharts";
@@ -129,25 +128,8 @@ class OARGraph extends Component {
 
             if (month.size !== undefined || day.size !== undefined || weekday.size !== undefined || hour.size !== undefined) {
                 points = points.filter(obj => {// filter by month
-                    if (month.size === undefined) {
-                        return true;
-                    }
-                    return month.has(obj.Timestamp.month.toString());
-                }).filter(obj => {
-                    if (day.size === undefined) {
-                        return true;
-                    }
-                    return day.has(obj.Timestamp.day.toString());
-                }).filter(obj => {
-                    if (weekday.size === undefined) {
-                        return true;
-                    }
-                    return weekday.has(obj.Timestamp.weekday.toString());
-                }).filter(obj => {
-                    if (hour.size === undefined) {
-                        return true;
-                    }
-                    return hour.has(obj.Timestamp.hour.toString());
+                    return month.has(obj.Timestamp.month.toString()) && day.has(obj.Timestamp.day.toString())
+                        && weekday.has(obj.Timestamp.weekday.toString()) && hour.has(obj.Timestamp.hour.toString());
                 });
             }
 
