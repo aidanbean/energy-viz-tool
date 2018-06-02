@@ -86,10 +86,10 @@ class SelectHeader extends Component {
                   </Col>
               </Col>
               <Col md={3} xs={6}>
-                  <StartForm selection={this.state} callback={this.buildingHandler}/>
+                  <StartForm startTime={this.state.startTime} callback={this.startHandler}/>
               </Col>
               <Col md={3} xs={6}>
-                  <EndForm selection={this.state} callback={this.buildingHandler}/>
+                  <EndForm endTime={this.state.endTime} callback={this.endHandler}/>
               </Col>
               <Col md={2} xs={4} xsOffset={8} mdOffset={0}>
                 <Button
