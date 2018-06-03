@@ -66,7 +66,10 @@ class AirTempGraph extends Component {
         var series = [];
         var config = {
             legend: {
-                enabled: true
+                enabled: true,
+              title: {
+                text: "Sensor number <br/><span style=\"font-size: 9px; color: #666; font-weight: normal\">(Click to hide)</span>"
+              },
             },
             exporting: {
                 showTable: false,

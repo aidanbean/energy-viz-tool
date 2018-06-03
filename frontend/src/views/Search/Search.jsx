@@ -176,6 +176,9 @@ class Dashboard extends Component {
         config = {
             legend: {
                 enabled: true,
+              title: {
+                text: "Sensor number <br/><span style=\"font-size: 9px; color: #666; font-weight: normal\">(Click to hide)</span>"
+              },
             },
             chart: {
                 height: 500,
