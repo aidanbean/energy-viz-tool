@@ -243,5 +243,5 @@ module.exports = {
   fetchStream_summary_AllType_WithTimes,
   fetchStream_recorded,
   fetchStream_plot,
-  fetchStream_summary_byType,
+  fetchStream_summary_byType
 };

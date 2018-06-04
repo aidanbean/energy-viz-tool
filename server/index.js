@@ -1,7 +1,6 @@
 import app from './app';
 import env from './config/env';
 
-
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
 }

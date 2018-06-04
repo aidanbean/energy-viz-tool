@@ -46,7 +46,7 @@ async function processColumn(column) {
       building: column[2],
       equipmentType: column[3],
       equipmentNumber: '',
-      sensorType: column[4],
+      sensorType: column[4]
     };
 
     console.log('Putting the following data in the database:');
