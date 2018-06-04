@@ -8,6 +8,7 @@ import moment from 'moment';
 import { style } from '../../variables/Variables.jsx';
 
 import appRoutes from '../../routes/app.jsx';
+import Footer from "../../components/Footer/Footer";
 
 class App extends Component {
   constructor(props) {
@@ -163,6 +164,7 @@ class App extends Component {
               );
             })}
           </Switch>
+          <Footer />
         </div>
       </div>
     );

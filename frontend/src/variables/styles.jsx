@@ -1599,7 +1599,7 @@ const snackbarContentStyle = {
 const tagStyle = {
     fontFamily: 'ProximaNova',
     fontSize: '14px',
-    fontWeight: '600',
+    fontWeight: '400',
     fontStyle: 'normal',
     fontStretch: 'normal',
     lineHeight: 'normal',

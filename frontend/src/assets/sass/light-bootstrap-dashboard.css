@@ -782,8 +782,8 @@ fieldset[disabled] .btn.active {
   opacity: 1;
   border: solid 2px #bce4ed;
   filter: alpha(opacity=100);
-  font-weight: bold;
-  letter-spacing: 2px;
+  font-weight: normal;
+  letter-spacing: 1px;
 }
 
 .btn.btn-fill:hover,
@@ -2373,8 +2373,9 @@ fieldset[disabled] .form-control {
 }
 
 .footer {
-  background-color: #ffffff;
+  background-color: transparent;
   line-height: 20px;
+  margin-bottom: 20px;
 }
 
 .footer nav > ul {
@@ -3532,11 +3533,13 @@ fieldset[disabled] .form-control {
 }
 
 .search-icon {
+  /*change icon to 21x21 */
   display: block;
-  width: 30px;
-  height: 30px;
+  width: 21px;
+  margin: auto;
+  height: 21px;
   background: url(../../assets/img/search.svg);
-  background-size: 30px 30px;
+  background-size: 21px 21px;
 }
 
 .active .search-icon {
