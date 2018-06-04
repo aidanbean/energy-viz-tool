@@ -36,7 +36,8 @@ class EmbedUrl extends Component {
             </Col>
             <Col md={3} xs={4}>
               <Button
-                bsStyle="default btn-fill"
+                bsStyle="default"
+                className="btn-fill"
                 block
                 onClick={this.handleApply}
               >
