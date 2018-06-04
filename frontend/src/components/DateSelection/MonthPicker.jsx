@@ -39,7 +39,7 @@ class MonthPicker extends Component {
         return (
             <div>
                 <OverlayTrigger placement="top" overlay={tooltip}>
-                <span style={textStyle} onClick={this.toggleButton}>Month of Year</span>
+                    <span style={textStyle} onClick={this.toggleButton}><u>Month of Year</u></span>
                 </OverlayTrigger>
             <MonthList months={MONTHS} enable={this.state.enable}/>
             </div>

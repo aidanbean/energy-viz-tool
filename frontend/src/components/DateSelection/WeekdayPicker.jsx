@@ -39,7 +39,7 @@ class WeekdayPicker extends Component {
         return (
             <div style={{marginBottom:'10px'}}>
                 <OverlayTrigger placement="top" overlay={tooltip}>
-                <span style={textStyle} onClick={this.toggleButton}>Day of Week</span>
+                    <span style={textStyle} onClick={this.toggleButton}><u>Day of Week</u></span>
                 </OverlayTrigger>
             <DayList week={WEEKDAYS} enable={this.state.enable}/>
             </div>
