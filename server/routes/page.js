@@ -4,7 +4,7 @@
  *
  */
 
-import { Router } from 'express';
+import {Router} from 'express';
 
 const router = Router();
 router.route('/getPageData').get(getPageData);

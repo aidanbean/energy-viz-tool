@@ -10,8 +10,9 @@ class EndForm extends Component {
 
     this.handleEvent = this.handleEvent.bind(this);
 
-    this.formatting = () => { //prevent react-datetime going out of screen in mobile layout, still an open issue at https://github.com/YouCanBookMe/react-datetime/issues/356
-        document.getElementsByClassName("rdtPicker")[1].style.right = "0px";
+    this.formatting = () => {
+      //prevent react-datetime going out of screen in mobile layout, still an open issue at https://github.com/YouCanBookMe/react-datetime/issues/356
+      document.getElementsByClassName('rdtPicker')[1].style.right = '0px';
     };
 
     this.state = {
@@ -21,7 +22,7 @@ class EndForm extends Component {
 
   handleEvent(value) {
     var myValue = value;
-    if(typeof myValue === "string") {
+    if (typeof myValue === 'string') {
       myValue = moment(myValue);
     }
 
@@ -30,7 +31,7 @@ class EndForm extends Component {
         value: myValue,
       },
       () => {
-          this.props.callback(myValue);
+        this.props.callback(myValue);
       }
     );
   }

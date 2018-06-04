@@ -7,8 +7,8 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 var SelectStyle = {
-    position: 'relative',
-    borderRadius: 3,
+  position: 'relative',
+  borderRadius: 3,
 };
 
 var SensorField = createClass({

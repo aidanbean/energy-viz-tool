@@ -1,7 +1,7 @@
 /* Entry point for GraphQL */
-import mongoose from "mongoose";
-import DataModel from "../../config/models/data_model";
-import fetchAPI from "../../pi/piFetchers";
+import mongoose from 'mongoose';
+import DataModel from '../../config/models/data_model';
+import fetchAPI from '../../pi/piFetchers';
 import {
   DataPoint,
   BuildingData,
@@ -10,11 +10,11 @@ import {
   FilterType,
   SummaryData,
   PointSummary
-} from "./classes";
+} from './classes';
 
 const db = mongoose.connection;
 
-import { buildSchema } from "graphql";
+import { buildSchema } from 'graphql';
 
 let schema = buildSchema(`
 
@@ -153,15 +153,15 @@ var root = {
     var equipTypeList = [];
     var equipNumList = [];
     var sensorTypeList = [];
-    if (typeof building !== "undefined" && building != null) {
-      building.split(",").forEach(function(element) {
+    if (typeof building !== 'undefined' && building != null) {
+      building.split(',').forEach(function(element) {
         const listEntry = { building: element };
         buildingList.push(listEntry);
       });
       query.push({ $or: buildingList });
     }
-    if (typeof equipmentType !== "undefined" && equipmentType != null) {
-      equipmentType.split(",").forEach(function(element) {
+    if (typeof equipmentType !== 'undefined' && equipmentType != null) {
+      equipmentType.split(',').forEach(function(element) {
         const listEntry = { equipmentType: element };
         equipTypeList.push(listEntry);
         // if(element == "CCW" || element == "HHW") {
@@ -170,15 +170,15 @@ var root = {
       });
       query.push({ $or: equipTypeList });
     }
-    if (typeof equipmentNumber !== "undefined" && equipmentNumber != null) {
-      equipmentNumber.split(",").forEach(function(element) {
+    if (typeof equipmentNumber !== 'undefined' && equipmentNumber != null) {
+      equipmentNumber.split(',').forEach(function(element) {
         const listEntry = { equipmentNumber: element };
         equipNumList.push(listEntry);
       });
       query.push({ $or: equipNumList });
     }
-    if (typeof sensorType !== "undefined" && sensorType != null) {
-      sensorType.split(",").forEach(function(element) {
+    if (typeof sensorType !== 'undefined' && sensorType != null) {
+      sensorType.split(',').forEach(function(element) {
         const listEntry = { sensorType: element };
         sensorTypeList.push(listEntry);
       });
@@ -207,7 +207,7 @@ var root = {
 
       var stream = [];
       if (piResult == undefined || summaryResult == undefined) {
-          continue;
+        continue;
       }
       piResult.Items.forEach(function(element) {
         if (!element.Good) {
@@ -261,42 +261,42 @@ var root = {
   }) {
     var query = {};
     var buildingList = [];
-    if (typeof building !== "undefined" && building != null) {
-      building.split(",").forEach(function(element) {
+    if (typeof building !== 'undefined' && building != null) {
+      building.split(',').forEach(function(element) {
         const listEntry = { building: element };
         buildingList.push(listEntry);
       });
       query = { $or: buildingList };
     }
-    const buildings = await DataModel.distinct("building", {
-      $and: [query, { equipmentType: "AHU" }]
+    const buildings = await DataModel.distinct('building', {
+      $and: [query, { equipmentType: 'AHU' }]
     });
     var streamQueries = [];
     for (const i in buildings) {
-      const equipNums = await DataModel.distinct("equipmentNumber", {
-        $and: [{ building: buildings[i] }, { equipmentType: "AHU" }]
+      const equipNums = await DataModel.distinct('equipmentNumber', {
+        $and: [{ building: buildings[i] }, { equipmentType: 'AHU' }]
       });
       for (const j in equipNums) {
         var dbQuery = {
           $and: [
             { building: buildings[i] },
-            { equipmentType: "AHU" },
+            { equipmentType: 'AHU' },
             { equipmentNumber: equipNums[j] }
           ]
         };
         var sensorList = [];
-        sensorType.split(",").forEach(function(element) {
+        sensorType.split(',').forEach(function(element) {
           const sensor = { sensorType: element };
           sensorList.push(sensor);
         });
-        dbQuery["$or"] = sensorList;
+        dbQuery['$or'] = sensorList;
         const dbResult = await DataModel.find(dbQuery).sort({ sensorType: 1 });
         if (dbResult.length != sensorList.length) {
           continue;
         } else {
-            dbResult.forEach( function(element) {
-                streamQueries.push(element);
-            });
+          dbResult.forEach(function(element) {
+            streamQueries.push(element);
+          });
         }
       }
     }
@@ -348,15 +348,15 @@ var root = {
     var equipTypeList = [];
     var equipNumList = [];
     var sensorTypeList = [];
-    if (typeof building !== "undefined" && building != null) {
-      building.split(",").forEach(function(element) {
+    if (typeof building !== 'undefined' && building != null) {
+      building.split(',').forEach(function(element) {
         const listEntry = { building: element };
         buildingList.push(listEntry);
       });
       query.push({ $or: buildingList });
     }
-    if (typeof equipmentType !== "undefined" && equipmentType != null) {
-      equipmentType.split(",").forEach(function(element) {
+    if (typeof equipmentType !== 'undefined' && equipmentType != null) {
+      equipmentType.split(',').forEach(function(element) {
         const listEntry = { equipmentType: element };
         equipTypeList.push(listEntry);
         // if(element == "CCW" || element == "HHW") {
@@ -365,15 +365,15 @@ var root = {
       });
       query.push({ $or: equipTypeList });
     }
-    if (typeof equipmentNumber !== "undefined" && equipmentNumber != null) {
-      equipmentNumber.split(",").forEach(function(element) {
+    if (typeof equipmentNumber !== 'undefined' && equipmentNumber != null) {
+      equipmentNumber.split(',').forEach(function(element) {
         const listEntry = { equipmentNumber: element };
         equipNumList.push(listEntry);
       });
       query.push({ $or: equipNumList });
     }
-    if (typeof sensorType !== "undefined" && sensorType != null) {
-      sensorType.split(",").forEach(function(element) {
+    if (typeof sensorType !== 'undefined' && sensorType != null) {
+      sensorType.split(',').forEach(function(element) {
         const listEntry = { sensorType: element };
         sensorTypeList.push(listEntry);
       });
@@ -426,7 +426,7 @@ var root = {
     const dbEntry = {
       nameTag: building
     };
-    const cursor = db.collection("buildings").find(dbEntry);
+    const cursor = db.collection('buildings').find(dbEntry);
     let dbResult = await cursor.next();
     const bData = new BuildingData(
       dbResult.bldgKey,
@@ -454,15 +454,15 @@ var root = {
     var equipTypeList = [];
     var equipNumList = [];
     var sensorTypeList = [];
-    if (typeof building !== "undefined" && building != null) {
-      building.split(",").forEach(function(element) {
+    if (typeof building !== 'undefined' && building != null) {
+      building.split(',').forEach(function(element) {
         const listEntry = { building: element };
         buildingList.push(listEntry);
       });
       query.push({ $or: buildingList });
     }
-    if (typeof equipmentType !== "undefined" && equipmentType != null) {
-      equipmentType.split(",").forEach(function(element) {
+    if (typeof equipmentType !== 'undefined' && equipmentType != null) {
+      equipmentType.split(',').forEach(function(element) {
         const listEntry = { equipmentType: element };
         equipTypeList.push(listEntry);
         // if(element == "CCW" || element == "HHW") {
@@ -471,15 +471,15 @@ var root = {
       });
       query.push({ $or: equipTypeList });
     }
-    if (typeof equipmentNumber !== "undefined" && equipmentNumber != null) {
-      equipmentNumber.split(",").forEach(function(element) {
+    if (typeof equipmentNumber !== 'undefined' && equipmentNumber != null) {
+      equipmentNumber.split(',').forEach(function(element) {
         const listEntry = { equipmentNumber: element };
         equipNumList.push(listEntry);
       });
       query.push({ $or: equipNumList });
     }
-    if (typeof sensorType !== "undefined" && sensorType != null) {
-      sensorType.split(",").forEach(function(element) {
+    if (typeof sensorType !== 'undefined' && sensorType != null) {
+      sensorType.split(',').forEach(function(element) {
         const listEntry = { sensorType: element };
         sensorTypeList.push(listEntry);
       });
@@ -490,16 +490,16 @@ var root = {
     if (query.length != 0) {
       finalQuery = { $and: query };
     }
-    const buildings = await DataModel.distinct("building", finalQuery);
+    const buildings = await DataModel.distinct('building', finalQuery);
     const equipmentTypes = await DataModel.distinct(
-      "equipmentType",
+      'equipmentType',
       finalQuery
     );
     const equipmentNumbers = await DataModel.distinct(
-      "equipmentNumber",
+      'equipmentNumber',
       finalQuery
     );
-    const sensorTypes = await DataModel.distinct("sensorType", finalQuery);
+    const sensorTypes = await DataModel.distinct('sensorType', finalQuery);
     const result = new FilterType(
       buildings,
       equipmentTypes,

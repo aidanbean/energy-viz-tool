@@ -8,27 +8,27 @@ const piWebIdPath = 'points?path=\\\\util-pi-p\\';
 const dataServer =
   'dataservers/s09KoOKByvc0-uxyvoTV1UfQVVRJTC1QSS1Q/points?nameFilter=';
 
-const fetchWebId_byPoint = tagName => {
+const fetchWebId_byPoint = (tagName) => {
   /* Example fetch URL:
         https://ucd-pi-iis.ou.ad3.ucdavis.edu/piwebapi/
         points?path=\\UTIL-PI-P\Giedt_Electricity_demand_kbtu
     */
   return fetch(`${piBaseUrl}${piWebIdPath}${tagName}`)
-    .then(res => res.json())
-    .then(json => json.WebId);
+    .then((res) => res.json())
+    .then((json) => json.WebId);
 };
 
-const fetchWebId_byDataServer = tagName => {
+const fetchWebId_byDataServer = (tagName) => {
   /*  Querying via dataServer allows fetching with wildcards (*)
 
         Example fetch URL:
         https://ucd-pi-iis.ou.ad3.ucdavis.edu/piwebapi/
         dataservers/s09KoOKByvc0-uxyvoTV1UfQVVRJTC1QSS1Q/points?nameFilter=Ghausi.CHW*
     */
-  return fetch(`${piBaseUrl}${dataServer}${tagName}`).then(res => res.json());
+  return fetch(`${piBaseUrl}${dataServer}${tagName}`).then((res) => res.json());
 };
 
-const fetchStream_value = WebId => {
+const fetchStream_value = (WebId) => {
   /*  Return a single JSON PI stream value using a WebId
 
         Example fetch URL:
@@ -44,7 +44,7 @@ const fetchStream_value = WebId => {
             "Substituted": false
         }
     */
-  return fetch(`${piBaseUrl}streams/${WebId}/value`).then(res => res.json());
+  return fetch(`${piBaseUrl}streams/${WebId}/value`).then((res) => res.json());
 };
 
 const fetchStream_byMonths = (WebId, startDate, endDate, interval) => {
@@ -95,7 +95,7 @@ const fetchStream_byMonths = (WebId, startDate, endDate, interval) => {
   let endTime = endDate + '%20%2B0mo-1s'; // endMonth + 0 months - 1 second
 
   return fetch(`${piBaseUrl}streams/${WebId}/interpolated?startTime=${startTime}
-                &endTime=${endTime}&interval=${interval}`).then(res =>
+                &endTime=${endTime}&interval=${interval}`).then((res) =>
     res.json()
   );
 };
@@ -144,12 +144,12 @@ const fetchStream_byMinutes = (WebId, startTime, endTime, interval) => {
         }
     */
   return fetch(`${piBaseUrl}streams/${WebId}/interpolated?startTime=${startTime}
-                &endTime=${endTime}&interval=${interval}`).then(res =>
+                &endTime=${endTime}&interval=${interval}`).then((res) =>
     res.json()
   );
 };
 
-const fetchStream_byDefault = WebId => {
+const fetchStream_byDefault = (WebId) => {
   // default by previous 24 hours.
 
   return fetch(`${piBaseUrl}streams/${WebId}/interpolated?`);
@@ -166,7 +166,7 @@ const fetchStream_recorded = (WebId, startTime, endTime) => {
         https://ucd-pi-iis.ou.ad3.ucdavis.edu/piwebapi/streams/P09KoOKByvc0-uxyvoTV1UfQhyIAAAVVRJTC1QSS1QXEdIQVVTSV9DSElMTEVEV0FURVJfRVVJ/recorded?startTime=12-11-2017-6am&endTime=12-11-2017-12pm
     */
   return fetch(`${piBaseUrl}streams/${WebId}/recorded?startTime=${startTime}
-                &endTime=${endTime}`).then(res => res.json());
+                &endTime=${endTime}`).then((res) => res.json());
 };
 
 const fetchStream_plot = (WebId, startTime, endTime) => {
@@ -181,10 +181,10 @@ const fetchStream_plot = (WebId, startTime, endTime) => {
     */
   return fetch(
     `${piBaseUrl}streams/${WebId}/plot?startTime=${startTime}&endTime=${endTime}`
-  ).then(res => res.json());
+  ).then((res) => res.json());
 };
 
-const fetchStream_summary_AllType = WebId => {
+const fetchStream_summary_AllType = (WebId) => {
   // {
   //     "Links": {},
   //     "Items": [
@@ -212,23 +212,23 @@ const fetchStream_summary_AllType = WebId => {
   //     },
 
   return fetch(`${piBaseUrl}streams/${WebId}/summary?summaryType=All`)
-    .then(res => res.json())
-    .then(json => json.Items);
+    .then((res) => res.json())
+    .then((json) => json.Items);
 };
 
 const fetchStream_summary_AllType_WithTimes = (WebId, startTime, endTime) => {
   return fetch(
     `${piBaseUrl}streams/${WebId}/summary?startTime=${startTime}&endTime=${endTime}&summaryType=All`
   )
-    .then(res => res.json())
-    .then(json => json.Items);
+    .then((res) => res.json())
+    .then((json) => json.Items);
 };
 
 const fetchStream_summary_byType = (WebId, startTime, endTime, type) => {
   return fetch(
     `${piBaseUrl}streams/${WebId}/summary?startTime=${startTime}&endTime=${endTime}&summaryType=${type}`
   )
-    .then(res => res.json())
+    .then((res) => res.json())
     .then(json, json.Value);
 };
 

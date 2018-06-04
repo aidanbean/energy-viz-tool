@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
+import React, { Component } from "react";
+import { Grid, Row, Col } from "react-bootstrap";
 
-import Card from '../../components/Card/Card';
-import { iconsArray } from '../../variables/Variables.jsx';
+import Card from "../../components/Card/Card";
+import { iconsArray } from "../../variables/Variables.jsx";
 
 class Icons extends Component {
   render() {
@@ -16,7 +16,7 @@ class Icons extends Component {
                 ctAllIcons
                 category={
                   <span>
-                    Handcrafted by our friends from{' '}
+                    Handcrafted by our friends from{" "}
                     <a
                       target="_blank"
                       rel="noopener noreferrer"

@@ -1,13 +1,13 @@
-import React, { PropTypes as T } from 'react'
-import ReactDOM from 'react-dom'
+import React, { PropTypes as T } from "react";
+import ReactDOM from "react-dom";
 
-import cache from 'utils/cache'
-import GoogleApi from 'utils/GoogleApi'
+import cache from "utils/cache";
+import GoogleApi from "utils/GoogleApi";
 
-const defaultMapConfig = {}
+const defaultMapConfig = {};
 export const wrapper = (options) => (WrappedComponent) => {
   const apiKey = options.apiKey;
-  const libraries = options.libraries || ['places'];
+  const libraries = options.libraries || ["places"];
 
   class Wrapper extends React.Component {
     constructor(props, context) {
@@ -17,7 +17,7 @@ export const wrapper = (options) => (WrappedComponent) => {
         loaded: false,
         map: null,
         google: null
-      }
+      };
     }
 
     componentDidMount() {
@@ -31,11 +31,12 @@ export const wrapper = (options) => (WrappedComponent) => {
         const mapRef = refs.map;
 
         const node = ReactDOM.findDOMNode(mapRef);
-        let center = new maps.LatLng(this.props.lat, this.props.lng)
+        let center = new maps.LatLng(this.props.lat, this.props.lng);
 
         let mapConfig = Object.assign({}, defaultMapConfig, {
-          center, zoom: this.props.zoom
-        })
+          center,
+          zoom: this.props.zoom
+        });
 
         this.map = new maps.Map(node, mapConfig);
 
@@ -43,7 +44,7 @@ export const wrapper = (options) => (WrappedComponent) => {
           loaded: true,
           map: this.map,
           google: window.google
-        })
+        });
       });
     }
 
@@ -62,17 +63,17 @@ export const wrapper = (options) => (WrappedComponent) => {
         map: this.state.map,
         google: this.state.google,
         mapComponent: this.refs.map
-      })
+      });
       return (
         <div>
           <WrappedComponent {...props} />
-          <div ref='map' />
+          <div ref="map" />
         </div>
-      )
+      );
     }
   }
 
   return Wrapper;
-}
+};
 
 export default wrapper;
