@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
+import React, { Component } from "react";
+import { Grid, Row, Col } from "react-bootstrap";
 
-import 'react-table/react-table.css';
-import matchSorter from 'match-sorter';
+import "react-table/react-table.css";
+import matchSorter from "match-sorter";
 
-import Card from '../../components/Card/Card.jsx';
+import Card from "../../components/Card/Card.jsx";
 
-import dataFetcher from './TableDataFetcher.jsx';
-import { CSVLink } from 'react-csv';
-import DraggableTable from './DraggableTable';
+import dataFetcher from "./TableDataFetcher.jsx";
+import { CSVLink } from "react-csv";
+import DraggableTable from "./DraggableTable";
 
 class TableList extends Component {
   constructor(prop) {
     super(prop);
     this.state = {
-      data: dataFetcher(),
+      data: dataFetcher()
     };
     this.renderEditable = this.renderEditable.bind(this);
   }
@@ -22,16 +22,16 @@ class TableList extends Component {
   renderEditable(cellInfo) {
     return (
       <div
-        style={{ backgroundColor: '#fafafa' }}
+        style={{ backgroundColor: "#fafafa" }}
         contentEditable
         suppressContentEditableWarning
-        onBlur={e => {
+        onBlur={(e) => {
           const data = [...this.state.data];
           data[cellInfo.index][cellInfo.column.id] = e.target.innerHTML;
           this.setState({ data });
         }}
         dangerouslySetInnerHTML={{
-          __html: this.state.data[cellInfo.index][cellInfo.column.id],
+          __html: this.state.data[cellInfo.index][cellInfo.column.id]
         }}
       />
     );
@@ -60,41 +60,41 @@ class TableList extends Component {
                     rows={data}
                     columns={[
                       {
-                        Header: 'Building',
-                        accessor: 'building',
+                        Header: "Building",
+                        accessor: "building",
                         filterMethod: (filter, row) =>
                           String(row[filter.id])
                             .toLocaleLowerCase()
-                            .includes(filter.value.toLocaleLowerCase()),
+                            .includes(filter.value.toLocaleLowerCase())
                       },
                       {
                         // Header: "Equipment Type",
-                        Header: 'Maximum',
-                        id: 'equipmentType',
-                        accessor: d => d.equipmentType,
+                        Header: "Maximum",
+                        id: "equipmentType",
+                        accessor: (d) => d.equipmentType,
                         filterMethod: (filter, rows) =>
                           matchSorter(rows, filter.value, {
-                            keys: ['equipmentType'],
+                            keys: ["equipmentType"]
                           }),
-                        filterAll: true,
+                        filterAll: true
                       },
                       {
                         // Header: "Equipment Number",
-                        Header: 'Minimum',
+                        Header: "Minimum"
                         // accessor: "equipmentNumber",
                       },
                       {
                         // Header: "Sensor Type",
-                        Header: 'Average',
+                        Header: "Average"
                         // id: ""
                       },
                       // {
                       //     Header: 'Median'
                       // },
                       {
-                        Header: 'Standard Deviation',
+                        Header: "Standard Deviation"
                         // id: ""
-                      },
+                      }
                     ]}
                     defaultPageSize={10}
                     className="-striped -highlight"

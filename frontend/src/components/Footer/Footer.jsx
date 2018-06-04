@@ -23,9 +23,7 @@ class Footer extends Component {
             </ul>
           </nav>
           <p className="copyright pull-right">
-            &copy; {new Date().getFullYear()}{' '}
-            ECS 193 Team, made with
-            love
+            &copy; {new Date().getFullYear()} ECS 193 Team, made with love
           </p>
         </Grid>
       </footer>
