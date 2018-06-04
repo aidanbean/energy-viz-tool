@@ -3518,25 +3518,33 @@ fieldset[disabled] .form-control {
 
 .graph-icon {
   display: block;
-  width: 30px;
-  height: 30px;
+  width: 21px !important;
+  margin-top: 6px;
+  margin-left: 5px;
+  margin-right: 25px;
+  height: 21px;
   background: url(../../assets/img/graph.svg);
-  background-size: 30px 30px;
+  background-size: 21px 21px;
 }
 
 .active .graph-icon {
   display: block;
-  width: 30px;
-  height: 30px;
+  width: 21px !important;
+  margin-top: 6px;
+  margin-left: 5px;
+  margin-right: 25px;
+  height: 21px;
   background: url(../../assets/img/graphActive.svg);
-  background-size: 30px 30px;
+  background-size: 21px 21px;
 }
 
 .search-icon {
   /*change icon to 21x21 */
   display: block;
-  width: 21px;
-  margin: auto;
+  width: 21px !important;
+  margin-top: 7px;
+  margin-left: 5px;
+  margin-right: 25px;
   height: 21px;
   background: url(../../assets/img/search.svg);
   background-size: 21px 21px;
@@ -3544,26 +3552,35 @@ fieldset[disabled] .form-control {
 
 .active .search-icon {
   display: block;
-  width: 30px;
-  height: 30px;
+  width: 21px !important;
+  margin-top: 7px;
+  margin-left: 5px;
+  margin-right: 25px;
+  height: 21px;
   background: url(../../assets/img/searchActive.svg);
-  background-size: 30px 30px;
+  background-size: 21px 21px;
 }
 
 .select-icon {
   display: block;
-  width: 30px;
-  height: 30px;
+  width: 21px !important;
+  margin-top: 6px;
+  margin-left: 5px;
+  margin-right: 25px;
+  height: 21px;
   background: url(../../assets/img/select.svg);
-  background-size: 30px 30px;
+  background-size: 21px 21px;
 }
 
 .active .select-icon {
   display: block;
-  width: 30px;
-  height: 30px;
+  width: 21px !important;
+  margin-top: 6px;
+  margin-left: 5px;
+  margin-right: 25px;
+  height: 21px;
   background: url(../../assets/img/selectActive.svg);
-  background-size: 30px 30px;
+  background-size: 21px 21px;
 }
 
 .ct-major-seventh:before {

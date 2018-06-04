@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
+import React, { Component } from "react";
+import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
 
 class Maps extends Component {
   render() {
     return (
       <div id="map">
         <Map
-          style={{ width: '100vw', height: '100vh', position: 'relative' }}
+          style={{ width: "100vw", height: "100vh", position: "relative" }}
           google={this.props.google}
           initialCenter={{
             lat: 38.539592,
-            lng: -121.755848,
+            lng: -121.755848
           }}
           zoom={18}
           clickableIcons={false}
         >
-          <Marker onClick={this.onMarkerClick} name={'Current location'} />
+          <Marker onClick={this.onMarkerClick} name={"Current location"} />
         </Map>
       </div>
     );
@@ -23,5 +23,5 @@ class Maps extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyCABZKEStT0T0jHqvJnSJLJJ4tbUvD5sb0',
+  apiKey: "AIzaSyCABZKEStT0T0jHqvJnSJLJJ4tbUvD5sb0"
 })(Maps);

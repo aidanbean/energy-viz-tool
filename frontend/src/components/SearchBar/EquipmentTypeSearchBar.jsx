@@ -9,7 +9,7 @@ import gql from 'graphql-tag';
 var SelectStyle = {
   position: 'relative',
   borderRadius: 3,
-    marginBottom: '15px',
+  marginBottom: '15px',
 };
 
 var EquipmentField = createClass({

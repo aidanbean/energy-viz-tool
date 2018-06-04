@@ -1,24 +1,25 @@
-import React, { Component } from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
-import DateSelection from '../../components/DateSelection/DateSelection.jsx'
-import Card from '../../components/Card/Card.jsx'
+import React, { Component } from "react";
+import { Grid, Row, Col } from "react-bootstrap";
+import Card from "../../components/Card/Card.jsx";
 
 class Typography extends Component {
-    render() {
-        return (
-            <div className="content">
-                <Grid fluid>
-                    <Row>
-                        <Col md={12}>
-                            <Card
-                                title="Light Bootstrap Table Heading"
-                                category="Created using Roboto Font Family"
-                                content={
-                                    <div>
-                                        <DateSelection/>
-                                        <div className="typo-line">
-                                            <h1><p className="category">Header 1</p>Light Bootstrap Table Heading </h1>
-                                        </div>
+  render() {
+    return (
+      <div className="content">
+        <Grid fluid>
+          <Row>
+            <Col md={12}>
+              <Card
+                title="Light Bootstrap Table Heading"
+                category="Created using Roboto Font Family"
+                content={
+                  <div>
+                    <div className="typo-line">
+                      <h1>
+                        <p className="category">Header 1</p>Light Bootstrap
+                        Table Heading{" "}
+                      </h1>
+                    </div>
 
                     <div className="typo-line">
                       <h2>
@@ -110,7 +111,7 @@ class Typography extends Component {
                       <h2>
                         <p className="category">Small Tag</p>Header with small
                         subtitle <br />
-                        <small>".small" is a tag for the headers</small>{' '}
+                        <small>".small" is a tag for the headers</small>{" "}
                       </h2>
                     </div>
                   </div>

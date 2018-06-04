@@ -60,7 +60,7 @@ async function processColumn(column) {
   }
 }
 
-var parser = parse({ delimiter: ',' }, function(err, data) {
+var parser = parse({delimiter: ','}, function(err, data) {
   if (err) {
     console.log('Error:' + err.message);
   }

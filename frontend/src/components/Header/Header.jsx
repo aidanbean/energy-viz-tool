@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import {Navbar, NavDropdown, Nav, MenuItem} from 'react-bootstrap';
+import React, { Component } from 'react';
+import { Navbar, NavDropdown, Nav, MenuItem } from 'react-bootstrap';
 
 class Header extends Component {
-    constructor(props) {
+  constructor(props) {
     super(props);
     this.mobileSidebarToggle = this.mobileSidebarToggle.bind(this);
     this.headerCallback = this.headerCallback.bind(this);
@@ -26,8 +26,8 @@ class Header extends Component {
       document.documentElement.classList.toggle('nav-open');
     };
 
-    if(document.getElementsByClassName("nav-open").length === 1) {
-        document.body.appendChild(node);
+    if (document.getElementsByClassName('nav-open').length === 1) {
+      document.body.appendChild(node);
     }
   }
 
@@ -37,11 +37,10 @@ class Header extends Component {
     this.props.callback(dataFromHeader);
   }
   render() {
-
     return (
-        <Navbar.Header>
-            <Navbar.Toggle onClick={this.mobileSidebarToggle} />
-        </Navbar.Header>
+      <Navbar.Header>
+        <Navbar.Toggle onClick={this.mobileSidebarToggle} />
+      </Navbar.Header>
     );
   }
 }

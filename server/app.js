@@ -54,11 +54,14 @@ import expressGraphQL from 'express-graphql';
 import { schema, root } from './graphql/schema';
 
 // use the GraphQL schema defined in server/graphql
-app.use('/api/graphql', expressGraphQL({
-  schema: schema,
-  graphiql: true,
-  rootValue: root
-}));
+app.use(
+  '/api/graphql',
+  expressGraphQL({
+    schema: schema,
+    graphiql: true,
+    rootValue: root
+  })
+);
 
 /*====== End of GraphQL Route =====*/
 

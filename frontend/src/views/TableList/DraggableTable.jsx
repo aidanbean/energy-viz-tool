@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import ReactTable, { ReactTableDefaults } from 'react-table';
-import 'react-table/react-table.css';
+import React, { Component } from "react";
+import ReactTable, { ReactTableDefaults } from "react-table";
+import "react-table/react-table.css";
 
 Object.assign(ReactTableDefaults, {
   defaultPageSize: 10,
-  minRows: 3, // not sure if minRows is necessary
+  minRows: 3 // not sure if minRows is necessary
 });
 
 class DraggableTable extends Component {
@@ -13,35 +13,35 @@ class DraggableTable extends Component {
     this.dragged = null;
     this.reorder = [];
     this.state = {
-      trigger: 0,
+      trigger: 0
     };
   }
 
   mountEvents() {
     const headers = Array.prototype.slice.call(
-      document.querySelectorAll('.draggable-header')
+      document.querySelectorAll(".draggable-header")
     );
     headers.forEach((header, i) => {
-      header.setAttribute('draggable', true);
+      header.setAttribute("draggable", true);
 
       // the dragged header
-      header.ondragstart = e => {
+      header.ondragstart = (e) => {
         e.stopPropagation();
         this.dragged = i;
       };
 
-      header.ondrag = e => e.stopPropagation;
-      header.ondragend = e => {
+      header.ondrag = (e) => e.stopPropagation;
+      header.ondragend = (e) => {
         e.stopPropagation();
         setTimeout(() => (this.dragged = null), 1000); // set timeout value on the drag
       };
 
       //the dropped header
-      header.ondragover = e => {
+      header.ondragover = (e) => {
         e.preventDefault();
       };
 
-      header.ondrop = e => {
+      header.ondrop = (e) => {
         e.preventDefault();
         this.reorder.push({ a: i, b: this.dragged });
         this.setState({ trigger: Math.random() });
@@ -59,13 +59,13 @@ class DraggableTable extends Component {
 
   render() {
     const { rows, columns } = this.props;
-    const cols = columns.map(col => ({
+    const cols = columns.map((col) => ({
       ...col,
-      Header: <span className="draggable-header">{col.Header}</span>,
+      Header: <span className="draggable-header">{col.Header}</span>
     }));
 
     // run all reorder events
-    this.reorder.forEach(o => cols.splice(o.a, 0, cols.splice(o.b, 1)[0]));
+    this.reorder.forEach((o) => cols.splice(o.a, 0, cols.splice(o.b, 1)[0]));
 
     //render
     return (
