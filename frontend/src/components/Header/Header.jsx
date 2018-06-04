@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, NavDropdown, Nav, MenuItem } from 'react-bootstrap';
+import { Navbar} from 'react-bootstrap';
 
 class Header extends Component {
   constructor(props) {

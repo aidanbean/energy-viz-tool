@@ -1,5 +1,4 @@
 import React from "react";
-import moment from "moment";
 import { Grid, Row, Col } from "react-bootstrap";
 import Header from "../../components/Header/SelectBuildingHeader.jsx";
 import PreBake1 from "../../components/Graphs/Economizer.jsx";
@@ -39,7 +38,6 @@ class SelectBuilding extends React.Component {
             break;
         }
       } else {
-        let idx = 0;
         switch (tag) {
           case "m":
             monthOfYearTmp.delete(button);

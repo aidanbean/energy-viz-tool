@@ -7,7 +7,6 @@ import Sensor from '../SearchBar/SensorTypeSearchBar';
 import Start from '../SearchBar/StartForm';
 import End from '../SearchBar/EndForm';
 import Interval from '../SearchBar/IntervalForm';
-import moment from 'moment';
 
 class HeaderLinks extends Component {
   constructor(props) {

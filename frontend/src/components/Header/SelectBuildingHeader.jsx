@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import moment from 'moment';
 import { Row, Col, Button } from 'react-bootstrap';
 import BuildingForm from '../SearchBar/BuildingSearchBar.jsx';
 import StartForm from '../../components/SearchBar/StartForm.jsx';
