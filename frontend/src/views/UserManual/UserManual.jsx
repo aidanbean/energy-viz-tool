@@ -140,11 +140,11 @@ class UserManual extends Component {
                   <div>
                     <ol>
                       <li> Select one or multiple building(s) </li>
-                      <li> Select a time range you are interested </li>
-                      <li> Click on `Submit` buttom and render te graphs</li>
+                      <li> Select your preferred time range </li>
+                      <li> Click on `Submit` button to render the graphs</li>
                       <li>
                         If you are interested in specific hours/days/weeks/months, you can click
-                        on `Redefine Filter`, and unselect/select all times by hovering over the titles.
+                        on `Refine Filter, and unselect/select all times by hovering over the titles.
                         <b>Hour of day, Month of Year, Day of Week, and Day of Month</b>
                       </li>
                       <li> Click on <b>Apply</b> to refresh the graphs</li>
@@ -196,17 +196,17 @@ class UserManual extends Component {
                       <li>
                         <b>Why my graph is empty?</b>
                         <br/>
-                        Either data of the senor is invalid or the sensor is turned off during the selected time range.
+                        Either data of the sensor is invalid or the sensor is turned off during the selected time range.
                       </li>
                       <li>
-                        <b>Why my graph is not loading</b>
+                        <b>Why is my graph is not loading?</b>
                         <br/>
-                        Try to re-select a smaller time range.
+                        Try to re-select a smaller time range, or select fewer sensors.
                       </li>
                       <li>
-                        <b>Where does date come from?</b>
+                        <b>Where does data come from?</b>
                         <br/>
-                        On-campus building HVAC sensor data on the Pi systenm
+                        On-campus building HVAC sensor data from the Pi system
                       </li>
                     </ul>
                   </div>
@@ -269,7 +269,9 @@ class UserManual extends Component {
                   <a href="https://github.com/aTonyXiao/ECS193-EnergyVisTool-MobileApp/tree/master/EnergyViz-iOS">
                     Download
                   </a>
-
+                  <br />
+                  <br />
+                  <br />
                 </div>
               }
             />
