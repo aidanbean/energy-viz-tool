@@ -4,6 +4,7 @@ import NotificationSystem from 'react-notification-system';
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import moment from 'moment';
+import {AllBuildingUrl} from '../../config'
 
 import { style } from '../../variables/Variables.jsx';
 
@@ -14,11 +15,20 @@ class App extends Component {
     super(props);
     // this.componentDidMount = this.componentDidMount.bind(this);
     // this.handleNotificationClick = this.handleNotificationClick.bind(this);
-    // console.log(moment().subtract(1, 'months').format("MM-DD-YYYY-Ha"));
-    this.dataByMinutes = this.dataByMinutes.bind(this);
+    this.selectBldgHandler = this.selectBldgHandler.bind(this);
+    this.allBldgHandler = this.allBldgHandler.bind(this);
+    this.searchHandler = this.searchHandler.bind(this);
     this.state = {
       _notificationSystem: null,
-      headerData: {
+      allBldgData: {
+        url: AllBuildingUrl
+      },
+      selectBldgData: {
+        building: 'ACAD',
+        startTime: moment().subtract(2, 'months'),
+        endTime: moment(),
+      },
+      searchData: {
         building: 'MU',
         equipmentType: 'AHU',
         equipmentNumber: 'AHU01_PENT',
@@ -26,6 +36,7 @@ class App extends Component {
         startTime: moment().subtract(2, 'months'),
         endTime: moment(),
         interval: '1h',
+        firstRender: true,
       },
     };
   }
@@ -105,11 +116,27 @@ class App extends Component {
       document.documentElement.classList.toggle('nav-open');
     }
   }
-  dataByMinutes(dataFromHeader) {
+
+  allBldgHandler(url) {
+      this.setState({
+        allBldgData: {
+            url: url,
+        }
+      });
+  }
+
+  selectBldgHandler(selection) {
+      this.setState({
+        selectBldgData: selection,
+      });
+  }
+
+  searchHandler(selection) {
     this.setState({
-      headerData: dataFromHeader,
+      searchData: selection,
     });
   }
+
   render() {
     return (
       <div className="wrapper">
@@ -128,7 +155,6 @@ class App extends Component {
                       <prop.component
                         {...routeProps}
                         handleClick={this.handleNotificationClick}
-                        headerData={this.state.headerData}
                       />
                     )}
                   />
@@ -142,8 +168,12 @@ class App extends Component {
                     render={redirectProps => (
                       <prop.component
                         {...redirectProps}
-                        headerData={this.state.headerData}
-                        callback={this.dataByMinutes}
+                        url={this.state.allBldgData.url}
+                        selectBldgData={this.state.selectBldgData}
+                        headerData={this.state.searchData}
+                        callback1={this.allBldgHandler}
+                        callback2={this.selectBldgHandler}
+                        callback3={this.searchHandler}
                       />
                     )}
                   />
@@ -155,8 +185,12 @@ class App extends Component {
                   render={routeProps => (
                     <prop.component
                       {...routeProps}
-                      headerData={this.state.headerData}
-                      callback={this.dataByMinutes}
+                      url={this.state.allBldgData.url}
+                      selectBldgData={this.state.selectBldgData}
+                      headerData={this.state.searchData}
+                      callback1={this.allBldgHandler}
+                      callback2={this.selectBldgHandler}
+                      callback3={this.searchHandler}
                     />
                   )}
                 />

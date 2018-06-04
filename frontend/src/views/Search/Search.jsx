@@ -29,7 +29,7 @@ class Dashboard extends Component {
             tableData: [],
             config: [],
             updateFlag: null,
-            firstRender: true
+            firstRender: this.props.headerData.firstRender
         };
     }
 
@@ -227,7 +227,7 @@ class Dashboard extends Component {
     }
 
     headerCallback(dataFromHeader) {
-        this.props.callback(dataFromHeader);
+        this.props.callback3(dataFromHeader);
     }
 
     removeChart(index) {
@@ -257,12 +257,15 @@ class Dashboard extends Component {
             return (
                 <div>
                     <Row style={{marginRight: "0px", marginLeft: "0px"}}>
-                        <HeaderLinks
-                            callback={this.headerCallback}
-                            selection={this.props.headerData}
-                            clearCallback={this.clearAll}
-                            isLoading={false}
-                        />
+                        <Col md={12} xsHidden style={{minHeight: "50px"}}/>
+                        <Col md={12}>
+                            <HeaderLinks
+                                callback={this.headerCallback}
+                                selection={this.props.headerData}
+                                clearCallback={this.clearAll}
+                                isLoading={false}
+                            />
+                        </Col>
                     </Row>
                     <Row
                         style={{height: "200px", marginRight: "0px", marginLeft: "0px"}}

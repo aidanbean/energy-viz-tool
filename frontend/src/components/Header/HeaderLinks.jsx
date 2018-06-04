@@ -30,6 +30,7 @@ class HeaderLinks extends Component {
             startTime: this.props.selection.startTime,
             endTime: this.props.selection.endTime,
             interval: this.props.selection.interval,
+            firstRender: false
         };
 
         /* The following are different callbacks that are triggered

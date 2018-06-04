@@ -1,20 +1,21 @@
 import React, {Component} from 'react';
 import Iframe from 'react-iframe';
 import EmbedUrl from './EmbedUrl'
-import {AllBuildingUrl} from '../../config'
 
 class AllBuildings extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            url: AllBuildingUrl,
+            url: this.props.url,
         };
 
         this.embedURL = (url) => {
             this.setState({
-               url: url,
+                url: url,
+            }, () => {
+                this.props.callback1(url);
             });
-        };
+        }
     }
 
     render() {

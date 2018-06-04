@@ -84,11 +84,7 @@ class SelectBuilding extends React.Component {
         };
 
         this.selectionHandler = (selection) => {
-            this.setState({
-                building: selection.building,
-                startTime: selection.startTime,
-                endTime: selection.endTime
-            });
+            this.props.callback2(selection);
         };
 
         this.toggleCollapse = () => {
@@ -98,13 +94,6 @@ class SelectBuilding extends React.Component {
         };
 
         this.state = {
-            building: 'ACAD',
-            equipmentType: null,
-            equipmentNumber: null,
-            sensorType: null,
-            startTime: moment().subtract(2, 'months'),
-            endTime: moment(),
-            interval: '1h',
             monthOfYear: [],
             dayOfMonth: [],
             dayOfWeek: [],
@@ -118,7 +107,7 @@ class SelectBuilding extends React.Component {
             <ButtonContext.Provider value={this.state}>
                 <div>
                     <Grid fluid>
-                        <Header callback={this.selectionHandler} selection={this.state}/>
+                        <Header callback={this.selectionHandler} selection={this.props.selectBldgData}/>
                         <DateSelection applySelection={this.saveDateSelection}/>
 
                         <Row>
@@ -126,7 +115,8 @@ class SelectBuilding extends React.Component {
                                 <ButtonContext.Consumer>
                                     {value =>
                                         <PreBake1
-                                        selection={this.state} dateSelection={value}/>
+                                        selection={this.props.selectBldgData}
+                                        dateSelection={value}/>
                                     }
                                 </ButtonContext.Consumer>
                             </Col>
@@ -136,7 +126,7 @@ class SelectBuilding extends React.Component {
                                 <ButtonContext.Consumer>
                                     {value =>
                                         <PreBake2
-                                        selection={this.state} dateSelection={value}/>
+                                        selection={this.props.selectBldgData} dateSelection={value}/>
                                     }
                                 </ButtonContext.Consumer>
                             </Col>
@@ -146,7 +136,7 @@ class SelectBuilding extends React.Component {
                                 <ButtonContext.Consumer>
                                     {value =>
                                         <PreBake3
-                                        selection={this.state} dateSelection={value}/>
+                                        selection={this.props.selectBldgData} dateSelection={value}/>
                                     }
                                 </ButtonContext.Consumer>
                             </Col>
