@@ -158,3 +158,11 @@ There are also reports that uninstalling Watchman fixes the issue. So if nothing
 - [Lucidchart architecture diagram](https://www.lucidchart.com/invitations/accept/a2470714-8a58-46f8-ad44-b606e36f35c6)
 - [Google Drive folder](https://drive.google.com/drive/folders/1iVGZd3-YfzJQoPSfGcn9IAad768XqOfa?usp=sharing) containing tags you can query through the PI Web API, along with some rules/examples: - 
 - Link to the old ECS193 project from 2017 in AngularJS, [for reference]( https://github.com/ECS193EnergyDashboard/EnergyDashboard)
+
+
+### Contact ###
+[Aidan Bean](ajuengli@ucdavis.edu)      
+[Disha Bendre](dbendre@ucdavis.edu)      
+[Tony Xiao](bxiao@ucdavis.edu)   
+[Yepu Xie](ypxie@ucdavis.edu)
+
