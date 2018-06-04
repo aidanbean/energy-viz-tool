@@ -72,14 +72,14 @@ Builds the app for production to the build folder. It correctly bundles React in
         -   Backend server deployment, your Procfile should be  
             `server: npm run dev`
         -   Frontend server deployment, your Procfile should be  
-            `web: cd ./frontend && npm install && npm start`
+            `web: cd ./frontend && npm install && npm start`    
 -   View logs   
-        -   Heroku treats logs as streams of time-ordered events aggregated from the output streams of all your app and Heroku components, providing a single channel for all of the events.        
-        -   View information about your running app using one of the logging commands   
+    -   Heroku treats logs as streams of time-ordered events aggregated from the output streams of all your app and Heroku components, providing a single channel for all of the events.        
+    -   View information about your running app using one of the logging commands   
             `heroku logs --tail`
 
 ##  Future Frontend Developing Guide ##
-##### Importing a Component
+#### Importing a Component
 This project setup supports ES6 modules thanks to Babel.
 While you can still use `require()` and `module.exports`, we encourage you to use import and export instead.    
 For example: `Button.js`
