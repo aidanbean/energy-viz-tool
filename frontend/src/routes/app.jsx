@@ -28,7 +28,7 @@ const appRoutes = [
     {
         path: '/user-guide',
         name: 'User Guide',
-        icon: 'search-icon',
+        icon: 'help-icon',
         component: UserManual,
     },
     {

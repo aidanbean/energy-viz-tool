@@ -3561,6 +3561,28 @@ fieldset[disabled] .form-control {
   background-size: 21px 21px;
 }
 
+.help-icon {
+  display: block;
+  width: 21px !important;
+  margin-top: 7px;
+  margin-left: 5px;
+  margin-right: 25px;
+  height: 21px;
+  background: url(../../assets/img/help.svg);
+  background-size: 21px 21px;
+}
+
+.active .help-icon {
+  display: block;
+  width: 21px !important;
+  margin-top: 7px;
+  margin-left: 5px;
+  margin-right: 25px;
+  height: 21px;
+  background: url(../../assets/img/helpActive.svg);
+  background-size: 21px 21px;
+}
+
 .select-icon {
   display: block;
   width: 21px !important;
