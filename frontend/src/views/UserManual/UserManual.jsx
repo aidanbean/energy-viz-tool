@@ -12,6 +12,7 @@ class UserManual extends Component {
               <Card
                 title="All Building"
                 category="How to embed a visualization"
+                footer='no'
                 content={
                   <div>
                     <ol>
@@ -25,11 +26,19 @@ class UserManual extends Component {
                         Render the page by clicking on <b>Apply</b>
                       </li>
                     </ol>
-                    <img
-                      src={require("../../assets/img/all-building.png")}
-                      className="app-demo"
-                      alt={"all-building-page-help-img"}
-                    />
+                    <a href={"#/user-guide/img1"}>
+                      <img
+                        src={require("../../assets/img/all-building.png")}
+                        className="help-img"
+                        alt={"all-building-page-help-img"}
+                      />
+                    </a>
+                    <a href={"/#/user-guide"} className="light-box" id="/user-guide/img1">
+                      <img
+                        src={require("../../assets/img/all-building.png")}
+                        alt={"all-building-page-help-img"}
+                      />
+                    </a>
                   </div>
                 }
               />
@@ -40,6 +49,7 @@ class UserManual extends Component {
               <Card
                 title="Select Buildings"
                 category="pre-baked data visualization graphs"
+                footer='no'
                 content={
                   <div>
                     <ol>
@@ -61,11 +71,19 @@ class UserManual extends Component {
                         Click on <b>Apply</b> to refresh the graphs
                       </li>
                     </ol>
-                    <img
-                      src={require("../../assets/img/select-building.png")}
-                      className="app-demo"
-                      alt={"select-building-page-help-img"}
-                    />
+                    <a href={"#/user-guide/img2"}>
+                      <img
+                        src={require("../../assets/img/select-building.png")}
+                        className="help-img"
+                        alt={"select-building-page-help-img"}
+                      />
+                    </a>
+                    <a href={"/#/user-guide"} className="light-box" id="/user-guide/img2">
+                      <img
+                        src={require("../../assets/img/select-building.png")}
+                        alt={"select-building-page-help-img"}
+                      />
+                    </a>
                   </div>
                 }
               />
@@ -76,6 +94,7 @@ class UserManual extends Component {
               <Card
                 title="Select"
                 category="custom visualization graphs"
+                footer='no'
                 content={
                   <div>
                     <ol>
@@ -102,11 +121,23 @@ class UserManual extends Component {
                         Click the top right icon to download csv file(s), png(s){" "}
                       </li>
                     </ol>
-                    <img
-                      src={require("../../assets/img/search.png")}
-                      className="app-demo"
-                      alt={"search-page-help-img"}
-                    />
+
+                    <a href={"#/user-guide/img3"}>
+                      <img
+                        src={require("../../assets/img/search.png")}
+                        className="help-img"
+                        alt={"search-page-help-img"}
+                      />
+                    </a>
+                    <a href={"/#/user-guide"} className="light-box" id="/user-guide/img3">
+                      <img
+                        src={require("../../assets/img/search.png")}
+                        alt={"search-page-help-img"}
+                      />
+                    </a>
+
+
+
                   </div>
                 }
               />
@@ -116,6 +147,7 @@ class UserManual extends Component {
             <Col md={12}>
               <Card
                 title="Question & Answers"
+                footer='no'
                 content={
                   <div>
                     <ul>
@@ -146,13 +178,14 @@ class UserManual extends Component {
             <Col md={6}>
               <Card
                 title="Android Installation"
+                footer='no'
                 content={
                   <div>
                     <p>
                       <b>Instructions</b>
                     </p>
                     <ol>
-                      <li>Download souce code and import a project</li>
+                      <li><a href="https://github.com/aTonyXiao/ECS193-EnergyVisTool-MobileApp/tree/master/EnergyViz-Android">Download souce code</a> and import a project</li>
                       <li>
                         Enable Developer Options In your Android Phone.
                         <br />
@@ -168,9 +201,6 @@ class UserManual extends Component {
                         In the target device screen select your android phone.
                       </li>
                     </ol>
-                    <a href="https://github.com/aTonyXiao/ECS193-EnergyVisTool-MobileApp/tree/master/EnergyViz-Android">
-                      Download
-                    </a>
                   </div>
                 }
               />
@@ -178,13 +208,14 @@ class UserManual extends Component {
             <Col md={6}>
               <Card
                 title="iPhone Installation"
+                footer='no'
                 content={
                   <div>
                     <p>
                       <b>Instructions</b>
                     </p>
                     <ol>
-                      <li>Download source code and import the project.</li>
+                      <li><a href="https://github.com/aTonyXiao/ECS193-EnergyVisTool-MobileApp/tree/master/EnergyViz-iOS">Download source code </a> and import the project.</li>
                       <li>Connect iPhone to computer</li>
                       <li>In the target selection choose your iPhone.</li>
                       <li>
@@ -192,12 +223,6 @@ class UserManual extends Component {
                         your iPhone.
                       </li>
                     </ol>
-                    <a href="https://github.com/aTonyXiao/ECS193-EnergyVisTool-MobileApp/tree/master/EnergyViz-iOS">
-                      Download
-                    </a>
-                    <br />
-                    <br />
-                    <br />
                   </div>
                 }
               />
