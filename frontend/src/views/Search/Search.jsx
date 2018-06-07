@@ -410,27 +410,43 @@ class Dashboard extends Component {
                       Header: "Maximum",
                       accessor: "Maximum",
                       // accessor: d => d.Maximum,
-                      filterMethod: (filter, rows) =>
-                        matchSorter(rows, filter.value, {
-                          keys: ["Maximum"]
-                        })
+                      filterMethod: (filter, row) =>
+                        String(row[filter.id])
+                          .toLocaleLowerCase()
+                          .includes(filter.value.toString().toLocaleLowerCase())
                       // filterAll: true,
                     },
                     {
                       Header: "Minimum",
-                      accessor: "Minimum"
+                      accessor: "Minimum",
+                      filterMethod: (filter, row) =>
+                        String(row[filter.id])
+                          .toLocaleLowerCase()
+                          .includes(filter.value.toString().toLocaleLowerCase())
                     },
                     {
                       Header: "Median",
-                      accessor: "Median"
+                      accessor: "Median",
+                      filterMethod: (filter, row) =>
+                        String(row[filter.id])
+                          .toLocaleLowerCase()
+                          .includes(filter.value.toString().toLocaleLowerCase())
                     },
                     {
                       Header: "Average",
-                      accessor: "Average"
+                      accessor: "Average",
+                      filterMethod: (filter, row) =>
+                        String(row[filter.id])
+                          .toLocaleLowerCase()
+                          .includes(filter.value.toString().toLocaleLowerCase())
                     },
                     {
                       Header: "Standard Deviation",
-                      accessor: "StdDev"
+                      accessor: "StdDev",
+                      filterMethod: (filter, row) =>
+                        String(row[filter.id])
+                          .toLocaleLowerCase()
+                          .includes(filter.value.toString().toLocaleLowerCase())
                     }
                   ]}
                   defaultPageSize={10}
