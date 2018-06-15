@@ -88,6 +88,7 @@ class OARGraph extends Component {
         enabled: false,
       },
       xAxis: {
+        
         title: {
           enabled: true,
           text: 'Outside Air Temp - Return Air Temp °F',

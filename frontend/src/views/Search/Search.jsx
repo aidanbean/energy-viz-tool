@@ -57,21 +57,6 @@ class Dashboard extends Component {
     return null;
   }
 
-  findMaxXaxisIndex(nextProps) {
-    let index = 0,
-      maxSize = 0,
-      maxIndex = 0;
-    nextProps.data.dataStream.forEach(function(element) {
-      if (maxSize < element.stream.length) {
-        maxSize = element.stream.length;
-        maxIndex = index;
-      }
-      index += 1;
-    });
-
-    return maxIndex;
-  }
-
   /* when new query parameters are received in the props,
       we refetch the graphQL query and convert the timezone. */
   _loadGraphData(props) {
@@ -84,7 +69,6 @@ class Dashboard extends Component {
       x = [];
     let tableData = this.state.tableData;
     const variables = props.data.variables,
-      maxIndex = this.findMaxXaxisIndex(props),
       fileName = `${variables.building}_${variables.equipmentType}_${
         variables.equipmentNumber
       }_${variables.sensorType}`;
@@ -114,24 +98,16 @@ class Dashboard extends Component {
             break;
         }
       });
-      if (i === maxIndex) {
-        props.data.dataStream[i].stream.forEach(function(element) {
-          x.push(
-            moment(element.Timestamp)
-              .local()
-              .format("YYYY-MM-DD HH:mm")
-          );
-        });
-      }
+
       const y = [];
       const nonNullData = []; // separate array for nonNullData from data set
 
       props.data.dataStream[i].stream.forEach(function(element) {
-        console.log("value: " + element.Value);
+        let processedDate =  moment(element.Timestamp).valueOf();
         if (element.Value !== null) {
           nonNullData.push(element.Value);
         }
-        y.push(element.Value);
+        y.push([processedDate,element.Value]);
         unit = element.UnitsAbbreviation;
       });
 
@@ -191,6 +167,7 @@ class Dashboard extends Component {
       xLines.push(serie);
       tableData.push(tableRow);
     }
+
     config = {
       legend: {
         enabled: true,
@@ -208,7 +185,14 @@ class Dashboard extends Component {
         enabled: false
       },
       xAxis: {
-        categories: x
+        type: "datetime",
+        dateTimeLabelFormats: {
+          hour: '%e. %b %H:%M',
+          day: '%e. %b',
+          week: '%e. %b',
+          month: '%b \'%y',
+          year: '%Y'
+        }
       },
       title: {
         text: `${variables.building}`,
