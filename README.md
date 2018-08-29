@@ -53,7 +53,7 @@ Builds the app for production to the build folder. It correctly bundles React in
     
 -   Prepare the app 
     -   clone the application so that you have a local version of the code that you can then deploy to Heroku, execute the following commands in your local command shell or terminal: 
-    -   `git clone https://github.com/ucdavis/ECS193-EnergyVisTool.git`
+    -   `git clone https://github.com/aidanbean/energy-viz-tool.git`
     -   You now have a functioning git repository that contains a simple application as well as a package.json file, which is used by Node’s dependency manager.    
     
 -   Deploy the app  
