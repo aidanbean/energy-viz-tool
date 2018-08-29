@@ -1,6 +1,6 @@
 # ECS193 Energy Viz Tool
 
-The Energy Data Visualization Tool was developed to allow Energy Conservation Office (ECO) staff to pull, analyze, and visualize Heating, Ventilation and Air Conditioning (HVAC) datasets in an efficient and intuitive manner. The application will be used by ECO engineers and other technical users in the optimization of HVAC systems to identify operational issues and opportunities for energy efficiency upgrades.  
+The Energy Data Visualization Tool was developed as an in-house tool for engineers at the UC Davis Energy Conservation Office (ECO).  It allows ECO staff to pull, analyze, and visualize Heating, Ventilation and Air Conditioning (HVAC) datasets in an efficient and intuitive manner. The application will be used by ECO engineers and other technical users in the optimization of HVAC systems to identify operational issues and opportunities for energy efficiency upgrades.  
 
 ## Demo ##
 
